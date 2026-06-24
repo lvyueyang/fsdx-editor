@@ -1,5 +1,3 @@
-'use client';
-
 import { forwardRef, useCallback } from 'react';
 // --- Hooks ---
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';

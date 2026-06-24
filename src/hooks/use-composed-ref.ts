@@ -1,5 +1,3 @@
-'use client';
-
 import { useCallback, useRef } from 'react';
 
 // 即 Exclude<React.ClassAttributes<T>["ref"], string>

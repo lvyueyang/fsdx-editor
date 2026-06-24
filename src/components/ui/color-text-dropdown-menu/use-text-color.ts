@@ -1,5 +1,3 @@
-'use client';
-
 import type { Editor } from '@tiptap/react';
 import { useCallback, useMemo } from 'react';
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
