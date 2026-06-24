@@ -1,0 +1,39 @@
+.table-grid-dropdown {
+  padding: 8px;
+
+  .table-grid-label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--tt-text-muted, #8e8e93);
+    margin-bottom: 8px;
+    min-height: 18px;
+  }
+
+  .table-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .table-grid-row {
+    display: flex;
+    gap: 2px;
+  }
+
+  .table-grid-cell {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--tt-border-color, #e0e0e0);
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.1s ease;
+
+    &:hover,
+    &--active {
+      background-color: var(--tt-accent-color, #3b82f6);
+      border-color: var(--tt-accent-color, #3b82f6);
+    }
+  }
+}

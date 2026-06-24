@@ -5,6 +5,7 @@ import { Image } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
+import { TableKit } from '@tiptap/extension-table';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { FontSize, LineHeight, TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-text-style/color';
@@ -18,6 +19,7 @@ import { HorizontalRule } from '../components/nodes/horizontal-rule-node/horizon
 import { ImageUploadNode } from '../components/nodes/image-upload-node/image-upload-node-extension';
 // --- Tiptap 节点 ---
 import { Indent } from '../components/nodes/indent-node/indent-extension';
+import { CustomTableView } from '../components/nodes/table-node/custom-table-view';
 // --- UI 基础组件 ---
 import { Button } from '../components/primitives/button';
 import { Spacer } from '../components/primitives/spacer';
@@ -33,6 +35,7 @@ import '../components/nodes/list-node/list-node.scss';
 import '../components/nodes/image-node/image-node.scss';
 import '../components/nodes/heading-node/heading-node.scss';
 import '../components/nodes/paragraph-node/paragraph-node.scss';
+import '../components/nodes/table-node/table-node.scss';
 
 // --- 图标 ---
 import { ArrowLeftIcon } from '../components/icons/arrow-left-icon';
@@ -57,6 +60,11 @@ import {
 } from '../components/ui/link-popover';
 import { ListDropdownMenu } from '../components/ui/list-dropdown-menu';
 import { MarkButton } from '../components/ui/mark-button';
+import { TableButton } from '../components/ui/table-button';
+import {
+  TableExtendButtons,
+  TableSelectionOverlay,
+} from '../components/ui/table-manipulation';
 import { TextAlignButton } from '../components/ui/text-align-button';
 import { TextStyleDropdownMenu } from '../components/ui/text-style-dropdown-menu';
 import { UndoRedoButton } from '../components/ui/undo-redo-button';
@@ -106,6 +114,7 @@ const MainToolbarContent = ({
         <IndentToggle />
         <BlockquoteButton />
         <CodeBlockButton />
+        <TableButton />
       </ToolbarGroup>
 
       <ToolbarSeparator />
@@ -213,6 +222,12 @@ export function Editor() {
       }),
       HorizontalRule,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TableKit.configure({
+        table: {
+          resizable: true,
+          View: CustomTableView,
+        },
+      }),
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
@@ -280,6 +295,9 @@ export function Editor() {
           role="presentation"
           className="editor-content"
         />
+
+        <TableSelectionOverlay />
+        <TableExtendButtons />
       </EditorContext.Provider>
     </div>
   );

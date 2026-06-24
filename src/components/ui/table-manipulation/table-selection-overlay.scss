@@ -1,0 +1,13 @@
+/* =========== 表格操作菜单 =========== */
+
+[data-slot="tiptap-dropdown-menu-content"].table-selection-menu {
+  min-width: 180px;
+}
+
+.table-menu-item-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}

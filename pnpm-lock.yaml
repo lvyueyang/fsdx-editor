@@ -38,6 +38,9 @@ importers:
       '@tiptap/extension-superscript':
         specifier: ^3.27.1
         version: 3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)
+      '@tiptap/extension-table':
+        specifier: ^3.27.1
+        version: 3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)
       '@tiptap/extension-text-align':
         specifier: ^3.27.1
         version: 3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))
@@ -77,25 +80,25 @@ importers:
         version: 2.4.15
       '@rsbuild/core':
         specifier: ^2.0.0
-        version: 2.0.15(core-js@3.47.0)
+        version: 2.0.15
       '@rsbuild/plugin-babel':
         specifier: ^1.2.1
-        version: 1.2.1(@rsbuild/core@2.0.15(core-js@3.47.0))
+        version: 1.2.1(@rsbuild/core@2.0.15)
       '@rsbuild/plugin-react':
         specifier: ^2.0.1
-        version: 2.1.0(@rsbuild/core@2.0.15(core-js@3.47.0))(@rspack/core@2.0.8(@swc/helpers@0.5.23))
+        version: 2.1.0(@rsbuild/core@2.0.15)(@rspack/core@2.0.8(@swc/helpers@0.5.23))
       '@rsbuild/plugin-sass':
         specifier: ^2.0.0
-        version: 2.0.0(@rsbuild/core@2.0.15(core-js@3.47.0))
+        version: 2.0.0(@rsbuild/core@2.0.15)
       '@rslib/core':
         specifier: ^0.23.0
-        version: 0.23.0(core-js@3.47.0)(typescript@6.0.3)
+        version: 0.23.0(typescript@6.0.3)
       '@rstest/adapter-rslib':
         specifier: ^0.10.5
-        version: 0.10.6(@rslib/core@0.23.0(core-js@3.47.0)(typescript@6.0.3))(@rstest/core@0.10.6(core-js@3.47.0)(happy-dom@20.10.6))(typescript@6.0.3)
+        version: 0.10.6(@rslib/core@0.23.0(typescript@6.0.3))(@rstest/core@0.10.6(happy-dom@20.10.6))(typescript@6.0.3)
       '@rstest/core':
         specifier: ^0.10.5
-        version: 0.10.6(core-js@3.47.0)(happy-dom@20.10.6)
+        version: 0.10.6(happy-dom@20.10.6)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -1190,6 +1193,12 @@ packages:
       '@tiptap/core': 3.27.1
       '@tiptap/pm': 3.27.1
 
+  '@tiptap/extension-table@3.27.1':
+    resolution: {integrity: sha512-tNB8kjxo0+XPremnWkd6NUikpeJ+JQrss7HntL8GgIxX4t0gkdnLn9yUWb0JzcaYP7Y8iTZZHdkPs0P154DG8Q==}
+    peerDependencies:
+      '@tiptap/core': 3.27.1
+      '@tiptap/pm': 3.27.1
+
   '@tiptap/extension-text-align@3.27.1':
     resolution: {integrity: sha512-EXawuJBO55wd8WcTbHTMoPhv0CGQxza4yCCPB5Hqz4ZPQwahIr3ej+8yp/kimIl0xokabwZ0/Fu8STQ4AkZv5g==}
     peerDependencies:
@@ -1379,9 +1388,6 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
-
-  core-js@3.47.0:
-    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
 
   css.escape@1.5.1:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
@@ -2617,16 +2623,14 @@ snapshots:
 
   '@radix-ui/rect@1.1.2': {}
 
-  '@rsbuild/core@2.0.15(core-js@3.47.0)':
+  '@rsbuild/core@2.0.15':
     dependencies:
       '@rspack/core': 2.0.8(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
-    optionalDependencies:
-      core-js: 3.47.0
     transitivePeerDependencies:
       - '@module-federation/runtime-tools'
 
-  '@rsbuild/plugin-babel@1.2.1(@rsbuild/core@2.0.15(core-js@3.47.0))':
+  '@rsbuild/plugin-babel@1.2.1(@rsbuild/core@2.0.15)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7)
@@ -2635,20 +2639,20 @@ snapshots:
       '@types/babel__core': 7.20.5
       reduce-configs: 1.1.2
     optionalDependencies:
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
+      '@rsbuild/core': 2.0.15
     transitivePeerDependencies:
       - supports-color
 
-  '@rsbuild/plugin-react@2.1.0(@rsbuild/core@2.0.15(core-js@3.47.0))(@rspack/core@2.0.8(@swc/helpers@0.5.23))':
+  '@rsbuild/plugin-react@2.1.0(@rsbuild/core@2.0.15)(@rspack/core@2.0.8(@swc/helpers@0.5.23))':
     dependencies:
       '@rspack/plugin-react-refresh': 2.0.2(@rspack/core@2.0.8(@swc/helpers@0.5.23))(react-refresh@0.18.0)
       react-refresh: 0.18.0
     optionalDependencies:
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
+      '@rsbuild/core': 2.0.15
     transitivePeerDependencies:
       - '@rspack/core'
 
-  '@rsbuild/plugin-sass@2.0.0(@rsbuild/core@2.0.15(core-js@3.47.0))':
+  '@rsbuild/plugin-sass@2.0.0(@rsbuild/core@2.0.15)':
     dependencies:
       deepmerge: 4.3.1
       loader-utils: 2.0.4
@@ -2656,12 +2660,12 @@ snapshots:
       reduce-configs: 2.0.1
       sass-embedded: 1.100.0
     optionalDependencies:
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
+      '@rsbuild/core': 2.0.15
 
-  '@rslib/core@0.23.0(core-js@3.47.0)(typescript@6.0.3)':
+  '@rslib/core@0.23.0(typescript@6.0.3)':
     dependencies:
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
-      rsbuild-plugin-dts: 0.23.0(@rsbuild/core@2.0.15(core-js@3.47.0))(typescript@6.0.3)
+      '@rsbuild/core': 2.0.15
+      rsbuild-plugin-dts: 0.23.0(@rsbuild/core@2.0.15)(typescript@6.0.3)
     optionalDependencies:
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -2728,16 +2732,16 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 2.0.8(@swc/helpers@0.5.23)
 
-  '@rstest/adapter-rslib@0.10.6(@rslib/core@0.23.0(core-js@3.47.0)(typescript@6.0.3))(@rstest/core@0.10.6(core-js@3.47.0)(happy-dom@20.10.6))(typescript@6.0.3)':
+  '@rstest/adapter-rslib@0.10.6(@rslib/core@0.23.0(typescript@6.0.3))(@rstest/core@0.10.6(happy-dom@20.10.6))(typescript@6.0.3)':
     dependencies:
-      '@rslib/core': 0.23.0(core-js@3.47.0)(typescript@6.0.3)
-      '@rstest/core': 0.10.6(core-js@3.47.0)(happy-dom@20.10.6)
+      '@rslib/core': 0.23.0(typescript@6.0.3)
+      '@rstest/core': 0.10.6(happy-dom@20.10.6)
     optionalDependencies:
       typescript: 6.0.3
 
-  '@rstest/core@0.10.6(core-js@3.47.0)(happy-dom@20.10.6)':
+  '@rstest/core@0.10.6(happy-dom@20.10.6)':
     dependencies:
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
+      '@rsbuild/core': 2.0.15
       '@types/chai': 5.2.3
     optionalDependencies:
       happy-dom: 20.10.6
@@ -2892,6 +2896,11 @@ snapshots:
       '@tiptap/pm': 3.27.1
 
   '@tiptap/extension-superscript@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)':
+    dependencies:
+      '@tiptap/core': 3.27.1(@tiptap/pm@3.27.1)
+      '@tiptap/pm': 3.27.1
+
+  '@tiptap/extension-table@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)':
     dependencies:
       '@tiptap/core': 3.27.1(@tiptap/pm@3.27.1)
       '@tiptap/pm': 3.27.1
@@ -3125,9 +3134,6 @@ snapshots:
   colorjs.io@0.5.0: {}
 
   convert-source-map@2.0.0: {}
-
-  core-js@3.47.0:
-    optional: true
 
   css.escape@1.5.1: {}
 
@@ -3377,10 +3383,10 @@ snapshots:
 
   rope-sequence@1.3.4: {}
 
-  rsbuild-plugin-dts@0.23.0(@rsbuild/core@2.0.15(core-js@3.47.0))(typescript@6.0.3):
+  rsbuild-plugin-dts@0.23.0(@rsbuild/core@2.0.15)(typescript@6.0.3):
     dependencies:
       '@ast-grep/napi': 0.37.0
-      '@rsbuild/core': 2.0.15(core-js@3.47.0)
+      '@rsbuild/core': 2.0.15
     optionalDependencies:
       typescript: 6.0.3
 

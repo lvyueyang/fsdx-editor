@@ -1,0 +1,200 @@
+.tiptap.ProseMirror {
+  --tt-table-border-color: var(--tt-border-color);
+  --tt-table-header-bg: var(--tt-gray-light-a-100);
+  --tt-table-cell-padding: 0.5rem 0.75rem;
+
+  .dark & {
+    --tt-table-border-color: var(--tt-border-color);
+    --tt-table-header-bg: var(--tt-gray-dark-a-100);
+  }
+}
+
+/* =====================
+     TABLE
+     ===================== */
+.tiptap.ProseMirror {
+  .tableWrapper {
+    position: relative;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    padding-right: 28px;
+    padding-bottom: 28px;
+  }
+
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+
+    td,
+    th {
+      min-width: 1em;
+      border: 1px solid var(--tt-table-border-color);
+      padding: var(--tt-table-cell-padding);
+      vertical-align: top;
+      position: relative;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: var(--tt-table-header-bg);
+      font-weight: 600;
+      text-align: left;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .selectedCell {
+      background-color: var(--tt-selection-color);
+    }
+
+    .column-resize-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -2px;
+      width: 4px;
+      background-color: var(--tt-brand-color-400);
+      cursor: col-resize;
+      pointer-events: none;
+    }
+  }
+}
+
+/* =====================
+     表格控件容器
+     ===================== */
+.table-controls {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.tableWrapper:hover .table-controls {
+  opacity: 1;
+}
+
+.table-selection-overlay-container {
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+/* =====================
+     表格扩展按钮
+     ===================== */
+.table-extend-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border: 1px dashed var(--tt-border-color, #d0d0d0);
+  border-radius: var(--tt-radius-xs, 4px);
+  background: transparent;
+  color: var(--tt-gray-light-a-400, #999);
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 50;
+  padding: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: var(--tt-gray-light-a-50, #f0f0f0);
+    color: var(--tt-brand-color-400);
+    border-color: var(--tt-brand-color-400);
+  }
+}
+
+.dark .table-extend-btn {
+  &:hover {
+    background: var(--tt-gray-dark-a-100);
+  }
+}
+
+.table-extend-btn--bottom {
+  bottom: 4px;
+  left: 0;
+  right: 28px;
+  height: 24px;
+}
+
+.table-extend-btn--right {
+  top: 0;
+  right: 4px;
+  bottom: 28px;
+  writing-mode: vertical-rl;
+  width: 24px;
+}
+
+/* =====================
+     选区边框与手柄 (absolute → 相对于 tableWrapper)
+     ===================== */
+.table-selection-border {
+  border: 2px dashed var(--tt-brand-color-400, #7a52ff);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 90;
+}
+
+.table-selection-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 91;
+  transform: translate(-10px, -10px);
+}
+
+.table-selection-handle-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--tt-brand-color-400, #7a52ff);
+  background: var(--tt-brand-color-50, #efeaff);
+  transition: width 0.15s ease, height 0.15s ease, border-radius 0.15s ease;
+  overflow: hidden;
+}
+
+.table-selection-handle-icon {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
+  color: var(--tt-brand-color-500, #6229ff);
+}
+
+.table-selection-handle:hover .table-selection-handle-dot,
+.table-selection-handle:focus-visible .table-selection-handle-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: var(--tt-brand-color-100, #dedbff);
+}
+
+.table-selection-handle:hover .table-selection-handle-icon,
+.table-selection-handle:focus-visible .table-selection-handle-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+}
