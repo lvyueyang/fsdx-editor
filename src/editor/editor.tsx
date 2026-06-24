@@ -7,6 +7,7 @@ import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { FontSize, LineHeight, TextStyle } from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-text-style/color';
 import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
@@ -35,17 +36,13 @@ import '../components/nodes/paragraph-node/paragraph-node.scss';
 
 // --- 图标 ---
 import { ArrowLeftIcon } from '../components/icons/arrow-left-icon';
-import { HighlighterIcon } from '../components/icons/highlighter-icon';
 import { LinkIcon } from '../components/icons/link-icon';
 import { SmileIcon } from '../components/icons/smile-icon';
 import { BlockquoteButton } from '../components/ui/blockquote-button';
 import { ClearFormattingButton } from '../components/ui/clear-formatting-button';
 import { CodeBlockButton } from '../components/ui/code-block-button';
-import {
-  ColorHighlightPopover,
-  ColorHighlightPopoverButton,
-  ColorHighlightPopoverContent,
-} from '../components/ui/color-highlight-popover';
+import { ColorHighlightDropdownMenu } from '../components/ui/color-highlight-dropdown-menu';
+import { ColorTextDropdownMenu } from '../components/ui/color-text-dropdown-menu';
 // --- Tiptap UI ---
 import { EmojiButton, EmojiPopoverButton } from '../components/ui/emoji-button';
 import { EmojiPopoverContent } from '../components/ui/emoji-button/emoji-popover-content';
@@ -78,12 +75,10 @@ import './editor.scss';
 import content from './data/content.json';
 
 const MainToolbarContent = ({
-  onHighlighterClick,
   onLinkClick,
   onEmojiClick,
   isMobile,
 }: {
-  onHighlighterClick: () => void;
   onLinkClick: () => void;
   onEmojiClick: () => void;
   isMobile: boolean;
@@ -121,11 +116,8 @@ const MainToolbarContent = ({
         <MarkButton type="strike" />
         <MarkButton type="code" />
         <MarkButton type="underline" />
-        {!isMobile ? (
-          <ColorHighlightPopover />
-        ) : (
-          <ColorHighlightPopoverButton onClick={onHighlighterClick} />
-        )}
+        <ColorTextDropdownMenu modal={false} />
+        <ColorHighlightDropdownMenu modal={false} />
         {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
       </ToolbarGroup>
 
@@ -171,16 +163,14 @@ const MobileToolbarContent = ({
   type,
   onBack,
 }: {
-  type: 'highlighter' | 'link' | 'emoji';
+  type: 'link' | 'emoji';
   onBack: () => void;
 }) => (
   <>
     <ToolbarGroup>
       <Button variant="ghost" onClick={onBack}>
         <ArrowLeftIcon className="tiptap-button-icon" />
-        {type === 'highlighter' ? (
-          <HighlighterIcon className="tiptap-button-icon" />
-        ) : type === 'link' ? (
+        {type === 'link' ? (
           <LinkIcon className="tiptap-button-icon" />
         ) : (
           <SmileIcon className="tiptap-button-icon" />
@@ -190,22 +180,16 @@ const MobileToolbarContent = ({
 
     <ToolbarSeparator />
 
-    {type === 'highlighter' ? (
-      <ColorHighlightPopoverContent />
-    ) : type === 'link' ? (
-      <LinkContent />
-    ) : (
-      <EmojiPopoverContent />
-    )}
+    {type === 'link' ? <LinkContent /> : <EmojiPopoverContent />}
   </>
 );
 
 export function Editor() {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
-  const [mobileView, setMobileView] = useState<
-    'main' | 'highlighter' | 'link' | 'emoji'
-  >('main');
+  const [mobileView, setMobileView] = useState<'main' | 'link' | 'emoji'>(
+    'main',
+  );
   const toolbarRef = useRef<HTMLDivElement>(null);
 
   const editor = useEditor({
@@ -237,6 +221,7 @@ export function Editor() {
       Superscript,
       Subscript,
       TextStyle,
+      Color,
       FontSize,
       LineHeight,
       Selection,
@@ -278,20 +263,13 @@ export function Editor() {
         >
           {mobileView === 'main' ? (
             <MainToolbarContent
-              onHighlighterClick={() => setMobileView('highlighter')}
               onLinkClick={() => setMobileView('link')}
               onEmojiClick={() => setMobileView('emoji')}
               isMobile={isMobile}
             />
           ) : (
             <MobileToolbarContent
-              type={
-                mobileView === 'highlighter'
-                  ? 'highlighter'
-                  : mobileView === 'link'
-                    ? 'link'
-                    : 'emoji'
-              }
+              type={mobileView}
               onBack={() => setMobileView('main')}
             />
           )}

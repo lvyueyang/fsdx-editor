@@ -1,0 +1,60 @@
+.tiptap-color-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  padding: 8px;
+}
+
+.tiptap-color-grid-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  &:focus-visible,
+  &[data-highlighted="true"] {
+    border-color: var(--tt-brand-color);
+    outline: 1px solid var(--tt-brand-color);
+    outline-offset: 0;
+    z-index: 1;
+  }
+
+  &[data-active="true"] {
+    border-color: var(--tt-brand-color);
+    box-shadow: 0 0 0 1px var(--tt-brand-color);
+  }
+}
+
+.tiptap-color-grid-action-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 4px;
+  background: var(--tt-color-highlight-gray);
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background: var(--tt-color-highlight-gray-contrast);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--tt-brand-color);
+    outline-offset: -1px;
+  }
+}
