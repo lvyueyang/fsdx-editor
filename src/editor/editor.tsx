@@ -43,7 +43,6 @@ import {
   ColorHighlightPopoverContent,
 } from '../components/ui/color-highlight-popover';
 // --- Tiptap UI ---
-import { HeadingDropdownMenu } from '../components/ui/heading-dropdown-menu';
 import { ImageUploadButton } from '../components/ui/image-upload-button';
 import {
   LinkButton,
@@ -53,6 +52,7 @@ import {
 import { ListDropdownMenu } from '../components/ui/list-dropdown-menu';
 import { MarkButton } from '../components/ui/mark-button';
 import { TextAlignButton } from '../components/ui/text-align-button';
+import { TextStyleDropdownMenu } from '../components/ui/text-style-dropdown-menu';
 import { UndoRedoButton } from '../components/ui/undo-redo-button';
 import { useCursorVisibility } from '../hooks/use-cursor-visibility';
 // --- 自定义 Hooks ---
@@ -89,7 +89,7 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <HeadingDropdownMenu modal={false} levels={[1, 2, 3, 4]} />
+        <TextStyleDropdownMenu modal={false} />
         <ListDropdownMenu
           modal={false}
           types={['bulletList', 'orderedList', 'taskList']}

@@ -64,6 +64,10 @@
     line-height: 1.5rem;
   }
 
+  .tiptap-button-text-fixed {
+    width: 4em;
+  }
+
   &[data-text-trim="on"] {
     .tiptap-button-text {
       text-overflow: ellipsis;
