@@ -1,0 +1,109 @@
+.tiptap-emoji-popover {
+  width: 320px;
+  max-height: 360px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tiptap-emoji-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px 8px 4px;
+  border-bottom: 1px solid var(--tt-border-color);
+}
+
+.tiptap-emoji-category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: var(--tt-radius-sm);
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--tt-gray-light-a-400);
+  transition:
+    background var(--tt-transition-duration-short)
+      var(--tt-transition-easing-default),
+    color var(--tt-transition-duration-short)
+      var(--tt-transition-easing-default);
+
+  &:hover {
+    background: var(--tt-gray-light-a-100);
+    color: var(--tt-gray-light-a-700);
+  }
+
+  &[data-active="true"] {
+    background: var(--tt-brand-color-100);
+    color: var(--tt-brand-color-500);
+  }
+}
+
+.dark .tiptap-emoji-category-btn {
+  color: var(--tt-gray-dark-a-400);
+
+  &:hover {
+    background: var(--tt-gray-dark-a-100);
+    color: var(--tt-gray-dark-a-700);
+  }
+
+  &[data-active="true"] {
+    background: var(--tt-brand-color-900);
+    color: var(--tt-brand-color-400);
+  }
+}
+
+.tiptap-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+  align-content: start;
+  max-height: 300px;
+}
+
+.tiptap-emoji-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  border-radius: var(--tt-radius-sm);
+  cursor: pointer;
+  font-size: 20px;
+  transition:
+    background var(--tt-transition-duration-short)
+      var(--tt-transition-easing-default),
+    transform var(--tt-transition-duration-short)
+      var(--tt-transition-easing-default);
+
+  &:hover {
+    background: var(--tt-gray-light-a-100);
+    transform: scale(1.2);
+  }
+
+  &[data-highlighted="true"] {
+    background: var(--tt-brand-color-100);
+    outline: 2px solid var(--tt-brand-color-300);
+    outline-offset: -2px;
+  }
+}
+
+.dark .tiptap-emoji-item {
+  &:hover {
+    background: var(--tt-gray-dark-a-100);
+  }
+
+  &[data-highlighted="true"] {
+    background: var(--tt-brand-color-900);
+    outline-color: var(--tt-brand-color-400);
+  }
+}

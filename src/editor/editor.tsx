@@ -36,6 +36,7 @@ import '../components/nodes/paragraph-node/paragraph-node.scss';
 import { ArrowLeftIcon } from '../components/icons/arrow-left-icon';
 import { HighlighterIcon } from '../components/icons/highlighter-icon';
 import { LinkIcon } from '../components/icons/link-icon';
+import { SmileIcon } from '../components/icons/smile-icon';
 import { BlockquoteButton } from '../components/ui/blockquote-button';
 import { ClearFormattingButton } from '../components/ui/clear-formatting-button';
 import { CodeBlockButton } from '../components/ui/code-block-button';
@@ -44,8 +45,10 @@ import {
   ColorHighlightPopoverButton,
   ColorHighlightPopoverContent,
 } from '../components/ui/color-highlight-popover';
-import { FontSizeButton } from '../components/ui/font-size-button';
 // --- Tiptap UI ---
+import { EmojiButton, EmojiPopoverButton } from '../components/ui/emoji-button';
+import { EmojiPopoverContent } from '../components/ui/emoji-button/emoji-popover-content';
+import { FontSizeButton } from '../components/ui/font-size-button';
 import { ImageUploadButton } from '../components/ui/image-upload-button';
 import { LineHeightButton } from '../components/ui/line-height-button';
 import {
@@ -75,10 +78,12 @@ import content from './data/content.json';
 const MainToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
+  onEmojiClick,
   isMobile,
 }: {
   onHighlighterClick: () => void;
   onLinkClick: () => void;
+  onEmojiClick: () => void;
   isMobile: boolean;
 }) => {
   return (
@@ -140,6 +145,11 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
+        {!isMobile ? (
+          <EmojiButton />
+        ) : (
+          <EmojiPopoverButton onClick={onEmojiClick} aria-label="插入表情" />
+        )}
         <ImageUploadButton text="添加" />
       </ToolbarGroup>
 
@@ -158,7 +168,7 @@ const MobileToolbarContent = ({
   type,
   onBack,
 }: {
-  type: 'highlighter' | 'link';
+  type: 'highlighter' | 'link' | 'emoji';
   onBack: () => void;
 }) => (
   <>
@@ -167,8 +177,10 @@ const MobileToolbarContent = ({
         <ArrowLeftIcon className="tiptap-button-icon" />
         {type === 'highlighter' ? (
           <HighlighterIcon className="tiptap-button-icon" />
-        ) : (
+        ) : type === 'link' ? (
           <LinkIcon className="tiptap-button-icon" />
+        ) : (
+          <SmileIcon className="tiptap-button-icon" />
         )}
       </Button>
     </ToolbarGroup>
@@ -177,8 +189,10 @@ const MobileToolbarContent = ({
 
     {type === 'highlighter' ? (
       <ColorHighlightPopoverContent />
-    ) : (
+    ) : type === 'link' ? (
       <LinkContent />
+    ) : (
+      <EmojiPopoverContent />
     )}
   </>
 );
@@ -186,9 +200,9 @@ const MobileToolbarContent = ({
 export function Editor() {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
-  const [mobileView, setMobileView] = useState<'main' | 'highlighter' | 'link'>(
-    'main',
-  );
+  const [mobileView, setMobileView] = useState<
+    'main' | 'highlighter' | 'link' | 'emoji'
+  >('main');
   const toolbarRef = useRef<HTMLDivElement>(null);
 
   const editor = useEditor({
@@ -262,11 +276,18 @@ export function Editor() {
             <MainToolbarContent
               onHighlighterClick={() => setMobileView('highlighter')}
               onLinkClick={() => setMobileView('link')}
+              onEmojiClick={() => setMobileView('emoji')}
               isMobile={isMobile}
             />
           ) : (
             <MobileToolbarContent
-              type={mobileView === 'highlighter' ? 'highlighter' : 'link'}
+              type={
+                mobileView === 'highlighter'
+                  ? 'highlighter'
+                  : mobileView === 'link'
+                    ? 'link'
+                    : 'emoji'
+              }
               onBack={() => setMobileView('main')}
             />
           )}
