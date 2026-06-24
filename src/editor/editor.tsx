@@ -6,7 +6,7 @@ import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
 import { TextAlign } from '@tiptap/extension-text-align';
-import { FontSize, TextStyle } from '@tiptap/extension-text-style';
+import { FontSize, LineHeight, TextStyle } from '@tiptap/extension-text-style';
 import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
@@ -47,6 +47,7 @@ import {
 import { FontSizeButton } from '../components/ui/font-size-button';
 // --- Tiptap UI ---
 import { ImageUploadButton } from '../components/ui/image-upload-button';
+import { LineHeightButton } from '../components/ui/line-height-button';
 import {
   LinkButton,
   LinkContent,
@@ -95,6 +96,7 @@ const MainToolbarContent = ({
       <ToolbarGroup>
         <TextStyleDropdownMenu modal={false} />
         <FontSizeButton />
+        <LineHeightButton />
         <ListDropdownMenu
           modal={false}
           types={['bulletList', 'orderedList', 'taskList']}
@@ -219,6 +221,7 @@ export function Editor() {
       Subscript,
       TextStyle,
       FontSize,
+      LineHeight,
       Selection,
       ImageUploadNode.configure({
         accept: 'image/*',
