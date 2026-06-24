@@ -37,6 +37,7 @@ import { ArrowLeftIcon } from '../components/icons/arrow-left-icon';
 import { HighlighterIcon } from '../components/icons/highlighter-icon';
 import { LinkIcon } from '../components/icons/link-icon';
 import { BlockquoteButton } from '../components/ui/blockquote-button';
+import { ClearFormattingButton } from '../components/ui/clear-formatting-button';
 import { CodeBlockButton } from '../components/ui/code-block-button';
 import {
   ColorHighlightPopover,
@@ -86,6 +87,7 @@ const MainToolbarContent = ({
       <ToolbarGroup>
         <UndoRedoButton action="undo" />
         <UndoRedoButton action="redo" />
+        <ClearFormattingButton />
       </ToolbarGroup>
 
       <ToolbarSeparator />
