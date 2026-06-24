@@ -14,8 +14,9 @@ import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
 import { HorizontalRule } from '../components/nodes/horizontal-rule-node/horizontal-rule-node-extension';
-// --- Tiptap 节点 ---
 import { ImageUploadNode } from '../components/nodes/image-upload-node/image-upload-node-extension';
+// --- Tiptap 节点 ---
+import { Indent } from '../components/nodes/indent-node/indent-extension';
 // --- UI 基础组件 ---
 import { Button } from '../components/primitives/button';
 import { Spacer } from '../components/primitives/spacer';
@@ -50,6 +51,7 @@ import { EmojiButton, EmojiPopoverButton } from '../components/ui/emoji-button';
 import { EmojiPopoverContent } from '../components/ui/emoji-button/emoji-popover-content';
 import { FontSizeButton } from '../components/ui/font-size-button';
 import { ImageUploadButton } from '../components/ui/image-upload-button';
+import { IndentToggle } from '../components/ui/indent-button';
 import { LineHeightButton } from '../components/ui/line-height-button';
 import {
   LinkButton,
@@ -106,6 +108,7 @@ const MainToolbarContent = ({
           modal={false}
           types={['bulletList', 'orderedList', 'taskList']}
         />
+        <IndentToggle />
         <BlockquoteButton />
         <CodeBlockButton />
       </ToolbarGroup>
@@ -237,6 +240,7 @@ export function Editor() {
       FontSize,
       LineHeight,
       Selection,
+      Indent,
       ImageUploadNode.configure({
         accept: 'image/*',
         maxSize: MAX_FILE_SIZE,
