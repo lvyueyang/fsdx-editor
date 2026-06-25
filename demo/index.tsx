@@ -32,10 +32,41 @@ function simulateUpload(file: File, onProgress?: (progress: number) => void) {
   );
 }
 
-const MOCK_MEDIA_LIST = Array.from({ length: 30 }, (_, i) => ({
+const MOCK_IMAGE_LIST = [
+  {
+    id: '1',
+    url: 'https://template.tiptap.dev/images/tiptap-ui-placeholder-image.jpg',
+    name: '示例图片',
+    size: 204800,
+    thumbnailUrl:
+      'https://template.tiptap.dev/images/tiptap-ui-placeholder-image.jpg',
+  },
+];
+
+const MOCK_VIDEO_LIST = [
+  {
+    id: '1',
+    url: 'https://09597157-0eab-4d78-9f1b-3dc3e4ddc353.mdnplay.dev/shared-assets/videos/flower.webm',
+    name: '花（示例视频）',
+    size: 5242880,
+    thumbnailUrl: 'https://picsum.photos/seed/video/200/150',
+  },
+];
+
+const MOCK_AUDIO_LIST = [
+  {
+    id: '1',
+    url: 'https://a65c28c1-a726-4e4b-aac3-b94931f43200.mdnplay.dev/shared-assets/audio/t-rex-roar.mp3',
+    name: '霸王龙吼叫（示例音频）',
+    size: 1048576,
+    thumbnailUrl: 'https://picsum.photos/seed/audio/200/150',
+  },
+];
+
+const MOCK_ATTACHMENT_LIST = Array.from({ length: 10 }, (_, i) => ({
   id: `${i + 1}`,
   url: `https://picsum.photos/seed/${i + 1}/400/300`,
-  name: `示例文件 ${i + 1}`,
+  name: `示例附件 ${i + 1}`,
   size: Math.round(Math.random() * 5 * 1024 * 1024),
   thumbnailUrl: `https://picsum.photos/seed/${i + 1}/200/150`,
 }));
@@ -45,14 +76,77 @@ function simulateGetList(params: {
   pageSize: number;
   keyword?: string;
 }) {
-  return new Promise<{ items: typeof MOCK_MEDIA_LIST; total: number }>(
+  return new Promise<{ items: typeof MOCK_IMAGE_LIST; total: number }>(
     (resolve) => {
       setTimeout(() => {
         const filtered = params.keyword
-          ? MOCK_MEDIA_LIST.filter((item) =>
+          ? MOCK_IMAGE_LIST.filter((item) =>
               item.name.includes(params.keyword!),
             )
-          : MOCK_MEDIA_LIST;
+          : MOCK_IMAGE_LIST;
+        const start = (params.page - 1) * params.pageSize;
+        const items = filtered.slice(start, start + params.pageSize);
+        resolve({ items, total: filtered.length });
+      }, 300);
+    },
+  );
+}
+
+function simulateVideoGetList(params: {
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}) {
+  return new Promise<{ items: typeof MOCK_VIDEO_LIST; total: number }>(
+    (resolve) => {
+      setTimeout(() => {
+        const filtered = params.keyword
+          ? MOCK_VIDEO_LIST.filter((item) =>
+              item.name.includes(params.keyword!),
+            )
+          : MOCK_VIDEO_LIST;
+        const start = (params.page - 1) * params.pageSize;
+        const items = filtered.slice(start, start + params.pageSize);
+        resolve({ items, total: filtered.length });
+      }, 300);
+    },
+  );
+}
+
+function simulateAudioGetList(params: {
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}) {
+  return new Promise<{ items: typeof MOCK_AUDIO_LIST; total: number }>(
+    (resolve) => {
+      setTimeout(() => {
+        const filtered = params.keyword
+          ? MOCK_AUDIO_LIST.filter((item) =>
+              item.name.includes(params.keyword!),
+            )
+          : MOCK_AUDIO_LIST;
+        const start = (params.page - 1) * params.pageSize;
+        const items = filtered.slice(start, start + params.pageSize);
+        resolve({ items, total: filtered.length });
+      }, 300);
+    },
+  );
+}
+
+function simulateAttachmentGetList(params: {
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}) {
+  return new Promise<{ items: typeof MOCK_ATTACHMENT_LIST; total: number }>(
+    (resolve) => {
+      setTimeout(() => {
+        const filtered = params.keyword
+          ? MOCK_ATTACHMENT_LIST.filter((item) =>
+              item.name.includes(params.keyword!),
+            )
+          : MOCK_ATTACHMENT_LIST;
         const start = (params.page - 1) * params.pageSize;
         const items = filtered.slice(start, start + params.pageSize);
         resolve({ items, total: filtered.length });
@@ -63,9 +157,9 @@ function simulateGetList(params: {
 
 const demoOptions: EditorOptions = {
   image: { upload: simulateUpload, getList: simulateGetList },
-  video: { upload: simulateUpload, getList: simulateGetList },
-  audio: { upload: simulateUpload, getList: simulateGetList },
-  attachment: { upload: simulateUpload, getList: simulateGetList },
+  video: { upload: simulateUpload, getList: simulateVideoGetList },
+  audio: { upload: simulateUpload, getList: simulateAudioGetList },
+  attachment: { upload: simulateUpload, getList: simulateAttachmentGetList },
 };
 
 const initialContent = `<h1>编辑器功能演示</h1>
