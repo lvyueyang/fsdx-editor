@@ -1,25 +1,11 @@
 import type { Editor } from '@tiptap/core';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { ImageEditor } from '../image-editor';
 import type { FilterValues } from '../image-editor/image-filter-panel';
+import { getImageElement } from './media-dom-utils';
 
 interface ImageAttributeEditorProps {
   editor: Editor;
-}
-
-type WidthUnit = '%' | 'px';
-
-function parseWidthValue(width: string | null | undefined): {
-  value: number;
-  unit: WidthUnit;
-} {
-  if (!width) return { value: 100, unit: '%' };
-  if (width.endsWith('%')) {
-    const v = Number.parseFloat(width);
-    return { value: Number.isNaN(v) ? 100 : v, unit: '%' };
-  }
-  const v = Number.parseFloat(width);
-  return { value: Number.isNaN(v) ? 100 : v, unit: 'px' };
 }
 
 function filterValuesToStyle(values: FilterValues): string {
@@ -42,44 +28,47 @@ function dataUrlFromBlob(blob: Blob): Promise<string> {
   });
 }
 
+function getWidthPercent(editor: Editor): number | null {
+  const attrs = editor.getAttributes('customImage');
+  const widthAttr: string | null = attrs?.width || null;
+  const editorWidth = editor.view.dom.clientWidth;
+  if (editorWidth <= 0) return null;
+
+  if (widthAttr) {
+    if (widthAttr.endsWith('%')) {
+      return Math.round(Number.parseFloat(widthAttr));
+    }
+    const pxValue = Number.parseFloat(widthAttr);
+    if (Number.isNaN(pxValue)) return null;
+    return Math.round((pxValue / editorWidth) * 100);
+  }
+
+  const img = getImageElement(editor);
+  if (!img) return null;
+
+  return Math.round(
+    ((img as HTMLImageElement).clientWidth / editorWidth) * 100,
+  );
+}
+
 export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
   const attrs =
     editor.getAttributes('customImage') || editor.getAttributes('image');
 
-  const parsed = useMemo(() => parseWidthValue(attrs.width), [attrs.width]);
-  const [widthUnit, setWidthUnit] = useState<WidthUnit>(parsed.unit);
-  const [widthValue, setWidthValue] = useState<string>(parsed.value.toString());
   const [srcValue, setSrcValue] = useState(attrs.src || '');
   const [showEditor, setShowEditor] = useState(false);
+  const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
 
-  const commitWidth = useCallback(
-    (value: string, unit: WidthUnit) => {
-      if (!value) {
-        editor.chain().focus().updateImageWidth?.(null).run();
-        return;
-      }
-      const formatted = unit === '%' ? `${value}%` : `${value}px`;
-      editor.chain().focus().updateImageWidth?.(formatted).run();
-    },
-    [editor],
-  );
-
-  const handleWidthInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setWidthValue(value);
-      if (value && !Number.isNaN(Number.parseFloat(value))) {
-        commitWidth(value, widthUnit);
-      }
-    },
-    [editor, widthUnit, commitWidth],
-  );
-
-  const handleWidthUnitToggle = useCallback(() => {
-    const newUnit: WidthUnit = widthUnit === '%' ? 'px' : '%';
-    setWidthUnit(newUnit);
-    commitWidth(widthValue, newUnit);
-  }, [widthUnit, widthValue, commitWidth]);
+  useEffect(() => {
+    const handler = () => {
+      if (!editor.isActive('customImage')) return;
+      forceUpdate();
+    };
+    editor.on('transaction', handler);
+    return () => {
+      editor.off('transaction', handler);
+    };
+  }, [editor]);
 
   const handleAlignment = useCallback(
     (alignment: 'left' | 'center' | 'right') => {
@@ -123,49 +112,11 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
   );
 
   const currentAlignment = editor.getAttributes('customImage')?.alignment;
+  const widthPercent = getWidthPercent(editor);
 
   return (
     <>
       <div className="tiptap-attribute-group">
-        {/* 宽度 */}
-        <div className="tiptap-attribute-row">
-          <label htmlFor="image-width-input" className="tiptap-attribute-label">
-            宽度
-          </label>
-          <div className="tiptap-attribute-width-input">
-            <input
-              id="image-width-input"
-              type="number"
-              min={widthUnit === '%' ? 1 : 1}
-              max={widthUnit === '%' ? 200 : undefined}
-              step={widthUnit === '%' ? 5 : 10}
-              value={widthValue}
-              onChange={handleWidthInputChange}
-              placeholder={widthUnit === '%' ? '100' : '自动'}
-              className="tiptap-attribute-number-input"
-            />
-            <button
-              type="button"
-              className="tiptap-attribute-unit-btn"
-              onClick={handleWidthUnitToggle}
-              title="切换单位"
-            >
-              {widthUnit}
-            </button>
-          </div>
-          {widthUnit === '%' && (
-            <input
-              type="range"
-              min={1}
-              max={200}
-              step={5}
-              value={Number.parseFloat(widthValue) || 100}
-              onChange={handleWidthInputChange}
-              className="tiptap-attribute-slider"
-            />
-          )}
-        </div>
-
         {/* 对齐 */}
         <div className="tiptap-attribute-row">
           <span className="tiptap-attribute-label">对齐</span>
@@ -228,6 +179,9 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
               </svg>
             </button>
           </div>
+          {widthPercent !== null && (
+            <span className="tiptap-attribute-label">{widthPercent}%</span>
+          )}
         </div>
       </div>
 

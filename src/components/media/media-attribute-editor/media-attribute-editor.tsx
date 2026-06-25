@@ -5,6 +5,7 @@ import { FloatingElement } from '../../primitives/floating-element';
 import { AttachmentAttributeEditor } from './attachment-attribute-editor';
 import { AudioAttributeEditor } from './audio-attribute-editor';
 import { ImageAttributeEditor } from './image-attribute-editor';
+import { ImageResizeHandles } from './image-resize-handles';
 import { VideoAttributeEditor } from './video-attribute-editor';
 import './media-attribute-editor.scss';
 
@@ -56,19 +57,22 @@ export function MediaAttributeEditor({ editor }: MediaAttributeEditorProps) {
   }, []);
 
   return (
-    <FloatingElement
-      editor={editor}
-      getBoundingClientRect={getBoundingClientRect}
-      zIndex={50}
-    >
-      <div className="tiptap-media-attribute-editor-content">
-        {mediaType === 'image' && <ImageAttributeEditor editor={editor} />}
-        {mediaType === 'video' && <VideoAttributeEditor editor={editor} />}
-        {mediaType === 'audio' && <AudioAttributeEditor editor={editor} />}
-        {mediaType === 'attachment' && (
-          <AttachmentAttributeEditor editor={editor} />
-        )}
-      </div>
-    </FloatingElement>
+    <>
+      {mediaType === 'image' && <ImageResizeHandles editor={editor} />}
+      <FloatingElement
+        editor={editor}
+        getBoundingClientRect={getBoundingClientRect}
+        zIndex={50}
+      >
+        <div className="tiptap-media-attribute-editor-content">
+          {mediaType === 'image' && <ImageAttributeEditor editor={editor} />}
+          {mediaType === 'video' && <VideoAttributeEditor editor={editor} />}
+          {mediaType === 'audio' && <AudioAttributeEditor editor={editor} />}
+          {mediaType === 'attachment' && (
+            <AttachmentAttributeEditor editor={editor} />
+          )}
+        </div>
+      </FloatingElement>
+    </>
   );
 }
