@@ -1,14 +1,15 @@
 import type { Editor } from '@tiptap/react';
-import { useMemo } from 'react';
-import { ArrowRightIcon } from '../../icons/arrow-direction-icon';
+import { useCallback, useMemo } from 'react';
 import {
   useClearSelectedCells,
-  useCopySelectedCells,
   useTableAddRowColumn,
+  useTableCellBackgroundColor,
+  useTableCellTextAlign,
+  useTableCellTextColor,
+  useTableCellVerticalAlign,
   useTableDeleteRowColumn,
   useTableHeaderRowColumn,
   useTableMergeSplitCell,
-  useTableMoveRowColumn,
 } from './use-table-ops';
 
 export interface MenuItemDef {
@@ -25,10 +26,23 @@ export interface SubMenuDef {
   items: MenuItemDef[];
 }
 
-export type MenuGroupItem = MenuItemDef | SubMenuDef;
+export interface ColorSubMenuDef {
+  type: 'color';
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  currentColor: string | null;
+  onSelectColor: (color: string) => void;
+  onReset: () => void;
+}
+
+export type MenuGroupItem = MenuItemDef | SubMenuDef | ColorSubMenuDef;
 
 export function isSubMenu(item: MenuGroupItem): item is SubMenuDef {
-  return 'items' in item;
+  return 'items' in item && !('type' in item);
+}
+
+export function isColorSubMenu(item: MenuGroupItem): item is ColorSubMenuDef {
+  return 'type' in item && item.type === 'color';
 }
 
 export function useTableMenuItems(editor: Editor | null): MenuGroupItem[][] {
@@ -54,34 +68,45 @@ export function useTableMenuItems(editor: Editor | null): MenuGroupItem[][] {
   });
   const merge = useTableMergeSplitCell({ editor, action: 'merge' });
   const split = useTableMergeSplitCell({ editor, action: 'split' });
-  const moveRowUp = useTableMoveRowColumn({
-    editor,
-    orientation: 'row',
-    direction: 'up',
-  });
-  const moveRowDown = useTableMoveRowColumn({
-    editor,
-    orientation: 'row',
-    direction: 'down',
-  });
-  const moveColLeft = useTableMoveRowColumn({
-    editor,
-    orientation: 'column',
-    direction: 'left',
-  });
-  const moveColRight = useTableMoveRowColumn({
-    editor,
-    orientation: 'column',
-    direction: 'right',
-  });
-  const copyCells = useCopySelectedCells({ editor });
   const clearCells = useClearSelectedCells({ editor });
   const headerRow = useTableHeaderRowColumn({ editor, orientation: 'row' });
   const headerCol = useTableHeaderRowColumn({ editor, orientation: 'column' });
   const deleteRow = useTableDeleteRowColumn({ editor, orientation: 'row' });
   const deleteCol = useTableDeleteRowColumn({ editor, orientation: 'column' });
 
+  const textColor = useTableCellTextColor({ editor });
+  const bgColor = useTableCellBackgroundColor({ editor });
+  const alignLeft = useTableCellTextAlign({ editor, align: 'left' });
+  const alignCenter = useTableCellTextAlign({ editor, align: 'center' });
+  const alignRight = useTableCellTextAlign({ editor, align: 'right' });
+  const alignJustify = useTableCellTextAlign({ editor, align: 'justify' });
+  const vaTop = useTableCellVerticalAlign({ editor, align: 'top' });
+  const vaMiddle = useTableCellVerticalAlign({ editor, align: 'middle' });
+  const vaBottom = useTableCellVerticalAlign({ editor, align: 'bottom' });
+
   const canSplit = editor?.can().splitCell() ?? false;
+
+  const handleSelectTextColor = useCallback(
+    (color: string) => {
+      textColor.setColor(color);
+    },
+    [textColor],
+  );
+
+  const handleResetTextColor = useCallback(() => {
+    textColor.unsetColor();
+  }, [textColor]);
+
+  const handleSelectBgColor = useCallback(
+    (color: string) => {
+      bgColor.setColor(color);
+    },
+    [bgColor],
+  );
+
+  const handleResetBgColor = useCallback(() => {
+    bgColor.unsetColor();
+  }, [bgColor]);
 
   return useMemo<MenuGroupItem[][]>(
     () => [
@@ -122,35 +147,67 @@ export function useTableMenuItems(editor: Editor | null): MenuGroupItem[][] {
       ],
       [
         {
-          label: '移动',
-          icon: ArrowRightIcon,
+          type: 'color',
+          label: textColor.label,
+          icon: textColor.Icon,
+          currentColor: null,
+          onSelectColor: handleSelectTextColor,
+          onReset: handleResetTextColor,
+        },
+        {
+          type: 'color',
+          label: bgColor.label,
+          icon: bgColor.Icon,
+          currentColor: null,
+          onSelectColor: handleSelectBgColor,
+          onReset: handleResetBgColor,
+        },
+        {
+          label: '水平对齐',
+          icon: alignLeft.Icon,
           items: [
             {
-              label: moveRowUp.label,
-              icon: moveRowUp.Icon,
-              onClick: moveRowUp.handleAction,
+              label: alignLeft.label,
+              icon: alignLeft.Icon,
+              onClick: alignLeft.handleAction,
             },
             {
-              label: moveRowDown.label,
-              icon: moveRowDown.Icon,
-              onClick: moveRowDown.handleAction,
+              label: alignCenter.label,
+              icon: alignCenter.Icon,
+              onClick: alignCenter.handleAction,
             },
             {
-              label: moveColLeft.label,
-              icon: moveColLeft.Icon,
-              onClick: moveColLeft.handleAction,
+              label: alignRight.label,
+              icon: alignRight.Icon,
+              onClick: alignRight.handleAction,
             },
             {
-              label: moveColRight.label,
-              icon: moveColRight.Icon,
-              onClick: moveColRight.handleAction,
+              label: alignJustify.label,
+              icon: alignJustify.Icon,
+              onClick: alignJustify.handleAction,
             },
           ],
         },
         {
-          label: copyCells.label,
-          icon: copyCells.Icon,
-          onClick: copyCells.handleAction,
+          label: '垂直对齐',
+          icon: vaTop.Icon,
+          items: [
+            {
+              label: vaTop.label,
+              icon: vaTop.Icon,
+              onClick: vaTop.handleAction,
+            },
+            {
+              label: vaMiddle.label,
+              icon: vaMiddle.Icon,
+              onClick: vaMiddle.handleAction,
+            },
+            {
+              label: vaBottom.label,
+              icon: vaBottom.Icon,
+              onClick: vaBottom.handleAction,
+            },
+          ],
         },
         {
           label: clearCells.label,
@@ -197,16 +254,26 @@ export function useTableMenuItems(editor: Editor | null): MenuGroupItem[][] {
       split.label,
       split.handleAction,
       canSplit,
-      moveRowUp.label,
-      moveRowUp.handleAction,
-      moveRowDown.label,
-      moveRowDown.handleAction,
-      moveColLeft.label,
-      moveColLeft.handleAction,
-      moveColRight.label,
-      moveColRight.handleAction,
-      copyCells.label,
-      copyCells.handleAction,
+      textColor.label,
+      handleSelectTextColor,
+      handleResetTextColor,
+      bgColor.label,
+      handleSelectBgColor,
+      handleResetBgColor,
+      alignLeft.label,
+      alignLeft.handleAction,
+      alignCenter.label,
+      alignCenter.handleAction,
+      alignRight.label,
+      alignRight.handleAction,
+      alignJustify.label,
+      alignJustify.handleAction,
+      vaTop.label,
+      vaTop.handleAction,
+      vaMiddle.label,
+      vaMiddle.handleAction,
+      vaBottom.label,
+      vaBottom.handleAction,
       clearCells.label,
       clearCells.handleAction,
       headerRow.label,

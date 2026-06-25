@@ -31,14 +31,14 @@
   }
 
   &[data-variant="fixed"] {
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     z-index: 50;
     width: 100%;
     min-height: var(--tt-toolbar-height);
     background: var(--tt-toolbar-bg-color);
     border-bottom: 1px solid var(--tt-toolbar-border-color);
-    padding: 0 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    padding: 0 15px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;

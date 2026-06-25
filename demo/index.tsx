@@ -90,7 +90,13 @@ function Demo() {
   const [html, setHtml] = useState(initialContent);
 
   return (
-    <div>
+    <div
+      style={{
+        width: '70vw',
+        height: '70vh',
+        border: '1px solid #ccc',
+      }}
+    >
       <Editor value={html} onChange={setHtml} />
     </div>
   );

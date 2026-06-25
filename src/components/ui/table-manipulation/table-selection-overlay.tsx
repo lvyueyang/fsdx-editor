@@ -17,9 +17,18 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../../primitives/dropdown-menu';
-import { isSubMenu, useTableMenuItems } from './table-selection-menu';
+import { ColorGrid } from '../color-grid';
+import { PALETTE_COLUMNS, type PaletteColor } from '../color-palette';
+import {
+  isColorSubMenu,
+  isSubMenu,
+  useTableMenuItems,
+} from './table-selection-menu';
 
 import './table-selection-overlay.scss';
+
+const COLOR_GRID_WIDTH =
+  PALETTE_COLUMNS * 20 + (PALETTE_COLUMNS - 1) * 4 + 2 * 8;
 
 interface CellRect {
   left: number;
@@ -280,7 +289,41 @@ function OverlayContent({
             <DropdownMenuGroup key={gi}>
               {gi > 0 && <DropdownMenuSeparator />}
               {group.map((item) =>
-                isSubMenu(item) ? (
+                isColorSubMenu(item) ? (
+                  <DropdownMenuSub key={item.label}>
+                    <DropdownMenuSubTrigger>
+                      <item.icon className="table-menu-item-icon" />
+                      {item.label}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent
+                        style={{ minWidth: COLOR_GRID_WIDTH }}
+                      >
+                        <div style={{ padding: '4px 8px' }}>
+                          <button
+                            type="button"
+                            className="tiptap-color-grid-action-btn"
+                            onClick={() => {
+                              item.onReset();
+                              onMenuOpenChange(false);
+                            }}
+                          >
+                            默认颜色
+                          </button>
+                        </div>
+                        <DropdownMenuSeparator />
+                        <ColorGrid
+                          activeColor={item.currentColor}
+                          onSelectColor={(color: PaletteColor) => {
+                            item.onSelectColor(color.color);
+                            onMenuOpenChange(false);
+                          }}
+                          onClose={() => onMenuOpenChange(false)}
+                        />
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                ) : isSubMenu(item) ? (
                   <DropdownMenuSub key={item.label}>
                     <DropdownMenuSubTrigger>
                       <item.icon className="table-menu-item-icon" />

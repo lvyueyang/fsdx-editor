@@ -1,13 +1,28 @@
 import type { Node as PMNode } from '@tiptap/pm/model';
-import { CellSelection } from '@tiptap/pm/tables';
+import { CellSelection, cellAround } from '@tiptap/pm/tables';
 import type { Editor } from '@tiptap/react';
 import { useCallback } from 'react';
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
+import {
+  getSelectedNodesOfType,
+  updateNodesAttr,
+} from '../../../lib/tiptap-utils';
+import { AlignCenterIcon } from '../../icons/align-center-icon';
+import { AlignJustifyIcon } from '../../icons/align-justify-icon';
+import { AlignLeftIcon } from '../../icons/align-left-icon';
+import { AlignRightIcon } from '../../icons/align-right-icon';
+import { BackgroundColorIcon } from '../../icons/background-color-icon';
 import { CopyIcon } from '../../icons/copy-icon';
 import { EraserIcon } from '../../icons/eraser-icon';
 import { FitToWidthIcon } from '../../icons/fit-to-width-icon';
 import { MergeCellsIcon, SplitCellsIcon } from '../../icons/merge-cells-icon';
 import { TableHeaderIcon } from '../../icons/table-header-icon';
+import { TextColorIcon } from '../../icons/text-color-icon';
+import {
+  VerticalAlignBottomIcon,
+  VerticalAlignMiddleIcon,
+  VerticalAlignTopIcon,
+} from '../../icons/vertical-align-icon';
 import { type Orientation, useTableActionVisibility } from './table-utils';
 import { canDoInTable, findRowDepth, findTableDepth } from './use-table-ops';
 
@@ -324,21 +339,41 @@ export function useClearSelectedCells(config: UseClearSelectedCellsConfig) {
       .command(({ tr }) => {
         const { selection } = tr;
         if (selection instanceof CellSelection) {
-          const cells: { pos: number; nodeSize: number }[] = [];
+          const cells: { pos: number; nodeSize: number; node: PMNode }[] = [];
           selection.forEachCell((_node, pos) => {
-            cells.push({ pos, nodeSize: _node.nodeSize });
+            cells.push({ pos, nodeSize: _node.nodeSize, node: _node });
           });
           for (let i = cells.length - 1; i >= 0; i--) {
             const { pos, nodeSize } = cells[i];
             if (nodeSize > 0) {
               tr.delete(pos + 1, pos + nodeSize - 1);
             }
+            tr.setNodeMarkup(pos, undefined, {
+              ...cells[i].node.attrs,
+              textColor: null,
+              backgroundColor: null,
+              textAlign: null,
+              verticalAlign: null,
+            });
           }
         } else {
-          const pos = selection.$anchor.pos;
-          const node = tr.doc.nodeAt(pos);
-          if (node && node.content.size > 0) {
-            tr.delete(pos + 1, pos + node.nodeSize - 1);
+          const cell = cellAround(selection.$anchor);
+          if (!cell) return false;
+          const node = tr.doc.nodeAt(cell.pos);
+          if (
+            node &&
+            (node.type.name === 'tableCell' || node.type.name === 'tableHeader')
+          ) {
+            if (node.content.size > 0) {
+              tr.delete(cell.pos + 1, cell.pos + node.nodeSize - 1);
+            }
+            tr.setNodeMarkup(cell.pos, undefined, {
+              ...node.attrs,
+              textColor: null,
+              backgroundColor: null,
+              textAlign: null,
+              verticalAlign: null,
+            });
           }
         }
         return true;
@@ -354,5 +389,193 @@ export function useClearSelectedCells(config: UseClearSelectedCellsConfig) {
     handleAction,
     label: '清除内容',
     Icon: EraserIcon,
+  };
+}
+
+// ─── 单元格文字颜色 ───
+
+export interface UseTableCellTextColorConfig {
+  editor?: Editor | null;
+  onChanged?: () => void;
+}
+
+export function useTableCellTextColor(config: UseTableCellTextColorConfig) {
+  const { editor: providedEditor, onChanged } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+
+  const setColor = useCallback(
+    (color: string) => {
+      if (!editor) return;
+      editor
+        .chain()
+        .focus()
+        .command(({ tr }) => {
+          const targets = getSelectedNodesOfType(tr.selection, [
+            'tableCell',
+            'tableHeader',
+          ]);
+          return updateNodesAttr(tr, targets, 'textColor', color);
+        })
+        .run();
+      onChanged?.();
+    },
+    [editor, onChanged],
+  );
+
+  const unsetColor = useCallback(() => {
+    if (!editor) return;
+    editor
+      .chain()
+      .focus()
+      .command(({ tr }) => {
+        const targets = getSelectedNodesOfType(tr.selection, [
+          'tableCell',
+          'tableHeader',
+        ]);
+        return updateNodesAttr(tr, targets, 'textColor', null);
+      })
+      .run();
+    onChanged?.();
+  }, [editor, onChanged]);
+
+  return {
+    setColor,
+    unsetColor,
+    label: '文字颜色',
+    Icon: TextColorIcon,
+  };
+}
+
+// ─── 单元格背景色 ───
+
+export interface UseTableCellBackgroundColorConfig {
+  editor?: Editor | null;
+  onChanged?: () => void;
+}
+
+export function useTableCellBackgroundColor(
+  config: UseTableCellBackgroundColorConfig,
+) {
+  const { editor: providedEditor, onChanged } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+
+  const setColor = useCallback(
+    (color: string) => {
+      if (!editor) return;
+      editor.chain().focus().setNodeBackgroundColor(color).run();
+      onChanged?.();
+    },
+    [editor, onChanged],
+  );
+
+  const unsetColor = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().unsetNodeBackgroundColor().run();
+    onChanged?.();
+  }, [editor, onChanged]);
+
+  return {
+    setColor,
+    unsetColor,
+    label: '单元格背景色',
+    Icon: BackgroundColorIcon,
+  };
+}
+
+// ─── 单元格水平对齐 ───
+
+export type CellTextAlign = 'left' | 'center' | 'right' | 'justify';
+
+const textAlignLabels: Record<CellTextAlign, string> = {
+  left: '左对齐',
+  center: '居中对齐',
+  right: '右对齐',
+  justify: '两端对齐',
+};
+
+const textAlignIcons: Record<
+  CellTextAlign,
+  React.ComponentType<{ className?: string }>
+> = {
+  left: AlignLeftIcon,
+  center: AlignCenterIcon,
+  right: AlignRightIcon,
+  justify: AlignJustifyIcon,
+};
+
+export interface UseTableCellTextAlignConfig {
+  editor?: Editor | null;
+  align: CellTextAlign;
+  onChanged?: () => void;
+}
+
+export function useTableCellTextAlign(config: UseTableCellTextAlignConfig) {
+  const { editor: providedEditor, align, onChanged } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+
+  const handleAction = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().setTextAlign(align).run();
+    onChanged?.();
+  }, [editor, align, onChanged]);
+
+  return {
+    handleAction,
+    label: textAlignLabels[align],
+    Icon: textAlignIcons[align],
+  };
+}
+
+// ─── 单元格垂直对齐 ───
+
+export type CellVerticalAlign = 'top' | 'middle' | 'bottom';
+
+const verticalAlignLabels: Record<CellVerticalAlign, string> = {
+  top: '顶端对齐',
+  middle: '居中对齐',
+  bottom: '底端对齐',
+};
+
+const verticalAlignIcons: Record<
+  CellVerticalAlign,
+  React.ComponentType<{ className?: string }>
+> = {
+  top: VerticalAlignTopIcon,
+  middle: VerticalAlignMiddleIcon,
+  bottom: VerticalAlignBottomIcon,
+};
+
+export interface UseTableCellVerticalAlignConfig {
+  editor?: Editor | null;
+  align: CellVerticalAlign;
+  onChanged?: () => void;
+}
+
+export function useTableCellVerticalAlign(
+  config: UseTableCellVerticalAlignConfig,
+) {
+  const { editor: providedEditor, align, onChanged } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+
+  const handleAction = useCallback(() => {
+    if (!editor) return;
+    editor
+      .chain()
+      .focus()
+      .command(({ tr }) => {
+        const targets = getSelectedNodesOfType(tr.selection, [
+          'tableCell',
+          'tableHeader',
+        ]);
+        return updateNodesAttr(tr, targets, 'verticalAlign', align);
+      })
+      .run();
+    onChanged?.();
+  }, [editor, align, onChanged]);
+
+  return {
+    handleAction,
+    label: verticalAlignLabels[align],
+    Icon: verticalAlignIcons[align],
   };
 }

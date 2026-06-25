@@ -14,6 +14,7 @@ import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 // --- Tiptap 核心扩展 ---
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
+import { NodeBackground } from '../components/extensions/node-background-extension';
 import { HorizontalRule } from '../components/nodes/horizontal-rule-node/horizontal-rule-node-extension';
 import { ImageUploadNode } from '../components/nodes/image-upload-node/image-upload-node-extension';
 // --- Tiptap 节点 ---
@@ -27,6 +28,7 @@ import {
   ToolbarGroup,
   ToolbarSeparator,
 } from '../components/primitives/toolbar';
+import { TableCellStyle } from '../components/ui/table-manipulation/table-cell-style-extension';
 import '../components/nodes/blockquote-node/blockquote-node.scss';
 import '../components/nodes/code-block-node/code-block-node.scss';
 import '../components/nodes/horizontal-rule-node/horizontal-rule-node.scss';
@@ -202,6 +204,7 @@ export function Editor({ value, onChange }: EditorProps) {
     'main',
   );
   const toolbarRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const isInternalChange = useRef(false);
 
   const editor = useEditor({
@@ -224,7 +227,9 @@ export function Editor({ value, onChange }: EditorProps) {
         },
       }),
       HorizontalRule,
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph', 'tableCell', 'tableHeader'],
+      }),
       TableKit.configure({
         table: {
           resizable: true,
@@ -243,6 +248,8 @@ export function Editor({ value, onChange }: EditorProps) {
       FontSize,
       LineHeight,
       Selection,
+      NodeBackground,
+      TableCellStyle,
       Indent,
       ImageUploadNode.configure({
         accept: 'image/*',
@@ -274,6 +281,7 @@ export function Editor({ value, onChange }: EditorProps) {
   const rect = useCursorVisibility({
     editor,
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
+    scrollContainerRef: contentRef,
   });
 
   useEffect(() => {
@@ -309,11 +317,9 @@ export function Editor({ value, onChange }: EditorProps) {
           )}
         </Toolbar>
 
-        <EditorContent
-          editor={editor}
-          role="presentation"
-          className="editor-content"
-        />
+        <div ref={contentRef} className="editor-content">
+          <EditorContent editor={editor} role="presentation" />
+        </div>
 
         <TableSelectionOverlay />
         <TableExtendButtons />

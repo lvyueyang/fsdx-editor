@@ -61,21 +61,29 @@ body,
 .editor-wrapper {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .editor-content {
+  flex: 1;
+  overflow: auto;
   width: 100%;
   margin: 0 auto;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
 .editor-content .tiptap.ProseMirror.editor {
   flex: 1;
-  padding: 3rem 3rem 30vh;
+  padding: 15px;
+}
+
+.editor-content > * {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 @media screen and (max-width: 480px) {

@@ -1,4 +1,5 @@
 import type { Editor } from '@tiptap/react';
+import type { RefObject } from 'react';
 import { useEffect } from 'react';
 import { useBodyRect } from './use-element-rect';
 import { useWindowSize } from './use-window-size';
@@ -12,19 +13,25 @@ export interface CursorVisibilityOptions {
    * Reference to the toolbar element that may obscure the cursor
    */
   overlayHeight?: number;
+  /**
+   * Ref to the scroll container element (defaults to window)
+   */
+  scrollContainerRef?: RefObject<HTMLElement | null>;
 }
 
 /**
  * Custom hook that ensures the cursor remains visible when typing in a Tiptap editor.
- * Automatically scrolls the window when the cursor would be hidden by the toolbar.
+ * Automatically scrolls the scroll container when the cursor would be hidden by the toolbar.
  *
  * @param options.editor The Tiptap editor instance
  * @param options.overlayHeight Toolbar height to account for
+ * @param options.scrollContainerRef Ref to the element that scrolls (defaults to window)
  * @returns The bounding rect of the body
  */
 export function useCursorVisibility({
   editor,
   overlayHeight = 0,
+  scrollContainerRef,
 }: CursorVisibilityOptions) {
   const { height: windowHeight } = useWindowSize();
   const rect = useBodyRect({
@@ -40,30 +47,38 @@ export function useCursorVisibility({
       const { state, view } = editor;
       if (!view.hasFocus()) return;
 
-      // 获取当前光标位置坐标
       const { from } = state.selection;
       const cursorCoords = view.coordsAtPos(from);
 
       if (windowHeight < rect.height && cursorCoords) {
         const availableSpace = windowHeight - cursorCoords.top;
 
-        // 如果光标被遮罩遮挡或在屏幕外，滚动到可见区域
         if (availableSpace < overlayHeight) {
           const targetCursorY = Math.max(windowHeight / 2, overlayHeight);
-          const currentScrollY = window.scrollY;
+          const container = scrollContainerRef?.current;
+          const currentScrollY = container
+            ? container.scrollTop
+            : window.scrollY;
           const cursorAbsoluteY = cursorCoords.top + currentScrollY;
           const newScrollY = cursorAbsoluteY - targetCursorY;
 
-          window.scrollTo({
-            top: Math.max(0, newScrollY),
-            behavior: 'smooth',
-          });
+          if (container) {
+            container.scrollTo({
+              top: Math.max(0, newScrollY),
+              behavior: 'smooth',
+            });
+          } else {
+            window.scrollTo({
+              top: Math.max(0, newScrollY),
+              behavior: 'smooth',
+            });
+          }
         }
       }
     };
 
     ensureCursorVisibility();
-  }, [editor, overlayHeight, windowHeight, rect.height]);
+  }, [editor, overlayHeight, windowHeight, rect.height, scrollContainerRef]);
 
   return rect;
 }
