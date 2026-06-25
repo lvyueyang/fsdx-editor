@@ -7,6 +7,7 @@ import { AudioAttributeEditor } from './audio-attribute-editor';
 import { ImageAttributeEditor } from './image-attribute-editor';
 import { ImageResizeHandles } from './image-resize-handles';
 import { VideoAttributeEditor } from './video-attribute-editor';
+import { VideoResizeHandles } from './video-resize-handles';
 import './media-attribute-editor.scss';
 
 const NODE_TYPE_MAP: Record<string, MediaType> = {
@@ -59,6 +60,7 @@ export function MediaAttributeEditor({ editor }: MediaAttributeEditorProps) {
   return (
     <>
       {mediaType === 'image' && <ImageResizeHandles editor={editor} />}
+      {mediaType === 'video' && <VideoResizeHandles editor={editor} />}
       <FloatingElement
         editor={editor}
         getBoundingClientRect={getBoundingClientRect}

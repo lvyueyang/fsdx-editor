@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core';
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { ImageEditor } from '../image-editor';
 import type { FilterValues } from '../image-editor/image-filter-panel';
 import { getImageElement } from './media-dom-utils';
@@ -56,12 +56,16 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
     editor.getAttributes('customImage') || editor.getAttributes('image');
 
   const [srcValue, setSrcValue] = useState(attrs.src || '');
+  const [altValue, setAltValue] = useState(attrs.alt || '');
+  const [linkValue, setLinkValue] = useState(attrs.link || '');
   const [showEditor, setShowEditor] = useState(false);
   const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
+  const nodePosRef = useRef(0);
 
   useEffect(() => {
     const handler = () => {
       if (!editor.isActive('customImage')) return;
+      nodePosRef.current = editor.state.selection.$from.pos;
       forceUpdate();
     };
     editor.on('transaction', handler);
@@ -74,16 +78,49 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
     (alignment: 'left' | 'center' | 'right') => {
       const current = editor.getAttributes('customImage')?.alignment;
       const next = current === alignment ? null : alignment;
-      editor.chain().focus().updateImageAlignment?.(next).run();
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateImageAlignment?.(next)
+        .run();
     },
     [editor],
   );
 
   const handleSrcBlur = useCallback(() => {
     if (srcValue && srcValue.trim()) {
-      editor.chain().focus().updateImageSrc?.(srcValue.trim()).run();
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateImageSrc?.(srcValue.trim())
+        .run();
     }
   }, [editor, srcValue]);
+
+  const handleAltBlur = useCallback(() => {
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateAttributes('customImage', {
+        alt: altValue || null,
+      })
+      .run() ||
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateAttributes('image', {
+          alt: altValue || null,
+        })
+        .run();
+  }, [editor, altValue]);
+
+  const handleLinkBlur = useCallback(() => {
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateImageLink?.(linkValue || null)
+      .run();
+  }, [editor, linkValue]);
 
   const handleOpenEditor = useCallback(() => {
     setShowEditor(true);
@@ -194,23 +231,9 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
           <input
             id="image-alt-input"
             type="text"
-            value={attrs.alt || ''}
-            onChange={(e) =>
-              editor
-                .chain()
-                .focus()
-                .updateAttributes('customImage', {
-                  alt: e.target.value,
-                })
-                .run() ||
-              editor
-                .chain()
-                .focus()
-                .updateAttributes('image', {
-                  alt: e.target.value,
-                })
-                .run()
-            }
+            value={altValue}
+            onChange={(e) => setAltValue(e.target.value)}
+            onBlur={handleAltBlur}
             placeholder="图片描述"
             className="tiptap-attribute-text-input"
           />
@@ -240,14 +263,9 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
           <input
             id="image-link-input"
             type="text"
-            value={attrs.link || ''}
-            onChange={(e) =>
-              editor
-                .chain()
-                .focus()
-                .updateImageLink?.(e.target.value || null)
-                .run()
-            }
+            value={linkValue}
+            onChange={(e) => setLinkValue(e.target.value)}
+            onBlur={handleLinkBlur}
             placeholder="https://..."
             className="tiptap-attribute-text-input"
           />

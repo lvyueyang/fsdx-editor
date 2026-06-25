@@ -240,6 +240,18 @@ greet('世界');</code></pre>
     <td><p>切换删除线样式</p></td>
   </tr>
 </table>
+<h2>图片</h2>
+<p>点击工具栏图片按钮或拖拽图片到编辑器中，可以插入图片。选中图片后可以调整宽度、对齐方式和滤镜效果。</p>
+<img src="https://template.tiptap.dev/images/tiptap-ui-placeholder-image.jpg" alt="示例图片" data-width="400px" data-alignment="center" />
+<h2>视频</h2>
+<p>支持插入视频资源，可设置封面图、播放控件等选项。</p>
+<video data-type="video" data-src="https://09597157-0eab-4d78-9f1b-3dc3e4ddc353.mdnplay.dev/shared-assets/videos/flower.webm" data-poster="https://picsum.photos/seed/video/200/150" data-width="720" data-alignment="center"></video>
+<h2>音频</h2>
+<p>支持插入音频资源，以卡片形式展示音频信息和播放控件。</p>
+<div data-type="audio" data-src="https://a65c28c1-a726-4e4b-aac3-b94931f43200.mdnplay.dev/shared-assets/audio/t-rex-roar.mp3"></div>
+<h2>附件</h2>
+<p>支持以卡片形式插入文件附件，显示文件名、类型和大小，并提供下载按钮。</p>
+<div data-type="attachment" data-src="https://picsum.photos/seed/1/400/300" data-file-name="示例附件.pdf" data-file-size="2097152" data-file-type="application/pdf"></div>
 <hr>
 <h2>链接与排版</h2>
 <p>这是一段包含<a href="https://tiptap.dev" target="_blank" rel="noopener noreferrer nofollow">超链接</a>的文本，点击可以跳转到 Tiptap 官网。</p>

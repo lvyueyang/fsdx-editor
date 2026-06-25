@@ -1,26 +1,56 @@
 import type { Editor } from '@tiptap/core';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { getVideoElement } from './media-dom-utils';
 
 interface VideoAttributeEditorProps {
   editor: Editor;
 }
 
+function getWidthPercent(editor: Editor): number | null {
+  const attrs = editor.getAttributes('video');
+  const widthAttr: string | null = attrs?.width || null;
+  const editorWidth = editor.view.dom.clientWidth;
+  if (editorWidth <= 0) return null;
+
+  if (widthAttr) {
+    if (widthAttr.endsWith('%')) {
+      return Math.round(Number.parseFloat(widthAttr));
+    }
+    const pxValue = Number.parseFloat(widthAttr);
+    if (Number.isNaN(pxValue)) return null;
+    return Math.round((pxValue / editorWidth) * 100);
+  }
+
+  const video = getVideoElement(editor);
+  if (!video) return null;
+
+  return Math.round((video.clientWidth / editorWidth) * 100);
+}
+
 export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
   const attrs = editor.getAttributes('video');
-  const [width, setWidth] = useState(attrs.width || '');
+  const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
+  const nodePosRef = useRef(0);
 
-  const handleWidthChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setWidth(value);
-      editor
-        .chain()
-        .focus()
-        .updateAttributes('video', { width: value || null })
-        .run();
-    },
-    [editor],
-  );
+  const [autoplay, setAutoplay] = useState(!!attrs.autoplay);
+  const [controls, setControls] = useState(attrs.controls !== false);
+  const [loop, setLoop] = useState(!!attrs.loop);
+
+  useEffect(() => {
+    const handler = () => {
+      if (!editor.isActive('video')) return;
+      const currentAttrs = editor.getAttributes('video');
+      nodePosRef.current = editor.state.selection.$from.pos;
+      setAutoplay(!!currentAttrs.autoplay);
+      setControls(currentAttrs.controls !== false);
+      setLoop(!!currentAttrs.loop);
+      forceUpdate();
+    };
+    editor.on('transaction', handler);
+    return () => {
+      editor.off('transaction', handler);
+    };
+  }, [editor]);
 
   const handleAlignment = useCallback(
     (alignment: 'left' | 'center' | 'right') => {
@@ -35,42 +65,53 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
     [editor],
   );
 
-  const handleToggle = useCallback(
-    (attr: string) => {
-      const current = !!editor.getAttributes('video')?.[attr];
+  const toggleHandlers = {
+    autoplay: useCallback(() => {
+      const next = !autoplay;
+      setAutoplay(next);
       editor
         .chain()
-        .focus()
-        .updateAttributes('video', { [attr]: !current })
+        .setNodeSelection(nodePosRef.current)
+        .updateAttributes('video', { autoplay: next })
         .run();
-    },
-    [editor],
-  );
+    }, [autoplay, editor]),
+    controls: useCallback(() => {
+      const next = !controls;
+      setControls(next);
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateAttributes('video', { controls: next })
+        .run();
+    }, [controls, editor]),
+    loop: useCallback(() => {
+      const next = !loop;
+      setLoop(next);
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateAttributes('video', { loop: next })
+        .run();
+    }, [loop, editor]),
+  };
 
   const currentAlignment = editor.getAttributes('video')?.alignment;
+  const widthPercent = getWidthPercent(editor);
+
+  const [posterValue, setPosterValue] = useState(attrs.poster || '');
+
+  const handlePosterBlur = useCallback(() => {
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateAttributes('video', {
+        poster: posterValue || null,
+      })
+      .run();
+  }, [editor, posterValue]);
 
   return (
     <div className="tiptap-attribute-group">
-      <div className="tiptap-attribute-row">
-        <label htmlFor="video-width-input" className="tiptap-attribute-label">
-          宽度
-        </label>
-        <div className="tiptap-attribute-width-input">
-          <input
-            id="video-width-input"
-            type="number"
-            min="50"
-            max="100"
-            step="5"
-            value={width}
-            onChange={handleWidthChange}
-            placeholder="100"
-            className="tiptap-attribute-number-input"
-          />
-          <span className="tiptap-attribute-unit">%</span>
-        </div>
-      </div>
-
       <div className="tiptap-attribute-row">
         <span className="tiptap-attribute-label">对齐</span>
         <div className="tiptap-attribute-btn-group">
@@ -96,6 +137,9 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
             右
           </button>
         </div>
+        {widthPercent !== null && (
+          <span className="tiptap-attribute-label">{widthPercent}%</span>
+        )}
       </div>
 
       <div className="tiptap-attribute-row">
@@ -105,16 +149,9 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
         <input
           id="video-poster-input"
           type="text"
-          value={attrs.poster || ''}
-          onChange={(e) =>
-            editor
-              .chain()
-              .focus()
-              .updateAttributes('video', {
-                poster: e.target.value || null,
-              })
-              .run()
-          }
+          value={posterValue}
+          onChange={(e) => setPosterValue(e.target.value)}
+          onBlur={handlePosterBlur}
           placeholder="https://..."
           className="tiptap-attribute-text-input"
         />
@@ -125,24 +162,24 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
           <label className="tiptap-attribute-toggle">
             <input
               type="checkbox"
-              checked={!!attrs.autoplay}
-              onChange={() => handleToggle('autoplay')}
+              checked={autoplay}
+              onChange={toggleHandlers.autoplay}
             />
             自动播放
           </label>
           <label className="tiptap-attribute-toggle">
             <input
               type="checkbox"
-              checked={attrs.controls !== false}
-              onChange={() => handleToggle('controls')}
+              checked={controls}
+              onChange={toggleHandlers.controls}
             />
             控制条
           </label>
           <label className="tiptap-attribute-toggle">
             <input
               type="checkbox"
-              checked={!!attrs.loop}
-              onChange={() => handleToggle('loop')}
+              checked={loop}
+              onChange={toggleHandlers.loop}
             />
             循环
           </label>

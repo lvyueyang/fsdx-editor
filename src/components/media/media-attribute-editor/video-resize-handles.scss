@@ -1,0 +1,11 @@
+.tiptap-video-resize-handle {
+  background: var(--tt-brand-color-400);
+  border-radius: 2px;
+  opacity: 1;
+  cursor: col-resize;
+  z-index: 51;
+
+  &--active {
+    background: var(--tt-brand-color-500);
+  }
+}

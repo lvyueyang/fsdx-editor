@@ -8,3 +8,13 @@ export function getImageElement(editor: Editor): HTMLImageElement | null {
   const img = dom.querySelector('img') || (dom.tagName === 'IMG' ? dom : null);
   return img as HTMLImageElement | null;
 }
+
+export function getVideoElement(editor: Editor): HTMLVideoElement | null {
+  const { $from } = editor.state.selection;
+  const dom = editor.view.nodeDOM($from.pos) as HTMLElement | null;
+  if (!dom) return null;
+
+  const video =
+    dom.querySelector('video') || (dom.tagName === 'VIDEO' ? dom : null);
+  return video as HTMLVideoElement | null;
+}
