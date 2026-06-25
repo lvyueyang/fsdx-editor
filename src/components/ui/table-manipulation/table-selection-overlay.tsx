@@ -251,7 +251,7 @@ function OverlayContent({
             className="table-selection-handle"
             style={{
               position: 'absolute',
-              left: `${rect.right + 2}px`,
+              left: `${rect.right}px`,
               top: `${rect.top + height / 2}px`,
             }}
             onClick={(e) => e.stopPropagation()}

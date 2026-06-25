@@ -17,8 +17,8 @@
     position: relative;
     overflow-x: auto;
     margin: 1.5rem 0;
-    padding-right: 28px;
-    padding-bottom: 28px;
+    padding-right: 36px;
+    padding-bottom: 36px;
   }
 
   table {
@@ -52,7 +52,17 @@
     }
 
     .selectedCell {
-      background-color: var(--tt-selection-color);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--tt-brand-color-200);
+        opacity: 0.18;
+        pointer-events: none;
+        border-radius: 2px;
+      }
     }
 
     .column-resize-handle {
@@ -101,10 +111,10 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  border: 1px dashed var(--tt-border-color, #d0d0d0);
-  border-radius: var(--tt-radius-xs, 4px);
-  background: transparent;
-  color: var(--tt-gray-light-a-400, #999);
+  border: 1px solid var(--tt-gray-light-a-100, #efeaff);
+  border-radius: 2px;
+  background: var(--tt-gray-light-a-100, #efeaff);
+  color: var(--tt-brand-color-400);
   font-size: 12px;
   cursor: pointer;
   z-index: 50;
@@ -112,29 +122,30 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: var(--tt-gray-light-a-50, #f0f0f0);
+    background: var(--tt-brand-color-50, #f0f0f0);
     color: var(--tt-brand-color-400);
     border-color: var(--tt-brand-color-400);
   }
 }
 
 .dark .table-extend-btn {
+  background: var(--tt-gray-dark-a-100, #efeaff);
   &:hover {
-    background: var(--tt-gray-dark-a-100);
+    
   }
 }
 
 .table-extend-btn--bottom {
   bottom: 4px;
   left: 0;
-  right: 28px;
+  right: 35px;
   height: 24px;
 }
 
 .table-extend-btn--right {
   top: 0;
   right: 4px;
-  bottom: 28px;
+  bottom: 36px;
   writing-mode: vertical-rl;
   width: 24px;
 }
@@ -143,7 +154,7 @@
      选区边框与手柄 (absolute → 相对于 tableWrapper)
      ===================== */
 .table-selection-border {
-  border: 2px dashed var(--tt-brand-color-400, #7a52ff);
+  border: 2px solid var(--tt-brand-color-400, #7a52ff);
   border-radius: 2px;
   pointer-events: none;
   z-index: 90;
@@ -160,7 +171,7 @@
   background: transparent;
   cursor: pointer;
   z-index: 91;
-  transform: translate(-10px, -10px);
+  transform: translate(-11px, -10px);
 }
 
 .table-selection-handle-dot {
@@ -170,8 +181,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 2px solid var(--tt-brand-color-400, #7a52ff);
-  background: var(--tt-brand-color-50, #efeaff);
+  background: var(--tt-brand-color-400, #7a52ff);
   transition: width 0.15s ease, height 0.15s ease, border-radius 0.15s ease;
   overflow: hidden;
 }
