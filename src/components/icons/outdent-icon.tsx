@@ -9,18 +9,11 @@ export const OutdentIcon = memo(({ className, ...props }: SvgProps) => {
       height="24"
       className={className}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M3 8h14" />
-      <path d="M3 12h10" />
-      <path d="M3 16h12" />
-      <path d="M7 4v16l-4-8 4-8Z" />
+      <path d="M3 4H21V6H3V4ZM3 19H21V21H3V19ZM11 14H21V16H11V14ZM11 9H21V11H11V9ZM3 12.5L7 9V16L3 12.5Z"></path>
     </svg>
   );
 });

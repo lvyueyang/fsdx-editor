@@ -9,22 +9,12 @@ export const TextColorIcon = memo(({ className, ...props }: SvgProps) => {
       height="24"
       className={className}
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path
-        d="M5.5 19L8.5 11H15.5L18.5 19H16.5L15.75 17H8.25L7.5 19H5.5ZM12 7.5L9.25 15H14.75L12 7.5Z"
-        fill="currentColor"
-      />
-      <rect
-        x="3"
-        y="20"
-        width="18"
-        height="2.5"
-        rx="1"
-        fill="var(--tt-color-text-blue)"
-      />
+      <path d="M15.2459 14H8.75407L7.15407 18H5L11 3H13L19 18H16.8459L15.2459 14ZM14.4459 12L12 5.88516L9.55407 12H14.4459Z"></path>
+      <path d="M3 20H21V22H3V20Z" fill="var(--tt-color-text-blue)"></path>
     </svg>
   );
 });

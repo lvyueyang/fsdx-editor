@@ -8,19 +8,11 @@ export const SortAscIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M11 5h4" />
-    <path d="M11 9h7" />
-    <path d="M11 13h10" />
-    <path d="m3 17 3 3 3-3" />
-    <path d="M6 18V4" />
+    <path d="M19 3L23 8H20V20H18V8H15L19 3ZM14 18V20H3V18H14ZM14 11V13H3V11H14ZM12 4V6H3V4H12Z"></path>
   </svg>
 ));
 SortAscIcon.displayName = 'SortAscIcon';
@@ -31,19 +23,11 @@ export const SortDescIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M11 5h10" />
-    <path d="M11 9h7" />
-    <path d="M11 13h4" />
-    <path d="m3 17 3 3 3-3" />
-    <path d="M6 18V4" />
+    <path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path>
   </svg>
 ));
 SortDescIcon.displayName = 'SortDescIcon';

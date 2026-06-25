@@ -1,20 +1,21 @@
-import type { SVGProps } from 'react';
+import { memo } from 'react';
 
-export function ParagraphIcon(props: SVGProps<SVGSVGElement>) {
+type SvgProps = React.ComponentPropsWithoutRef<'svg'>;
+
+export const ParagraphIcon = memo(({ className, ...props }: SvgProps) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
+      className={className}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M10 3h4M10 21V3M8 21h8M3 21h18" />
+      <path d="M12 6V21H10V16C6.68629 16 4 13.3137 4 10C4 6.68629 6.68629 4 10 4H20V6H17V21H15V6H12ZM10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14V6Z"></path>
     </svg>
   );
-}
+});
+
+ParagraphIcon.displayName = 'ParagraphIcon';

@@ -8,16 +8,11 @@ export const ArrowUpIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <line x1="12" y1="19" x2="12" y2="5" />
-    <polyline points="5 12 12 5 19 12" />
+    <path d="M13.0001 7.82843V20H11.0001V7.82843L5.63614 13.1924L4.22192 11.7782L12.0001 4L19.7783 11.7782L18.3641 13.1924L13.0001 7.82843Z"></path>
   </svg>
 ));
 ArrowUpIcon.displayName = 'ArrowUpIcon';
@@ -28,16 +23,11 @@ export const ArrowDownIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <line x1="12" y1="5" x2="12" y2="19" />
-    <polyline points="19 12 12 19 5 12" />
+    <path d="M13.0001 16.1716L18.3641 10.8076L19.7783 12.2218L12.0001 20L4.22192 12.2218L5.63614 10.8076L11.0001 16.1716V4H13.0001V16.1716Z"></path>
   </svg>
 ));
 ArrowDownIcon.displayName = 'ArrowDownIcon';
@@ -48,16 +38,11 @@ export const ArrowRightIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
+    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
   </svg>
 ));
 ArrowRightIcon.displayName = 'ArrowRightIcon';

@@ -8,18 +8,11 @@ export const MergeCellsIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <rect x="3" y="3" width="18" height="18" rx="2" />
-    <line x1="12" y1="3" x2="12" y2="9" />
-    <line x1="12" y1="15" x2="12" y2="21" />
-    <line x1="12" y1="9" x2="12" y2="15" strokeDasharray="2 2" />
+    <path d="M20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20ZM11 5H5V10.999H7V9L10 12L7 15V13H5V19H11V17H13V19H19V13H17V15L14 12L17 9V10.999H19V5H13V7H11V5ZM13 13V15H11V13H13ZM13 9V11H11V9H13Z"></path>
   </svg>
 ));
 MergeCellsIcon.displayName = 'MergeCellsIcon';
@@ -30,17 +23,11 @@ export const SplitCellsIcon = memo(({ className, ...props }: SvgProps) => (
     height="24"
     className={className}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <rect x="3" y="3" width="18" height="18" rx="2" />
-    <line x1="12" y1="3" x2="12" y2="21" strokeDasharray="2 2" />
-    <line x1="12" y1="12" x2="12" y2="12" />
+    <path d="M20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20ZM11 5H5V19H11V15H13V19H19V5H13V9H11V5ZM15 9L18 12L15 15V13H9V15L6 12L9 9V11H15V9Z"></path>
   </svg>
 ));
 SplitCellsIcon.displayName = 'SplitCellsIcon';
