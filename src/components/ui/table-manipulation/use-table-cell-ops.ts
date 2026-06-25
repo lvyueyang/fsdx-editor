@@ -1,8 +1,9 @@
-import '@tiptap/extension-table';
 import type { Node as PMNode } from '@tiptap/pm/model';
+import { CellSelection } from '@tiptap/pm/tables';
 import type { Editor } from '@tiptap/react';
 import { useCallback } from 'react';
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
+import { CopyIcon } from '../../icons/copy-icon';
 import { EraserIcon } from '../../icons/eraser-icon';
 import { FitToWidthIcon } from '../../icons/fit-to-width-icon';
 import { MergeCellsIcon, SplitCellsIcon } from '../../icons/merge-cells-icon';
@@ -233,5 +234,125 @@ export function useTableFitToWidth(config: UseTableFitToWidthConfig) {
     handleAction,
     label: '自适应列宽',
     Icon: FitToWidthIcon,
+  };
+}
+
+// ─── 复制选中单元格内容到剪贴板 ───
+
+export interface UseCopySelectedCellsConfig {
+  editor?: Editor | null;
+  hideWhenUnavailable?: boolean;
+  onCopied?: () => void;
+}
+
+export function useCopySelectedCells(config: UseCopySelectedCellsConfig) {
+  const {
+    editor: providedEditor,
+    hideWhenUnavailable = false,
+    onCopied,
+  } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+  const isVisible = useTableActionVisibility(
+    editor,
+    canDoInTable,
+    hideWhenUnavailable,
+  );
+
+  const handleAction = useCallback(() => {
+    if (!editor) return false;
+    const { selection } = editor.state;
+
+    if (selection instanceof CellSelection) {
+      const rows: string[][] = [];
+      let currentRow: number | null = null;
+      selection.forEachCell((_node, pos) => {
+        const $pos = editor.state.doc.resolve(pos);
+        const rowIdx = $pos.index(findRowDepth($pos) - 1);
+        if (currentRow !== rowIdx) {
+          currentRow = rowIdx;
+          rows.push([]);
+        }
+        rows[rows.length - 1].push(_node.textContent);
+      });
+      const text = rows.map((r) => r.join('\t')).join('\n');
+      navigator.clipboard.writeText(text).catch(() => {});
+    } else {
+      const dom = editor.view.nodeDOM(selection.$anchor.pos);
+      if (dom instanceof HTMLElement) {
+        navigator.clipboard.writeText(dom.textContent ?? '').catch(() => {});
+      }
+    }
+    onCopied?.();
+    return true;
+  }, [editor, onCopied]);
+
+  return {
+    isVisible,
+    canDo: canDoInTable(editor),
+    handleAction,
+    label: '复制',
+    Icon: CopyIcon,
+  };
+}
+
+// ─── 清除选中单元格内容 ───
+
+export interface UseClearSelectedCellsConfig {
+  editor?: Editor | null;
+  hideWhenUnavailable?: boolean;
+  onCleared?: () => void;
+}
+
+export function useClearSelectedCells(config: UseClearSelectedCellsConfig) {
+  const {
+    editor: providedEditor,
+    hideWhenUnavailable = false,
+    onCleared,
+  } = config;
+  const { editor } = useTiptapEditor(providedEditor);
+  const isVisible = useTableActionVisibility(
+    editor,
+    canDoInTable,
+    hideWhenUnavailable,
+  );
+
+  const handleAction = useCallback(() => {
+    if (!editor) return false;
+    const success = editor
+      .chain()
+      .focus()
+      .command(({ tr }) => {
+        const { selection } = tr;
+        if (selection instanceof CellSelection) {
+          const cells: { pos: number; nodeSize: number }[] = [];
+          selection.forEachCell((_node, pos) => {
+            cells.push({ pos, nodeSize: _node.nodeSize });
+          });
+          for (let i = cells.length - 1; i >= 0; i--) {
+            const { pos, nodeSize } = cells[i];
+            if (nodeSize > 0) {
+              tr.delete(pos + 1, pos + nodeSize - 1);
+            }
+          }
+        } else {
+          const pos = selection.$anchor.pos;
+          const node = tr.doc.nodeAt(pos);
+          if (node && node.content.size > 0) {
+            tr.delete(pos + 1, pos + node.nodeSize - 1);
+          }
+        }
+        return true;
+      })
+      .run();
+    if (success) onCleared?.();
+    return success;
+  }, [editor, onCleared]);
+
+  return {
+    isVisible,
+    canDo: canDoInTable(editor),
+    handleAction,
+    label: '清除内容',
+    Icon: EraserIcon,
   };
 }

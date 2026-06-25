@@ -1,9 +1,15 @@
 import '@tiptap/extension-table';
 import type { Node as PMNode } from '@tiptap/pm/model';
 import type { Editor } from '@tiptap/react';
+import type { ComponentType } from 'react';
 import { useCallback } from 'react';
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
-import { ArrowDownIcon, ArrowUpIcon } from '../../icons/arrow-direction-icon';
+import {
+  ArrowDownIcon,
+  ArrowRightIcon,
+  ArrowUpIcon,
+} from '../../icons/arrow-direction-icon';
+import { ArrowLeftIcon } from '../../icons/arrow-left-icon';
 import { CopyIcon } from '../../icons/copy-icon';
 import { PlusIcon } from '../../icons/plus-icon';
 import { SortAscIcon, SortDescIcon } from '../../icons/sort-icon';
@@ -129,9 +135,9 @@ const MOVE_ROW_ICONS: Record<string, typeof ArrowUpIcon> = {
   up: ArrowUpIcon,
   down: ArrowDownIcon,
 };
-const MOVE_COL_ICONS: Record<string, typeof ArrowUpIcon> = {
-  left: ArrowUpIcon,
-  right: ArrowDownIcon,
+const MOVE_COL_ICONS: Record<string, ComponentType<{ className?: string }>> = {
+  left: ArrowLeftIcon,
+  right: ArrowRightIcon,
 };
 
 export function useTableMoveRowColumn(config: UseTableMoveRowColumnConfig) {

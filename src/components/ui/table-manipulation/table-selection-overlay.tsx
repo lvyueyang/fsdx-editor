@@ -7,12 +7,17 @@ import { MoreIcon } from '../../icons/more-icon';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../../primitives/dropdown-menu';
-import { useTableMenuItems } from './table-selection-menu';
+import { isSubMenu, useTableMenuItems } from './table-selection-menu';
 
 import './table-selection-overlay.scss';
 
@@ -272,21 +277,49 @@ function OverlayContent({
           <DropdownMenuLabel>表格操作</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {menuItems.map((group, gi) => (
-            <div key={gi}>
+            <DropdownMenuGroup key={gi}>
               {gi > 0 && <DropdownMenuSeparator />}
-              {group.map((item) => (
-                <DropdownMenuItem
-                  key={item.label}
-                  onClick={() => {
-                    item.onClick();
-                    onMenuOpenChange(false);
-                  }}
-                >
-                  <item.icon className="table-menu-item-icon" />
-                  {item.label}
-                </DropdownMenuItem>
-              ))}
-            </div>
+              {group.map((item) =>
+                isSubMenu(item) ? (
+                  <DropdownMenuSub key={item.label}>
+                    <DropdownMenuSubTrigger>
+                      <item.icon className="table-menu-item-icon" />
+                      {item.label}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent>
+                        {item.items.map((subItem) => (
+                          <DropdownMenuItem
+                            key={subItem.label}
+                            onClick={() => {
+                              subItem.onClick();
+                              onMenuOpenChange(false);
+                            }}
+                            disabled={subItem.disabled}
+                          >
+                            <subItem.icon className="table-menu-item-icon" />
+                            {subItem.label}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                ) : (
+                  <DropdownMenuItem
+                    key={item.label}
+                    onClick={() => {
+                      item.onClick();
+                      onMenuOpenChange(false);
+                    }}
+                    disabled={item.disabled}
+                    variant={item.variant}
+                  >
+                    <item.icon className="table-menu-item-icon" />
+                    {item.label}
+                  </DropdownMenuItem>
+                ),
+              )}
+            </DropdownMenuGroup>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>

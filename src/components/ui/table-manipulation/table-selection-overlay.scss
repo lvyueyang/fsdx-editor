@@ -1,7 +1,8 @@
 /* =========== 表格操作菜单 =========== */
 
 [data-slot="tiptap-dropdown-menu-content"].table-selection-menu {
-  min-width: 180px;
+  min-width: 200px;
+  padding: 0.5rem;
 }
 
 .table-menu-item-icon {
@@ -10,4 +11,50 @@
   margin-right: 8px;
   flex-shrink: 0;
   opacity: 0.7;
+}
+
+.table-selection-menu .tiptap-dropdown-menu-label {
+  padding: 0.375rem 0.5rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tt-gray-light-a-500);
+}
+
+.dark .table-selection-menu .tiptap-dropdown-menu-label {
+  color: var(--tt-gray-dark-a-500);
+}
+
+.table-selection-menu .tiptap-dropdown-menu-item {
+  padding: 0.375rem 0.5rem;
+}
+
+.table-selection-menu .tiptap-dropdown-menu-separator {
+  margin: 0.375rem 0.5rem;
+}
+
+/* --- Sub Trigger --- */
+
+.table-selection-menu .tiptap-dropdown-menu-sub-trigger {
+  padding: 0.375rem 0.5rem;
+  border-radius: var(--tt-radius-sm);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+
+  &[data-highlighted],
+  &[data-state='open'] {
+    background-color: var(--tt-gray-light-a-100);
+  }
+
+  .tiptap-dropdown-menu-sub-trigger-chevron {
+    margin-left: auto;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+}
+
+.dark .table-selection-menu .tiptap-dropdown-menu-sub-trigger {
+  &[data-highlighted],
+  &[data-state='open'] {
+    background-color: var(--tt-gray-dark-a-100);
+  }
 }
