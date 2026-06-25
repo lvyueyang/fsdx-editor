@@ -51,6 +51,7 @@ import { ColorTextDropdownMenu } from '../components/ui/color-text-dropdown-menu
 import { EmojiButton, EmojiPopoverButton } from '../components/ui/emoji-button';
 import { EmojiPopoverContent } from '../components/ui/emoji-button/emoji-popover-content';
 import { FontSizeButton } from '../components/ui/font-size-button';
+import { HorizontalRuleButton } from '../components/ui/horizontal-rule-button';
 import { ImageUploadPopoverButton } from '../components/ui/image-upload-button/image-upload-popover-button';
 import { IndentToggle } from '../components/ui/indent-button';
 import { LineHeightButton } from '../components/ui/line-height-button';
@@ -117,6 +118,7 @@ const MainToolbarContent = ({
         <IndentToggle />
         <BlockquoteButton />
         <CodeBlockButton />
+        <HorizontalRuleButton />
         <TableButton />
       </ToolbarGroup>
 

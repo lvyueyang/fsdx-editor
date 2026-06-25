@@ -1,0 +1,97 @@
+import { forwardRef, useCallback } from 'react';
+import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
+import { parseShortcutKeys } from '../../../lib/tiptap-utils';
+import { Badge } from '../../primitives/badge';
+import type { ButtonProps } from '../../primitives/button';
+import { Button } from '../../primitives/button';
+import type { UseHorizontalRuleConfig } from './';
+import { HORIZONTAL_RULE_SHORTCUT_KEY, useHorizontalRule } from './';
+
+export interface HorizontalRuleButtonProps
+  extends Omit<ButtonProps, 'type'>,
+    UseHorizontalRuleConfig {
+  text?: string;
+  showShortcut?: boolean;
+}
+
+export function HorizontalRuleShortcutBadge({
+  shortcutKeys = HORIZONTAL_RULE_SHORTCUT_KEY,
+}: {
+  shortcutKeys?: string;
+}) {
+  return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
+}
+
+/**
+ * 水平分割线插入按钮，点击后在光标处插入分割线
+ *
+ * 如需自定义按钮实现，请使用 `useHorizontalRule` hook。
+ */
+export const HorizontalRuleButton = forwardRef<
+  HTMLButtonElement,
+  HorizontalRuleButtonProps
+>(
+  (
+    {
+      editor: providedEditor,
+      text,
+      hideWhenUnavailable = false,
+      onInserted,
+      showShortcut = false,
+      onClick,
+      children,
+      ...buttonProps
+    },
+    ref,
+  ) => {
+    const { editor } = useTiptapEditor(providedEditor);
+    const { isVisible, canInsert, handleInsert, label, shortcutKeys, Icon } =
+      useHorizontalRule({
+        editor,
+        hideWhenUnavailable,
+        onInserted,
+      });
+
+    const handleClick = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        handleInsert();
+      },
+      [handleInsert, onClick],
+    );
+
+    if (!isVisible) {
+      return null;
+    }
+
+    return (
+      <Button
+        type="button"
+        variant="ghost"
+        data-active-state="off"
+        role="button"
+        tabIndex={-1}
+        disabled={!canInsert}
+        data-disabled={!canInsert}
+        aria-label={label}
+        tooltip={label}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="tiptap-button-icon" />
+            {text && <span className="tiptap-button-text">{text}</span>}
+            {showShortcut && (
+              <HorizontalRuleShortcutBadge shortcutKeys={shortcutKeys} />
+            )}
+          </>
+        )}
+      </Button>
+    );
+  },
+);
+
+HorizontalRuleButton.displayName = 'HorizontalRuleButton';
