@@ -252,6 +252,33 @@
   --tt-color-text-red-contrast: hsla(0, 67%, 60%, 0.25);
 }
 
+/* 灰色简写（自动跟随主题） */
+:root {
+  --tt-gray-50: var(--tt-gray-light-50);
+  --tt-gray-100: var(--tt-gray-light-100);
+  --tt-gray-200: var(--tt-gray-light-200);
+  --tt-gray-300: var(--tt-gray-light-300);
+  --tt-gray-400: var(--tt-gray-light-400);
+  --tt-gray-500: var(--tt-gray-light-500);
+  --tt-gray-600: var(--tt-gray-light-600);
+  --tt-gray-700: var(--tt-gray-light-700);
+  --tt-gray-800: var(--tt-gray-light-800);
+  --tt-gray-900: var(--tt-gray-light-900);
+}
+
+.dark {
+  --tt-gray-50: var(--tt-gray-dark-50);
+  --tt-gray-100: var(--tt-gray-dark-100);
+  --tt-gray-200: var(--tt-gray-dark-200);
+  --tt-gray-300: var(--tt-gray-dark-300);
+  --tt-gray-400: var(--tt-gray-dark-400);
+  --tt-gray-500: var(--tt-gray-dark-500);
+  --tt-gray-600: var(--tt-gray-dark-600);
+  --tt-gray-700: var(--tt-gray-dark-700);
+  --tt-gray-800: var(--tt-gray-dark-800);
+  --tt-gray-900: var(--tt-gray-dark-900);
+}
+
 /* 高亮颜色 */
 :root {
   --tt-color-highlight-yellow: #fef9c3;

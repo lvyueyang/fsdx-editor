@@ -1,6 +1,5 @@
 import type { Content } from '@tiptap/core';
 import { Highlight } from '@tiptap/extension-highlight';
-import { Image } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
@@ -11,16 +10,13 @@ import { Color } from '@tiptap/extension-text-style/color';
 import { Typography } from '@tiptap/extension-typography';
 import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
-// --- Tiptap 核心扩展 ---
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
 import { NodeBackground } from '../components/extensions/node-background-extension';
 import { HorizontalRule } from '../components/nodes/horizontal-rule-node/horizontal-rule-node-extension';
 import { ImageUploadNode } from '../components/nodes/image-upload-node/image-upload-node-extension';
-// --- Tiptap 节点 ---
 import { Indent } from '../components/nodes/indent-node/indent-extension';
 import { CustomTableView } from '../components/nodes/table-node/custom-table-view';
-// --- UI 基础组件 ---
 import { Button } from '../components/primitives/button';
 import { Spacer } from '../components/primitives/spacer';
 import {
@@ -37,21 +33,25 @@ import '../components/nodes/image-node/image-node.scss';
 import '../components/nodes/heading-node/heading-node.scss';
 import '../components/nodes/paragraph-node/paragraph-node.scss';
 import '../components/nodes/table-node/table-node.scss';
-
-// --- 图标 ---
+import { CustomImage } from '../components/extensions/image-extension';
 import { ArrowLeftIcon } from '../components/icons/arrow-left-icon';
 import { LinkIcon } from '../components/icons/link-icon';
 import { SmileIcon } from '../components/icons/smile-icon';
+import { MediaAttributeEditor } from '../components/media/media-attribute-editor';
+import { AttachmentNode } from '../components/nodes/attachment-node';
+import { AudioNode } from '../components/nodes/audio-node';
+import { VideoNode } from '../components/nodes/video-node';
+import { AttachmentUploadButton } from '../components/ui/attachment-upload-button';
+import { AudioUploadButton } from '../components/ui/audio-upload-button';
 import { BlockquoteButton } from '../components/ui/blockquote-button';
 import { ClearFormattingButton } from '../components/ui/clear-formatting-button';
 import { CodeBlockButton } from '../components/ui/code-block-button';
 import { ColorHighlightDropdownMenu } from '../components/ui/color-highlight-dropdown-menu';
 import { ColorTextDropdownMenu } from '../components/ui/color-text-dropdown-menu';
-// --- Tiptap UI ---
 import { EmojiButton, EmojiPopoverButton } from '../components/ui/emoji-button';
 import { EmojiPopoverContent } from '../components/ui/emoji-button/emoji-popover-content';
 import { FontSizeButton } from '../components/ui/font-size-button';
-import { ImageUploadButton } from '../components/ui/image-upload-button';
+import { ImageUploadPopoverButton } from '../components/ui/image-upload-button/image-upload-popover-button';
 import { IndentToggle } from '../components/ui/indent-button';
 import { LineHeightButton } from '../components/ui/line-height-button';
 import {
@@ -69,21 +69,20 @@ import {
 import { TextAlignButton } from '../components/ui/text-align-button';
 import { TextStyleDropdownMenu } from '../components/ui/text-style-dropdown-menu';
 import { UndoRedoButton } from '../components/ui/undo-redo-button';
+import { VideoUploadButton } from '../components/ui/video-upload-button';
 import { useCursorVisibility } from '../hooks/use-cursor-visibility';
-// --- 自定义 Hooks ---
 import { useIsBreakpoint } from '../hooks/use-is-breakpoint';
 import { useWindowSize } from '../hooks/use-window-size';
-// --- 工具库 ---
+import { EditorOptionsContext } from '../lib/editor-context';
 import { handleImageUpload, MAX_FILE_SIZE } from '../lib/tiptap-utils';
-// --- 组件 ---
+import type { EditorOptions } from '../types';
 import { ThemeToggle } from './theme-toggle';
-
-// --- 样式 ---
 import './editor.scss';
 
 export interface EditorProps {
   value?: Content;
   onChange?: (html: string) => void;
+  options?: EditorOptions;
 }
 
 const MainToolbarContent = ({
@@ -158,7 +157,10 @@ const MainToolbarContent = ({
         ) : (
           <EmojiPopoverButton onClick={onEmojiClick} aria-label="插入表情" />
         )}
-        <ImageUploadButton text="添加" />
+        <ImageUploadPopoverButton />
+        <VideoUploadButton />
+        <AudioUploadButton />
+        <AttachmentUploadButton />
       </ToolbarGroup>
 
       <Spacer />
@@ -197,7 +199,7 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function Editor({ value, onChange }: EditorProps) {
+export function Editor({ value, onChange, options }: EditorProps) {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<'main' | 'link' | 'emoji'>(
@@ -239,7 +241,7 @@ export function Editor({ value, onChange }: EditorProps) {
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
-      Image,
+      CustomImage,
       Typography,
       Superscript,
       Subscript,
@@ -251,6 +253,9 @@ export function Editor({ value, onChange }: EditorProps) {
       NodeBackground,
       TableCellStyle,
       Indent,
+      VideoNode,
+      AudioNode,
+      AttachmentNode,
       ImageUploadNode.configure({
         accept: 'image/*',
         maxSize: MAX_FILE_SIZE,
@@ -293,36 +298,39 @@ export function Editor({ value, onChange }: EditorProps) {
   return (
     <div className="editor-wrapper">
       <EditorContext.Provider value={{ editor }}>
-        <Toolbar
-          ref={toolbarRef}
-          style={{
-            ...(isMobile
-              ? {
-                  bottom: `calc(100% - ${height - rect.y}px)`,
-                }
-              : {}),
-          }}
-        >
-          {mobileView === 'main' ? (
-            <MainToolbarContent
-              onLinkClick={() => setMobileView('link')}
-              onEmojiClick={() => setMobileView('emoji')}
-              isMobile={isMobile}
-            />
-          ) : (
-            <MobileToolbarContent
-              type={mobileView}
-              onBack={() => setMobileView('main')}
-            />
-          )}
-        </Toolbar>
+        <EditorOptionsContext.Provider value={options}>
+          <Toolbar
+            ref={toolbarRef}
+            style={{
+              ...(isMobile
+                ? {
+                    bottom: `calc(100% - ${height - rect.y}px)`,
+                  }
+                : {}),
+            }}
+          >
+            {mobileView === 'main' ? (
+              <MainToolbarContent
+                onLinkClick={() => setMobileView('link')}
+                onEmojiClick={() => setMobileView('emoji')}
+                isMobile={isMobile}
+              />
+            ) : (
+              <MobileToolbarContent
+                type={mobileView}
+                onBack={() => setMobileView('main')}
+              />
+            )}
+          </Toolbar>
 
-        <div ref={contentRef} className="editor-content">
-          <EditorContent editor={editor} role="presentation" />
-        </div>
+          <div ref={contentRef} className="editor-content">
+            {editor && <MediaAttributeEditor editor={editor} />}
+            <EditorContent editor={editor} role="presentation" />
+          </div>
 
-        <TableSelectionOverlay />
-        <TableExtendButtons />
+          <TableSelectionOverlay />
+          <TableExtendButtons />
+        </EditorOptionsContext.Provider>
       </EditorContext.Provider>
     </div>
   );

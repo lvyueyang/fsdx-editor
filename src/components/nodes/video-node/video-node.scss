@@ -1,0 +1,30 @@
+.tiptap-video-node {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+
+  &--align-left { justify-content: flex-start; }
+  &--align-center { justify-content: center; }
+  &--align-right { justify-content: flex-end; }
+
+  &.ProseMirror-selectednode {
+    outline: 2px solid var(--tt-brand-color-500);
+    outline-offset: 2px;
+    border-radius: var(--tt-radius-sm, 0.375rem);
+  }
+}
+
+.tiptap-video-element {
+  max-width: 100%;
+  border-radius: var(--tt-radius-sm, 0.375rem);
+}
+
+.tiptap-video-placeholder {
+  width: 100%;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--tt-gray-400);
+  border: 2px dashed var(--tt-gray-300);
+  border-radius: var(--tt-radius-md, 0.5rem);
+  font-size: 14px;
+}

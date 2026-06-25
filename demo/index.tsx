@@ -1,6 +1,72 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Editor } from '../src/editor/editor';
+import type { EditorOptions } from '../src/types';
+
+function readFileAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function simulateUpload(file: File, onProgress?: (progress: number) => void) {
+  return new Promise<{ id: string; url: string; name: string; size: number }>(
+    (resolve) => {
+      const id = crypto.randomUUID();
+      let progress = 0;
+      const timer = setInterval(() => {
+        progress += Math.random() * 30;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(timer);
+          readFileAsDataURL(file).then((dataUrl) => {
+            resolve({ id, url: dataUrl, name: file.name, size: file.size });
+          });
+        }
+        onProgress?.(Math.min(progress, 100));
+      }, 200);
+    },
+  );
+}
+
+const MOCK_MEDIA_LIST = Array.from({ length: 30 }, (_, i) => ({
+  id: `${i + 1}`,
+  url: `https://picsum.photos/seed/${i + 1}/400/300`,
+  name: `示例文件 ${i + 1}`,
+  size: Math.round(Math.random() * 5 * 1024 * 1024),
+  thumbnailUrl: `https://picsum.photos/seed/${i + 1}/200/150`,
+}));
+
+function simulateGetList(params: {
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}) {
+  return new Promise<{ items: typeof MOCK_MEDIA_LIST; total: number }>(
+    (resolve) => {
+      setTimeout(() => {
+        const filtered = params.keyword
+          ? MOCK_MEDIA_LIST.filter((item) =>
+              item.name.includes(params.keyword!),
+            )
+          : MOCK_MEDIA_LIST;
+        const start = (params.page - 1) * params.pageSize;
+        const items = filtered.slice(start, start + params.pageSize);
+        resolve({ items, total: filtered.length });
+      }, 300);
+    },
+  );
+}
+
+const demoOptions: EditorOptions = {
+  image: { upload: simulateUpload, getList: simulateGetList },
+  video: { upload: simulateUpload, getList: simulateGetList },
+  audio: { upload: simulateUpload, getList: simulateGetList },
+  attachment: { upload: simulateUpload, getList: simulateGetList },
+};
 
 const initialContent = `<h1>编辑器功能演示</h1>
 <p>这是一份覆盖所有编辑工具的演示文档。你可以<strong>直接编辑</strong>或使用工具栏按钮来体验各项功能。</p>
@@ -92,12 +158,12 @@ function Demo() {
   return (
     <div
       style={{
-        width: '70vw',
-        height: '70vh',
-        border: '1px solid #ccc',
+        width: '100vw',
+        height: '100vh',
+        // border: '1px solid #ccc',
       }}
     >
-      <Editor value={html} onChange={setHtml} />
+      <Editor value={html} onChange={setHtml} options={demoOptions} />
     </div>
   );
 }

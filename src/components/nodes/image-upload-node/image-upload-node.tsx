@@ -1,9 +1,12 @@
 import type { NodeViewProps } from '@tiptap/react';
 import { NodeViewWrapper } from '@tiptap/react';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { CloseIcon } from '../../icons/close-icon';
+import { MediaDragArea } from '../../media/media-drag-area';
 import { Button } from '../../primitives/button';
 import './image-upload-node.scss';
+import { useEditorOptions } from '../../../lib/editor-context';
+import { formatFileSize } from '../../../lib/format-file-size';
 import { focusNextNode, isValidPosition } from '../../../lib/tiptap-utils';
 
 export interface FileItem {
@@ -265,76 +268,6 @@ const FileCornerIcon: React.FC = () => (
   </svg>
 );
 
-interface ImageUploadDragAreaProps {
-  /**
-   * Callback function triggered when files are dropped or selected
-   * @param {File[]} files - Array of File objects that were dropped or selected
-   */
-  onFile: (files: File[]) => void;
-  /**
-   * Optional child elements to render inside the drag area
-   * @optional
-   * @default undefined
-   */
-  children?: React.ReactNode;
-}
-
-/**
- * A component that creates a drag-and-drop area for image uploads
- */
-const ImageUploadDragArea: React.FC<ImageUploadDragAreaProps> = ({
-  onFile,
-  children,
-}) => {
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [isDragActive, setIsDragActive] = useState(false);
-
-  const handleDragEnter = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragActive(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-      setIsDragActive(false);
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragActive(false);
-    setIsDragOver(false);
-
-    const files = Array.from(e.dataTransfer.files);
-    if (files.length > 0) {
-      onFile(files);
-    }
-  };
-
-  return (
-    <div
-      className={`tiptap-image-upload-drag-area ${isDragActive ? 'drag-active' : ''} ${isDragOver ? 'drag-over' : ''}`}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-    >
-      {children}
-    </div>
-  );
-};
-
 interface ImageUploadPreviewProps {
   /**
    * The file item to preview
@@ -353,14 +286,6 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
   fileItem,
   onRemove,
 }) => {
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
-  };
-
   return (
     <div className="tiptap-image-upload-preview">
       {fileItem.status === 'uploading' && (
@@ -434,12 +359,36 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
   const { accept, limit, maxSize } = props.node.attrs;
   const inputRef = useRef<HTMLInputElement>(null);
   const extension = props.extension;
+  const editorOptions = useEditorOptions();
+
+  const contextUpload = editorOptions?.image?.upload;
+
+  const uploadFn = useCallback(
+    (
+      file: File,
+      onProgress: (event: { progress: number }) => void,
+      signal: AbortSignal,
+    ): Promise<string> => {
+      if (contextUpload) {
+        return contextUpload(file, (progress) => {
+          if (!signal.aborted) {
+            onProgress({ progress });
+          }
+        }).then((result) => {
+          if (signal.aborted) throw new Error('Upload cancelled');
+          return result.url;
+        });
+      }
+      return extension.options.upload(file, onProgress, signal);
+    },
+    [contextUpload, extension.options.upload],
+  );
 
   const uploadOptions: UploadOptions = {
     maxSize,
     limit,
     accept,
-    upload: extension.options.upload,
+    upload: uploadFn,
     onSuccess: extension.options.onSuccess,
     onError: extension.options.onError,
   };
@@ -505,9 +454,9 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
       onClick={handleClick}
     >
       {!hasFiles && (
-        <ImageUploadDragArea onFile={handleUpload}>
+        <MediaDragArea onFile={handleUpload}>
           <DropZoneContent maxSize={maxSize} limit={limit} />
-        </ImageUploadDragArea>
+        </MediaDragArea>
       )}
 
       {hasFiles && (
