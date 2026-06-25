@@ -1,3 +1,4 @@
+import type { Content } from '@tiptap/core';
 import { Highlight } from '@tiptap/extension-highlight';
 import { Image } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
@@ -78,7 +79,10 @@ import { ThemeToggle } from './theme-toggle';
 // --- 样式 ---
 import './editor.scss';
 
-import content from './data/content.json';
+export interface EditorProps {
+  value?: Content;
+  onChange?: (html: string) => void;
+}
 
 const MainToolbarContent = ({
   onLinkClick,
@@ -191,13 +195,14 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function Editor() {
+export function Editor({ value, onChange }: EditorProps) {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<'main' | 'link' | 'emoji'>(
     'main',
   );
   const toolbarRef = useRef<HTMLDivElement>(null);
+  const isInternalChange = useRef(false);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -247,8 +252,24 @@ export function Editor() {
         onError: (error) => console.error('Upload failed:', error),
       }),
     ],
-    content,
+    content: value,
+    onUpdate: ({ editor: currentEditor }) => {
+      isInternalChange.current = true;
+      onChange?.(currentEditor.getHTML());
+    },
   });
+
+  useEffect(() => {
+    if (!editor || editor.isDestroyed) return;
+    if (isInternalChange.current) {
+      isInternalChange.current = false;
+      return;
+    }
+    const currentHTML = editor.getHTML();
+    if (value !== undefined && value !== currentHTML) {
+      editor.commands.setContent(value, { emitUpdate: false });
+    }
+  }, [editor, value]);
 
   const rect = useCursorVisibility({
     editor,
