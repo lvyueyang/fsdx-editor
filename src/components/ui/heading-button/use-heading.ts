@@ -304,22 +304,24 @@ export function useHeading(config: UseHeadingConfig) {
 
   const { editor } = useTiptapEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const canToggleState = canToggle(editor, level);
-  const isActive = isHeadingActive(editor, level);
+  const [canToggleState, setCanToggleState] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
 
     const handleSelectionUpdate = () => {
       setIsVisible(shouldShowButton({ editor, level, hideWhenUnavailable }));
+      setCanToggleState(canToggle(editor, level));
+      setIsActive(isHeadingActive(editor, level));
     };
 
     handleSelectionUpdate();
 
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    editor.on('transaction', handleSelectionUpdate);
 
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('transaction', handleSelectionUpdate);
     };
   }, [editor, level, hideWhenUnavailable]);
 

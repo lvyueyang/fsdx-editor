@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/react';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTiptapEditor } from '../../../hooks/use-tiptap-editor';
 import { isNodeTypeSelected } from '../../../lib/tiptap-utils';
 
@@ -47,9 +47,25 @@ export function useTextColor(config: UseTextColorConfig = {}) {
   const { editor: providedEditor } = config;
   const { editor } = useTiptapEditor(providedEditor);
 
-  const canColor = useMemo(() => canSetTextColor(editor), [editor]);
+  const [canColor, setCanColor] = useState(false);
+  const [currentColor, setCurrentColor] = useState<string | null>(null);
 
-  const currentColor = useMemo(() => getCurrentTextColor(editor), [editor]);
+  useEffect(() => {
+    if (!editor) return;
+
+    const handleUpdate = () => {
+      setCanColor(canSetTextColor(editor));
+      setCurrentColor(getCurrentTextColor(editor));
+    };
+
+    handleUpdate();
+
+    editor.on('transaction', handleUpdate);
+
+    return () => {
+      editor.off('transaction', handleUpdate);
+    };
+  }, [editor]);
 
   const isActive = useCallback(
     (color: string) => isTextColorActive(editor, color),

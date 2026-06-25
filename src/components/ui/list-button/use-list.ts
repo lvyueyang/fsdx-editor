@@ -308,22 +308,24 @@ export function useList(config: UseListConfig) {
 
   const { editor } = useTiptapEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const canToggle = canToggleList(editor, type);
-  const isActive = isListActive(editor, type);
+  const [canToggle, setCanToggle] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
 
     const handleSelectionUpdate = () => {
       setIsVisible(shouldShowButton({ editor, type, hideWhenUnavailable }));
+      setCanToggle(canToggleList(editor, type));
+      setIsActive(isListActive(editor, type));
     };
 
     handleSelectionUpdate();
 
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    editor.on('transaction', handleSelectionUpdate);
 
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('transaction', handleSelectionUpdate);
     };
   }, [editor, type, hideWhenUnavailable]);
 

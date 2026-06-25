@@ -187,22 +187,24 @@ export function useTextAlign(config: UseTextAlignConfig) {
 
   const { editor } = useTiptapEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const canAlign = canSetTextAlign(editor, align);
-  const isActive = isTextAlignActive(editor, align);
+  const [canAlign, setCanAlign] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
 
     const handleSelectionUpdate = () => {
       setIsVisible(shouldShowButton({ editor, align, hideWhenUnavailable }));
+      setCanAlign(canSetTextAlign(editor, align));
+      setIsActive(isTextAlignActive(editor, align));
     };
 
     handleSelectionUpdate();
 
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    editor.on('transaction', handleSelectionUpdate);
 
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('transaction', handleSelectionUpdate);
     };
   }, [editor, hideWhenUnavailable, align]);
 

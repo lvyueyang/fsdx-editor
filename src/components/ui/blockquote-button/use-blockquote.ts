@@ -227,22 +227,24 @@ export function useBlockquote(config?: UseBlockquoteConfig) {
 
   const { editor } = useTiptapEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const canToggle = canToggleBlockquote(editor);
-  const isActive = editor?.isActive('blockquote') || false;
+  const [canToggle, setCanToggle] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
 
     const handleSelectionUpdate = () => {
       setIsVisible(shouldShowButton({ editor, hideWhenUnavailable }));
+      setCanToggle(canToggleBlockquote(editor));
+      setIsActive(editor?.isActive('blockquote') || false);
     };
 
     handleSelectionUpdate();
 
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    editor.on('transaction', handleSelectionUpdate);
 
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('transaction', handleSelectionUpdate);
     };
   }, [editor, hideWhenUnavailable]);
 

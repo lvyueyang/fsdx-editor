@@ -195,10 +195,9 @@ export function useLinkState(props: {
 }) {
   const { editor, hideWhenUnavailable = false } = props;
 
-  const canSet = canSetLink(editor);
-  const isActive = isLinkActive(editor);
-
   const [isVisible, setIsVisible] = useState(true);
+  const [canSet, setCanSet] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
@@ -210,14 +209,16 @@ export function useLinkState(props: {
           hideWhenUnavailable,
         }),
       );
+      setCanSet(canSetLink(editor));
+      setIsActive(isLinkActive(editor));
     };
 
     handleSelectionUpdate();
 
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    editor.on('transaction', handleSelectionUpdate);
 
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('transaction', handleSelectionUpdate);
     };
   }, [editor, hideWhenUnavailable]);
 
