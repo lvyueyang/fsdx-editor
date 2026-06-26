@@ -1,18 +1,15 @@
 .fsdx-editor-media-bubble-menu {
   z-index: 9999;
   transition:
-    opacity var(--fsdx-editor-transition-duration-default) ease-out,
-    transform var(--fsdx-editor-transition-duration-default) ease-out;
+    opacity var(--fsdx-editor-transition-duration-default) ease-out;
 
   &:not([data-visible]) {
     opacity: 0;
-    transform: translateY(0.25rem);
     pointer-events: none;
   }
 
   &[data-visible] {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
