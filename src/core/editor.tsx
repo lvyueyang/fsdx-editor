@@ -72,14 +72,16 @@ import { UndoRedoButton } from '../plugins/undo-redo';
 import { VideoNode, VideoUploadButton } from '../plugins/video';
 import type { EditorOptions } from '../types';
 import { EditorOptionsContext } from './editor-context';
-import { ThemeToggle } from './theme-toggle';
 import { handleImageUpload, MAX_FILE_SIZE } from './tiptap-utils';
 import './editor.scss';
+
+export type EditorTheme = 'light' | 'dark' | 'auto';
 
 export interface EditorProps {
   value?: Content;
   onChange?: (html: string) => void;
   options?: EditorOptions;
+  theme?: EditorTheme;
 }
 
 const MainToolbarContent = ({
@@ -160,14 +162,6 @@ const MainToolbarContent = ({
         <AudioUploadButton />
         <AttachmentUploadButton />
       </ToolbarGroup>
-
-      <Spacer />
-
-      {isMobile && <ToolbarSeparator />}
-
-      <ToolbarGroup>
-        <ThemeToggle />
-      </ToolbarGroup>
     </>
   );
 };
@@ -197,7 +191,12 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function Editor({ value, onChange, options }: EditorProps) {
+export function Editor({
+  value,
+  onChange,
+  options,
+  theme = 'auto',
+}: EditorProps) {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<'main' | 'link' | 'emoji'>(
@@ -292,6 +291,27 @@ export function Editor({ value, onChange, options }: EditorProps) {
       setMobileView('main');
     }
   }, [isMobile, mobileView]);
+
+  useEffect(() => {
+    if (theme !== 'auto') {
+      const isDark = theme === 'dark';
+      document.documentElement.classList.toggle('fsdx-editor-dark', isDark);
+      return () => {
+        document.documentElement.classList.remove('fsdx-editor-dark');
+      };
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const applyTheme = () => {
+      document.documentElement.classList.toggle(
+        'fsdx-editor-dark',
+        mediaQuery.matches,
+      );
+    };
+    applyTheme();
+    mediaQuery.addEventListener('change', applyTheme);
+    return () => mediaQuery.removeEventListener('change', applyTheme);
+  }, [theme]);
 
   return (
     <div className="editor-wrapper">

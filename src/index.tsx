@@ -1,4 +1,4 @@
-export type { EditorProps } from './core/editor';
+export type { EditorProps, EditorTheme } from './core/editor';
 export { Editor } from './core/editor';
 export type {
   EditorOptions,

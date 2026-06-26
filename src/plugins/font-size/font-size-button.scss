@@ -46,7 +46,7 @@
     background-color: var(--tt-gray-light-a-100);
   }
 
-  .dark & {
+  .fsdx-editor-dark & {
     &:hover {
       background-color: var(--tt-gray-dark-a-100);
     }
@@ -55,14 +55,14 @@
   &--active {
     background-color: var(--tt-gray-light-a-200);
 
-    .dark & {
+    .fsdx-editor-dark & {
       background-color: var(--tt-gray-dark-a-200);
     }
 
     &:hover {
       background-color: var(--tt-gray-light-a-200);
 
-      .dark & {
+      .fsdx-editor-dark & {
         background-color: var(--tt-gray-dark-a-200);
       }
     }

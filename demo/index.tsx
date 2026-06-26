@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import type { EditorTheme } from '../src/core/editor';
 import { Editor } from '../src/core/editor';
 import type { EditorOptions } from '../src/types';
 
@@ -196,7 +197,7 @@ greet('世界');</code></pre>
 <ul>
   <li><p><strong>富文本编辑</strong>：支持丰富的行内样式和块级结构</p></li>
   <li><p><strong>响应式设计</strong>：适配桌面端和移动端</p></li>
-  <li><p><strong>深色模式</strong>：点击工具栏主题按钮一键切换</p></li>
+  <li><p><strong>深色模式</strong>：通过 Editor 的 theme 属性控制</p></li>
 </ul>
 <h3>有序列表</h3>
 <ol>
@@ -260,16 +261,59 @@ greet('世界');</code></pre>
 
 function Demo() {
   const [html, setHtml] = useState(initialContent);
+  const [theme, setTheme] = useState<EditorTheme>('auto');
 
   return (
     <div
       style={{
         width: '100vw',
         height: '100vh',
-        // border: '1px solid #ccc',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <Editor value={html} onChange={setHtml} options={demoOptions} />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '8px 16px',
+          borderBottom: '1px solid var(--tt-color-border)',
+          flexShrink: 0,
+        }}
+      >
+        <span style={{ fontWeight: 600, marginRight: 8 }}>主题：</span>
+        {(['light', 'dark', 'auto'] as EditorTheme[]).map((t) => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setTheme(t)}
+            style={{
+              padding: '4px 12px',
+              border:
+                theme === t
+                  ? '1px solid var(--tt-color-primary)'
+                  : '1px solid var(--tt-color-border)',
+              borderRadius: 4,
+              background:
+                theme === t ? 'var(--tt-color-primary)' : 'transparent',
+              color: theme === t ? '#fff' : 'inherit',
+              cursor: 'pointer',
+              fontSize: 13,
+            }}
+          >
+            {t === 'light' ? '浅色' : t === 'dark' ? '深色' : '跟随系统'}
+          </button>
+        ))}
+      </div>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <Editor
+          value={html}
+          onChange={setHtml}
+          options={demoOptions}
+          theme={theme}
+        />
+      </div>
     </div>
   );
 }

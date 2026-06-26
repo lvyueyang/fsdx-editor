@@ -3,7 +3,7 @@
   --tt-table-header-bg: var(--tt-gray-light-a-100);
   --tt-table-cell-padding: 0.5rem 0.75rem;
 
-  .dark & {
+  .fsdx-editor-dark & {
     --tt-table-border-color: var(--tt-border-color);
     --tt-table-header-bg: var(--tt-gray-dark-a-100);
   }
@@ -128,7 +128,7 @@
   }
 }
 
-.dark .table-extend-btn {
+.fsdx-editor-dark .table-extend-btn {
   background: var(--tt-gray-dark-a-100, #efeaff);
   &:hover {
     

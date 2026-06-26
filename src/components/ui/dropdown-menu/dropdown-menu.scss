@@ -4,8 +4,8 @@
   --tt-dropdown-menu-label-color: var(--tt-gray-light-a-800);
 }
 
-:root.dark,
-.dark {
+:root.fsdx-editor-dark,
+.fsdx-editor-dark {
   --tt-dropdown-menu-bg-color: var(--tt-gray-dark-50);
   --tt-dropdown-menu-text-color: var(--tt-gray-dark-a-600);
   --tt-dropdown-menu-label-color: var(--tt-gray-dark-a-800);
@@ -254,8 +254,8 @@
 
 /* --- Dark mode --- */
 
-:root.dark .tiptap-dropdown-menu-item,
-.dark .tiptap-dropdown-menu-item {
+:root.fsdx-editor-dark .tiptap-dropdown-menu-item,
+.fsdx-editor-dark .tiptap-dropdown-menu-item {
   &[data-highlighted] {
     background-color: var(--tt-gray-dark-a-100);
   }
@@ -270,8 +270,8 @@
   }
 }
 
-:root.dark .tiptap-dropdown-menu-sub-trigger,
-.dark .tiptap-dropdown-menu-sub-trigger {
+:root.fsdx-editor-dark .tiptap-dropdown-menu-sub-trigger,
+.fsdx-editor-dark .tiptap-dropdown-menu-sub-trigger {
   &[data-highlighted],
   &[data-state="open"] {
     background-color: var(--tt-gray-dark-a-100);

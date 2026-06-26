@@ -20,7 +20,7 @@
   color: var(--tt-gray-light-a-500);
 }
 
-.dark .table-selection-menu .tiptap-dropdown-menu-label {
+.fsdx-editor-dark .table-selection-menu .tiptap-dropdown-menu-label {
   color: var(--tt-gray-dark-a-500);
 }
 
@@ -52,7 +52,7 @@
   }
 }
 
-.dark .table-selection-menu .tiptap-dropdown-menu-sub-trigger {
+.fsdx-editor-dark .table-selection-menu .tiptap-dropdown-menu-sub-trigger {
   &[data-highlighted],
   &[data-state='open'] {
     background-color: var(--tt-gray-dark-a-100);
