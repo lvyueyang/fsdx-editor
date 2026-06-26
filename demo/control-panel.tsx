@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { EditorTheme } from '../src/core/editor';
 import { Editor } from '../src/core/editor';
@@ -260,9 +260,165 @@ greet('世界');</code></pre>
 <p>编辑器内置了智能排版功能：输入 <code>(c)</code> 自动变为 ©，输入 <code>-></code> 自动变为 →，输入 <code>1/2</code> 自动变为 ½。</p>
 <p style="text-align: center"><em>—— 选中文字后，点击链接按钮即可添加超链接 ——</em></p>`;
 
-function Demo() {
+const BUTTON_BASE: React.CSSProperties = {
+  padding: '4px 12px',
+  border: '1px solid var(--fsdx-editor-border-color)',
+  borderRadius: 4,
+  background: 'transparent',
+  color: 'inherit',
+  cursor: 'pointer',
+  fontSize: 13,
+};
+
+const BUTTON_ACTIVE: React.CSSProperties = {
+  ...BUTTON_BASE,
+  border: '1px solid var(--fsdx-editor-brand-color-500)',
+  background: 'var(--fsdx-editor-brand-color-500)',
+  color: '#fff',
+};
+
+const CONTROL_LABEL: React.CSSProperties = {
+  fontWeight: 600,
+  fontSize: 13,
+};
+
+function buildPreviewDoc(html: string): string {
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --fsdx-editor-color-highlight-yellow: #fef08a;
+      --fsdx-editor-color-highlight-blue: #93c5fd;
+      --fsdx-editor-color-highlight-green: #86efac;
+      --fsdx-editor-content-max-width: 860px;
+    }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 48px 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #fff;
+    }
+    .preview-container {
+      max-width: var(--fsdx-editor-content-max-width);
+      margin: 0 auto;
+    }
+    h1 { font-size: 2em; margin: 0.67em 0; font-weight: 700; }
+    h2 { font-size: 1.5em; margin: 0.75em 0; font-weight: 600; }
+    h3 { font-size: 1.17em; margin: 0.83em 0; font-weight: 600; }
+    h4 { font-size: 1em; margin: 1em 0; font-weight: 600; }
+    h5 { font-size: 0.83em; margin: 1em 0; font-weight: 600; }
+    h6 { font-size: 0.67em; margin: 1em 0; font-weight: 600; }
+    p { margin: 0.5em 0; }
+    blockquote {
+      margin: 1em 0;
+      padding: 0.5em 1em;
+      border-left: 3px solid #e2e8f0;
+      color: #64748b;
+    }
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background: #f1f5f9;
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+    }
+    hr {
+      margin: 2em 0;
+      border: none;
+      border-top: 1px solid #e2e8f0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+    ul, ol {
+      margin: 0.5em 0;
+      padding-left: 1.5em;
+    }
+    li { margin: 0.25em 0; }
+    img, video {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    mark { padding: 0 0.2em; border-radius: 2px; }
+    [data-alignment="center"] { display: block; margin: 1em auto; }
+    [data-type="taskList"] { list-style: none; padding-left: 0; }
+    [data-checked="true"] { text-decoration: line-through; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <div class="preview-container">${html}</div>
+</body>
+</html>`;
+}
+
+const themeLabels: Record<EditorTheme, string> = {
+  light: '浅色',
+  dark: '深色',
+  auto: '跟随系统',
+};
+
+function ControlPanel() {
   const [html, setHtml] = useState(initialContent);
   const [theme, setTheme] = useState<EditorTheme>('auto');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const updatePreview = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+    const doc = iframe.contentDocument;
+    if (!doc) return;
+    doc.open();
+    doc.write(buildPreviewDoc(html));
+    doc.close();
+  }, [html]);
+
+  useEffect(() => {
+    updatePreview();
+  }, [updatePreview]);
+
+  const handleReset = useCallback(() => {
+    setHtml(initialContent);
+  }, []);
 
   return (
     <DemoNav>
@@ -278,45 +434,71 @@ function Demo() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 12,
             padding: '8px 16px',
             borderBottom: '1px solid var(--fsdx-editor-border-color)',
             flexShrink: 0,
           }}
         >
-          <span style={{ fontWeight: 600, marginRight: 8 }}>主题：</span>
+          <span style={CONTROL_LABEL}>主题：</span>
           {(['light', 'dark', 'auto'] as EditorTheme[]).map((t) => (
             <button
               key={t}
               type="button"
               onClick={() => setTheme(t)}
-              style={{
-                padding: '4px 12px',
-                border:
-                  theme === t
-                    ? '1px solid var(--fsdx-editor-brand-color-500)'
-                    : '1px solid var(--fsdx-editor-border-color)',
-                borderRadius: 4,
-                background:
-                  theme === t
-                    ? 'var(--fsdx-editor-brand-color-500)'
-                    : 'transparent',
-                color: theme === t ? '#fff' : 'inherit',
-                cursor: 'pointer',
-                fontSize: 13,
-              }}
+              style={theme === t ? BUTTON_ACTIVE : BUTTON_BASE}
             >
-              {t === 'light' ? '浅色' : t === 'dark' ? '深色' : '跟随系统'}
+              {themeLabels[t]}
             </button>
           ))}
+          <span style={{ marginLeft: 12, ...CONTROL_LABEL }}>操作：</span>
+          <button type="button" onClick={handleReset} style={BUTTON_BASE}>
+            重置内容
+          </button>
+          <span style={{ flex: 1 }} />
+          <span
+            style={{
+              fontSize: 11,
+              color: 'var(--fsdx-editor-text-muted, #888)',
+            }}
+          >
+            左侧编辑，右侧实时预览
+          </span>
         </div>
-        <div style={{ flex: 1, minHeight: 0 }}>
-          <Editor
-            value={html}
-            onChange={setHtml}
-            options={demoOptions}
-            theme={theme}
-          />
+
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            minHeight: 0,
+          }}
+        >
+          <div
+            style={{
+              flex: 1,
+              minWidth: 0,
+              borderRight: '1px solid var(--fsdx-editor-border-color)',
+            }}
+          >
+            <Editor
+              value={html}
+              onChange={setHtml}
+              options={demoOptions}
+              theme={theme}
+            />
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <iframe
+              ref={iframeRef}
+              title="实时预览"
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+              }}
+            />
+          </div>
         </div>
       </div>
     </DemoNav>
@@ -325,5 +507,5 @@ function Demo() {
 
 const root = document.getElementById('root');
 if (root) {
-  createRoot(root).render(<Demo />);
+  createRoot(root).render(<ControlPanel />);
 }

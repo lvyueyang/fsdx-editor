@@ -7,10 +7,16 @@ export default defineConfig({
   source: {
     entry: {
       index: './demo/index.tsx',
+      'control-panel': './demo/control-panel.tsx',
     },
   },
   html: {
-    template: './demo/index.html',
+    template({ entryName }) {
+      if (entryName === 'control-panel') {
+        return './demo/control-panel.html';
+      }
+      return './demo/index.html';
+    },
   },
   plugins: [
     pluginReact(),
