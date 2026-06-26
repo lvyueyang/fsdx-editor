@@ -44,6 +44,7 @@ import { SmileIcon } from '../icons/smile-icon';
 import { AttachmentNode, AttachmentUploadButton } from '../plugins/attachment';
 import { AudioNode, AudioUploadButton } from '../plugins/audio';
 import { BlockquoteButton } from '../plugins/blockquote';
+import { BubbleMenu } from '../plugins/bubble-menu';
 import { CodeBlockButton } from '../plugins/code-block';
 import { ColorHighlightDropdownMenu } from '../plugins/color/color-highlight-dropdown-menu';
 import { ColorTextDropdownMenu } from '../plugins/color/color-text-dropdown-menu';
@@ -322,6 +323,7 @@ export function Editor({ value, onChange, options }: EditorProps) {
 
           <div ref={contentRef} className="editor-content">
             {editor && <MediaAttributeEditor editor={editor} />}
+            <BubbleMenu />
             <EditorContent editor={editor} role="presentation" />
           </div>
 

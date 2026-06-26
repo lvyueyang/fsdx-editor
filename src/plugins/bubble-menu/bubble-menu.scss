@@ -1,0 +1,17 @@
+.tiptap-bubble-menu {
+  z-index: 50;
+  transition:
+    opacity var(--tt-transition-duration-default) ease-out,
+    transform var(--tt-transition-duration-default) ease-out;
+
+  &:not([data-visible]) {
+    opacity: 0;
+    transform: translateY(0.25rem);
+    pointer-events: none;
+  }
+
+  &[data-visible] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
