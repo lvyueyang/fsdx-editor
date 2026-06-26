@@ -16,8 +16,9 @@ interface VideoBubbleMenuProps {
 
 function getWidthPercent(editor: Editor): number | null {
   const attrs = editor.getAttributes('video');
-  const widthAttr: string | null = attrs?.width || null;
-  if (!widthAttr) return null;
+  const rawWidth = attrs?.width;
+  if (rawWidth == null || rawWidth === '') return null;
+  const widthAttr = String(rawWidth);
 
   const editorWidth = editor.view.dom.clientWidth;
   if (editorWidth <= 0) return null;

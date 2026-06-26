@@ -1,5 +1,6 @@
 import type { Content } from '@tiptap/core';
 import { Highlight } from '@tiptap/extension-highlight';
+import { Link } from '@tiptap/extension-link';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
@@ -229,9 +230,14 @@ export function Editor({
     extensions: [
       StarterKit.configure({
         horizontalRule: false,
-        link: {
-          openOnClick: false,
-          enableClickSelection: true,
+        link: false,
+      }),
+      Link.configure({
+        openOnClick: false,
+        enableClickSelection: true,
+      }).extend({
+        parseHTML() {
+          return [{ tag: 'a[href]:not([data-type="attachment"])' }];
         },
       }),
       HorizontalRule,

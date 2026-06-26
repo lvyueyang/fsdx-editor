@@ -1,4 +1,4 @@
-import { mergeAttributes, Node, ReactNodeViewRenderer } from '@tiptap/react';
+import { Node, ReactNodeViewRenderer } from '@tiptap/react';
 import { VideoNodeView } from './video-node-view';
 
 export interface VideoNodeAttributes {
@@ -33,68 +33,99 @@ export const VideoNode = Node.create<VideoNodeAttributes>({
   addAttributes() {
     return {
       src: { default: null },
-      poster: { default: null },
-      width: { default: null },
-      alignment: { default: 'center' },
-      autoplay: { default: false },
-      controls: { default: true },
-      loop: { default: false },
+      poster: {
+        default: null,
+        renderHTML: (attributes) => {
+          if (!attributes.poster) return {};
+          return { poster: attributes.poster };
+        },
+      },
+      width: {
+        default: null,
+        renderHTML: (attributes) => {
+          if (!attributes.width) return {};
+          return { width: attributes.width };
+        },
+      },
+      alignment: {
+        default: 'center',
+        parseHTML: (element) => element.getAttribute('data-alignment'),
+        renderHTML: (attributes) => {
+          if (!attributes.alignment || attributes.alignment === 'center')
+            return {};
+          return { 'data-alignment': attributes.alignment };
+        },
+      },
+      autoplay: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute('autoplay'),
+        renderHTML: (attributes) => {
+          if (!attributes.autoplay) return {};
+          return { autoplay: '' };
+        },
+      },
+      controls: {
+        default: true,
+        parseHTML: (element) => {
+          const val = element.getAttribute('controls');
+          if (val === null) return true;
+          return val !== 'false';
+        },
+        renderHTML: (attributes) => {
+          if (attributes.controls === false) return { controls: 'false' };
+          return { controls: '' };
+        },
+      },
+      loop: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute('loop'),
+        renderHTML: (attributes) => {
+          if (!attributes.loop) return {};
+          return { loop: '' };
+        },
+      },
     };
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type="video"]' }];
+    return [{ tag: 'video' }];
   },
 
-  renderHTML({ HTMLAttributes }) {
-    const {
-      src,
-      poster,
-      width,
-      autoplay,
-      controls,
-      loop,
-      alignment,
-      ...restAttrs
-    } = HTMLAttributes as Record<string, unknown>;
-    const divBaseAttrs: Record<string, unknown> = { 'data-type': 'video' };
-    const divStyleParts: string[] = [];
+  renderHTML({ node, HTMLAttributes }) {
+    const { src, alignment } = node.attrs as VideoNodeAttributes;
 
+    if (!src) {
+      return [
+        'div',
+        {
+          style:
+            'padding: 24px; border: 2px dashed #d1d5db; border-radius: 8px; text-align: center; color: #9ca3af;',
+        },
+        '未设置视频地址',
+      ];
+    }
+
+    const styleParts: string[] = [];
     if (alignment === 'left') {
-      divStyleParts.push('display: flex; justify-content: flex-start');
+      styleParts.push('display: block; margin-left: 0; margin-right: auto');
     } else if (alignment === 'right') {
-      divStyleParts.push('display: flex; justify-content: flex-end');
+      styleParts.push('display: block; margin-left: auto; margin-right: 0');
     } else {
-      divStyleParts.push('display: flex; justify-content: center');
+      styleParts.push('display: block; margin-left: auto; margin-right: auto');
     }
 
-    if (!src) {
-      divStyleParts.push(
-        'padding: 24px; border: 2px dashed #d1d5db; border-radius: 8px; text-align: center; color: #9ca3af; align-items: center',
-      );
-    }
+    const existingStyle =
+      (HTMLAttributes as Record<string, string>).style || '';
+    const mergedStyle = [existingStyle, ...styleParts]
+      .filter(Boolean)
+      .join('; ');
 
-    if (divStyleParts.length > 0) {
-      divBaseAttrs.style = divStyleParts.join('; ');
-    }
+    const attrs = {
+      ...(HTMLAttributes as Record<string, string>),
+    };
+    if (mergedStyle) attrs.style = mergedStyle;
 
-    const divAttrs = mergeAttributes(
-      divBaseAttrs,
-      restAttrs as Record<string, string>,
-    );
-
-    if (!src) {
-      return ['div', divAttrs, '未设置视频地址'];
-    }
-
-    const videoAttrs: Record<string, string> = { src: src as string };
-    if (poster) videoAttrs.poster = poster as string;
-    if (width) videoAttrs.width = width as string;
-    if (autoplay) videoAttrs.autoplay = 'true';
-    if (controls !== false) videoAttrs.controls = 'true';
-    if (loop) videoAttrs.loop = 'true';
-
-    return ['div', divAttrs, ['video', videoAttrs]];
+    return ['video', attrs];
   },
 
   addNodeView() {

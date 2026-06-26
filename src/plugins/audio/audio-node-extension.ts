@@ -1,4 +1,4 @@
-import { mergeAttributes, Node, ReactNodeViewRenderer } from '@tiptap/react';
+import { Node, ReactNodeViewRenderer } from '@tiptap/react';
 import { AudioNodeView } from './audio-node-view';
 
 export interface AudioNodeAttributes {
@@ -30,47 +30,61 @@ export const AudioNode = Node.create<AudioNodeAttributes>({
   addAttributes() {
     return {
       src: { default: null },
-      autoplay: { default: false },
-      controls: { default: true },
-      loop: { default: false },
+      autoplay: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute('autoplay'),
+        renderHTML: (attributes) => {
+          if (!attributes.autoplay) return {};
+          return { autoplay: '' };
+        },
+      },
+      controls: {
+        default: true,
+        parseHTML: (element) => {
+          const val = element.getAttribute('controls');
+          if (val === null) return true;
+          return val !== 'false';
+        },
+        renderHTML: (attributes) => {
+          if (attributes.controls === false) return { controls: 'false' };
+          return { controls: '' };
+        },
+      },
+      loop: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute('loop'),
+        renderHTML: (attributes) => {
+          if (!attributes.loop) return {};
+          return { loop: '' };
+        },
+      },
     };
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type="audio"]' }];
+    return [{ tag: 'audio' }];
   },
 
-  renderHTML({ HTMLAttributes }) {
-    const { src, autoplay, controls, loop, ...restAttrs } =
-      HTMLAttributes as Record<string, unknown>;
+  renderHTML({ node, HTMLAttributes }) {
+    const { src } = node.attrs as AudioNodeAttributes;
 
     if (!src) {
       return [
         'div',
-        mergeAttributes(
-          {
-            'data-type': 'audio',
-            style:
-              'padding: 24px; border: 2px dashed #d1d5db; border-radius: 8px; text-align: center; color: #9ca3af;',
-          },
-          restAttrs as Record<string, string>,
-        ),
+        {
+          style:
+            'padding: 24px; border: 2px dashed #d1d5db; border-radius: 8px; text-align: center; color: #9ca3af;',
+        },
         '未设置音频地址',
       ];
     }
 
-    const audioAttrs: Record<string, string> = { src: src as string };
-    if (autoplay) audioAttrs.autoplay = 'true';
-    if (controls !== false) audioAttrs.controls = 'true';
-    if (loop) audioAttrs.loop = 'true';
-
     return [
-      'div',
-      mergeAttributes(
-        { 'data-type': 'audio' },
-        restAttrs as Record<string, string>,
-      ),
-      ['audio', audioAttrs],
+      'audio',
+      {
+        ...(HTMLAttributes as Record<string, string>),
+        style: 'display: block; width: 100%;',
+      },
     ];
   },
 
