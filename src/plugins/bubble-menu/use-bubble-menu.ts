@@ -86,6 +86,17 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       return;
     }
 
+    // 悬浮菜单内的 popover/dropdown 打开时，Radix 会将焦点移到 portal 内容，
+    // 导致编辑器选区暂时为空，此时不应隐藏悬浮菜单
+    const activeEl = document.activeElement as HTMLElement | null;
+    if (
+      activeEl?.closest(
+        '[data-radix-popover-content], [data-radix-dropdown-menu-content], [data-radix-tooltip-content]',
+      )
+    ) {
+      return;
+    }
+
     const { selection } = editor.state;
     if (selection.empty) {
       setVisible(false);
