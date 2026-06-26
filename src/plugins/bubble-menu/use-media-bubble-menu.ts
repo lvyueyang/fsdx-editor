@@ -33,12 +33,13 @@ export function useMediaBubbleMenu({
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState<DOMRect>(EMPTY_RECT);
   const nodePosRef = useRef(0);
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const portalContainerRef = usePortalContainer();
 
-  // 使用 ref 持有 onActive 避免 computeRect 依赖变化导致事件重复订阅
+  // 使用 ref 持有回调/配置避免 computeRect 依赖变化导致事件重复订阅
   const onActiveRef = useRef(onActive);
   onActiveRef.current = onActive;
+  const nodeTypesRef = useRef(nodeTypes);
+  nodeTypesRef.current = nodeTypes;
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
@@ -46,7 +47,7 @@ export function useMediaBubbleMenu({
       return;
     }
 
-    const activeType = nodeTypes.find((t) => editor.isActive(t));
+    const activeType = nodeTypesRef.current.find((t) => editor.isActive(t));
     if (!activeType) {
       setVisible(false);
       return;
@@ -72,11 +73,25 @@ export function useMediaBubbleMenu({
 
     setRect(nodeRect);
     setVisible(true);
-  }, [editor, nodeTypes]);
+  }, [editor]);
 
   const hideMenu = useCallback(() => {
     setVisible(false);
   }, []);
+
+  const { refs, floatingStyles } = useFloating({
+    open: true,
+    placement: 'top',
+    middleware: [
+      offset(8),
+      flip({
+        crossAxis: false,
+        fallbackAxisSideDirection: 'start',
+        padding: 8,
+      }),
+      shift({ padding: 8 }),
+    ],
+  });
 
   useEffect(() => {
     if (!editor) return;
@@ -97,7 +112,7 @@ export function useMediaBubbleMenu({
       if (!target) return;
 
       if (editor.view.dom.contains(target)) return;
-      if (containerRef.current?.contains(target)) return;
+      if (refs.floating.current?.contains(target)) return;
       if (portalContainerRef?.current?.contains(target)) return;
       if (
         target.closest(
@@ -119,7 +134,7 @@ export function useMediaBubbleMenu({
       window.removeEventListener('resize', computeRect);
       document.removeEventListener('mousedown', handleDocumentMouseDown, true);
     };
-  }, [editor, computeRect, hideMenu, portalContainerRef]);
+  }, [editor, computeRect, hideMenu, refs, portalContainerRef]);
 
   const virtualRef = useMemo(
     () => ({
@@ -127,20 +142,6 @@ export function useMediaBubbleMenu({
     }),
     [visible, rect],
   );
-
-  const { refs, floatingStyles } = useFloating({
-    open: true,
-    placement: 'top',
-    middleware: [
-      offset(8),
-      flip({
-        crossAxis: false,
-        fallbackAxisSideDirection: 'start',
-        padding: 8,
-      }),
-      shift({ padding: 8 }),
-    ],
-  });
 
   useEffect(() => {
     refs.setReference(virtualRef as unknown as Element);
@@ -150,7 +151,6 @@ export function useMediaBubbleMenu({
     visible,
     rect,
     nodePosRef,
-    containerRef,
     hideMenu,
     refs,
     floatingStyles,

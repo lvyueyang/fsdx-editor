@@ -41,7 +41,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
   const [controls, setControls] = useState(true);
   const [loop, setLoop] = useState(false);
 
-  const { visible, nodePosRef, containerRef, hideMenu, refs, floatingStyles } =
+  const { visible, nodePosRef, hideMenu, refs, floatingStyles } =
     useMediaBubbleMenu({
       editor,
       nodeTypes: ['video'],
@@ -126,10 +126,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
       {visible && <VideoResizeHandles editor={editor} />}
       <FloatingPortal>
         <div
-          ref={(node) => {
-            refs.setFloating(node);
-            containerRef.current = node;
-          }}
+          ref={refs.setFloating}
           className="fsdx-editor-media-bubble-menu"
           data-visible={visible ? '' : undefined}
           style={{

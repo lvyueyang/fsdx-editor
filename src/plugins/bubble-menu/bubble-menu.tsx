@@ -1,12 +1,5 @@
-import {
-  FloatingPortal,
-  flip,
-  offset,
-  shift,
-  useFloating,
-} from '@floating-ui/react';
+import { FloatingPortal } from '@floating-ui/react';
 import { useCurrentEditor } from '@tiptap/react';
-import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { MarkButton } from '../../components/mark-button';
 import {
   Toolbar,
@@ -29,49 +22,15 @@ import './bubble-menu.scss';
  */
 export function BubbleMenu() {
   const { editor } = useCurrentEditor();
-  const { rect, visible, selectionType, hideMenu, containerRef } =
+  const { visible, selectionType, hideMenu, refs, floatingStyles } =
     useBubbleMenu({ editor });
-
-  const virtualRef = useMemo(
-    () => ({
-      getBoundingClientRect: () => rect,
-    }),
-    [rect],
-  );
-
-  const { refs, floatingStyles } = useFloating({
-    open: true,
-    placement: 'top',
-    middleware: [
-      offset(8),
-      flip({
-        crossAxis: false,
-        fallbackAxisSideDirection: 'start',
-        padding: 8,
-      }),
-      shift({ padding: 8 }),
-    ],
-  });
-
-  useLayoutEffect(() => {
-    refs.setReference(virtualRef as unknown as Element);
-  }, [refs, virtualRef]);
-
-  const setFloatingRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      refs.setFloating(node);
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
-        node;
-    },
-    [refs, containerRef],
-  );
 
   if (!editor) return null;
 
   return (
     <FloatingPortal>
       <div
-        ref={setFloatingRef}
+        ref={refs.setFloating}
         className="fsdx-editor-bubble-menu"
         data-visible={visible ? '' : undefined}
         style={{

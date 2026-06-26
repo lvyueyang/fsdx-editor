@@ -1,5 +1,6 @@
+import { flip, offset, shift, useFloating } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export type BubbleMenuSelectionType = 'text' | 'link';
 
@@ -40,7 +41,6 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
   const [selectionType, setSelectionType] =
     useState<BubbleMenuSelectionType | null>(null);
   const [rect, setRect] = useState<DOMRect>(EMPTY_RECT);
-  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
@@ -133,6 +133,31 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     setSelectionType(null);
   }, []);
 
+  const virtualRef = useMemo(
+    () => ({
+      getBoundingClientRect: () => (visible ? rect : EMPTY_RECT),
+    }),
+    [visible, rect],
+  );
+
+  const { refs, floatingStyles } = useFloating({
+    open: true,
+    placement: 'top',
+    middleware: [
+      offset(8),
+      flip({
+        crossAxis: false,
+        fallbackAxisSideDirection: 'start',
+        padding: 8,
+      }),
+      shift({ padding: 8 }),
+    ],
+  });
+
+  useEffect(() => {
+    refs.setReference(virtualRef as unknown as Element);
+  }, [refs, virtualRef]);
+
   useEffect(() => {
     if (!editor) return;
 
@@ -159,7 +184,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       if (!target) return;
 
       if (editor.view.dom.contains(target)) return;
-      if (containerRef.current?.contains(target)) return;
+      if (refs.floating.current?.contains(target)) return;
 
       if (
         target.closest(
@@ -184,7 +209,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       window.removeEventListener('resize', computeRect);
       document.removeEventListener('mousedown', handleDocumentMouseDown, true);
     };
-  }, [editor, computeRect, hideMenu]);
+  }, [editor, computeRect, hideMenu, refs]);
 
-  return { rect, visible, selectionType, hideMenu, containerRef };
+  return { visible, selectionType, hideMenu, refs, floatingStyles };
 }

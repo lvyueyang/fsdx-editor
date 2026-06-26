@@ -20,7 +20,7 @@ interface AttachmentBubbleMenuProps {
 export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
   const [nameValue, setNameValue] = useState('');
 
-  const { visible, nodePosRef, containerRef, hideMenu, refs, floatingStyles } =
+  const { visible, nodePosRef, hideMenu, refs, floatingStyles } =
     useMediaBubbleMenu({
       editor,
       nodeTypes: ['attachment'],
@@ -50,10 +50,7 @@ export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
   return (
     <FloatingPortal>
       <div
-        ref={(node) => {
-          refs.setFloating(node);
-          containerRef.current = node;
-        }}
+        ref={refs.setFloating}
         className="fsdx-editor-media-bubble-menu"
         data-visible={visible ? '' : undefined}
         style={{

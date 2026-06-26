@@ -63,7 +63,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
   const [srcValue, setSrcValue] = useState('');
   const [linkValue, setLinkValue] = useState('');
 
-  const { visible, nodePosRef, containerRef, hideMenu, refs, floatingStyles } =
+  const { visible, nodePosRef, hideMenu, refs, floatingStyles } =
     useMediaBubbleMenu({
       editor,
       nodeTypes: ['customImage', 'image'],
@@ -170,10 +170,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
       {visible && <ImageResizeHandles editor={editor} />}
       <FloatingPortal>
         <div
-          ref={(node) => {
-            refs.setFloating(node);
-            containerRef.current = node;
-          }}
+          ref={refs.setFloating}
           className="fsdx-editor-media-bubble-menu"
           data-visible={visible ? '' : undefined}
           style={{
