@@ -18,15 +18,19 @@ import { ColorTextDropdownMenu } from '../color/color-text-dropdown-menu';
 import { FontSizeButton } from '../font-size';
 import { LinkPopover } from '../link';
 import { ClearFormattingButton, TextStyleDropdownMenu } from '../text-style';
+import { LinkBubbleMenuContent } from './link-bubble-menu-content';
 import { useBubbleMenu } from './use-bubble-menu';
 import './bubble-menu.scss';
 
 /**
- * 悬浮工具栏：文字选中后显示，提供常用文字格式化操作
+ * 悬浮工具栏：根据选区类型显示不同内容
+ * - 链接活跃时显示链接菜单（链接地址 + 打开 + 取消）
+ * - 文字选中时显示文字格式化工具栏
  */
 export function BubbleMenu() {
   const { editor } = useCurrentEditor();
-  const { rect, visible, hideMenu, containerRef } = useBubbleMenu({ editor });
+  const { rect, visible, selectionType, hideMenu, containerRef } =
+    useBubbleMenu({ editor });
 
   const virtualRef = useMemo(
     () => ({
@@ -75,7 +79,14 @@ export function BubbleMenu() {
           visibility: visible ? 'visible' : 'hidden',
         }}
         onMouseDown={(e) => {
-          // 阻止点击悬浮菜单内按钮时编辑器失焦
+          // 允许 input/textarea 正常聚焦，其他元素阻止编辑器失焦
+          const target = e.target as HTMLElement;
+          if (
+            target.tagName === 'INPUT' ||
+            target.tagName === 'TEXTAREA' ||
+            target.tagName === 'SELECT'
+          )
+            return;
           e.preventDefault();
         }}
         onKeyDown={(e) => {
@@ -84,41 +95,45 @@ export function BubbleMenu() {
           }
         }}
       >
-        <Toolbar variant="floating">
-          <ToolbarGroup>
-            <TextStyleDropdownMenu modal={false} />
-            <FontSizeButton />
-          </ToolbarGroup>
+        {selectionType === 'link' ? (
+          <LinkBubbleMenuContent editor={editor} onAction={hideMenu} />
+        ) : (
+          <Toolbar variant="floating">
+            <ToolbarGroup>
+              <TextStyleDropdownMenu modal={false} />
+              <FontSizeButton />
+            </ToolbarGroup>
 
-          <ToolbarSeparator />
+            <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <MarkButton type="bold" />
-            <MarkButton type="italic" />
-            <MarkButton type="underline" />
-            <MarkButton type="strike" />
-            <MarkButton type="code" />
-          </ToolbarGroup>
+            <ToolbarGroup>
+              <MarkButton type="bold" />
+              <MarkButton type="italic" />
+              <MarkButton type="underline" />
+              <MarkButton type="strike" />
+              <MarkButton type="code" />
+            </ToolbarGroup>
 
-          <ToolbarSeparator />
+            <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <ColorTextDropdownMenu modal={false} />
-            <ColorHighlightDropdownMenu modal={false} />
-          </ToolbarGroup>
+            <ToolbarGroup>
+              <ColorTextDropdownMenu modal={false} />
+              <ColorHighlightDropdownMenu modal={false} />
+            </ToolbarGroup>
 
-          <ToolbarSeparator />
+            <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <LinkPopover />
-          </ToolbarGroup>
+            <ToolbarGroup>
+              <LinkPopover />
+            </ToolbarGroup>
 
-          <ToolbarSeparator />
+            <ToolbarSeparator />
 
-          <ToolbarGroup>
-            <ClearFormattingButton />
-          </ToolbarGroup>
-        </Toolbar>
+            <ToolbarGroup>
+              <ClearFormattingButton />
+            </ToolbarGroup>
+          </Toolbar>
+        )}
       </div>
     </FloatingPortal>
   );

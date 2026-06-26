@@ -3,55 +3,21 @@ import { forwardRef, useCallback, useEffect, useState } from 'react';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { ButtonGroup } from '../../components/ui/button-group';
-import { Card, CardBody, CardItemGroup } from '../../components/ui/card';
-import { Input } from '../../components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
-import { Separator } from '../../components/ui/separator';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Hooks ---
-import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 // --- Icons ---
-import { CornerDownLeftIcon } from '../../icons/corner-down-left-icon';
-import { ExternalLinkIcon } from '../../icons/external-link-icon';
 import { LinkIcon } from '../../icons/link-icon';
-import { TrashIcon } from '../../icons/trash-icon';
+// --- Hooks ---
+import { LinkBubbleMenuContent } from '../bubble-menu/link-bubble-menu-content';
 // --- Tiptap UI ---
 import type { UseLinkPopoverConfig } from './';
 import { useLinkPopover } from './';
 
 import './link-popover.scss';
-
-export interface LinkMainProps {
-  /**
-   * The URL to set for the link.
-   */
-  url: string;
-  /**
-   * Function to update the URL state.
-   */
-  setUrl: React.Dispatch<React.SetStateAction<string | null>>;
-  /**
-   * Function to set the link in the editor.
-   */
-  setLink: () => void;
-  /**
-   * Function to remove the link from the editor.
-   */
-  removeLink: () => void;
-  /**
-   * Function to open the link.
-   */
-  openLink: () => void;
-  /**
-   * Whether the link is currently active in the editor.
-   */
-  isActive: boolean;
-}
 
 export interface LinkPopoverProps
   extends Omit<ButtonProps, 'type'>,
@@ -93,106 +59,12 @@ export const LinkButton = forwardRef<HTMLButtonElement, ButtonProps>(
 LinkButton.displayName = 'LinkButton';
 
 /**
- * Main content component for the link popover
- */
-const LinkMain: React.FC<LinkMainProps> = ({
-  url,
-  setUrl,
-  setLink,
-  removeLink,
-  openLink,
-  isActive,
-}) => {
-  const isMobile = useIsBreakpoint();
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      setLink();
-    }
-  };
-
-  return (
-    <Card
-      style={{
-        ...(isMobile ? { boxShadow: 'none', border: 0 } : {}),
-      }}
-    >
-      <CardBody
-        style={{
-          ...(isMobile ? { padding: 0 } : {}),
-        }}
-      >
-        <CardItemGroup orientation="horizontal">
-          <Input
-            type="url"
-            placeholder="粘贴链接..."
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoFocus
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            className="fsdx-editor-link-input"
-          />
-
-          <ButtonGroup>
-            <Button
-              type="button"
-              onClick={setLink}
-              title="应用链接"
-              disabled={!url && !isActive}
-              variant="ghost"
-            >
-              <CornerDownLeftIcon className="fsdx-editor-button-icon" />
-            </Button>
-          </ButtonGroup>
-
-          <Separator />
-
-          <ButtonGroup>
-            <ButtonGroup>
-              <Button
-                type="button"
-                onClick={openLink}
-                title="在新窗口打开"
-                disabled={!url && !isActive}
-                variant="ghost"
-              >
-                <ExternalLinkIcon className="fsdx-editor-button-icon" />
-              </Button>
-            </ButtonGroup>
-
-            <ButtonGroup>
-              <Button
-                type="button"
-                onClick={removeLink}
-                title="移除链接"
-                disabled={!url && !isActive}
-                variant="ghost"
-              >
-                <TrashIcon className="fsdx-editor-button-icon" />
-              </Button>
-            </ButtonGroup>
-          </ButtonGroup>
-        </CardItemGroup>
-      </CardBody>
-    </Card>
-  );
-};
-
-/**
- * Link content component for standalone use
+ * Link content component for standalone use (mobile toolbar etc.)
  */
 export const LinkContent: React.FC<{
   editor?: Editor | null;
 }> = ({ editor }) => {
-  const linkPopover = useLinkPopover({
-    editor,
-  });
-
-  return <LinkMain {...linkPopover} />;
+  return <LinkBubbleMenuContent editor={editor ?? null} />;
 };
 
 /**
@@ -217,18 +89,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
     const { editor } = useFsdxEditor(providedEditor);
     const [isOpen, setIsOpen] = useState(false);
 
-    const {
-      isVisible,
-      canSet,
-      isActive,
-      url,
-      setUrl,
-      setLink,
-      removeLink,
-      openLink,
-      label,
-      Icon,
-    } = useLinkPopover({
+    const { isVisible, canSet, isActive, label, Icon } = useLinkPopover({
       editor,
       hideWhenUnavailable,
       onSetLink,
@@ -242,10 +103,9 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
       [onOpenChange],
     );
 
-    const handleSetLink = useCallback(() => {
-      setLink();
+    const handleClose = useCallback(() => {
       setIsOpen(false);
-    }, [setLink]);
+    }, []);
 
     const handleClick = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -284,14 +144,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
         </PopoverTrigger>
 
         <PopoverContent collisionPadding={4}>
-          <LinkMain
-            url={url}
-            setUrl={setUrl}
-            setLink={handleSetLink}
-            removeLink={removeLink}
-            openLink={openLink}
-            isActive={isActive}
-          />
+          <LinkBubbleMenuContent editor={editor} onAction={handleClose} />
         </PopoverContent>
       </Popover>
     );

@@ -33,7 +33,7 @@ import '../styles/overrides/heading-node.scss';
 import '../styles/overrides/paragraph-node.scss';
 import '../plugins/table/table-node.scss';
 import { MarkButton } from '../components/mark-button';
-import { MediaAttributeEditor } from '../components/media-attribute-editor';
+
 import { useCursorVisibility } from '../hooks/use-cursor-visibility';
 import { useIsBreakpoint } from '../hooks/use-is-breakpoint';
 import { useWindowSize } from '../hooks/use-window-size';
@@ -43,7 +43,13 @@ import { SmileIcon } from '../icons/smile-icon';
 import { AttachmentNode, AttachmentUploadButton } from '../plugins/attachment';
 import { AudioNode, AudioUploadButton } from '../plugins/audio';
 import { BlockquoteButton } from '../plugins/blockquote';
-import { BubbleMenu } from '../plugins/bubble-menu';
+import {
+  AttachmentBubbleMenu,
+  AudioBubbleMenu,
+  BubbleMenu,
+  ImageBubbleMenu,
+  VideoBubbleMenu,
+} from '../plugins/bubble-menu';
 import { CodeBlockButton } from '../plugins/code-block';
 import { ColorHighlightDropdownMenu } from '../plugins/color/color-highlight-dropdown-menu';
 import { ColorTextDropdownMenu } from '../plugins/color/color-text-dropdown-menu';
@@ -127,7 +133,11 @@ const MainToolbarContent = ({
         <MarkButton type="underline" />
         <ColorTextDropdownMenu modal={false} />
         <ColorHighlightDropdownMenu modal={false} />
-        {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
+        {!isMobile ? (
+          <LinkPopover autoOpenOnLinkActive={false} />
+        ) : (
+          <LinkButton onClick={onLinkClick} />
+        )}
       </ToolbarGroup>
 
       <ToolbarSeparator />
@@ -348,7 +358,10 @@ export function Editor({
             </Toolbar>
 
             <div ref={contentRef} className="fsdx-editor-content">
-              {editor && <MediaAttributeEditor editor={editor} />}
+              {editor && <ImageBubbleMenu editor={editor} />}
+              {editor && <VideoBubbleMenu editor={editor} />}
+              {editor && <AudioBubbleMenu editor={editor} />}
+              {editor && <AttachmentBubbleMenu editor={editor} />}
               <BubbleMenu />
               <EditorContent editor={editor} role="presentation" />
             </div>

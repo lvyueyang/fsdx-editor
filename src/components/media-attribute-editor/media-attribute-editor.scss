@@ -172,3 +172,13 @@
     color: var(--fsdx-editor-gray-100);
   }
 }
+
+.fsdx-editor-attribute-delete-btn {
+  color: var(--fsdx-editor-gray-400);
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+}

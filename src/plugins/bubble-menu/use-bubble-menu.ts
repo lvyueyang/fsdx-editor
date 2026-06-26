@@ -1,6 +1,8 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+export type BubbleMenuSelectionType = 'text' | 'link';
+
 export interface UseBubbleMenuConfig {
   editor: Editor | null;
 }
@@ -29,23 +31,65 @@ function findScrollableAncestor(el: HTMLElement | null): HTMLElement | null {
 }
 
 /**
- * 悬浮菜单 hook：文字选区非空时显示，
- * 选区折叠或点击外部区域后隐藏
+ * 悬浮菜单 hook：文字选区非空时显示文本菜单，
+ * 光标位于链接上时显示链接菜单，
+ * 媒体节点选中或选区折叠或点击外部区域后隐藏
  */
 export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
   const [visible, setVisible] = useState(false);
+  const [selectionType, setSelectionType] =
+    useState<BubbleMenuSelectionType | null>(null);
   const [rect, setRect] = useState<DOMRect>(EMPTY_RECT);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
       setVisible(false);
+      setSelectionType(null);
+      return;
+    }
+
+    // 链接优先：光标位于链接上时显示链接菜单
+    if (editor.isActive('link')) {
+      const { $from } = editor.state.selection;
+      try {
+        const pos = editor.view.coordsAtPos($from.pos);
+        const linkRect: DOMRect = {
+          x: pos.left,
+          y: pos.top,
+          width: pos.right - pos.left,
+          height: pos.bottom - pos.top,
+          top: pos.top,
+          left: pos.left,
+          right: pos.right,
+          bottom: pos.bottom,
+        } as DOMRect;
+        setRect(linkRect);
+        setSelectionType('link');
+        setVisible(true);
+        return;
+      } catch {
+        // coordsAtPos 可能对某些位置抛出异常
+      }
+    }
+
+    // 媒体节点选中时隐藏文字悬浮菜单，避免与媒体悬浮菜单冲突
+    if (
+      editor.isActive('customImage') ||
+      editor.isActive('image') ||
+      editor.isActive('video') ||
+      editor.isActive('audio') ||
+      editor.isActive('attachment')
+    ) {
+      setVisible(false);
+      setSelectionType(null);
       return;
     }
 
     const { selection } = editor.state;
     if (selection.empty) {
       setVisible(false);
+      setSelectionType(null);
       return;
     }
 
@@ -56,6 +100,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       domSelection.rangeCount === 0
     ) {
       setVisible(false);
+      setSelectionType(null);
       return;
     }
 
@@ -63,15 +108,18 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     const domRect = range.getBoundingClientRect();
     if (domRect.width === 0 && domRect.height === 0) {
       setVisible(false);
+      setSelectionType(null);
       return;
     }
 
     setRect(domRect);
+    setSelectionType('text');
     setVisible(true);
   }, [editor]);
 
   const hideMenu = useCallback(() => {
     setVisible(false);
+    setSelectionType(null);
   }, []);
 
   useEffect(() => {
@@ -127,5 +175,5 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     };
   }, [editor, computeRect, hideMenu]);
 
-  return { rect, visible, hideMenu, containerRef };
+  return { rect, visible, selectionType, hideMenu, containerRef };
 }
