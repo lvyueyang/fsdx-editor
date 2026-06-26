@@ -1,5 +1,5 @@
-export type { EditorProps } from './editor/editor';
-export { Editor } from './editor/editor';
+export type { EditorProps } from './core/editor';
+export { Editor } from './core/editor';
 export type {
   EditorOptions,
   MediaItem,

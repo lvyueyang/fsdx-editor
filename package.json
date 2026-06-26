@@ -15,8 +15,8 @@
   "scripts": {
     "build": "rslib",
     "check": "biome check --write",
-    "dev": "rslib --watch",
-    "dev:demo": "rsbuild dev",
+    "dev:lib": "rslib --watch",
+    "dev": "rsbuild dev",
     "build:demo": "rsbuild build",
     "format": "biome format --write",
     "test": "rstest",

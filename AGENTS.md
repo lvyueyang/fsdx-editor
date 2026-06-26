@@ -17,10 +17,36 @@ docs/                         # Rspress 文档站点
 ├── index.mdx                 # 文档首页
 └── Button.mdx                # Button 组件文档（含 API 表格 + 实时预览）
 src/                          # 组件库源码
-├── index.tsx                 # 公共入口，统一导出所有组件
-├── Button.tsx                # Button 组件
-├── button.css                # Button 组件样式
-└── env.d.ts                  # Rslib 类型引用
+├── index.tsx                 # 公共入口
+├── types.ts                  # 公共类型定义
+├── core/                     # 编辑器核心（入口、上下文、工具、主题切换、通用扩展）
+│   ├── editor.tsx
+│   ├── editor.scss
+│   ├── editor-context.ts
+│   ├── tiptap-utils.ts
+│   ├── theme-toggle.tsx
+│   └── node-background-extension.ts
+├── styles/                   # 设计 token + StarterKit 内置节点样式覆盖
+│   ├── _variables.scss
+│   ├── _keyframe-animations.scss
+│   └── overrides/
+├── hooks/                    # 所有 React hooks
+├── lib/                      # 通用工具
+│   └── format-file-size.ts
+├── components/               # 共享组件
+│   ├── ui/                   # 纯基础设计系统（Badge/Button/Card/Popover/Tooltip 等）
+│   ├── mark-button/          # 通用 mark 按钮（bold/italic/underline/strike/sub/sup）
+│   ├── media-drag-area.tsx
+│   ├── media-upload-popover/
+│   └── media-attribute-editor/
+├── icons/                    # 图标组件（58 个）
+└── plugins/                  # 按功能模块组织的编辑器功能（19 个模块）
+    ├── image/ video/ audio/ attachment/
+    ├── table/ link/ color/ text-style/
+    ├── heading/ font-size/ list/ text-align/
+    ├── indent/ line-height/ blockquote/ code-block/
+    ├── horizontal-rule/ undo-redo/ emoji/
+    └── 每个模块自包含：extension + node + UI + hooks
 tests/                        # 测试文件
 └── index.test.tsx            # Button 组件测试
 ```
@@ -98,15 +124,14 @@ tests/                        # 测试文件
 
 | 命令 | 说明 |
 |------|------|
-| `pnpm dev` | 启动 Rslib 监听模式，源码变更后自动重新构建 |
+| `pnpm dev` | 启动 Demo 开发服务器（Rsbuild） |
+| `pnpm dev:lib` | 启动 Rslib 监听模式，源码变更后自动重新构建 |
 | `pnpm build` | 生产构建，输出 ESM + 声明文件到 `dist/` |
+| `pnpm build:demo` | 生产构建 Demo 页面 |
 | `pnpm check` | Biome 代码检查并自动修复 |
 | `pnpm format` | Biome 代码格式化 |
 | `pnpm test` | 运行 Rstest 测试（单次） |
 | `pnpm test:watch` | Rstest 测试监听模式 |
-| `pnpm doc` | 启动 Rspress 文档开发服务器，同时启动 Rslib watch |
-| `pnpm doc:build` | 构建 Rspress 文档站点 |
-| `pnpm doc:preview` | 预览已构建的文档站点 |
 
 ## 开发边界
 

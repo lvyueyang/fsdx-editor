@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Editor } from '../src/editor/editor';
+import { Editor } from '../src/core/editor';
 import type { EditorOptions } from '../src/types';
 
 function readFileAsDataURL(file: File): Promise<string> {
