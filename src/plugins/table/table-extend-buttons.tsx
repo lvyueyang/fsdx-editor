@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useTableAddRowColumn } from './use-table-ops';
 
 function findControlsContainer(
-  editor: ReturnType<typeof useTiptapEditor>['editor'],
+  editor: ReturnType<typeof useFsdxEditor>['editor'],
 ): HTMLElement | null {
   if (!editor || !editor.view?.dom) return null;
   return editor.view.dom.querySelector('.table-controls') as HTMLElement | null;
 }
 
 export function TableExtendButtons() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useFsdxEditor();
   const [visible, setVisible] = useState(false);
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
@@ -43,7 +43,7 @@ export function TableExtendButtons() {
 function ExtendButtonsInner({
   editor,
 }: {
-  editor: ReturnType<typeof useTiptapEditor>['editor'];
+  editor: ReturnType<typeof useFsdxEditor>['editor'];
 }) {
   const addRowAfter = useTableAddRowColumn({
     editor,

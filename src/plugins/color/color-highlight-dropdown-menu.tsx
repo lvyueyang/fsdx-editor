@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { BackgroundColorIcon } from '../../icons/background-color-icon';
 import { ColorGrid } from './color-grid';
 import { PALETTE_COLUMNS, type PaletteColor } from './color-palette';
@@ -26,7 +26,7 @@ export function ColorHighlightDropdownMenu({
   modal = true,
   ...props
 }: ColorHighlightDropdownMenuProps) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [open, setOpen] = useState(false);
 
   const currentHighlightColor = useMemo(() => {
@@ -64,7 +64,7 @@ export function ColorHighlightDropdownMenu({
           tooltip="背景色"
           {...props}
         >
-          <BackgroundColorIcon className="tiptap-button-icon" />
+          <BackgroundColorIcon className="fsdx-editor-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -72,7 +72,7 @@ export function ColorHighlightDropdownMenu({
         <div style={{ padding: '4px 8px' }}>
           <button
             type="button"
-            className="tiptap-color-grid-action-btn"
+            className="fsdx-editor-color-grid-action-btn"
             onClick={handleClearHighlight}
           >
             清除背景色

@@ -1,6 +1,7 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { usePortalContainer } from '../../core/editor-context';
 import { getVideoElement } from './media-dom-utils';
 import './video-resize-handles.scss';
 
@@ -17,6 +18,7 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
   const [dragging, setDragging] = useState<'left' | 'right' | null>(null);
   const videoElRef = useRef<HTMLVideoElement | null>(null);
   const dragRef = useRef({ startX: 0, startWidth: 0, nodePos: 0 });
+  const portalContainerRef = usePortalContainer();
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
@@ -75,8 +77,7 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
         nodePos: editor.state.selection.$from.pos,
       };
 
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
+      document.documentElement.classList.add('fsdx-editor-resizing');
     },
     [videoRect, editor],
   );
@@ -108,8 +109,7 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
 
     const handleMouseUp = () => {
       setDragging(null);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
+      document.documentElement.classList.remove('fsdx-editor-resizing');
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -126,10 +126,12 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
   const handleHeight = videoRect.height > 150 ? 80 : videoRect.height * 0.9;
   const handleTop = videoRect.top + (videoRect.height - handleHeight) / 2;
 
+  const portalTarget = portalContainerRef?.current ?? document.body;
+
   return createPortal(
     <>
       <div
-        className={`tiptap-video-resize-handle ${dragging === 'left' ? 'tiptap-video-resize-handle--active' : ''}`}
+        className={`fsdx-editor-video-resize-handle ${dragging === 'left' ? 'fsdx-editor-video-resize-handle--active' : ''}`}
         style={{
           position: 'fixed',
           left: videoRect.left + HANDLE_INSET,
@@ -140,7 +142,7 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
         onMouseDown={(e) => handleMouseDown('left', e)}
       />
       <div
-        className={`tiptap-video-resize-handle ${dragging === 'right' ? 'tiptap-video-resize-handle--active' : ''}`}
+        className={`fsdx-editor-video-resize-handle ${dragging === 'right' ? 'fsdx-editor-video-resize-handle--active' : ''}`}
         style={{
           position: 'fixed',
           left: videoRect.right - HANDLE_INSET - HANDLE_WIDTH,
@@ -151,6 +153,6 @@ export function VideoResizeHandles({ editor }: VideoResizeHandlesProps) {
         onMouseDown={(e) => handleMouseDown('right', e)}
       />
     </>,
-    document.body,
+    portalTarget,
   );
 }

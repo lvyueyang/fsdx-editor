@@ -26,7 +26,7 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(
     return (
       <div
         ref={ref}
-        className={`tiptap-badge ${className || ''}`}
+        className={`fsdx-editor-badge ${className || ''}`}
         data-style={variant}
         data-size={size}
         data-appearance={appearance}

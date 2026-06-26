@@ -66,7 +66,7 @@ export function MediaAttributeEditor({ editor }: MediaAttributeEditorProps) {
         getBoundingClientRect={getBoundingClientRect}
         zIndex={50}
       >
-        <div className="tiptap-media-attribute-editor-content">
+        <div className="fsdx-editor-media-attribute-editor-content">
           {mediaType === 'image' && <ImageAttributeEditor editor={editor} />}
           {mediaType === 'video' && <VideoAttributeEditor editor={editor} />}
           {mediaType === 'audio' && <AudioAttributeEditor editor={editor} />}

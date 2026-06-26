@@ -1,4 +1,4 @@
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   img {
     max-width: 100%;
     height: auto;
@@ -12,24 +12,24 @@
   > img:not([data-type="emoji"] img) {
     margin: 2rem 0;
     outline: 0.125rem solid transparent;
-    border-radius: var(--tt-radius-xs, 0.25rem);
+    border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   }
 
   img:not([data-type="emoji"] img).ProseMirror-selectednode {
-    outline-color: var(--tt-brand-color-500);
+    outline-color: var(--fsdx-editor-brand-color-500);
   }
 
   // Thread image handling
-  .tiptap-thread:has(> img) {
+  .fsdx-editor-thread:has(> img) {
     margin: 2rem 0;
 
     img {
       outline: 0.125rem solid transparent;
-      border-radius: var(--tt-radius-xs, 0.25rem);
+      border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
     }
   }
 
-  .tiptap-thread img {
+  .fsdx-editor-thread img {
     margin: 0;
   }
 }

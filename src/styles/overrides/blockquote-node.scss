@@ -1,15 +1,15 @@
-.tiptap.ProseMirror {
-  --blockquote-bg-color: var(--tt-gray-light-900);
+.fsdx-editor-wrapper .tiptap.ProseMirror {
+  --blockquote-bg-color: var(--fsdx-editor-gray-light-900);
 
   .fsdx-editor-dark & {
-    --blockquote-bg-color: var(--tt-gray-dark-900);
+    --blockquote-bg-color: var(--fsdx-editor-gray-dark-900);
   }
 }
 
 /* =====================
      BLOCKQUOTE
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   blockquote {
     position: relative;
     padding-left: 1em;

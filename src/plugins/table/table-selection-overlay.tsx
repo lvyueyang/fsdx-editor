@@ -15,7 +15,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { MoreIcon } from '../../icons/more-icon';
 import { ColorGrid } from '../color/color-grid';
 import { PALETTE_COLUMNS, type PaletteColor } from '../color/color-palette';
@@ -114,7 +114,7 @@ function findOverlayContainer(wrapper: HTMLElement | null): HTMLElement | null {
 }
 
 export function TableSelectionOverlay() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useFsdxEditor();
   const [rect, setRect] = useState<CellRect | null>(null);
   const [_wrapperRect, setWrapperRect] = useState<CellRect | null>(null);
   const [visible, setVisible] = useState(false);
@@ -302,7 +302,7 @@ function OverlayContent({
                         <div style={{ padding: '4px 8px' }}>
                           <button
                             type="button"
-                            className="tiptap-color-grid-action-btn"
+                            className="fsdx-editor-color-grid-action-btn"
                             onClick={() => {
                               item.onReset();
                               onMenuOpenChange(false);

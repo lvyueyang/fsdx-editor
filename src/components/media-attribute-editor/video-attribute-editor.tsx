@@ -111,39 +111,42 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
   }, [editor, posterValue]);
 
   return (
-    <div className="tiptap-attribute-group">
-      <div className="tiptap-attribute-row">
-        <span className="tiptap-attribute-label">对齐</span>
-        <div className="tiptap-attribute-btn-group">
+    <div className="fsdx-editor-attribute-group">
+      <div className="fsdx-editor-attribute-row">
+        <span className="fsdx-editor-attribute-label">对齐</span>
+        <div className="fsdx-editor-attribute-btn-group">
           <button
             type="button"
-            className={`tiptap-attribute-btn ${currentAlignment === 'left' ? 'tiptap-attribute-btn--active' : ''}`}
+            className={`fsdx-editor-attribute-btn ${currentAlignment === 'left' ? 'fsdx-editor-attribute-btn--active' : ''}`}
             onClick={() => handleAlignment('left')}
           >
             左
           </button>
           <button
             type="button"
-            className={`tiptap-attribute-btn ${currentAlignment === 'center' ? 'tiptap-attribute-btn--active' : ''}`}
+            className={`fsdx-editor-attribute-btn ${currentAlignment === 'center' ? 'fsdx-editor-attribute-btn--active' : ''}`}
             onClick={() => handleAlignment('center')}
           >
             中
           </button>
           <button
             type="button"
-            className={`tiptap-attribute-btn ${currentAlignment === 'right' ? 'tiptap-attribute-btn--active' : ''}`}
+            className={`fsdx-editor-attribute-btn ${currentAlignment === 'right' ? 'fsdx-editor-attribute-btn--active' : ''}`}
             onClick={() => handleAlignment('right')}
           >
             右
           </button>
         </div>
         {widthPercent !== null && (
-          <span className="tiptap-attribute-label">{widthPercent}%</span>
+          <span className="fsdx-editor-attribute-label">{widthPercent}%</span>
         )}
       </div>
 
-      <div className="tiptap-attribute-row">
-        <label htmlFor="video-poster-input" className="tiptap-attribute-label">
+      <div className="fsdx-editor-attribute-row">
+        <label
+          htmlFor="video-poster-input"
+          className="fsdx-editor-attribute-label"
+        >
           封面图
         </label>
         <input
@@ -153,13 +156,13 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
           onChange={(e) => setPosterValue(e.target.value)}
           onBlur={handlePosterBlur}
           placeholder="https://..."
-          className="tiptap-attribute-text-input"
+          className="fsdx-editor-attribute-text-input"
         />
       </div>
 
-      <div className="tiptap-attribute-row">
-        <div className="tiptap-attribute-toggles">
-          <label className="tiptap-attribute-toggle">
+      <div className="fsdx-editor-attribute-row">
+        <div className="fsdx-editor-attribute-toggles">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={autoplay}
@@ -167,7 +170,7 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
             />
             自动播放
           </label>
-          <label className="tiptap-attribute-toggle">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={controls}
@@ -175,7 +178,7 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
             />
             控制条
           </label>
-          <label className="tiptap-attribute-toggle">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={loop}

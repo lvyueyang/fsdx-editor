@@ -9,9 +9,9 @@ import {
   isNodeTypeSelected,
   isValidPosition,
   selectionWithinConvertibleTypes,
-} from '../../core/tiptap-utils';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { HeadingFiveIcon } from '../../icons/heading-five-icon';
 import { HeadingFourIcon } from '../../icons/heading-four-icon';
 // --- Icons ---
@@ -300,7 +300,7 @@ export function useHeading(config: UseHeadingConfig) {
     onToggled,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [canToggleState, setCanToggleState] = useState(false);
   const [isActive, setIsActive] = useState(false);

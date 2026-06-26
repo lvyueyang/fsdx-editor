@@ -1,6 +1,7 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { usePortalContainer } from '../../core/editor-context';
 import { getImageElement } from './media-dom-utils';
 import './image-resize-handles.scss';
 
@@ -17,6 +18,7 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
   const [dragging, setDragging] = useState<'left' | 'right' | null>(null);
   const imgElRef = useRef<HTMLImageElement | null>(null);
   const dragRef = useRef({ startX: 0, startWidth: 0, nodePos: 0 });
+  const portalContainerRef = usePortalContainer();
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
@@ -75,8 +77,7 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
         nodePos: editor.state.selection.$from.pos,
       };
 
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
+      document.documentElement.classList.add('fsdx-editor-resizing');
     },
     [imgRect, editor],
   );
@@ -108,8 +109,7 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
 
     const handleMouseUp = () => {
       setDragging(null);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
+      document.documentElement.classList.remove('fsdx-editor-resizing');
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -126,10 +126,12 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
   const handleHeight = imgRect.height > 150 ? 80 : imgRect.height * 0.9;
   const handleTop = imgRect.top + (imgRect.height - handleHeight) / 2;
 
+  const portalTarget = portalContainerRef?.current ?? document.body;
+
   return createPortal(
     <>
       <div
-        className={`tiptap-image-resize-handle ${dragging === 'left' ? 'tiptap-image-resize-handle--active' : ''}`}
+        className={`fsdx-editor-image-resize-handle ${dragging === 'left' ? 'fsdx-editor-image-resize-handle--active' : ''}`}
         style={{
           position: 'fixed',
           left: imgRect.left + HANDLE_INSET,
@@ -140,7 +142,7 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
         onMouseDown={(e) => handleMouseDown('left', e)}
       />
       <div
-        className={`tiptap-image-resize-handle ${dragging === 'right' ? 'tiptap-image-resize-handle--active' : ''}`}
+        className={`fsdx-editor-image-resize-handle ${dragging === 'right' ? 'fsdx-editor-image-resize-handle--active' : ''}`}
         style={{
           position: 'fixed',
           left: imgRect.right - HANDLE_INSET - HANDLE_WIDTH,
@@ -151,6 +153,6 @@ export function ImageResizeHandles({ editor }: ImageResizeHandlesProps) {
         onMouseDown={(e) => handleMouseDown('right', e)}
       />
     </>,
-    document.body,
+    portalTarget,
   );
 }

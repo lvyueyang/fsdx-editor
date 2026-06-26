@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/react';
 import { useEffect, useState } from 'react';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { canToggle, isHeadingActive, type Level } from '../heading';
 
 const ALL_LEVELS: Level[] = [1, 2, 3, 4, 5, 6];
@@ -23,7 +23,7 @@ export function useTextStyleDropdownMenu(
   config?: UseTextStyleDropdownMenuConfig,
 ) {
   const { editor: providedEditor } = config || {};
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [activeLevel, setActiveLevel] = useState<Level | undefined>(undefined);
   const [canToggleState, setCanToggleState] = useState(false);
 

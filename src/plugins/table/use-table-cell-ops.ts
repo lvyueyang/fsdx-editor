@@ -5,8 +5,8 @@ import { useCallback } from 'react';
 import {
   getSelectedNodesOfType,
   updateNodesAttr,
-} from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+} from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { AlignCenterIcon } from '../../icons/align-center-icon';
 import { AlignJustifyIcon } from '../../icons/align-justify-icon';
 import { AlignLeftIcon } from '../../icons/align-left-icon';
@@ -42,7 +42,7 @@ export function useTableMergeSplitCell(config: UseTableMergeSplitCellConfig) {
     hideWhenUnavailable = false,
     onExecuted,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -86,7 +86,7 @@ export function useTableClearRowColumnContent(
     hideWhenUnavailable = false,
     onCleared,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -170,7 +170,7 @@ export function useTableHeaderRowColumn(config: UseTableHeaderRowColumnConfig) {
     hideWhenUnavailable = false,
     onToggled,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -209,7 +209,7 @@ export function useTableFitToWidth(config: UseTableFitToWidthConfig) {
     hideWhenUnavailable = false,
     onWidthAdjusted,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -266,7 +266,7 @@ export function useCopySelectedCells(config: UseCopySelectedCellsConfig) {
     hideWhenUnavailable = false,
     onCopied,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -324,7 +324,7 @@ export function useClearSelectedCells(config: UseClearSelectedCellsConfig) {
     hideWhenUnavailable = false,
     onCleared,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -401,7 +401,7 @@ export interface UseTableCellTextColorConfig {
 
 export function useTableCellTextColor(config: UseTableCellTextColorConfig) {
   const { editor: providedEditor, onChanged } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const setColor = useCallback(
     (color: string) => {
@@ -457,7 +457,7 @@ export function useTableCellBackgroundColor(
   config: UseTableCellBackgroundColorConfig,
 ) {
   const { editor: providedEditor, onChanged } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const setColor = useCallback(
     (color: string) => {
@@ -511,7 +511,7 @@ export interface UseTableCellTextAlignConfig {
 
 export function useTableCellTextAlign(config: UseTableCellTextAlignConfig) {
   const { editor: providedEditor, align, onChanged } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const handleAction = useCallback(() => {
     if (!editor) return;
@@ -555,7 +555,7 @@ export function useTableCellVerticalAlign(
   config: UseTableCellVerticalAlignConfig,
 ) {
   const { editor: providedEditor, align, onChanged } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const handleAction = useCallback(() => {
     if (!editor) return;

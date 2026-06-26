@@ -1,5 +1,5 @@
 import * as PopoverPrimitive from '@radix-ui/react-popover';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 import './popover.scss';
 
 function Popover({
@@ -25,7 +25,7 @@ function PopoverContent({
       <PopoverPrimitive.Content
         align={align}
         sideOffset={sideOffset}
-        className={cn('tiptap-popover', className)}
+        className={cn('fsdx-editor-popover', className)}
         {...props}
       />
     </PopoverPrimitive.Portal>

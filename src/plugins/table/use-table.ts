@@ -1,8 +1,8 @@
 import '@tiptap/extension-table';
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
-import { isNodeInSchema } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { isNodeInSchema } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { TableIcon } from '../../icons/table-icon';
 
 export interface UseTableConfig {
@@ -84,7 +84,7 @@ export function useTable(config: UseTableConfig = {}) {
     onInserted,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const canInsert = canInsertTable(editor);
 

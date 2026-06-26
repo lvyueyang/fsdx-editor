@@ -1,6 +1,6 @@
 /* =========== 表格操作菜单 =========== */
 
-[data-slot="tiptap-dropdown-menu-content"].table-selection-menu {
+[data-slot="fsdx-editor-dropdown-menu-content"].table-selection-menu {
   min-width: 200px;
   padding: 0.5rem;
 }
@@ -13,48 +13,48 @@
   opacity: 0.7;
 }
 
-.table-selection-menu .tiptap-dropdown-menu-label {
+.table-selection-menu .fsdx-editor-dropdown-menu-label {
   padding: 0.375rem 0.5rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--tt-gray-light-a-500);
+  color: var(--fsdx-editor-gray-light-a-500);
 }
 
-.fsdx-editor-dark .table-selection-menu .tiptap-dropdown-menu-label {
-  color: var(--tt-gray-dark-a-500);
+.fsdx-editor-dark .table-selection-menu .fsdx-editor-dropdown-menu-label {
+  color: var(--fsdx-editor-gray-dark-a-500);
 }
 
-.table-selection-menu .tiptap-dropdown-menu-item {
+.table-selection-menu .fsdx-editor-dropdown-menu-item {
   padding: 0.375rem 0.5rem;
 }
 
-.table-selection-menu .tiptap-dropdown-menu-separator {
+.table-selection-menu .fsdx-editor-dropdown-menu-separator {
   margin: 0.375rem 0.5rem;
 }
 
 /* --- Sub Trigger --- */
 
-.table-selection-menu .tiptap-dropdown-menu-sub-trigger {
+.table-selection-menu .fsdx-editor-dropdown-menu-sub-trigger {
   padding: 0.375rem 0.5rem;
-  border-radius: var(--tt-radius-sm);
+  border-radius: var(--fsdx-editor-radius-sm);
   font-size: 0.8125rem;
   line-height: 1.25rem;
 
   &[data-highlighted],
   &[data-state='open'] {
-    background-color: var(--tt-gray-light-a-100);
+    background-color: var(--fsdx-editor-gray-light-a-100);
   }
 
-  .tiptap-dropdown-menu-sub-trigger-chevron {
+  .fsdx-editor-dropdown-menu-sub-trigger-chevron {
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.5;
   }
 }
 
-.fsdx-editor-dark .table-selection-menu .tiptap-dropdown-menu-sub-trigger {
+.fsdx-editor-dark .table-selection-menu .fsdx-editor-dropdown-menu-sub-trigger {
   &[data-highlighted],
   &[data-state='open'] {
-    background-color: var(--tt-gray-dark-a-100);
+    background-color: var(--fsdx-editor-gray-dark-a-100);
   }
 }

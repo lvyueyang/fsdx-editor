@@ -1,11 +1,11 @@
-.tiptap-image-resize-handle {
-  background: var(--tt-brand-color-400);
+.fsdx-editor-image-resize-handle {
+  background: var(--fsdx-editor-brand-color-400);
   border-radius: 2px;
   opacity: 1;
   cursor: col-resize;
   z-index: 51;
 
   &--active {
-    background: var(--tt-brand-color-500);
+    background: var(--fsdx-editor-brand-color-500);
   }
 }

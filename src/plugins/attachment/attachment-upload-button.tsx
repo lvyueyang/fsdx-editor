@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useState } from 'react';
 import { MediaUploadPopover } from '../../components/media-upload-popover';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { AttachmentIcon } from '../../icons/attachment-icon';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 
@@ -14,7 +14,7 @@ export const AttachmentUploadButton = forwardRef<
   HTMLButtonElement,
   AttachmentUploadButtonProps
 >(({ text, ...props }, ref) => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useFsdxEditor();
   const [open, setOpen] = useState(false);
 
   const handleInserted = useCallback(
@@ -43,9 +43,9 @@ export const AttachmentUploadButton = forwardRef<
         tooltip="添加附件"
         {...props}
       >
-        <AttachmentIcon className="tiptap-button-icon" />
+        <AttachmentIcon className="fsdx-editor-button-icon" />
         {text && <span>{text}</span>}
-        <ChevronDownIcon className="tiptap-button-dropdown-small" />
+        <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
       </Button>
     </MediaUploadPopover>
   );

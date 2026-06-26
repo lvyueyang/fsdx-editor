@@ -4,9 +4,9 @@ import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
 // --- Lib ---
-import { parseShortcutKeys } from '../../core/tiptap-utils';
+import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
 import type { UseBlockquoteConfig } from './';
 import { BLOCKQUOTE_SHORTCUT_KEY, useBlockquote } from './';
@@ -55,7 +55,7 @@ export const BlockquoteButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const {
       isVisible,
       canToggle,
@@ -101,8 +101,8 @@ export const BlockquoteButton = forwardRef<
       >
         {children ?? (
           <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
             {showShortcut && (
               <BlockquoteShortcutBadge shortcutKeys={shortcutKeys} />
             )}

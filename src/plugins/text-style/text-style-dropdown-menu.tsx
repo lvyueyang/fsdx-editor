@@ -10,8 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { DropdownMenuButtonItem } from '../../components/ui/dropdown-menu-button-item';
-import { cn } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { cn } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { HeadingButton, type Level } from '../heading';
 import { useTextStyleDropdownMenu } from './use-text-style-dropdown-menu';
@@ -34,7 +34,7 @@ function TextStyleDropdownMenuImpl(
   }: TextStyleDropdownMenuProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isOpen, setIsOpen] = useState(false);
   const { displayText, canToggle, activeLevel } = useTextStyleDropdownMenu({
     editor,
@@ -65,11 +65,14 @@ function TextStyleDropdownMenuImpl(
           ref={ref}
         >
           <span
-            className={cn('tiptap-button-text', 'tiptap-button-text-fixed')}
+            className={cn(
+              'fsdx-editor-button-text',
+              'fsdx-editor-button-text-fixed',
+            )}
           >
             {displayText}
           </span>
-          <ChevronDownIcon className="tiptap-button-dropdown-small" />
+          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -79,7 +82,7 @@ function TextStyleDropdownMenuImpl(
             active={!activeLevel}
             onClick={handleParagraph}
           >
-            <span className="tiptap-button-text">正文</span>
+            <span className="fsdx-editor-button-text">正文</span>
           </DropdownMenuButtonItem>
           {ALL_LEVELS.map((level) => (
             <DropdownMenuItem key={`heading-${level}`} asChild>

@@ -1,14 +1,13 @@
 :root {
-  --tt-dropdown-menu-bg-color: var(--white);
-  --tt-dropdown-menu-text-color: var(--tt-gray-light-a-600);
-  --tt-dropdown-menu-label-color: var(--tt-gray-light-a-800);
+  --fsdx-editor-dropdown-menu-bg-color: var(--fsdx-editor-white);
+  --fsdx-editor-dropdown-menu-text-color: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-dropdown-menu-label-color: var(--fsdx-editor-gray-light-a-800);
 }
 
-:root.fsdx-editor-dark,
-.fsdx-editor-dark {
-  --tt-dropdown-menu-bg-color: var(--tt-gray-dark-50);
-  --tt-dropdown-menu-text-color: var(--tt-gray-dark-a-600);
-  --tt-dropdown-menu-label-color: var(--tt-gray-dark-a-800);
+:root.fsdx-editor-dark {
+  --fsdx-editor-dropdown-menu-bg-color: var(--fsdx-editor-gray-dark-50);
+  --fsdx-editor-dropdown-menu-text-color: var(--fsdx-editor-gray-dark-a-600);
+  --fsdx-editor-dropdown-menu-label-color: var(--fsdx-editor-gray-dark-a-800);
 }
 
 /* ============================================================
@@ -17,7 +16,7 @@
 
 /* --- Content --- */
 
-.tiptap-dropdown-menu-content {
+.fsdx-editor-dropdown-menu-content {
   --slide-x: 0px;
   --slide-y: 0px;
   --padding: 0.375rem;
@@ -28,40 +27,40 @@
   max-height: var(--radix-dropdown-menu-content-available-height);
   overflow-x: hidden;
   overflow-y: auto;
-  border-radius: calc(var(--padding) + var(--tt-radius-lg));
+  border-radius: calc(var(--padding) + var(--fsdx-editor-radius-lg));
   padding: 0.375rem;
-  background-color: var(--tt-dropdown-menu-bg-color);
-  color: var(--tt-dropdown-menu-text-color);
-  box-shadow: var(--tt-shadow-elevated-md);
+  background-color: var(--fsdx-editor-dropdown-menu-bg-color);
+  color: var(--fsdx-editor-dropdown-menu-text-color);
+  box-shadow: var(--fsdx-editor-shadow-elevated-md);
   transform-origin: var(--radix-dropdown-menu-content-transform-origin);
   transition-duration: 100ms;
 }
 
-.tiptap-dropdown-menu-content[data-side="bottom"] {
+.fsdx-editor-dropdown-menu-content[data-side="bottom"] {
   --slide-y: -0.5rem;
 }
-.tiptap-dropdown-menu-content[data-side="top"] {
+.fsdx-editor-dropdown-menu-content[data-side="top"] {
   --slide-y: 0.5rem;
 }
-.tiptap-dropdown-menu-content[data-side="left"] {
+.fsdx-editor-dropdown-menu-content[data-side="left"] {
   --slide-x: 0.5rem;
 }
-.tiptap-dropdown-menu-content[data-side="right"] {
+.fsdx-editor-dropdown-menu-content[data-side="right"] {
   --slide-x: -0.5rem;
 }
 
-.tiptap-dropdown-menu-content[data-state="open"] {
-  animation: dropdown-in 100ms ease forwards;
+.fsdx-editor-dropdown-menu-content[data-state="open"] {
+  animation: fsdx-editor-dropdown-in 100ms ease forwards;
 }
 
-.tiptap-dropdown-menu-content[data-state="closed"] {
-  animation: dropdown-out 100ms ease forwards;
+.fsdx-editor-dropdown-menu-content[data-state="closed"] {
+  animation: fsdx-editor-dropdown-out 100ms ease forwards;
   overflow: hidden;
 }
 
 /* --- Sub Content --- */
 
-.tiptap-dropdown-menu-sub-content {
+.fsdx-editor-dropdown-menu-sub-content {
   --slide-x: 0px;
   --slide-y: 0px;
   --padding: 0.375rem;
@@ -69,39 +68,39 @@
   z-index: 50;
   min-width: 6rem;
   overflow: hidden;
-  border-radius: calc(var(--padding) + var(--tt-radius-lg));
+  border-radius: calc(var(--padding) + var(--fsdx-editor-radius-lg));
   padding: 0.25rem;
-  background-color: var(--tt-dropdown-menu-bg-color);
-  box-shadow: var(--tt-shadow-elevated-md);
-  color: var(--tt-dropdown-menu-text-color);
+  background-color: var(--fsdx-editor-dropdown-menu-bg-color);
+  box-shadow: var(--fsdx-editor-shadow-elevated-md);
+  color: var(--fsdx-editor-dropdown-menu-text-color);
   transform-origin: var(--radix-dropdown-menu-content-transform-origin);
   transition-duration: 100ms;
 }
 
-.tiptap-dropdown-menu-sub-content[data-side="bottom"] {
+.fsdx-editor-dropdown-menu-sub-content[data-side="bottom"] {
   --slide-y: -0.5rem;
 }
-.tiptap-dropdown-menu-sub-content[data-side="top"] {
+.fsdx-editor-dropdown-menu-sub-content[data-side="top"] {
   --slide-y: 0.5rem;
 }
-.tiptap-dropdown-menu-sub-content[data-side="left"] {
+.fsdx-editor-dropdown-menu-sub-content[data-side="left"] {
   --slide-x: 0.5rem;
 }
-.tiptap-dropdown-menu-sub-content[data-side="right"] {
+.fsdx-editor-dropdown-menu-sub-content[data-side="right"] {
   --slide-x: -0.5rem;
 }
 
-.tiptap-dropdown-menu-sub-content[data-state="open"] {
-  animation: dropdown-in 100ms ease forwards;
+.fsdx-editor-dropdown-menu-sub-content[data-state="open"] {
+  animation: fsdx-editor-dropdown-in 100ms ease forwards;
 }
 
-.tiptap-dropdown-menu-sub-content[data-state="closed"] {
-  animation: dropdown-out 100ms ease forwards;
+.fsdx-editor-dropdown-menu-sub-content[data-state="closed"] {
+  animation: fsdx-editor-dropdown-out 100ms ease forwards;
 }
 
 /* Shared enter/exit keyframes — slide direction driven by --slide-x/y on the element */
 
-@keyframes dropdown-in {
+@keyframes fsdx-editor-dropdown-in {
   from {
     opacity: 0;
     transform: scale(0.95) translate(var(--slide-x), var(--slide-y));
@@ -112,7 +111,7 @@
   }
 }
 
-@keyframes dropdown-out {
+@keyframes fsdx-editor-dropdown-out {
   from {
     opacity: 1;
     transform: scale(1) translate(0, 0);
@@ -125,26 +124,26 @@
 
 /* --- Label --- */
 
-.tiptap-dropdown-menu-label {
+.fsdx-editor-dropdown-menu-label {
   padding: 0.75rem 0.5rem 0.25rem;
   font-size: 0.75rem;
   font-weight: 600;
   line-height: normal;
   text-transform: capitalize;
-  color: var(--tt-dropdown-menu-label-color);
+  color: var(--fsdx-editor-dropdown-menu-label-color);
 }
 
-.tiptap-dropdown-menu-label[data-inset="true"] {
+.fsdx-editor-dropdown-menu-label[data-inset="true"] {
   padding-left: 1.75rem;
 }
 
-.tiptap-dropdown-menu-group,
-.tiptap-dropdown-menu-group[data-orientation="vertical"] {
+.fsdx-editor-dropdown-menu-group,
+.fsdx-editor-dropdown-menu-group[data-orientation="vertical"] {
   display: flex;
   flex-direction: column;
 }
 
-.tiptap-dropdown-menu-group[data-orientation="horizontal"] {
+.fsdx-editor-dropdown-menu-group[data-orientation="horizontal"] {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -153,12 +152,12 @@
 
 /* --- Item --- */
 
-.tiptap-dropdown-menu-item {
+.fsdx-editor-dropdown-menu-item {
   position: relative;
   display: flex;
   align-items: center;
   padding: 0.375rem 0.5rem;
-  border-radius: var(--tt-radius-sm);
+  border-radius: var(--fsdx-editor-radius-sm);
   font-size: 0.8125rem;
   line-height: 1.25rem;
   cursor: default;
@@ -170,7 +169,7 @@
   }
 
   &[data-highlighted] {
-    background-color: var(--tt-gray-light-a-100);
+    background-color: var(--fsdx-editor-gray-light-a-100);
     outline: none;
   }
 
@@ -191,15 +190,15 @@
 
 /* --- Separator --- */
 
-.tiptap-dropdown-menu-separator {
+.fsdx-editor-dropdown-menu-separator {
   height: 1px;
   margin: 0.25rem 0.5rem;
-  background-color: var(--tt-border-color);
+  background-color: var(--fsdx-editor-border-color);
 }
 
 /* --- Shortcut --- */
 
-.tiptap-dropdown-menu-shortcut {
+.fsdx-editor-dropdown-menu-shortcut {
   margin-left: auto;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
@@ -208,7 +207,7 @@
 
 /* --- Checkbox / Radio Indicator --- */
 
-.tiptap-dropdown-menu-item-indicator {
+.fsdx-editor-dropdown-menu-item-indicator {
   position: absolute;
   left: 0.5rem;
   display: inline-flex;
@@ -225,11 +224,11 @@
 
 /* --- Sub Trigger --- */
 
-.tiptap-dropdown-menu-sub-trigger {
+.fsdx-editor-dropdown-menu-sub-trigger {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.5rem;
-  border-radius: var(--tt-radius-sm);
+  border-radius: var(--fsdx-editor-radius-sm);
   font-size: 0.8125rem;
   line-height: 1.25rem;
   cursor: default;
@@ -242,10 +241,10 @@
 
   &[data-highlighted],
   &[data-state="open"] {
-    background-color: var(--tt-gray-light-a-100);
+    background-color: var(--fsdx-editor-gray-light-a-100);
   }
 
-  .tiptap-dropdown-menu-sub-trigger-chevron {
+  .fsdx-editor-dropdown-menu-sub-trigger-chevron {
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.5;
@@ -254,10 +253,9 @@
 
 /* --- Dark mode --- */
 
-:root.fsdx-editor-dark .tiptap-dropdown-menu-item,
-.fsdx-editor-dark .tiptap-dropdown-menu-item {
+:root.fsdx-editor-dark .fsdx-editor-dropdown-menu-item {
   &[data-highlighted] {
-    background-color: var(--tt-gray-dark-a-100);
+    background-color: var(--fsdx-editor-gray-dark-a-100);
   }
 
   &[data-variant="destructive"] {
@@ -270,10 +268,9 @@
   }
 }
 
-:root.fsdx-editor-dark .tiptap-dropdown-menu-sub-trigger,
-.fsdx-editor-dark .tiptap-dropdown-menu-sub-trigger {
+:root.fsdx-editor-dark .fsdx-editor-dropdown-menu-sub-trigger {
   &[data-highlighted],
   &[data-state="open"] {
-    background-color: var(--tt-gray-dark-a-100);
+    background-color: var(--fsdx-editor-gray-dark-a-100);
   }
 }

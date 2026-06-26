@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import {
   type TableBtnConfig,
   TableButtonRender,
@@ -24,7 +24,7 @@ export const TableMergeCellsButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMergeSplitCell({
     editor,
     action: 'merge',
@@ -52,7 +52,7 @@ export const TableSplitCellsButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMergeSplitCell({
     editor,
     action: 'split',
@@ -81,7 +81,7 @@ export const TableFitToWidthButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableFitToWidth({
     editor,
     hideWhenUnavailable,

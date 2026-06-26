@@ -11,10 +11,10 @@ import {
   PopoverTrigger,
 } from '../../components/ui/popover';
 import { Separator } from '../../components/ui/separator';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 // --- Hooks ---
 import { useMenuNavigation } from '../../hooks/use-menu-navigation';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
 // --- Icons ---
 import { BanIcon } from '../../icons/ban-icon';
 import { HighlighterIcon } from '../../icons/highlighter-icon';
@@ -80,7 +80,7 @@ export const ColorHighlightPopoverButton = forwardRef<
     ref={ref}
     {...props}
   >
-    {children ?? <HighlighterIcon className="tiptap-button-icon" />}
+    {children ?? <HighlighterIcon className="fsdx-editor-button-icon" />}
   </Button>
 ));
 
@@ -89,11 +89,11 @@ ColorHighlightPopoverButton.displayName = 'ColorHighlightPopoverButton';
 export function ColorHighlightPopoverContent({
   editor,
   colors = pickHighlightColorsByValue([
-    'var(--tt-color-highlight-green)',
-    'var(--tt-color-highlight-blue)',
-    'var(--tt-color-highlight-red)',
-    'var(--tt-color-highlight-purple)',
-    'var(--tt-color-highlight-yellow)',
+    'var(--fsdx-editor-color-highlight-green)',
+    'var(--fsdx-editor-color-highlight-blue)',
+    'var(--fsdx-editor-color-highlight-red)',
+    'var(--fsdx-editor-color-highlight-purple)',
+    'var(--fsdx-editor-color-highlight-yellow)',
   ]),
   useColorValue = false,
 }: ColorHighlightPopoverContentProps) {
@@ -159,7 +159,7 @@ export function ColorHighlightPopoverContent({
               variant="ghost"
               data-highlighted={selectedIndex === colors.length}
             >
-              <BanIcon className="tiptap-button-icon" />
+              <BanIcon className="fsdx-editor-button-icon" />
             </Button>
           </ButtonGroup>
         </CardItemGroup>
@@ -171,18 +171,18 @@ export function ColorHighlightPopoverContent({
 export function ColorHighlightPopover({
   editor: providedEditor,
   colors = pickHighlightColorsByValue([
-    'var(--tt-color-highlight-green)',
-    'var(--tt-color-highlight-blue)',
-    'var(--tt-color-highlight-red)',
-    'var(--tt-color-highlight-purple)',
-    'var(--tt-color-highlight-yellow)',
+    'var(--fsdx-editor-color-highlight-green)',
+    'var(--fsdx-editor-color-highlight-blue)',
+    'var(--fsdx-editor-color-highlight-red)',
+    'var(--fsdx-editor-color-highlight-purple)',
+    'var(--fsdx-editor-color-highlight-yellow)',
   ]),
   hideWhenUnavailable = false,
   useColorValue = false,
   onApplied,
   ...props
 }: ColorHighlightPopoverProps) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isOpen, setIsOpen] = useState(false);
   const { isVisible, canColorHighlight, isActive, label, Icon } =
     useColorHighlight({
@@ -205,7 +205,7 @@ export function ColorHighlightPopover({
           tooltip={label}
           {...props}
         >
-          <Icon className="tiptap-button-icon" />
+          <Icon className="fsdx-editor-button-icon" />
         </ColorHighlightPopoverButton>
       </PopoverTrigger>
       <PopoverContent aria-label="高亮颜色">

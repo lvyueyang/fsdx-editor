@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
-import { isNodeTypeSelected } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { isNodeTypeSelected } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 
 export interface UseTextColorConfig {
   editor?: Editor | null;
@@ -45,7 +45,7 @@ export function getCurrentTextColor(editor: Editor | null): string | null {
 
 export function useTextColor(config: UseTextColorConfig = {}) {
   const { editor: providedEditor } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const [canColor, setCanColor] = useState(false);
   const [currentColor, setCurrentColor] = useState<string | null>(null);

@@ -9,9 +9,9 @@ import {
   isNodeTypeSelected,
   isValidPosition,
   selectionWithinConvertibleTypes,
-} from '../../core/tiptap-utils';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 
 // --- Icons ---
 import { CodeBlockIcon } from '../../icons/code-block-icon';
@@ -236,7 +236,7 @@ export function useCodeBlock(config?: UseCodeBlockConfig) {
     onToggled,
   } = config || {};
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [canToggleState, setCanToggleState] = useState(false);
   const [isActive, setIsActive] = useState(false);

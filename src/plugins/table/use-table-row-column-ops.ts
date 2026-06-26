@@ -3,7 +3,7 @@ import type { Node as PMNode } from '@tiptap/pm/model';
 import type { Editor } from '@tiptap/react';
 import type { ComponentType } from 'react';
 import { useCallback } from 'react';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -40,7 +40,7 @@ export function useTableAddRowColumn(config: UseTableAddRowColumnConfig) {
     hideWhenUnavailable = false,
     onAdded,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -92,7 +92,7 @@ export function useTableDeleteRowColumn(config: UseTableDeleteRowColumnConfig) {
     hideWhenUnavailable = false,
     onDeleted,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -148,7 +148,7 @@ export function useTableMoveRowColumn(config: UseTableMoveRowColumnConfig) {
     hideWhenUnavailable = false,
     onMoved,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -271,7 +271,7 @@ export function useTableDuplicateRowColumn(
     hideWhenUnavailable = false,
     onDuplicated,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,
@@ -354,7 +354,7 @@ export function useTableSortRowColumn(config: UseTableSortRowColumnConfig) {
     hideWhenUnavailable = false,
     onSorted,
   } = config;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isVisible = useTableActionVisibility(
     editor,
     canDoInTable,

@@ -23,7 +23,7 @@ src/                          # 组件库源码
 │   ├── editor.tsx
 │   ├── editor.scss
 │   ├── editor-context.ts
-│   ├── tiptap-utils.ts
+│   ├── editor-utils.ts
 │   ├── theme-toggle.tsx
 │   └── node-background-extension.ts
 ├── styles/                   # 设计 token + StarterKit 内置节点样式覆盖

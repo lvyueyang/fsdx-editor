@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 
 const DEFAULT_STEP = 2;
 
@@ -37,7 +37,7 @@ export function useIndent(config: UseIndentConfig = {}) {
     hideWhenUnavailable = false,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isActive, setIsActive] = useState(false);
   const [currentIndent, setCurrentIndent] = useState(0);

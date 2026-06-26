@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { TextColorIcon } from '../../icons/text-color-icon';
 import { ColorGrid } from './color-grid';
 import { PALETTE_COLUMNS, type PaletteColor } from './color-palette';
@@ -26,7 +26,7 @@ export function ColorTextDropdownMenu({
   modal = true,
   ...props
 }: ColorTextDropdownMenuProps) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [open, setOpen] = useState(false);
   const { currentColor, setColor, unsetColor } = useTextColor({ editor });
 
@@ -53,7 +53,7 @@ export function ColorTextDropdownMenu({
           tooltip="文字颜色"
           {...props}
         >
-          <TextColorIcon className="tiptap-button-icon" />
+          <TextColorIcon className="fsdx-editor-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -61,7 +61,7 @@ export function ColorTextDropdownMenu({
         <div style={{ padding: '4px 8px' }}>
           <button
             type="button"
-            className="tiptap-color-grid-action-btn"
+            className="fsdx-editor-color-grid-action-btn"
             onClick={handleResetColor}
           >
             默认颜色

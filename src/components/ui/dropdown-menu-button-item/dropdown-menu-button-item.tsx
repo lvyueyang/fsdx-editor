@@ -27,9 +27,9 @@ export function DropdownMenuButtonItem({
         {...buttonProps}
       >
         {Icon ? (
-          <Icon className="tiptap-button-icon" />
+          <Icon className="fsdx-editor-button-icon" />
         ) : (
-          <span className="tiptap-button-icon" />
+          <span className="fsdx-editor-button-icon" />
         )}
         {children}
       </Button>

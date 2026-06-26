@@ -13,7 +13,6 @@ import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../components/ui/button';
-import { Spacer } from '../components/ui/spacer';
 import {
   Toolbar,
   ToolbarGroup,
@@ -71,8 +70,8 @@ import {
 import { UndoRedoButton } from '../plugins/undo-redo';
 import { VideoNode, VideoUploadButton } from '../plugins/video';
 import type { EditorOptions } from '../types';
-import { EditorOptionsContext } from './editor-context';
-import { handleImageUpload, MAX_FILE_SIZE } from './tiptap-utils';
+import { EditorOptionsContext, PortalContainerContext } from './editor-context';
+import { handleImageUpload, MAX_FILE_SIZE } from './editor-utils';
 import './editor.scss';
 
 export type EditorTheme = 'light' | 'dark' | 'auto';
@@ -95,8 +94,6 @@ const MainToolbarContent = ({
 }) => {
   return (
     <>
-      <Spacer />
-
       <ToolbarGroup>
         <UndoRedoButton action="undo" />
         <UndoRedoButton action="redo" />
@@ -176,11 +173,11 @@ const MobileToolbarContent = ({
   <>
     <ToolbarGroup>
       <Button variant="ghost" onClick={onBack}>
-        <ArrowLeftIcon className="tiptap-button-icon" />
+        <ArrowLeftIcon className="fsdx-editor-button-icon" />
         {type === 'link' ? (
-          <LinkIcon className="tiptap-button-icon" />
+          <LinkIcon className="fsdx-editor-button-icon" />
         ) : (
-          <SmileIcon className="tiptap-button-icon" />
+          <SmileIcon className="fsdx-editor-button-icon" />
         )}
       </Button>
     </ToolbarGroup>
@@ -202,8 +199,10 @@ export function Editor({
   const [mobileView, setMobileView] = useState<'main' | 'link' | 'emoji'>(
     'main',
   );
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const portalContainerRef = useRef<HTMLDivElement>(null);
   const isInternalChange = useRef(false);
 
   const editor = useEditor({
@@ -293,16 +292,22 @@ export function Editor({
   }, [isMobile, mobileView]);
 
   useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
     if (theme !== 'auto') {
       const isDark = theme === 'dark';
+      wrapper.classList.toggle('fsdx-editor-dark', isDark);
       document.documentElement.classList.toggle('fsdx-editor-dark', isDark);
       return () => {
+        wrapper.classList.remove('fsdx-editor-dark');
         document.documentElement.classList.remove('fsdx-editor-dark');
       };
     }
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const applyTheme = () => {
+      wrapper.classList.toggle('fsdx-editor-dark', mediaQuery.matches);
       document.documentElement.classList.toggle(
         'fsdx-editor-dark',
         mediaQuery.matches,
@@ -314,41 +319,44 @@ export function Editor({
   }, [theme]);
 
   return (
-    <div className="editor-wrapper">
+    <div ref={wrapperRef} className="fsdx-editor-wrapper">
       <EditorContext.Provider value={{ editor }}>
         <EditorOptionsContext.Provider value={options}>
-          <Toolbar
-            ref={toolbarRef}
-            style={{
-              ...(isMobile
-                ? {
-                    bottom: `calc(100% - ${height - rect.y}px)`,
-                  }
-                : {}),
-            }}
-          >
-            {mobileView === 'main' ? (
-              <MainToolbarContent
-                onLinkClick={() => setMobileView('link')}
-                onEmojiClick={() => setMobileView('emoji')}
-                isMobile={isMobile}
-              />
-            ) : (
-              <MobileToolbarContent
-                type={mobileView}
-                onBack={() => setMobileView('main')}
-              />
-            )}
-          </Toolbar>
+          <PortalContainerContext.Provider value={portalContainerRef}>
+            <Toolbar
+              ref={toolbarRef}
+              style={{
+                ...(isMobile
+                  ? {
+                      bottom: `calc(100% - ${height - rect.y}px)`,
+                    }
+                  : {}),
+              }}
+            >
+              {mobileView === 'main' ? (
+                <MainToolbarContent
+                  onLinkClick={() => setMobileView('link')}
+                  onEmojiClick={() => setMobileView('emoji')}
+                  isMobile={isMobile}
+                />
+              ) : (
+                <MobileToolbarContent
+                  type={mobileView}
+                  onBack={() => setMobileView('main')}
+                />
+              )}
+            </Toolbar>
 
-          <div ref={contentRef} className="editor-content">
-            {editor && <MediaAttributeEditor editor={editor} />}
-            <BubbleMenu />
-            <EditorContent editor={editor} role="presentation" />
-          </div>
+            <div ref={contentRef} className="fsdx-editor-content">
+              {editor && <MediaAttributeEditor editor={editor} />}
+              <BubbleMenu />
+              <EditorContent editor={editor} role="presentation" />
+            </div>
 
-          <TableSelectionOverlay />
-          <TableExtendButtons />
+            <TableSelectionOverlay />
+            <TableExtendButtons />
+            <div ref={portalContainerRef} />
+          </PortalContainerContext.Provider>
         </EditorOptionsContext.Provider>
       </EditorContext.Provider>
     </div>

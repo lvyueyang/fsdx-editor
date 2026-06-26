@@ -1,37 +1,37 @@
-.tiptap.ProseMirror {
-  --tt-collaboration-carets-label: var(--tt-gray-light-900);
-  --link-text-color: var(--tt-brand-color-500);
-  --thread-text: var(--tt-gray-light-900);
-  --placeholder-color: var(--tt-gray-light-a-400);
-  --thread-bg-color: var(--tt-color-yellow-inc-2);
+.fsdx-editor-wrapper .tiptap.ProseMirror {
+  --fsdx-editor-collaboration-carets-label: var(--fsdx-editor-gray-light-900);
+  --link-text-color: var(--fsdx-editor-brand-color-500);
+  --thread-text: var(--fsdx-editor-gray-light-900);
+  --placeholder-color: var(--fsdx-editor-gray-light-a-400);
+  --thread-bg-color: var(--fsdx-editor-color-yellow-inc-2);
 
   // ai
-  --tiptap-ai-insertion-color: var(--tt-brand-color-600);
+  --fsdx-editor-ai-insertion-color: var(--fsdx-editor-brand-color-600);
 
   .fsdx-editor-dark & {
-    --tt-collaboration-carets-label: var(--tt-gray-dark-100);
-    --link-text-color: var(--tt-brand-color-400);
-    --thread-text: var(--tt-gray-dark-900);
-    --placeholder-color: var(--tt-gray-dark-a-400);
-    --thread-bg-color: var(--tt-color-yellow-dec-2);
+    --fsdx-editor-collaboration-carets-label: var(--fsdx-editor-gray-dark-100);
+    --link-text-color: var(--fsdx-editor-brand-color-400);
+    --thread-text: var(--fsdx-editor-gray-dark-900);
+    --placeholder-color: var(--fsdx-editor-gray-dark-a-400);
+    --thread-bg-color: var(--fsdx-editor-color-yellow-dec-2);
 
-    --tiptap-ai-insertion-color: var(--tt-brand-color-400);
+    --fsdx-editor-ai-insertion-color: var(--fsdx-editor-brand-color-400);
   }
 }
 
 /* Ensure each top-level node has relative positioning 
    so absolutely positioned placeholders work correctly */
-.tiptap.ProseMirror > * {
+.fsdx-editor-wrapper .tiptap.ProseMirror > * {
   position: relative;
 }
 
 /* =====================
      CORE EDITOR STYLES
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   white-space: pre-wrap;
   outline: none;
-  caret-color: var(--tt-cursor-color);
+  caret-color: var(--fsdx-editor-cursor-color);
 
   // Paragraph spacing
   p:not(:first-child):not(td p):not(th p) {
@@ -44,7 +44,7 @@
   // Selection styles
   &:not(.readonly):not(.ProseMirror-hideselection) {
     ::selection {
-      background-color: var(--tt-selection-color);
+      background-color: var(--fsdx-editor-selection-color);
     }
 
     .selection::selection {
@@ -54,13 +54,13 @@
 
   .selection {
     display: inline;
-    background-color: var(--tt-selection-color);
+    background-color: var(--fsdx-editor-selection-color);
   }
 
   // Selected node styles
   .ProseMirror-selectednode:not(img):not(pre):not(.react-renderer) {
-    border-radius: var(--tt-radius-md);
-    background-color: var(--tt-selection-color);
+    border-radius: var(--fsdx-editor-radius-md);
+    background-color: var(--fsdx-editor-selection-color);
   }
 
   .ProseMirror-hideselection {
@@ -77,7 +77,7 @@
 /* =====================
      TEXT DECORATION
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   // Text decoration inheritance for spans
   a span {
     text-decoration: underline;
@@ -91,15 +91,15 @@
     text-decoration: underline;
   }
 
-  .tiptap-ai-insertion {
-    color: var(--tiptap-ai-insertion-color);
+  .fsdx-editor-ai-insertion {
+    color: var(--fsdx-editor-ai-insertion-color);
   }
 }
 
 /* =====================
      COLLABORATION
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   .collaboration-carets {
     &__caret {
       border-right: 1px solid transparent;
@@ -112,7 +112,7 @@
     }
 
     &__label {
-      color: var(--tt-collaboration-carets-label);
+      color: var(--fsdx-editor-collaboration-carets-label);
       border-radius: 0.25rem;
       border-bottom-left-radius: 0;
       font-size: 0.75rem;
@@ -131,7 +131,7 @@
 /* =====================
      EMOJI
      ===================== */
-.tiptap.ProseMirror [data-type="emoji"] img {
+.fsdx-editor-wrapper .tiptap.ProseMirror [data-type="emoji"] img {
   display: inline-block;
   width: 1.25em;
   height: 1.25em;
@@ -141,7 +141,7 @@
 /* =====================
      LINKS
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   a {
     color: var(--link-text-color);
     text-decoration: underline;
@@ -151,47 +151,47 @@
 /* =====================
      MENTION
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   [data-type="mention"] {
     display: inline-block;
-    color: var(--tt-brand-color-500);
+    color: var(--fsdx-editor-brand-color-500);
   }
 }
 
 /* =====================
      THREADS
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   // Base styles for inline threads
-  .tiptap-thread.tiptap-thread--unresolved.tiptap-thread--inline {
+  .fsdx-editor-thread.fsdx-editor-thread--unresolved.fsdx-editor-thread--inline {
     transition:
       color 0.2s ease-in-out,
       background-color 0.2s ease-in-out;
     color: var(--thread-text);
-    border-bottom: 2px dashed var(--tt-color-yellow-base);
+    border-bottom: 2px dashed var(--fsdx-editor-color-yellow-base);
     font-weight: 600;
 
-    &.tiptap-thread--selected,
-    &.tiptap-thread--hovered {
+    &.fsdx-editor-thread--selected,
+    &.fsdx-editor-thread--hovered {
       background-color: var(--thread-bg-color);
       border-bottom-color: transparent;
     }
   }
 
   // Block thread styles with images
-  .tiptap-thread.tiptap-thread--unresolved.tiptap-thread--block {
+  .fsdx-editor-thread.fsdx-editor-thread--unresolved.fsdx-editor-thread--block {
     &:has(img) {
-      outline: 0.125rem solid var(--tt-color-yellow-base);
-      border-radius: var(--tt-radius-xs, 0.25rem);
+      outline: 0.125rem solid var(--fsdx-editor-color-yellow-base);
+      border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
       overflow: hidden;
       width: fit-content;
 
-      &.tiptap-thread--selected {
+      &.fsdx-editor-thread--selected {
         outline-width: 0.25rem;
-        outline-color: var(--tt-color-yellow-base);
+        outline-color: var(--fsdx-editor-color-yellow-base);
       }
 
-      &.tiptap-thread--hovered {
+      &.fsdx-editor-thread--hovered {
         outline-width: 0.25rem;
       }
     }
@@ -199,28 +199,28 @@
     // Block thread styles without images
     &:not(:has(img)) {
       border-radius: 0.25rem;
-      border-bottom: 0.125rem dashed var(--tt-color-yellow-base);
-      border-top: 0.125rem dashed var(--tt-color-yellow-base);
+      border-bottom: 0.125rem dashed var(--fsdx-editor-color-yellow-base);
+      border-top: 0.125rem dashed var(--fsdx-editor-color-yellow-base);
       // padding-bottom: 0.5rem;
       outline: 0.25rem solid transparent;
 
-      &.tiptap-thread--hovered,
-      &.tiptap-thread--selected {
-        background-color: var(--tt-color-yellow-base);
-        outline-color: var(--tt-color-yellow-base);
+      &.fsdx-editor-thread--hovered,
+      &.fsdx-editor-thread--selected {
+        background-color: var(--fsdx-editor-color-yellow-base);
+        outline-color: var(--fsdx-editor-color-yellow-base);
       }
     }
   }
 
   // Resolved thread styles
-  .tiptap-thread.tiptap-thread--resolved.tiptap-thread--inline.tiptap-thread--selected {
-    background-color: var(--tt-color-yellow-base);
+  .fsdx-editor-thread.fsdx-editor-thread--resolved.fsdx-editor-thread--inline.fsdx-editor-thread--selected {
+    background-color: var(--fsdx-editor-color-yellow-base);
     border-color: transparent;
     opacity: 0.5;
   }
 
   // React renderer specific styles
-  .tiptap-thread.tiptap-thread--block:has(.react-renderer) {
+  .fsdx-editor-thread.fsdx-editor-thread--block:has(.react-renderer) {
     margin-top: 3rem;
     margin-bottom: 3rem;
   }
@@ -261,9 +261,9 @@
 /* =====================
      DROPCURSOR
      ===================== */
-.prosemirror-dropcursor-block,
-.prosemirror-dropcursor-inline {
-  background: var(--tt-brand-color-400) !important;
+.fsdx-editor-wrapper .prosemirror-dropcursor-block,
+.fsdx-editor-wrapper .prosemirror-dropcursor-inline {
+  background: var(--fsdx-editor-brand-color-400) !important;
   border-radius: 0.25rem;
   margin-left: -1px;
   margin-right: -1px;
@@ -276,11 +276,11 @@
      INDENT
      ===================== */
 
-.tiptap.ProseMirror {
-  --tt-indent-unit: 24px;
+.fsdx-editor-wrapper .tiptap.ProseMirror {
+  --fsdx-editor-indent-unit: 24px;
 
   [data-indent] {
     transition: margin-left 0.2s ease-in-out;
-    margin-left: calc(var(--tt-indent-unit) * var(--tt-indent-level, 0));
+    margin-left: calc(var(--fsdx-editor-indent-unit) * var(--fsdx-editor-indent-level, 0));
   }
 }

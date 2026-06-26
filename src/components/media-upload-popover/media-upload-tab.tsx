@@ -92,17 +92,17 @@ export function MediaUploadTab({
 
   if (!uploadConfig) {
     return (
-      <div className="tiptap-media-upload-placeholder">
+      <div className="fsdx-editor-media-upload-placeholder">
         未配置 {mediaType} 上传功能
       </div>
     );
   }
 
   return (
-    <div className="tiptap-media-upload-tab-content">
+    <div className="fsdx-editor-media-upload-tab-content">
       <MediaDragArea onFile={handleFiles}>
         <div
-          className="tiptap-media-drag-content"
+          className="fsdx-editor-media-drag-content"
           onClick={handleClick}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -126,7 +126,7 @@ export function MediaUploadTab({
             <polyline points="17 8 12 3 7 8" />
             <line x1="12" y1="3" x2="12" y2="15" />
           </svg>
-          <span className="tiptap-media-drag-text">
+          <span className="fsdx-editor-media-drag-text">
             拖拽文件到此处，或点击上传
           </span>
         </div>
@@ -138,32 +138,35 @@ export function MediaUploadTab({
         accept={accept}
         multiple
         onChange={handleInputChange}
-        className="tiptap-media-hidden-input"
+        className="fsdx-editor-media-hidden-input"
       />
 
       {fileItems.length > 0 && (
-        <div className="tiptap-media-upload-preview-list">
+        <div className="fsdx-editor-media-upload-preview-list">
           {fileItems.map((item) => (
-            <div key={item.id} className="tiptap-media-upload-preview-item">
-              <span className="tiptap-media-upload-file-name">
+            <div
+              key={item.id}
+              className="fsdx-editor-media-upload-preview-item"
+            >
+              <span className="fsdx-editor-media-upload-file-name">
                 {item.file.name}
               </span>
-              <span className="tiptap-media-upload-file-size">
+              <span className="fsdx-editor-media-upload-file-size">
                 {formatFileSize(item.file.size)}
               </span>
               {item.status === 'uploading' && (
-                <div className="tiptap-media-upload-progress">
+                <div className="fsdx-editor-media-upload-progress">
                   <div
-                    className="tiptap-media-upload-progress-bar"
+                    className="fsdx-editor-media-upload-progress-bar"
                     style={{ width: `${item.progress}%` }}
                   />
                 </div>
               )}
               {item.status === 'success' && (
-                <span className="tiptap-media-upload-success">✓</span>
+                <span className="fsdx-editor-media-upload-success">✓</span>
               )}
               {item.status === 'error' && (
-                <span className="tiptap-media-upload-error">✕</span>
+                <span className="fsdx-editor-media-upload-error">✕</span>
               )}
             </div>
           ))}

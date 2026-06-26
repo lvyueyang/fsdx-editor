@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { IndentIcon } from '../../icons/indent-icon';
 
 import type { UseIndentConfig } from './use-indent';
@@ -27,7 +27,7 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const {
       isVisible,
       isActive,
@@ -106,7 +106,7 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
     }
 
     return (
-      <span className="tiptap-indent-group" ref={ref}>
+      <span className="fsdx-editor-indent-group" ref={ref}>
         <Button
           type="button"
           variant="ghost"
@@ -118,11 +118,11 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
           tooltip={isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON}
           onClick={handleToggle}
         >
-          <IndentIcon className="tiptap-button-icon" />
+          <IndentIcon className="fsdx-editor-button-icon" />
         </Button>
         <input
           ref={inputRef}
-          className="tiptap-indent-input"
+          className="fsdx-editor-indent-input"
           type="number"
           step="0.5"
           min="0"

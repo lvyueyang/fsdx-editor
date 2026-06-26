@@ -61,10 +61,10 @@ export function AudioAttributeEditor({ editor }: AudioAttributeEditorProps) {
   };
 
   return (
-    <div className="tiptap-attribute-group">
-      <div className="tiptap-attribute-row">
-        <div className="tiptap-attribute-toggles">
-          <label className="tiptap-attribute-toggle">
+    <div className="fsdx-editor-attribute-group">
+      <div className="fsdx-editor-attribute-row">
+        <div className="fsdx-editor-attribute-toggles">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={autoplay}
@@ -72,7 +72,7 @@ export function AudioAttributeEditor({ editor }: AudioAttributeEditorProps) {
             />
             自动播放
           </label>
-          <label className="tiptap-attribute-toggle">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={controls}
@@ -80,7 +80,7 @@ export function AudioAttributeEditor({ editor }: AudioAttributeEditorProps) {
             />
             控制条
           </label>
-          <label className="tiptap-attribute-toggle">
+          <label className="fsdx-editor-attribute-toggle">
             <input
               type="checkbox"
               checked={loop}

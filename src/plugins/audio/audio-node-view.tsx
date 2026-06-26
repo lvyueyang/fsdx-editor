@@ -11,16 +11,16 @@ export function AudioNodeView({
 
   if (!src) {
     return (
-      <NodeViewWrapper className="tiptap-audio-node">
-        <div className="tiptap-audio-placeholder">未设置音频地址</div>
+      <NodeViewWrapper className="fsdx-editor-audio-node">
+        <div className="fsdx-editor-audio-placeholder">未设置音频地址</div>
       </NodeViewWrapper>
     );
   }
 
   return (
-    <NodeViewWrapper className="tiptap-audio-node">
-      <div className="tiptap-audio-card">
-        <div className="tiptap-audio-icon">
+    <NodeViewWrapper className="fsdx-editor-audio-node">
+      <div className="fsdx-editor-audio-card">
+        <div className="fsdx-editor-audio-icon">
           <svg
             width="24"
             height="24"
@@ -34,8 +34,8 @@ export function AudioNodeView({
             <circle cx="18" cy="16" r="3" />
           </svg>
         </div>
-        <div className="tiptap-audio-info">
-          <span className="tiptap-audio-name">
+        <div className="fsdx-editor-audio-info">
+          <span className="fsdx-editor-audio-name">
             {decodeURIComponent((src || '').split('/').pop() || '音频文件')}
           </span>
           {/* biome-ignore lint/a11y/useMediaCaption: preview only */}
@@ -44,7 +44,7 @@ export function AudioNodeView({
             autoPlay={!!autoplay}
             controls={controls !== false}
             loop={!!loop}
-            className="tiptap-audio-element"
+            className="fsdx-editor-audio-element"
           />
         </div>
       </div>

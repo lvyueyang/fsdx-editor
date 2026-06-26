@@ -1,16 +1,16 @@
 :root {
-  --tt-toolbar-height: 2.75rem;
-  --tt-safe-area-bottom: env(safe-area-inset-bottom, 0px);
-  --tt-toolbar-bg-color: var(--white);
-  --tt-toolbar-border-color: var(--tt-gray-light-a-100);
+  --fsdx-editor-toolbar-height: 2.75rem;
+  --fsdx-editor-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --fsdx-editor-toolbar-bg-color: var(--fsdx-editor-white);
+  --fsdx-editor-toolbar-border-color: var(--fsdx-editor-gray-light-a-100);
 }
 
-.fsdx-editor-dark {
-  --tt-toolbar-bg-color: var(--black);
-  --tt-toolbar-border-color: var(--tt-gray-dark-a-50);
+:root.fsdx-editor-dark {
+  --fsdx-editor-toolbar-bg-color: var(--fsdx-editor-black);
+  --fsdx-editor-toolbar-border-color: var(--fsdx-editor-gray-dark-a-50);
 }
 
-.tiptap-toolbar {
+.fsdx-editor-toolbar {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -24,8 +24,8 @@
       display: none;
     }
 
-    &:empty + .tiptap-separator,
-    .tiptap-separator + &:empty {
+    &:empty + .fsdx-editor-separator,
+    .fsdx-editor-separator + &:empty {
       display: none;
     }
   }
@@ -33,10 +33,11 @@
   &[data-variant="fixed"] {
     flex-shrink: 0;
     z-index: 50;
+    justify-content: center;
     width: 100%;
-    min-height: var(--tt-toolbar-height);
-    background: var(--tt-toolbar-bg-color);
-    border-bottom: 1px solid var(--tt-toolbar-border-color);
+    min-height: var(--fsdx-editor-toolbar-height);
+    background: var(--fsdx-editor-toolbar-bg-color);
+    border-bottom: 1px solid var(--fsdx-editor-toolbar-border-color);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     padding: 0 15px;
     overflow-x: auto;
@@ -52,31 +53,31 @@
     @media (max-width: 480px) {
       position: absolute;
       top: auto;
-      height: calc(var(--tt-toolbar-height) + var(--tt-safe-area-bottom));
-      border-top: 1px solid var(--tt-toolbar-border-color);
+      height: calc(var(--fsdx-editor-toolbar-height) + var(--fsdx-editor-safe-area-bottom));
+      border-top: 1px solid var(--fsdx-editor-toolbar-border-color);
       border-bottom: none;
-      padding: 0 0.5rem var(--tt-safe-area-bottom);
+      padding: 0 0.5rem var(--fsdx-editor-safe-area-bottom);
       flex-wrap: nowrap;
       justify-content: flex-start;
 
-      .tiptap-toolbar-group {
+      .fsdx-editor-toolbar-group {
         flex: 0 0 auto;
       }
     }
   }
 
   &[data-variant="floating"] {
-    --tt-toolbar-padding: 0.125rem;
-    --tt-toolbar-border-width: 1px;
+    --fsdx-editor-toolbar-padding: 0.125rem;
+    --fsdx-editor-toolbar-border-width: 1px;
 
     padding: 0.188rem;
     border-radius: calc(
-      var(--tt-toolbar-padding) + var(--tt-radius-lg) +
-        var(--tt-toolbar-border-width)
+      var(--fsdx-editor-toolbar-padding) + var(--fsdx-editor-radius-lg) +
+        var(--fsdx-editor-toolbar-border-width)
     );
-    border: var(--tt-toolbar-border-width) solid var(--tt-toolbar-border-color);
-    background-color: var(--tt-toolbar-bg-color);
-    box-shadow: var(--tt-shadow-elevated-md);
+    border: var(--fsdx-editor-toolbar-border-width) solid var(--fsdx-editor-toolbar-border-color);
+    background-color: var(--fsdx-editor-toolbar-bg-color);
+    box-shadow: var(--fsdx-editor-shadow-elevated-md);
     outline: none;
     overflow: hidden;
 

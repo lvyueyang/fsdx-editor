@@ -1,5 +1,5 @@
 import './separator.scss';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 
 export type Orientation = 'horizontal' | 'vertical';
 
@@ -19,7 +19,7 @@ export function Separator({
 
   return (
     <div
-      className={cn('tiptap-separator', className)}
+      className={cn('fsdx-editor-separator', className)}
       data-orientation={orientation}
       {...semanticProps}
       {...props}

@@ -6,10 +6,10 @@ import {
   isExtensionAvailable,
   isMarkInSchema,
   isNodeTypeSelected,
-} from '../../core/tiptap-utils';
-import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
+import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 
 // --- Icons ---
 import { HighlighterIcon } from '../../icons/highlighter-icon';
@@ -18,63 +18,63 @@ export const COLOR_HIGHLIGHT_SHORTCUT_KEY = 'mod+shift+h';
 export const HIGHLIGHT_COLORS = [
   {
     label: '默认背景',
-    value: 'var(--tt-bg-color)',
+    value: 'var(--fsdx-editor-bg-color)',
     colorValue: '#ffffff',
-    border: 'var(--tt-bg-color-contrast)',
+    border: 'var(--fsdx-editor-bg-color-contrast)',
   },
   {
     label: '灰色背景',
-    value: 'var(--tt-color-highlight-gray)',
+    value: 'var(--fsdx-editor-color-highlight-gray)',
     colorValue: '#f8f8f7',
-    border: 'var(--tt-color-highlight-gray-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-gray-contrast)',
   },
   {
     label: '棕色背景',
-    value: 'var(--tt-color-highlight-brown)',
+    value: 'var(--fsdx-editor-color-highlight-brown)',
     colorValue: '#f4eeee',
-    border: 'var(--tt-color-highlight-brown-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-brown-contrast)',
   },
   {
     label: '橙色背景',
-    value: 'var(--tt-color-highlight-orange)',
+    value: 'var(--fsdx-editor-color-highlight-orange)',
     colorValue: '#fbecdd',
-    border: 'var(--tt-color-highlight-orange-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-orange-contrast)',
   },
   {
     label: '黄色背景',
-    value: 'var(--tt-color-highlight-yellow)',
+    value: 'var(--fsdx-editor-color-highlight-yellow)',
     colorValue: '#fef9c3',
-    border: 'var(--tt-color-highlight-yellow-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-yellow-contrast)',
   },
   {
     label: '绿色背景',
-    value: 'var(--tt-color-highlight-green)',
+    value: 'var(--fsdx-editor-color-highlight-green)',
     colorValue: '#dcfce7',
-    border: 'var(--tt-color-highlight-green-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-green-contrast)',
   },
   {
     label: '蓝色背景',
-    value: 'var(--tt-color-highlight-blue)',
+    value: 'var(--fsdx-editor-color-highlight-blue)',
     colorValue: '#e0f2fe',
-    border: 'var(--tt-color-highlight-blue-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-blue-contrast)',
   },
   {
     label: '紫色背景',
-    value: 'var(--tt-color-highlight-purple)',
+    value: 'var(--fsdx-editor-color-highlight-purple)',
     colorValue: '#f3e8ff',
-    border: 'var(--tt-color-highlight-purple-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-purple-contrast)',
   },
   {
     label: '粉色背景',
-    value: 'var(--tt-color-highlight-pink)',
+    value: 'var(--fsdx-editor-color-highlight-pink)',
     colorValue: '#fcf1f6',
-    border: 'var(--tt-color-highlight-pink-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-pink-contrast)',
   },
   {
     label: '红色背景',
-    value: 'var(--tt-color-highlight-red)',
+    value: 'var(--fsdx-editor-color-highlight-red)',
     colorValue: '#ffe4e6',
-    border: 'var(--tt-color-highlight-red-contrast)',
+    border: 'var(--fsdx-editor-color-highlight-red-contrast)',
   },
 ];
 export type HighlightColor = (typeof HIGHLIGHT_COLORS)[number];
@@ -275,7 +275,7 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
     onApplied,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isMobile = useIsBreakpoint();
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const canColorHighlightState = canColorHighlight(editor, mode);

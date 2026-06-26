@@ -168,7 +168,7 @@ const initialContent = `<h1>编辑器功能演示</h1>
 <h2>行内样式</h2>
 <p>行内样式包括：<strong>加粗</strong>、<em>斜体</em>、<u>下划线</u>、<s>删除线</s>、<code>行内代码</code>、上标（x<sup>2</sup>）和下标（H<sub>2</sub>O）。</p>
 <h2>颜色</h2>
-<p>文字可以设置<span style="color: hsl(0, 70%, 50%)">红色</span>、<span style="color: hsl(210, 60%, 50%)">蓝色</span>、<span style="color: hsl(140, 40%, 38%)">绿色</span>等任意颜色。也可以为文本添加<mark style="background-color: var(--tt-color-highlight-yellow)">黄色高亮</mark>、<mark style="background-color: var(--tt-color-highlight-blue)">蓝色高亮</mark>、<mark style="background-color: var(--tt-color-highlight-green)">绿色高亮</mark>等多种背景色标记。</p>
+<p>文字可以设置<span style="color: hsl(0, 70%, 50%)">红色</span>、<span style="color: hsl(210, 60%, 50%)">蓝色</span>、<span style="color: hsl(140, 40%, 38%)">绿色</span>等任意颜色。也可以为文本添加<mark style="background-color: var(--fsdx-editor-color-highlight-yellow)">黄色高亮</mark>、<mark style="background-color: var(--fsdx-editor-color-highlight-blue)">蓝色高亮</mark>、<mark style="background-color: var(--fsdx-editor-color-highlight-green)">绿色高亮</mark>等多种背景色标记。</p>
 <h2>字号</h2>
 <p><span style="font-size: 24px">这段文字使用了 24px 的字号，</span><span style="font-size: 14px">这段是 14px，</span><span style="font-size: 36px">这段是 36px。</span>你可以在工具栏中自由调整字号。</p>
 <h2>标题层级</h2>
@@ -278,7 +278,7 @@ function Demo() {
           alignItems: 'center',
           gap: 8,
           padding: '8px 16px',
-          borderBottom: '1px solid var(--tt-color-border)',
+          borderBottom: '1px solid var(--fsdx-editor-border-color)',
           flexShrink: 0,
         }}
       >
@@ -292,11 +292,13 @@ function Demo() {
               padding: '4px 12px',
               border:
                 theme === t
-                  ? '1px solid var(--tt-color-primary)'
-                  : '1px solid var(--tt-color-border)',
+                  ? '1px solid var(--fsdx-editor-brand-color-500)'
+                  : '1px solid var(--fsdx-editor-border-color)',
               borderRadius: 4,
               background:
-                theme === t ? 'var(--tt-color-primary)' : 'transparent',
+                theme === t
+                  ? 'var(--fsdx-editor-brand-color-500)'
+                  : 'transparent',
               color: theme === t ? '#fff' : 'inherit',
               cursor: 'pointer',
               fontSize: 13,

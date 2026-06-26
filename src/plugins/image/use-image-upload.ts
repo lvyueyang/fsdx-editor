@@ -2,10 +2,10 @@ import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 // --- Lib ---
-import { isExtensionAvailable } from '../../core/tiptap-utils';
-import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
+import { isExtensionAvailable } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
+import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 
 // --- Icons ---
 import { ImagePlusIcon } from '../../icons/image-plus-icon';
@@ -136,7 +136,7 @@ export function useImageUpload(config?: UseImageUploadConfig) {
     onInserted,
   } = config || {};
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const isMobile = useIsBreakpoint();
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const canInsert = canInsertImage(editor);

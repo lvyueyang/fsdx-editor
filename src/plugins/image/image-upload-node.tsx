@@ -6,7 +6,7 @@ import { Button } from '../../components/ui/button';
 import { CloseIcon } from '../../icons/close-icon';
 import './image-upload-node.scss';
 import { useEditorOptions } from '../../core/editor-context';
-import { focusNextNode, isValidPosition } from '../../core/tiptap-utils';
+import { focusNextNode, isValidPosition } from '../../core/editor-utils';
 import { formatFileSize } from '../../lib/format-file-size';
 
 export interface FileItem {
@@ -218,7 +218,7 @@ const CloudUploadIcon: React.FC = () => (
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    className="tiptap-image-upload-icon"
+    className="fsdx-editor-image-upload-icon"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -239,7 +239,7 @@ const FileIcon: React.FC = () => (
     height="57"
     viewBox="0 0 43 57"
     fill="currentColor"
-    className="tiptap-image-upload-dropzone-rect-primary"
+    className="fsdx-editor-image-upload-dropzone-rect-primary"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -256,7 +256,7 @@ const FileCornerIcon: React.FC = () => (
   <svg
     width="10"
     height="10"
-    className="tiptap-image-upload-dropzone-rect-secondary"
+    className="fsdx-editor-image-upload-dropzone-rect-secondary"
     viewBox="0 0 10 10"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -287,31 +287,31 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
   onRemove,
 }) => {
   return (
-    <div className="tiptap-image-upload-preview">
+    <div className="fsdx-editor-image-upload-preview">
       {fileItem.status === 'uploading' && (
         <div
-          className="tiptap-image-upload-progress"
+          className="fsdx-editor-image-upload-progress"
           style={{ width: `${fileItem.progress}%` }}
         />
       )}
 
-      <div className="tiptap-image-upload-preview-content">
-        <div className="tiptap-image-upload-file-info">
-          <div className="tiptap-image-upload-file-icon">
+      <div className="fsdx-editor-image-upload-preview-content">
+        <div className="fsdx-editor-image-upload-file-info">
+          <div className="fsdx-editor-image-upload-file-icon">
             <CloudUploadIcon />
           </div>
-          <div className="tiptap-image-upload-details">
-            <span className="tiptap-image-upload-text">
+          <div className="fsdx-editor-image-upload-details">
+            <span className="fsdx-editor-image-upload-text">
               {fileItem.file.name}
             </span>
-            <span className="tiptap-image-upload-subtext">
+            <span className="fsdx-editor-image-upload-subtext">
               {formatFileSize(fileItem.file.size)}
             </span>
           </div>
         </div>
-        <div className="tiptap-image-upload-actions">
+        <div className="fsdx-editor-image-upload-actions">
           {fileItem.status === 'uploading' && (
-            <span className="tiptap-image-upload-progress-text">
+            <span className="fsdx-editor-image-upload-progress-text">
               {fileItem.progress}%
             </span>
           )}
@@ -323,7 +323,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               onRemove();
             }}
           >
-            <CloseIcon className="tiptap-button-icon" />
+            <CloseIcon className="fsdx-editor-button-icon" />
           </Button>
         </div>
       </div>
@@ -336,19 +336,19 @@ const DropZoneContent: React.FC<{ maxSize: number; limit: number }> = ({
   limit,
 }) => (
   <>
-    <div className="tiptap-image-upload-dropzone">
+    <div className="fsdx-editor-image-upload-dropzone">
       <FileIcon />
       <FileCornerIcon />
-      <div className="tiptap-image-upload-icon-container">
+      <div className="fsdx-editor-image-upload-icon-container">
         <CloudUploadIcon />
       </div>
     </div>
 
-    <div className="tiptap-image-upload-content">
-      <span className="tiptap-image-upload-text">
+    <div className="fsdx-editor-image-upload-content">
+      <span className="fsdx-editor-image-upload-text">
         <em>点击上传</em> 或拖放文件
       </span>
-      <span className="tiptap-image-upload-subtext">
+      <span className="fsdx-editor-image-upload-subtext">
         最多 {limit} 个文件，每个不超过 {maxSize / 1024 / 1024}MB。
       </span>
     </div>
@@ -449,7 +449,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
 
   return (
     <NodeViewWrapper
-      className="tiptap-image-upload"
+      className="fsdx-editor-image-upload"
       tabIndex={0}
       onClick={handleClick}
     >
@@ -460,9 +460,9 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
       )}
 
       {hasFiles && (
-        <div className="tiptap-image-upload-previews">
+        <div className="fsdx-editor-image-upload-previews">
           {fileItems.length > 1 && (
-            <div className="tiptap-image-upload-header">
+            <div className="fsdx-editor-image-upload-header">
               <span>正在上传 {fileItems.length} 个文件</span>
               <Button
                 type="button"

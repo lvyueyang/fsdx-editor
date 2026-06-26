@@ -1,8 +1,8 @@
-.tiptap-bubble-menu {
-  z-index: 50;
+.fsdx-editor-bubble-menu {
+  z-index: 9999;
   transition:
-    opacity var(--tt-transition-duration-default) ease-out,
-    transform var(--tt-transition-duration-default) ease-out;
+    opacity var(--fsdx-editor-transition-duration-default) ease-out,
+    transform var(--fsdx-editor-transition-duration-default) ease-out;
 
   &:not([data-visible]) {
     opacity: 0;

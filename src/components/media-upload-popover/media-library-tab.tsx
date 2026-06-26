@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditorOptions } from '../../core/editor-context';
-import { cn } from '../../core/tiptap-utils';
+import { cn } from '../../core/editor-utils';
 import { formatFileSize } from '../../lib/format-file-size';
 import type { MediaItem, MediaType } from '../../types';
 
@@ -95,7 +95,7 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
 
   if (!listConfig) {
     return (
-      <div className="tiptap-media-upload-placeholder">
+      <div className="fsdx-editor-media-upload-placeholder">
         未配置 {mediaType} 素材库
       </div>
     );
@@ -104,11 +104,11 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
   const isGrid = mediaType === 'image' || mediaType === 'video';
 
   return (
-    <div className="tiptap-media-library-tab">
-      <div className="tiptap-media-library-search">
+    <div className="fsdx-editor-media-library-tab">
+      <div className="fsdx-editor-media-library-search">
         <input
           type="text"
-          className="tiptap-media-library-search-input"
+          className="fsdx-editor-media-library-search-input"
           placeholder="搜索..."
           value={keyword}
           onChange={(e) => handleSearch(e.target.value)}
@@ -116,31 +116,31 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
       </div>
 
       {loading ? (
-        <div className="tiptap-media-library-loading">加载中...</div>
+        <div className="fsdx-editor-media-library-loading">加载中...</div>
       ) : items.length === 0 ? (
-        <div className="tiptap-media-library-empty">暂无内容</div>
+        <div className="fsdx-editor-media-library-empty">暂无内容</div>
       ) : (
         <div
-          className={cn('tiptap-media-library-list', {
-            'tiptap-media-library-list--grid': isGrid,
-            'tiptap-media-library-list--list': !isGrid,
+          className={cn('fsdx-editor-media-library-list', {
+            'fsdx-editor-media-library-list--grid': isGrid,
+            'fsdx-editor-media-library-list--list': !isGrid,
           })}
         >
           {items.map((item) => (
             <button
               key={item.id}
               type="button"
-              className="tiptap-media-library-item"
+              className="fsdx-editor-media-library-item"
               onClick={() => handleSelect(item)}
             >
               {isGrid && item.thumbnailUrl ? (
                 <img
                   src={item.thumbnailUrl}
                   alt={item.name}
-                  className="tiptap-media-library-thumb"
+                  className="fsdx-editor-media-library-thumb"
                 />
               ) : (
-                <div className="tiptap-media-library-icon-placeholder">
+                <div className="fsdx-editor-media-library-icon-placeholder">
                   <svg
                     width="24"
                     height="24"
@@ -168,11 +168,11 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
                   </svg>
                 </div>
               )}
-              <span className="tiptap-media-library-item-name">
+              <span className="fsdx-editor-media-library-item-name">
                 {item.name}
               </span>
               {item.size !== undefined && (
-                <span className="tiptap-media-library-item-size">
+                <span className="fsdx-editor-media-library-item-size">
                   {formatFileSize(item.size)}
                 </span>
               )}
@@ -182,21 +182,21 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
       )}
 
       {totalPages > 1 && (
-        <div className="tiptap-media-library-pagination">
+        <div className="fsdx-editor-media-library-pagination">
           <button
             type="button"
-            className="tiptap-media-library-page-btn"
+            className="fsdx-editor-media-library-page-btn"
             disabled={page <= 1 || loading}
             onClick={() => goToPage(Math.max(1, page - 1))}
           >
             上一页
           </button>
-          <span className="tiptap-media-library-page-info">
+          <span className="fsdx-editor-media-library-page-info">
             {page} / {totalPages}
           </span>
           <button
             type="button"
-            className="tiptap-media-library-page-btn"
+            className="fsdx-editor-media-library-page-btn"
             disabled={page >= totalPages || loading}
             onClick={() => goToPage(Math.min(totalPages, page + 1))}
           >

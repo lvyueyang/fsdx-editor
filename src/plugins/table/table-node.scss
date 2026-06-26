@@ -1,18 +1,18 @@
-.tiptap.ProseMirror {
-  --tt-table-border-color: var(--tt-border-color);
-  --tt-table-header-bg: var(--tt-gray-light-a-100);
-  --tt-table-cell-padding: 0.5rem 0.75rem;
+.fsdx-editor-wrapper .tiptap.ProseMirror {
+  --fsdx-editor-table-border-color: var(--fsdx-editor-border-color);
+  --fsdx-editor-table-header-bg: var(--fsdx-editor-gray-light-a-100);
+  --fsdx-editor-table-cell-padding: 0.5rem 0.75rem;
 
   .fsdx-editor-dark & {
-    --tt-table-border-color: var(--tt-border-color);
-    --tt-table-header-bg: var(--tt-gray-dark-a-100);
+    --fsdx-editor-table-border-color: var(--fsdx-editor-border-color);
+    --fsdx-editor-table-header-bg: var(--fsdx-editor-gray-dark-a-100);
   }
 }
 
 /* =====================
      TABLE
      ===================== */
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   .tableWrapper {
     position: relative;
     overflow-x: auto;
@@ -31,8 +31,8 @@
     td,
     th {
       min-width: 1em;
-      border: 1px solid var(--tt-table-border-color);
-      padding: var(--tt-table-cell-padding);
+      border: 1px solid var(--fsdx-editor-table-border-color);
+      padding: var(--fsdx-editor-table-cell-padding);
       vertical-align: top;
       position: relative;
 
@@ -42,7 +42,7 @@
     }
 
     th {
-      background-color: var(--tt-table-header-bg);
+      background-color: var(--fsdx-editor-table-header-bg);
       font-weight: 600;
       text-align: left;
     }
@@ -58,7 +58,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-color: var(--tt-brand-color-200);
+        background-color: var(--fsdx-editor-brand-color-200);
         opacity: 0.18;
         pointer-events: none;
         border-radius: 2px;
@@ -71,7 +71,7 @@
       bottom: 0;
       right: -2px;
       width: 4px;
-      background-color: var(--tt-brand-color-400);
+      background-color: var(--fsdx-editor-brand-color-400);
       cursor: col-resize;
       pointer-events: none;
     }
@@ -111,10 +111,10 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  border: 1px solid var(--tt-gray-light-a-100, #efeaff);
+  border: 1px solid var(--fsdx-editor-gray-light-a-100, #efeaff);
   border-radius: 2px;
-  background: var(--tt-gray-light-a-100, #efeaff);
-  color: var(--tt-brand-color-400);
+  background: var(--fsdx-editor-gray-light-a-100, #efeaff);
+  color: var(--fsdx-editor-brand-color-400);
   font-size: 12px;
   cursor: pointer;
   z-index: 50;
@@ -122,14 +122,14 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: var(--tt-brand-color-50, #f0f0f0);
-    color: var(--tt-brand-color-400);
-    border-color: var(--tt-brand-color-400);
+    background: var(--fsdx-editor-brand-color-50, #f0f0f0);
+    color: var(--fsdx-editor-brand-color-400);
+    border-color: var(--fsdx-editor-brand-color-400);
   }
 }
 
 .fsdx-editor-dark .table-extend-btn {
-  background: var(--tt-gray-dark-a-100, #efeaff);
+  background: var(--fsdx-editor-gray-dark-a-100, #efeaff);
   &:hover {
     
   }
@@ -154,7 +154,7 @@
      选区边框与手柄 (absolute → 相对于 tableWrapper)
      ===================== */
 .table-selection-border {
-  border: 2px solid var(--tt-brand-color-400, #7a52ff);
+  border: 2px solid var(--fsdx-editor-brand-color-400, #7a52ff);
   border-radius: 2px;
   pointer-events: none;
   z-index: 90;
@@ -181,7 +181,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--tt-brand-color-400, #7a52ff);
+  background: var(--fsdx-editor-brand-color-400, #7a52ff);
   transition: width 0.15s ease, height 0.15s ease, border-radius 0.15s ease;
   overflow: hidden;
 }
@@ -191,7 +191,7 @@
   height: 0;
   opacity: 0;
   transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
-  color: var(--tt-brand-color-500, #6229ff);
+  color: var(--fsdx-editor-brand-color-500, #6229ff);
 }
 
 .table-selection-handle:hover .table-selection-handle-dot,
@@ -199,7 +199,7 @@
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  background: var(--tt-brand-color-100, #dedbff);
+  background: var(--fsdx-editor-brand-color-100, #dedbff);
 }
 
 .table-selection-handle:hover .table-selection-handle-icon,

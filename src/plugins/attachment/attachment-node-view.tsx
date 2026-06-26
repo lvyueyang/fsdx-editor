@@ -18,16 +18,16 @@ export function AttachmentNodeView({
 
   if (!src) {
     return (
-      <NodeViewWrapper className="tiptap-attachment-node">
-        <div className="tiptap-attachment-placeholder">未设置附件地址</div>
+      <NodeViewWrapper className="fsdx-editor-attachment-node">
+        <div className="fsdx-editor-attachment-placeholder">未设置附件地址</div>
       </NodeViewWrapper>
     );
   }
 
   return (
-    <NodeViewWrapper className="tiptap-attachment-node">
-      <div className="tiptap-attachment-card">
-        <div className="tiptap-attachment-icon">
+    <NodeViewWrapper className="fsdx-editor-attachment-node">
+      <div className="fsdx-editor-attachment-card">
+        <div className="fsdx-editor-attachment-icon">
           <svg
             width="24"
             height="24"
@@ -43,11 +43,11 @@ export function AttachmentNodeView({
             <polyline points="10 9 9 9 8 9" />
           </svg>
         </div>
-        <div className="tiptap-attachment-info">
-          <span className="tiptap-attachment-name">
+        <div className="fsdx-editor-attachment-info">
+          <span className="fsdx-editor-attachment-name">
             {fileName || '未知文件'}
           </span>
-          <span className="tiptap-attachment-meta">
+          <span className="fsdx-editor-attachment-meta">
             {getFileTypeLabel(fileType || '')}
             {fileSize !== undefined && fileSize > 0
               ? ` · ${formatFileSize(fileSize)}`
@@ -57,7 +57,7 @@ export function AttachmentNodeView({
         <a
           href={src}
           download={fileName}
-          className="tiptap-attachment-download"
+          className="fsdx-editor-attachment-download"
           onClick={(e) => e.stopPropagation()}
         >
           <svg

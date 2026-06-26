@@ -30,12 +30,12 @@ const FILTERS: {
 
 export function ImageFilterPanel({ values, onChange }: ImageFilterPanelProps) {
   return (
-    <div className="tiptap-image-filter-panel">
+    <div className="fsdx-editor-image-filter-panel">
       {FILTERS.map(({ key, label, min, max, step, unit }) => (
-        <div key={key} className="tiptap-image-filter-row">
+        <div key={key} className="fsdx-editor-image-filter-row">
           <label
             htmlFor={`filter-${key}`}
-            className="tiptap-image-filter-label"
+            className="fsdx-editor-image-filter-label"
           >
             {label}
           </label>
@@ -49,9 +49,9 @@ export function ImageFilterPanel({ values, onChange }: ImageFilterPanelProps) {
             onChange={(e) =>
               onChange({ ...values, [key]: Number(e.target.value) })
             }
-            className="tiptap-image-filter-slider"
+            className="fsdx-editor-image-filter-slider"
           />
-          <span className="tiptap-image-filter-value">
+          <span className="fsdx-editor-image-filter-value">
             {values[key]}
             {unit}
           </span>

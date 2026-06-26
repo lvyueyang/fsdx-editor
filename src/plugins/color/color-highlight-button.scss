@@ -1,9 +1,9 @@
-.tiptap-button-highlight {
+.fsdx-editor-button-highlight {
   position: relative;
   width: 1.25rem;
   height: 1.25rem;
   margin: 0 -0.175rem;
-  border-radius: var(--tt-radius-xl);
+  border-radius: var(--fsdx-editor-radius-xl);
   background-color: var(--highlight-color);
   transition: transform 0.2s ease;
 
@@ -27,9 +27,9 @@
   }
 }
 
-.tiptap-button {
+.fsdx-editor-button {
   &[data-active-state="on"] {
-    .tiptap-button-highlight {
+    .fsdx-editor-button-highlight {
       &::after {
         filter: brightness(80%);
       }
@@ -38,7 +38,7 @@
 
   .fsdx-editor-dark & {
     &[data-active-state="on"] {
-      .tiptap-button-highlight {
+      .fsdx-editor-button-highlight {
         &::after {
           // Andere Eigenschaft für .fsdx-editor-dark Kontext
           filter: brightness(180%);

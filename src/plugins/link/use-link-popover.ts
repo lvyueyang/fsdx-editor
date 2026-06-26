@@ -5,9 +5,9 @@ import {
   isMarkInSchema,
   isNodeTypeSelected,
   sanitizeUrl,
-} from '../../core/tiptap-utils';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
 import { LinkIcon } from '../../icons/link-icon';
 
@@ -272,7 +272,7 @@ export function useLinkPopover(config?: UseLinkPopoverConfig) {
     onSetLink,
   } = config || {};
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
 
   const { isVisible, canSet, isActive } = useLinkState({
     editor,

@@ -221,7 +221,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           ...style,
         }}
         {...context.getFloatingProps(props)}
-        className="tiptap-tooltip"
+        className="fsdx-editor-tooltip"
       >
         {children}
       </div>

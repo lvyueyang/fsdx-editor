@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Separator } from '../separator';
 import './toolbar.scss';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 import { useComposedRef } from '../../../hooks/use-composed-ref';
 import { useMenuNavigation } from '../../../hooks/use-menu-navigation';
 
@@ -90,7 +90,7 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
         role="toolbar"
         aria-label="toolbar"
         data-variant={variant}
-        className={cn('tiptap-toolbar', className)}
+        className={cn('fsdx-editor-toolbar', className)}
         {...props}
       >
         {children}
@@ -105,7 +105,7 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
     <div
       ref={ref}
       role="group"
-      className={cn('tiptap-toolbar-group', className)}
+      className={cn('fsdx-editor-toolbar-group', className)}
       {...props}
     >
       {children}

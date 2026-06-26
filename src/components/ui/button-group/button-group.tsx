@@ -1,15 +1,15 @@
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 import { Separator } from '../separator';
 import './button-group.scss';
 
-const buttonGroupVariants = cva('tiptap-button-group', {
+const buttonGroupVariants = cva('fsdx-editor-button-group', {
   variants: {
     orientation: {
-      horizontal: 'tiptap-button-group-horizontal',
-      vertical: 'tiptap-button-group-vertical',
+      horizontal: 'fsdx-editor-button-group-horizontal',
+      vertical: 'fsdx-editor-button-group-vertical',
     },
   },
   defaultVariants: {
@@ -25,7 +25,7 @@ function ButtonGroup({
   return (
     <div
       role="group"
-      data-slot="tiptap-button-group"
+      data-slot="fsdx-editor-button-group"
       data-orientation={orientation}
       className={cn(buttonGroupVariants({ orientation }), className)}
       {...props}
@@ -41,11 +41,11 @@ function ButtonGroupText({
   return useRender({
     defaultTagName: 'div',
     props: mergeProps<'div'>(
-      { className: cn('tiptap-button-group-text', className) },
+      { className: cn('fsdx-editor-button-group-text', className) },
       props,
     ),
     render,
-    state: { slot: 'tiptap-button-group-text' },
+    state: { slot: 'fsdx-editor-button-group-text' },
   });
 }
 
@@ -56,9 +56,9 @@ function ButtonGroupSeparator({
 }: React.ComponentProps<typeof Separator>) {
   return (
     <Separator
-      data-slot="tiptap-button-group-separator"
+      data-slot="fsdx-editor-button-group-separator"
       orientation={orientation}
-      className={cn('tiptap-button-group-separator', className)}
+      className={cn('fsdx-editor-button-group-separator', className)}
       {...props}
     />
   );

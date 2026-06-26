@@ -2,7 +2,7 @@
 import '@tiptap/extension-text-style';
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
-import { clamp } from '../../core/tiptap-utils';
+import { clamp } from '../../core/editor-utils';
 
 export const FONT_SIZE_PRESETS = [
   '12',

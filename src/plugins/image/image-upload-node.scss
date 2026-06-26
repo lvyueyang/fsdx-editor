@@ -1,43 +1,43 @@
-:root {
-  --tiptap-image-upload-active: var(--tt-brand-color-500);
-  --tiptap-image-upload-progress-bg: var(--tt-brand-color-50);
-  --tiptap-image-upload-icon-bg: var(--tt-brand-color-500);
+.fsdx-editor-wrapper {
+  --fsdx-editor-image-upload-active: var(--fsdx-editor-brand-color-500);
+  --fsdx-editor-image-upload-progress-bg: var(--fsdx-editor-brand-color-50);
+  --fsdx-editor-image-upload-icon-bg: var(--fsdx-editor-brand-color-500);
 
-  --tiptap-image-upload-text-color: var(--tt-gray-light-a-700);
-  --tiptap-image-upload-subtext-color: var(--tt-gray-light-a-400);
-  --tiptap-image-upload-border: var(--tt-gray-light-a-300);
-  --tiptap-image-upload-border-hover: var(--tt-gray-light-a-400);
-  --tiptap-image-upload-border-active: var(--tt-brand-color-500);
+  --fsdx-editor-image-upload-text-color: var(--fsdx-editor-gray-light-a-700);
+  --fsdx-editor-image-upload-subtext-color: var(--fsdx-editor-gray-light-a-400);
+  --fsdx-editor-image-upload-border: var(--fsdx-editor-gray-light-a-300);
+  --fsdx-editor-image-upload-border-hover: var(--fsdx-editor-gray-light-a-400);
+  --fsdx-editor-image-upload-border-active: var(--fsdx-editor-brand-color-500);
 
-  --tiptap-image-upload-icon-doc-bg: var(--tt-gray-light-a-200);
-  --tiptap-image-upload-icon-doc-border: var(--tt-gray-light-300);
-  --tiptap-image-upload-icon-color: var(--white);
+  --fsdx-editor-image-upload-icon-doc-bg: var(--fsdx-editor-gray-light-a-200);
+  --fsdx-editor-image-upload-icon-doc-border: var(--fsdx-editor-gray-light-300);
+  --fsdx-editor-image-upload-icon-color: var(--fsdx-editor-white);
 }
 
-.fsdx-editor-dark {
-  --tiptap-image-upload-active: var(--tt-brand-color-400);
-  --tiptap-image-upload-progress-bg: var(--tt-brand-color-900);
-  --tiptap-image-upload-icon-bg: var(--tt-brand-color-400);
+.fsdx-editor-wrapper.fsdx-editor-dark {
+  --fsdx-editor-image-upload-active: var(--fsdx-editor-brand-color-400);
+  --fsdx-editor-image-upload-progress-bg: var(--fsdx-editor-brand-color-900);
+  --fsdx-editor-image-upload-icon-bg: var(--fsdx-editor-brand-color-400);
 
-  --tiptap-image-upload-text-color: var(--tt-gray-dark-a-700);
-  --tiptap-image-upload-subtext-color: var(--tt-gray-dark-a-400);
-  --tiptap-image-upload-border: var(--tt-gray-dark-a-300);
-  --tiptap-image-upload-border-hover: var(--tt-gray-dark-a-400);
-  --tiptap-image-upload-border-active: var(--tt-brand-color-400);
+  --fsdx-editor-image-upload-text-color: var(--fsdx-editor-gray-dark-a-700);
+  --fsdx-editor-image-upload-subtext-color: var(--fsdx-editor-gray-dark-a-400);
+  --fsdx-editor-image-upload-border: var(--fsdx-editor-gray-dark-a-300);
+  --fsdx-editor-image-upload-border-hover: var(--fsdx-editor-gray-dark-a-400);
+  --fsdx-editor-image-upload-border-active: var(--fsdx-editor-brand-color-400);
 
-  --tiptap-image-upload-icon-doc-bg: var(--tt-gray-dark-a-200);
-  --tiptap-image-upload-icon-doc-border: var(--tt-gray-dark-300);
-  --tiptap-image-upload-icon-color: var(--black);
+  --fsdx-editor-image-upload-icon-doc-bg: var(--fsdx-editor-gray-dark-a-200);
+  --fsdx-editor-image-upload-icon-doc-border: var(--fsdx-editor-gray-dark-300);
+  --fsdx-editor-image-upload-icon-color: var(--fsdx-editor-black);
 }
 
-.tiptap-image-upload {
+.fsdx-editor-image-upload {
   margin: 2rem 0;
 
   input[type="file"] {
     display: none;
   }
 
-  .tiptap-image-upload-dropzone {
+  .fsdx-editor-image-upload-dropzone {
     position: relative;
     width: 3.125rem;
     height: 3.75rem;
@@ -49,40 +49,40 @@
     user-select: none;
   }
 
-  .tiptap-image-upload-icon-container {
+  .fsdx-editor-image-upload-icon-container {
     position: absolute;
     width: 1.75rem;
     height: 1.75rem;
     bottom: 0;
     right: 0;
-    background-color: var(--tiptap-image-upload-icon-bg);
-    border-radius: var(--tt-radius-lg, 0.75rem);
+    background-color: var(--fsdx-editor-image-upload-icon-bg);
+    border-radius: var(--fsdx-editor-radius-lg, 0.75rem);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .tiptap-image-upload-icon {
+  .fsdx-editor-image-upload-icon {
     width: 0.875rem;
     height: 0.875rem;
-    color: var(--tiptap-image-upload-icon-color);
+    color: var(--fsdx-editor-image-upload-icon-color);
   }
 
-  .tiptap-image-upload-dropzone-rect-primary {
-    color: var(--tiptap-image-upload-icon-doc-bg);
+  .fsdx-editor-image-upload-dropzone-rect-primary {
+    color: var(--fsdx-editor-image-upload-icon-doc-bg);
     position: absolute;
   }
 
-  .tiptap-image-upload-dropzone-rect-secondary {
+  .fsdx-editor-image-upload-dropzone-rect-secondary {
     position: absolute;
     top: 0;
     right: 0.25rem;
     bottom: 0;
-    color: var(--tiptap-image-upload-icon-doc-border);
+    color: var(--fsdx-editor-image-upload-icon-doc-border);
   }
 
-  .tiptap-image-upload-text {
-    color: var(--tiptap-image-upload-text-color);
+  .fsdx-editor-image-upload-text {
+    color: var(--fsdx-editor-image-upload-text-color);
     font-weight: 500;
     font-size: 0.875rem;
     line-height: normal;
@@ -93,17 +93,17 @@
     }
   }
 
-  .tiptap-image-upload-subtext {
-    color: var(--tiptap-image-upload-subtext-color);
+  .fsdx-editor-image-upload-subtext {
+    color: var(--fsdx-editor-image-upload-subtext-color);
     font-weight: 600;
     line-height: normal;
     font-size: 0.75rem;
   }
 
-  .tiptap-image-upload-drag-area {
+  .fsdx-editor-image-upload-drag-area {
     padding: 2rem 1.5rem;
-    border: 1.5px dashed var(--tiptap-image-upload-border);
-    border-radius: var(--tt-radius-md, 0.5rem);
+    border: 1.5px dashed var(--fsdx-editor-image-upload-border);
+    border-radius: var(--fsdx-editor-radius-md, 0.5rem);
     text-align: center;
     cursor: pointer;
     position: relative;
@@ -111,27 +111,27 @@
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: var(--tiptap-image-upload-border-hover);
+      border-color: var(--fsdx-editor-image-upload-border-hover);
     }
 
     &.drag-active {
-      border-color: var(--tiptap-image-upload-border-active);
+      border-color: var(--fsdx-editor-image-upload-border-active);
       background-color: rgba(
-        var(--tiptap-image-upload-active-rgb, 0, 123, 255),
+        var(--fsdx-editor-image-upload-active-rgb, 0, 123, 255),
         0.05
       );
     }
 
     &.drag-over {
-      border-color: var(--tiptap-image-upload-border-active);
+      border-color: var(--fsdx-editor-image-upload-border-active);
       background-color: rgba(
-        var(--tiptap-image-upload-active-rgb, 0, 123, 255),
+        var(--fsdx-editor-image-upload-active-rgb, 0, 123, 255),
         0.1
       );
     }
   }
 
-  .tiptap-image-upload-content {
+  .fsdx-editor-image-upload-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,107 +142,107 @@
     user-select: none;
   }
 
-  .tiptap-image-upload-previews {
+  .fsdx-editor-image-upload-previews {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .tiptap-image-upload-header {
+  .fsdx-editor-image-upload-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 0;
-    border-bottom: 1px solid var(--tiptap-image-upload-border);
+    border-bottom: 1px solid var(--fsdx-editor-image-upload-border);
     margin-bottom: 0.5rem;
 
     span {
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--tiptap-image-upload-text-color);
+      color: var(--fsdx-editor-image-upload-text-color);
     }
   }
 
   // === Individual File Preview Styles ===
-  .tiptap-image-upload-preview {
+  .fsdx-editor-image-upload-preview {
     position: relative;
-    border-radius: var(--tt-radius-md, 0.5rem);
+    border-radius: var(--fsdx-editor-radius-md, 0.5rem);
     overflow: hidden;
 
-    .tiptap-image-upload-progress {
+    .fsdx-editor-image-upload-progress {
       position: absolute;
       inset: 0;
-      background-color: var(--tiptap-image-upload-progress-bg);
+      background-color: var(--fsdx-editor-image-upload-progress-bg);
       transition: all 300ms ease-out;
     }
 
-    .tiptap-image-upload-preview-content {
+    .fsdx-editor-image-upload-preview-content {
       position: relative;
-      border: 1px solid var(--tiptap-image-upload-border);
-      border-radius: var(--tt-radius-md, 0.5rem);
+      border: 1px solid var(--fsdx-editor-image-upload-border);
+      border-radius: var(--fsdx-editor-radius-md, 0.5rem);
       padding: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .tiptap-image-upload-file-info {
+    .fsdx-editor-image-upload-file-info {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       height: 2rem;
 
-      .tiptap-image-upload-file-icon {
+      .fsdx-editor-image-upload-file-icon {
         padding: 0.5rem;
-        background-color: var(--tiptap-image-upload-icon-bg);
-        border-radius: var(--tt-radius-lg, 0.75rem);
+        background-color: var(--fsdx-editor-image-upload-icon-bg);
+        border-radius: var(--fsdx-editor-radius-lg, 0.75rem);
 
         svg {
           width: 0.875rem;
           height: 0.875rem;
-          color: var(--tiptap-image-upload-icon-color);
+          color: var(--fsdx-editor-image-upload-icon-color);
         }
       }
     }
 
-    .tiptap-image-upload-details {
+    .fsdx-editor-image-upload-details {
       display: flex;
       flex-direction: column;
     }
 
-    .tiptap-image-upload-actions {
+    .fsdx-editor-image-upload-actions {
       display: flex;
       align-items: center;
       gap: 0.5rem;
 
-      .tiptap-image-upload-progress-text {
+      .fsdx-editor-image-upload-progress-text {
         font-size: 0.75rem;
-        color: var(--tiptap-image-upload-border-active);
+        color: var(--fsdx-editor-image-upload-border-active);
         font-weight: 600;
       }
     }
   }
 }
 
-.tiptap.ProseMirror.ProseMirror-focused {
-  .ProseMirror-selectednode .tiptap-image-upload-drag-area {
-    border-color: var(--tiptap-image-upload-active);
+.fsdx-editor-wrapper .tiptap.ProseMirror.ProseMirror-focused {
+  .ProseMirror-selectednode .fsdx-editor-image-upload-drag-area {
+    border-color: var(--fsdx-editor-image-upload-active);
   }
 }
 
 @media (max-width: 480px) {
-  .tiptap-image-upload {
-    .tiptap-image-upload-drag-area {
+  .fsdx-editor-image-upload {
+    .fsdx-editor-image-upload-drag-area {
       padding: 1.5rem 1rem;
     }
 
-    .tiptap-image-upload-header {
+    .fsdx-editor-image-upload-header {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
     }
 
-    .tiptap-image-upload-preview-content {
+    .fsdx-editor-image-upload-preview-content {
       padding: 0.75rem;
     }
   }

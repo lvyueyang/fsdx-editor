@@ -2,8 +2,8 @@ import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { parseShortcutKeys } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { parseShortcutKeys } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import type { UseHorizontalRuleConfig } from './';
 import { HORIZONTAL_RULE_SHORTCUT_KEY, useHorizontalRule } from './';
 
@@ -44,7 +44,7 @@ export const HorizontalRuleButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const { isVisible, canInsert, handleInsert, label, shortcutKeys, Icon } =
       useHorizontalRule({
         editor,
@@ -82,8 +82,8 @@ export const HorizontalRuleButton = forwardRef<
       >
         {children ?? (
           <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
             {showShortcut && (
               <HorizontalRuleShortcutBadge shortcutKeys={shortcutKeys} />
             )}

@@ -54,7 +54,7 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
 
   return (
     <div
-      className="tiptap-image-editor-overlay"
+      className="fsdx-editor-image-editor-overlay"
       onClick={onCancel}
       onKeyDown={(e) => {
         if (e.key === 'Escape') onCancel();
@@ -63,24 +63,24 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
       tabIndex={-1}
     >
       <div
-        className="tiptap-image-editor"
+        className="fsdx-editor-image-editor"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.key === 'Escape') onCancel();
         }}
       >
-        <div className="tiptap-image-editor-header">
-          <div className="tiptap-image-editor-tabs">
+        <div className="fsdx-editor-image-editor-header">
+          <div className="fsdx-editor-image-editor-tabs">
             <button
               type="button"
-              className={`tiptap-image-editor-tab ${viewMode === 'crop' ? 'tiptap-image-editor-tab--active' : ''}`}
+              className={`fsdx-editor-image-editor-tab ${viewMode === 'crop' ? 'fsdx-editor-image-editor-tab--active' : ''}`}
               onClick={() => setViewMode('crop')}
             >
               裁切
             </button>
             <button
               type="button"
-              className={`tiptap-image-editor-tab ${viewMode === 'filter' ? 'tiptap-image-editor-tab--active' : ''}`}
+              className={`fsdx-editor-image-editor-tab ${viewMode === 'filter' ? 'fsdx-editor-image-editor-tab--active' : ''}`}
               onClick={() => setViewMode('filter')}
             >
               滤镜
@@ -88,16 +88,16 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
           </div>
           <button
             type="button"
-            className="tiptap-image-editor-close"
+            className="fsdx-editor-image-editor-close"
             onClick={onCancel}
           >
             ✕
           </button>
         </div>
 
-        <div className="tiptap-image-editor-body">
+        <div className="fsdx-editor-image-editor-body">
           {viewMode === 'crop' ? (
-            <div className="tiptap-image-editor-crop-area">
+            <div className="fsdx-editor-image-editor-crop-area">
               <Cropper
                 image={src}
                 crop={crop}
@@ -111,8 +111,8 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
               />
             </div>
           ) : (
-            <div className="tiptap-image-editor-filter-area">
-              <div className="tiptap-image-editor-filter-preview">
+            <div className="fsdx-editor-image-editor-filter-area">
+              <div className="fsdx-editor-image-editor-filter-preview">
                 <img
                   src={src}
                   alt="滤镜预览"
@@ -148,13 +148,13 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
           )}
         </div>
 
-        <div className="tiptap-image-editor-footer">
+        <div className="fsdx-editor-image-editor-footer">
           {viewMode === 'crop' && (
-            <div className="tiptap-image-editor-crop-controls">
-              <div className="tiptap-image-editor-control-row">
+            <div className="fsdx-editor-image-editor-crop-controls">
+              <div className="fsdx-editor-image-editor-control-row">
                 <label
                   htmlFor="crop-zoom"
-                  className="tiptap-image-editor-label"
+                  className="fsdx-editor-image-editor-label"
                 >
                   缩放
                 </label>
@@ -167,14 +167,14 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
                   value={zoom}
                   onChange={(e) => setZoom(Number(e.target.value))}
                 />
-                <span className="tiptap-image-editor-value">
+                <span className="fsdx-editor-image-editor-value">
                   {Math.round(zoom * 100)}%
                 </span>
               </div>
-              <div className="tiptap-image-editor-control-row">
+              <div className="fsdx-editor-image-editor-control-row">
                 <label
                   htmlFor="crop-rotation"
-                  className="tiptap-image-editor-label"
+                  className="fsdx-editor-image-editor-label"
                 >
                   旋转
                 </label>
@@ -186,16 +186,18 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
                   value={rotation}
                   onChange={(e) => setRotation(Number(e.target.value))}
                 />
-                <span className="tiptap-image-editor-value">{rotation}°</span>
+                <span className="fsdx-editor-image-editor-value">
+                  {rotation}°
+                </span>
               </div>
-              <div className="tiptap-image-editor-control-row">
-                <span className="tiptap-image-editor-label">比例</span>
-                <div className="tiptap-image-editor-aspect-btns">
+              <div className="fsdx-editor-image-editor-control-row">
+                <span className="fsdx-editor-image-editor-label">比例</span>
+                <div className="fsdx-editor-image-editor-aspect-btns">
                   {aspects.map((a) => (
                     <button
                       key={a.label}
                       type="button"
-                      className={`tiptap-image-editor-aspect-btn ${aspect === a.value ? 'tiptap-image-editor-aspect-btn--active' : ''}`}
+                      className={`fsdx-editor-image-editor-aspect-btn ${aspect === a.value ? 'fsdx-editor-image-editor-aspect-btn--active' : ''}`}
                       onClick={() => setAspect(a.value)}
                     >
                       {a.label}
@@ -206,10 +208,10 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
             </div>
           )}
           {viewMode === 'filter' && (
-            <div className="tiptap-image-editor-filter-actions">
+            <div className="fsdx-editor-image-editor-filter-actions">
               <button
                 type="button"
-                className="tiptap-image-editor-btn tiptap-image-editor-btn--ghost"
+                className="fsdx-editor-image-editor-btn fsdx-editor-image-editor-btn--ghost"
                 onClick={() =>
                   setFilterValues({
                     brightness: 100,
@@ -225,17 +227,17 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
               </button>
             </div>
           )}
-          <div className="tiptap-image-editor-actions">
+          <div className="fsdx-editor-image-editor-actions">
             <button
               type="button"
-              className="tiptap-image-editor-btn tiptap-image-editor-btn--ghost"
+              className="fsdx-editor-image-editor-btn fsdx-editor-image-editor-btn--ghost"
               onClick={onCancel}
             >
               取消
             </button>
             <button
               type="button"
-              className="tiptap-image-editor-btn tiptap-image-editor-btn--primary"
+              className="fsdx-editor-image-editor-btn fsdx-editor-image-editor-btn--primary"
               onClick={handleConfirm}
               disabled={processing}
             >

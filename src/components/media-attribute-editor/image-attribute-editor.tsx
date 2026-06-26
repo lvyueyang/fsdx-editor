@@ -153,14 +153,14 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
 
   return (
     <>
-      <div className="tiptap-attribute-group">
+      <div className="fsdx-editor-attribute-group">
         {/* 对齐 */}
-        <div className="tiptap-attribute-row">
-          <span className="tiptap-attribute-label">对齐</span>
-          <div className="tiptap-attribute-btn-group">
+        <div className="fsdx-editor-attribute-row">
+          <span className="fsdx-editor-attribute-label">对齐</span>
+          <div className="fsdx-editor-attribute-btn-group">
             <button
               type="button"
-              className={`tiptap-attribute-btn ${currentAlignment === 'left' ? 'tiptap-attribute-btn--active' : ''}`}
+              className={`fsdx-editor-attribute-btn ${currentAlignment === 'left' ? 'fsdx-editor-attribute-btn--active' : ''}`}
               onClick={() => handleAlignment('left')}
             >
               <svg
@@ -179,7 +179,7 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             </button>
             <button
               type="button"
-              className={`tiptap-attribute-btn ${currentAlignment === 'center' ? 'tiptap-attribute-btn--active' : ''}`}
+              className={`fsdx-editor-attribute-btn ${currentAlignment === 'center' ? 'fsdx-editor-attribute-btn--active' : ''}`}
               onClick={() => handleAlignment('center')}
             >
               <svg
@@ -198,7 +198,7 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             </button>
             <button
               type="button"
-              className={`tiptap-attribute-btn ${currentAlignment === 'right' ? 'tiptap-attribute-btn--active' : ''}`}
+              className={`fsdx-editor-attribute-btn ${currentAlignment === 'right' ? 'fsdx-editor-attribute-btn--active' : ''}`}
               onClick={() => handleAlignment('right')}
             >
               <svg
@@ -217,15 +217,18 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             </button>
           </div>
           {widthPercent !== null && (
-            <span className="tiptap-attribute-label">{widthPercent}%</span>
+            <span className="fsdx-editor-attribute-label">{widthPercent}%</span>
           )}
         </div>
       </div>
 
-      <div className="tiptap-attribute-group">
+      <div className="fsdx-editor-attribute-group">
         {/* Alt */}
-        <div className="tiptap-attribute-row">
-          <label htmlFor="image-alt-input" className="tiptap-attribute-label">
+        <div className="fsdx-editor-attribute-row">
+          <label
+            htmlFor="image-alt-input"
+            className="fsdx-editor-attribute-label"
+          >
             Alt
           </label>
           <input
@@ -235,13 +238,16 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             onChange={(e) => setAltValue(e.target.value)}
             onBlur={handleAltBlur}
             placeholder="图片描述"
-            className="tiptap-attribute-text-input"
+            className="fsdx-editor-attribute-text-input"
           />
         </div>
 
         {/* 图片源 */}
-        <div className="tiptap-attribute-row">
-          <label htmlFor="image-src-input" className="tiptap-attribute-label">
+        <div className="fsdx-editor-attribute-row">
+          <label
+            htmlFor="image-src-input"
+            className="fsdx-editor-attribute-label"
+          >
             源地址
           </label>
           <input
@@ -251,13 +257,16 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             onChange={(e) => setSrcValue(e.target.value)}
             onBlur={handleSrcBlur}
             placeholder="https://..."
-            className="tiptap-attribute-text-input tiptap-attribute-src-input"
+            className="fsdx-editor-attribute-text-input fsdx-editor-attribute-src-input"
           />
         </div>
 
         {/* 链接 */}
-        <div className="tiptap-attribute-row">
-          <label htmlFor="image-link-input" className="tiptap-attribute-label">
+        <div className="fsdx-editor-attribute-row">
+          <label
+            htmlFor="image-link-input"
+            className="fsdx-editor-attribute-label"
+          >
             链接
           </label>
           <input
@@ -267,16 +276,16 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
             onChange={(e) => setLinkValue(e.target.value)}
             onBlur={handleLinkBlur}
             placeholder="https://..."
-            className="tiptap-attribute-text-input"
+            className="fsdx-editor-attribute-text-input"
           />
         </div>
       </div>
 
       {/* 编辑图片 */}
-      <div className="tiptap-attribute-group">
+      <div className="fsdx-editor-attribute-group">
         <button
           type="button"
-          className="tiptap-attribute-edit-btn"
+          className="fsdx-editor-attribute-edit-btn"
           onClick={handleOpenEditor}
         >
           <svg

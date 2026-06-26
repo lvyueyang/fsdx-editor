@@ -1,85 +1,85 @@
-.tiptap-media-attribute-editor-content {
+.fsdx-editor-media-attribute-editor-content {
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 6px 8px;
-  background: var(--tt-gray-900);
-  border-radius: var(--tt-radius-md, 0.5rem);
+  background: var(--fsdx-editor-gray-900);
+  border-radius: var(--fsdx-editor-radius-md, 0.5rem);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   pointer-events: auto;
 }
 
-.tiptap-attribute-group {
+.fsdx-editor-attribute-group {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.tiptap-attribute-row {
+.fsdx-editor-attribute-row {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.tiptap-attribute-label {
+.fsdx-editor-attribute-label {
   font-size: 11px;
-  color: var(--tt-gray-400);
+  color: var(--fsdx-editor-gray-400);
   white-space: nowrap;
 }
 
-.tiptap-attribute-width-input {
+.fsdx-editor-attribute-width-input {
   display: flex;
   align-items: center;
   gap: 2px;
 }
 
-.tiptap-attribute-number-input {
+.fsdx-editor-attribute-number-input {
   width: 44px;
   padding: 2px 4px;
   font-size: 12px;
   text-align: center;
-  background: var(--tt-gray-800);
-  color: var(--tt-gray-200);
-  border: 1px solid var(--tt-gray-600);
-  border-radius: var(--tt-radius-xs, 0.25rem);
+  background: var(--fsdx-editor-gray-800);
+  color: var(--fsdx-editor-gray-200);
+  border: 1px solid var(--fsdx-editor-gray-600);
+  border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   outline: none;
 
   &:focus {
-    border-color: var(--tt-brand-color-400);
+    border-color: var(--fsdx-editor-brand-color-400);
   }
 }
 
-.tiptap-attribute-unit-btn {
+.fsdx-editor-attribute-unit-btn {
   padding: 2px 5px;
   font-size: 11px;
   font-weight: 500;
-  color: var(--tt-gray-400);
-  background: var(--tt-gray-800);
-  border: 1px solid var(--tt-gray-600);
-  border-radius: var(--tt-radius-xs, 0.25rem);
+  color: var(--fsdx-editor-gray-400);
+  background: var(--fsdx-editor-gray-800);
+  border: 1px solid var(--fsdx-editor-gray-600);
+  border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   cursor: pointer;
 
   &:hover {
-    background: var(--tt-gray-700);
-    color: var(--tt-gray-200);
+    background: var(--fsdx-editor-gray-700);
+    color: var(--fsdx-editor-gray-200);
   }
 }
 
-.tiptap-attribute-src-input {
+.fsdx-editor-attribute-src-input {
   width: 160px;
 }
 
-.tiptap-attribute-unit {
+.fsdx-editor-attribute-unit {
   font-size: 11px;
-  color: var(--tt-gray-400);
+  color: var(--fsdx-editor-gray-400);
 }
 
-.tiptap-attribute-slider {
+.fsdx-editor-attribute-slider {
   width: 60px;
   height: 4px;
   -webkit-appearance: none;
   appearance: none;
-  background: var(--tt-gray-600);
+  background: var(--fsdx-editor-gray-600);
   border-radius: 2px;
   outline: none;
   cursor: pointer;
@@ -89,86 +89,86 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--tt-brand-color-500);
+    background: var(--fsdx-editor-brand-color-500);
     cursor: pointer;
   }
 }
 
-.tiptap-attribute-btn-group {
+.fsdx-editor-attribute-btn-group {
   display: flex;
   gap: 2px;
 }
 
-.tiptap-attribute-btn {
+.fsdx-editor-attribute-btn {
   padding: 2px 6px;
   font-size: 12px;
-  color: var(--tt-gray-400);
-  background: var(--tt-gray-800);
+  color: var(--fsdx-editor-gray-400);
+  background: var(--fsdx-editor-gray-800);
   border: none;
-  border-radius: var(--tt-radius-xs, 0.25rem);
+  border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 2px;
 
   &:hover {
-    background: var(--tt-gray-700);
-    color: var(--tt-gray-200);
+    background: var(--fsdx-editor-gray-700);
+    color: var(--fsdx-editor-gray-200);
   }
 
   &--active {
-    background: var(--tt-brand-color-500);
+    background: var(--fsdx-editor-brand-color-500);
     color: #fff;
   }
 }
 
-.tiptap-attribute-text-input {
+.fsdx-editor-attribute-text-input {
   width: 100px;
   padding: 2px 6px;
   font-size: 12px;
-  background: var(--tt-gray-800);
-  color: var(--tt-gray-200);
-  border: 1px solid var(--tt-gray-600);
-  border-radius: var(--tt-radius-xs, 0.25rem);
+  background: var(--fsdx-editor-gray-800);
+  color: var(--fsdx-editor-gray-200);
+  border: 1px solid var(--fsdx-editor-gray-600);
+  border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   outline: none;
 
   &:focus {
-    border-color: var(--tt-brand-color-400);
+    border-color: var(--fsdx-editor-brand-color-400);
   }
 }
 
-.tiptap-attribute-toggles {
+.fsdx-editor-attribute-toggles {
   display: flex;
   gap: 8px;
 }
 
-.tiptap-attribute-toggle {
+.fsdx-editor-attribute-toggle {
   display: flex;
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: var(--tt-gray-400);
+  color: var(--fsdx-editor-gray-400);
   cursor: pointer;
 
   input[type='checkbox'] {
-    accent-color: var(--tt-brand-color-500);
+    accent-color: var(--fsdx-editor-brand-color-500);
   }
 }
 
-.tiptap-attribute-edit-btn {
+.fsdx-editor-attribute-edit-btn {
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 2px 8px;
   font-size: 12px;
-  color: var(--tt-gray-300);
-  background: var(--tt-gray-800);
-  border: 1px solid var(--tt-gray-600);
-  border-radius: var(--tt-radius-xs, 0.25rem);
+  color: var(--fsdx-editor-gray-300);
+  background: var(--fsdx-editor-gray-800);
+  border: 1px solid var(--fsdx-editor-gray-600);
+  border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
   cursor: pointer;
 
   &:hover {
-    background: var(--tt-gray-700);
-    color: var(--tt-gray-100);
+    background: var(--fsdx-editor-gray-700);
+    color: var(--fsdx-editor-gray-100);
   }
 }

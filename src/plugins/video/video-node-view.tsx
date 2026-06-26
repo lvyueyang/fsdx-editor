@@ -1,5 +1,5 @@
 import { NodeViewWrapper } from '@tiptap/react';
-import { cn } from '../../core/tiptap-utils';
+import { cn } from '../../core/editor-utils';
 import type { VideoNodeAttributes } from './video-node-extension';
 import './video-node.scss';
 
@@ -13,18 +13,18 @@ export function VideoNodeView({
 
   if (!src) {
     return (
-      <NodeViewWrapper className="tiptap-video-node">
-        <div className="tiptap-video-placeholder">未设置视频地址</div>
+      <NodeViewWrapper className="fsdx-editor-video-node">
+        <div className="fsdx-editor-video-placeholder">未设置视频地址</div>
       </NodeViewWrapper>
     );
   }
 
   const alignClass = alignment
-    ? `tiptap-video-node--align-${alignment}`
+    ? `fsdx-editor-video-node--align-${alignment}`
     : undefined;
 
   return (
-    <NodeViewWrapper className={cn('tiptap-video-node', alignClass)}>
+    <NodeViewWrapper className={cn('fsdx-editor-video-node', alignClass)}>
       {/* biome-ignore lint/a11y/useMediaCaption: preview only */}
       <video
         src={src}
@@ -34,7 +34,7 @@ export function VideoNodeView({
         controls={controls !== false}
         loop={!!loop}
         controlsList="nodownload"
-        className="tiptap-video-element"
+        className="fsdx-editor-video-element"
       />
     </NodeViewWrapper>
   );

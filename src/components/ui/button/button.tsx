@@ -1,6 +1,6 @@
 import { Fragment, forwardRef, useMemo } from 'react';
 // --- Lib ---
-import { cn, parseShortcutKeys } from '../../../core/tiptap-utils';
+import { cn, parseShortcutKeys } from '../../../core/editor-utils';
 // --- Tiptap UI Primitive ---
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 
@@ -58,8 +58,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     if (!tooltip || !showTooltip) {
       return (
         <button
-          data-slot="tiptap-button"
-          className={cn('tiptap-button', className)}
+          data-slot="fsdx-editor-button"
+          className={cn('fsdx-editor-button', className)}
           ref={ref}
           data-style={variant}
           data-size={size}
@@ -73,8 +73,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Tooltip delay={200}>
         <TooltipTrigger
-          data-slot="tiptap-button"
-          className={cn('tiptap-button', className)}
+          data-slot="fsdx-editor-button"
+          className={cn('fsdx-editor-button', className)}
           ref={ref}
           data-style={variant}
           data-size={size}

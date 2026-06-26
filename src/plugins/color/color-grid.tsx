@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { cn } from '../../core/tiptap-utils';
+import { cn } from '../../core/editor-utils';
 import {
   PALETTE_COLORS,
   PALETTE_COLUMNS,
@@ -37,7 +37,7 @@ export function ColorGrid({
       if (!grid) return;
 
       const cells = grid.querySelectorAll<HTMLButtonElement>(
-        '.tiptap-color-grid-item',
+        '.fsdx-editor-color-grid-item',
       );
       const current = document.activeElement as HTMLButtonElement;
       const currentIndex = Array.from(cells).indexOf(current);
@@ -102,7 +102,7 @@ export function ColorGrid({
     if (!grid) return;
 
     const cells = grid.querySelectorAll<HTMLButtonElement>(
-      '.tiptap-color-grid-item',
+      '.fsdx-editor-color-grid-item',
     );
     const activeCell = Array.from(cells).find((cell) => {
       const color = cell.style.backgroundColor;
@@ -119,7 +119,7 @@ export function ColorGrid({
   return (
     <div
       ref={gridRef}
-      className="tiptap-color-grid"
+      className="fsdx-editor-color-grid"
       role="grid"
       aria-label="颜色选择"
       onKeyDown={handleKeyDown}
@@ -130,7 +130,7 @@ export function ColorGrid({
           <button
             key={`${color.name}-${color.level}`}
             type="button"
-            className={cn('tiptap-color-grid-item')}
+            className={cn('fsdx-editor-color-grid-item')}
             style={{ backgroundColor: itemColor }}
             tabIndex={index === 0 ? 0 : -1}
             role="gridcell"

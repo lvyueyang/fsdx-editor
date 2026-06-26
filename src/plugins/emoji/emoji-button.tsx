@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { SmileIcon } from '../../icons/smile-icon';
 import { EmojiPopoverContent } from './emoji-popover-content';
 
@@ -32,7 +32,7 @@ export const EmojiPopoverButton = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       {...props}
     >
-      {children ?? <SmileIcon className="tiptap-button-icon" />}
+      {children ?? <SmileIcon className="fsdx-editor-button-icon" />}
     </Button>
   ),
 );
@@ -43,7 +43,7 @@ export function EmojiButton({
   editor: providedEditor,
   ...props
 }: EmojiButtonProps) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isOpen, setIsOpen] = useState(false);
 
   if (!editor) return null;

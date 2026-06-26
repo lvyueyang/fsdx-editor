@@ -1,72 +1,47 @@
 @use '../styles/variables';
 @use '../styles/keyframe-animations';
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,9..40,100..900&display=swap");
+.fsdx-editor-wrapper {
+  --fsdx-editor-theme-text: var(--fsdx-editor-gray-light-900);
 
-body {
-  --tt-toolbar-height: 44px;
-  --tt-theme-text: var(--tt-gray-light-900);
-
-  .fsdx-editor-dark & {
-    --tt-theme-text: var(--tt-gray-dark-900);
+  &.fsdx-editor-dark {
+    --fsdx-editor-theme-text: var(--fsdx-editor-gray-dark-900);
   }
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  color: var(--tt-theme-text);
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  padding: 0;
-  overscroll-behavior-y: none;
-}
-
-html,
-body {
-  overscroll-behavior-x: none;
-}
-
-html,
-body,
-#root,
-#app {
-  height: 100%;
-  margin: 0;
-  background-color: var(--tt-bg-color);
-}
-
-::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--tt-scrollbar-color) transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--tt-scrollbar-color);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.tiptap.ProseMirror {
+.fsdx-editor-wrapper .tiptap.ProseMirror {
   font-family: "DM Sans", sans-serif;
+  color: var(--fsdx-editor-theme-text);
 }
 
-.editor-wrapper {
+.fsdx-editor-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: var(--fsdx-editor-bg-color);
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fsdx-editor-scrollbar-color) transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--fsdx-editor-scrollbar-color);
+    border-radius: 9999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
-.editor-content {
+.fsdx-editor-content {
   flex: 1;
   overflow: auto;
   width: 100%;
@@ -76,19 +51,19 @@ body,
   position: relative;
 }
 
-.editor-content .tiptap.ProseMirror.editor {
+.fsdx-editor-content .tiptap.ProseMirror.editor {
   flex: 1;
   padding: 15px;
 }
 
-.editor-content > * {
+.fsdx-editor-content > * {
   display: flex;
   flex-direction: column;
   min-height: 100%;
 }
 
 @media screen and (max-width: 480px) {
-  .editor-content .tiptap.ProseMirror.editor {
+  .fsdx-editor-content .tiptap.ProseMirror.editor {
     padding: 1rem 1.5rem 30vh;
   }
 }

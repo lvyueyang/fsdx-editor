@@ -1,9 +1,9 @@
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
 // --- Lib ---
-import { isNodeTypeSelected } from '../../core/tiptap-utils';
+import { isNodeTypeSelected } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 
 // --- Icons ---
 import { Redo2Icon } from '../../icons/redo2-icon';
@@ -145,7 +145,7 @@ export function useUndoRedo(config: UseUndoRedoConfig) {
     onExecuted,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [canExecute, setCanExecute] = useState<boolean>(false);
 

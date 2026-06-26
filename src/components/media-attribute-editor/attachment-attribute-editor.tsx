@@ -34,11 +34,11 @@ export function AttachmentAttributeEditor({
   }, [editor, nameValue]);
 
   return (
-    <div className="tiptap-attribute-group">
-      <div className="tiptap-attribute-row">
+    <div className="fsdx-editor-attribute-group">
+      <div className="fsdx-editor-attribute-row">
         <label
           htmlFor="attachment-name-input"
-          className="tiptap-attribute-label"
+          className="fsdx-editor-attribute-label"
         >
           文件名
         </label>
@@ -49,7 +49,7 @@ export function AttachmentAttributeEditor({
           onChange={(e) => setNameValue(e.target.value)}
           onBlur={handleNameBlur}
           placeholder="文件名"
-          className="tiptap-attribute-text-input"
+          className="fsdx-editor-attribute-text-input"
         />
       </div>
     </div>

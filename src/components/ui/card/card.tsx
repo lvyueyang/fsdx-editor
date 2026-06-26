@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 import './card.scss';
 
 const Card = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn('tiptap-card', className)} {...props} />
+      <div ref={ref} className={cn('fsdx-editor-card', className)} {...props} />
     );
   },
 );
@@ -16,7 +16,7 @@ const CardHeader = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
     return (
       <div
         ref={ref}
-        className={cn('tiptap-card-header', className)}
+        className={cn('fsdx-editor-card-header', className)}
         {...props}
       />
     );
@@ -27,7 +27,11 @@ CardHeader.displayName = 'CardHeader';
 const CardBody = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn('tiptap-card-body', className)} {...props} />
+      <div
+        ref={ref}
+        className={cn('fsdx-editor-card-body', className)}
+        {...props}
+      />
     );
   },
 );
@@ -43,7 +47,7 @@ const CardItemGroup = forwardRef<
     <div
       ref={ref}
       data-orientation={orientation}
-      className={cn('tiptap-card-item-group', className)}
+      className={cn('fsdx-editor-card-item-group', className)}
       {...props}
     />
   );
@@ -55,7 +59,7 @@ const CardGroupLabel = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
     return (
       <div
         ref={ref}
-        className={cn('tiptap-card-group-label', className)}
+        className={cn('fsdx-editor-card-group-label', className)}
         {...props}
       />
     );
@@ -68,7 +72,7 @@ const CardFooter = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
     return (
       <div
         ref={ref}
-        className={cn('tiptap-card-footer', className)}
+        className={cn('fsdx-editor-card-footer', className)}
         {...props}
       />
     );

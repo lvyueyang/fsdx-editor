@@ -1,46 +1,46 @@
-.tiptap-button {
+.fsdx-editor-button {
   /************************************************** 
       Default button background color 
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-bg-color: var(--tt-gray-light-a-100);
-  --tt-button-hover-bg-color: var(--tt-gray-light-200);
-  --tt-button-active-bg-color: var(--tt-gray-light-a-200);
-  --tt-button-active-bg-color-emphasized: var(
-    --tt-brand-color-100
+  --fsdx-editor-button-default-bg-color: var(--fsdx-editor-gray-light-a-100);
+  --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-gray-light-200);
+  --fsdx-editor-button-active-bg-color: var(--fsdx-editor-gray-light-a-200);
+  --fsdx-editor-button-active-bg-color-emphasized: var(
+    --fsdx-editor-brand-color-100
   ); //more important active state
-  --tt-button-active-bg-color-subdued: var(
-    --tt-gray-light-a-200
+  --fsdx-editor-button-active-bg-color-subdued: var(
+    --fsdx-editor-gray-light-a-200
   ); //less important active state
-  --tt-button-active-hover-bg-color: var(--tt-gray-light-300);
-  --tt-button-active-hover-bg-color-emphasized: var(
-    --tt-brand-color-200
+  --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-gray-light-300);
+  --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+    --fsdx-editor-brand-color-200
   ); //more important active state hover
-  --tt-button-active-hover-bg-color-subdued: var(
-    --tt-gray-light-a-300
+  --fsdx-editor-button-active-hover-bg-color-subdued: var(
+    --fsdx-editor-gray-light-a-300
   ); //less important active state hover
-  --tt-button-disabled-bg-color: var(--tt-gray-light-a-50);
+  --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-gray-light-a-50);
 
   /* Dark mode */
   .fsdx-editor-dark & {
-    --tt-button-default-bg-color: var(--tt-gray-dark-a-100);
-    --tt-button-hover-bg-color: var(--tt-gray-dark-200);
-    --tt-button-active-bg-color: var(--tt-gray-dark-a-200);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-900
+    --fsdx-editor-button-default-bg-color: var(--fsdx-editor-gray-dark-a-100);
+    --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-gray-dark-200);
+    --fsdx-editor-button-active-bg-color: var(--fsdx-editor-gray-dark-a-200);
+    --fsdx-editor-button-active-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-900
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-gray-dark-a-200
+    --fsdx-editor-button-active-bg-color-subdued: var(
+      --fsdx-editor-gray-dark-a-200
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-gray-dark-300);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-800
+    --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-gray-dark-300);
+    --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-800
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-gray-dark-a-300
+    --fsdx-editor-button-active-hover-bg-color-subdued: var(
+      --fsdx-editor-gray-dark-a-300
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--tt-gray-dark-a-50);
+    --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-gray-dark-a-50);
   }
 
   /************************************************** 
@@ -48,21 +48,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-text-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-text-color: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-  --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+  --fsdx-editor-button-default-text-color: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-button-hover-text-color: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-light-a-400);
 
   /* Dark mode */
   .fsdx-editor-dark & {
-    --tt-button-default-text-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-text-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+    --fsdx-editor-button-default-text-color: var(--fsdx-editor-gray-dark-a-600);
+    --fsdx-editor-button-hover-text-color: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-dark-a-300);
   }
 
   /************************************************** 
@@ -70,21 +70,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-icon-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-icon-color: var(--tt-gray-light-a-900);
-  --tt-button-active-icon-color: var(--tt-brand-color-500);
-  --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-  --tt-button-active-icon-color-subdued: var(--tt-gray-light-a-900);
-  --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+  --fsdx-editor-button-default-icon-color: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-500);
+  --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-600);
+  --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-gray-light-a-900);
+  --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-light-a-400);
 
   /* Dark mode */
   .fsdx-editor-dark & {
-    --tt-button-default-icon-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-icon-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-icon-color: var(--tt-brand-color-400);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-400);
-    --tt-button-active-icon-color-subdued: var(--tt-gray-dark-a-900);
-    --tt-button-disabled-icon-color: var(--tt-gray-dark-a-400);
+    --fsdx-editor-button-default-icon-color: var(--fsdx-editor-gray-dark-a-600);
+    --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-400);
+    --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-400);
+    --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-gray-dark-a-900);
+    --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-dark-a-400);
   }
 
   /************************************************** 
@@ -92,21 +92,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-icon-sub-color: var(--tt-gray-light-a-400);
-  --tt-button-hover-icon-sub-color: var(--tt-gray-light-a-500);
-  --tt-button-active-icon-sub-color: var(--tt-gray-light-a-400);
-  --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-  --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-400);
-  --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+  --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-light-a-400);
+  --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-light-a-500);
+  --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-light-a-400);
+  --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-light-a-500);
+  --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-light-a-400);
+  --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-light-a-100);
 
   /* Dark mode */
   .fsdx-editor-dark & {
-    --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-300);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-400);
-    --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+    --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-dark-a-300);
+    --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-dark-a-400);
+    --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-dark-a-300);
+    --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-dark-a-400);
+    --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-dark-a-300);
+    --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-dark-a-100);
   }
 
   /************************************************** 
@@ -114,25 +114,25 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-dropdown-arrows-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-dropdown-arrows-color: var(--tt-gray-light-a-700);
-  --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-600);
-  --tt-button-active-dropdown-arrows-color-emphasized: var(
-    --tt-gray-light-a-700
+  --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-700);
+  --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+    --fsdx-editor-gray-light-a-700
   );
-  --tt-button-active-dropdown-arrows-color-subdued: var(--tt-gray-light-a-600);
-  --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+  --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(--fsdx-editor-gray-light-a-600);
+  --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-400);
 
   /* Dark mode */
   .fsdx-editor-dark & {
-    --tt-button-default-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-dropdown-arrows-color: var(--tt-gray-dark-a-700);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-dark-a-700
+    --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-600);
+    --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-700);
+    --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-600);
+    --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+      --fsdx-editor-gray-dark-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(--tt-gray-dark-a-600);
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+    --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(--fsdx-editor-gray-dark-a-600);
+    --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-400);
   }
 
   /* ----------------------------------------------------------------
@@ -145,43 +145,43 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-bg-color: var(--transparent);
-    --tt-button-hover-bg-color: var(--tt-gray-light-200);
-    --tt-button-active-bg-color: var(--tt-gray-light-a-100);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-100
+    --fsdx-editor-button-default-bg-color: var(--fsdx-editor-transparent);
+    --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-gray-light-200);
+    --fsdx-editor-button-active-bg-color: var(--fsdx-editor-gray-light-a-100);
+    --fsdx-editor-button-active-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-100
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-gray-light-a-100
+    --fsdx-editor-button-active-bg-color-subdued: var(
+      --fsdx-editor-gray-light-a-100
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-gray-light-200);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-200
+    --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-gray-light-200);
+    --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-200
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-gray-light-a-200
+    --fsdx-editor-button-active-hover-bg-color-subdued: var(
+      --fsdx-editor-gray-light-a-200
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--transparent);
+    --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-transparent);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-bg-color: var(--transparent);
-      --tt-button-hover-bg-color: var(--tt-gray-dark-200);
-      --tt-button-active-bg-color: var(--tt-gray-dark-a-100);
-      --tt-button-active-bg-color-emphasized: var(
-        --tt-brand-color-900
+      --fsdx-editor-button-default-bg-color: var(--fsdx-editor-transparent);
+      --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-gray-dark-200);
+      --fsdx-editor-button-active-bg-color: var(--fsdx-editor-gray-dark-a-100);
+      --fsdx-editor-button-active-bg-color-emphasized: var(
+        --fsdx-editor-brand-color-900
       ); //more important active state
-      --tt-button-active-bg-color-subdued: var(
-        --tt-gray-dark-a-100
+      --fsdx-editor-button-active-bg-color-subdued: var(
+        --fsdx-editor-gray-dark-a-100
       ); //less important active state
-      --tt-button-active-hover-bg-color: var(--tt-gray-dark-200);
-      --tt-button-active-hover-bg-color-emphasized: var(
-        --tt-brand-color-800
+      --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-gray-dark-200);
+      --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+        --fsdx-editor-brand-color-800
       ); //more important active state hover
-      --tt-button-active-hover-bg-color-subdued: var(
-        --tt-gray-dark-a-200
+      --fsdx-editor-button-active-hover-bg-color-subdued: var(
+        --fsdx-editor-gray-dark-a-200
       ); //less important active state hover
-      --tt-button-disabled-bg-color: var(--transparent);
+      --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-transparent);
     }
 
     /************************************************** 
@@ -189,21 +189,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-text-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-default-text-color: var(--fsdx-editor-gray-light-a-600);
+    --fsdx-editor-button-hover-text-color: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-text-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+      --fsdx-editor-button-default-text-color: var(--fsdx-editor-gray-dark-a-600);
+      --fsdx-editor-button-hover-text-color: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -211,21 +211,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-icon-color: var(--tt-gray-light-a-900);
-    --tt-button-active-icon-color: var(--tt-brand-color-500);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-default-icon-color: var(--fsdx-editor-gray-light-a-600);
+    --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-500);
+    --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-600);
+    --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-icon-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-icon-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-icon-color: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-emphasized: var(--tt-brand-color-300);
-      --tt-button-active-icon-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-icon-color: var(--tt-gray-dark-a-400);
+      --fsdx-editor-button-default-icon-color: var(--fsdx-editor-gray-dark-a-600);
+      --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-400);
+      --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-300);
+      --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-dark-a-400);
     }
 
     /************************************************** 
@@ -233,21 +233,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-sub-color: var(--tt-gray-light-a-400);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color: var(--tt-gray-light-a-400);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-400);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+    --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-light-a-400);
+    --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-light-a-500);
+    --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-light-a-400);
+    --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-light-a-500);
+    --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-light-a-400);
+    --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-light-a-100);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-      --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+      --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-dark-a-300);
+      --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-dark-a-400);
+      --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-dark-a-300);
+      --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-dark-a-400);
+      --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-dark-a-300);
+      --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -255,29 +255,29 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-dropdown-arrows-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-dropdown-arrows-color: var(--tt-gray-light-a-700);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-600);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-light-a-700
+    --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-600);
+    --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-700);
+    --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-600);
+    --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+      --fsdx-editor-gray-light-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(
-      --tt-gray-light-a-600
+    --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(
+      --fsdx-editor-gray-light-a-600
     );
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-dropdown-arrows-color: var(--tt-gray-dark-a-700);
-      --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-active-dropdown-arrows-color-emphasized: var(
-        --tt-gray-dark-a-700
+      --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-600);
+      --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-700);
+      --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-600);
+      --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+        --fsdx-editor-gray-dark-a-700
       );
-      --tt-button-active-dropdown-arrows-color-subdued: var(
-        --tt-gray-dark-a-600
+      --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(
+        --fsdx-editor-gray-dark-a-600
       );
-      --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+      --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-400);
     }
   }
 
@@ -291,43 +291,43 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-bg-color: var(--tt-brand-color-500);
-    --tt-button-hover-bg-color: var(--tt-brand-color-600);
-    --tt-button-active-bg-color: var(--tt-brand-color-100);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-100
+    --fsdx-editor-button-default-bg-color: var(--fsdx-editor-brand-color-500);
+    --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-brand-color-600);
+    --fsdx-editor-button-active-bg-color: var(--fsdx-editor-brand-color-100);
+    --fsdx-editor-button-active-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-100
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-brand-color-100
+    --fsdx-editor-button-active-bg-color-subdued: var(
+      --fsdx-editor-brand-color-100
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-brand-color-200);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-200
+    --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-brand-color-200);
+    --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+      --fsdx-editor-brand-color-200
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-brand-color-200
+    --fsdx-editor-button-active-hover-bg-color-subdued: var(
+      --fsdx-editor-brand-color-200
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--tt-gray-light-a-100);
+    --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-gray-light-a-100);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-bg-color: var(--tt-brand-color-500);
-      --tt-button-hover-bg-color: var(--tt-brand-color-600);
-      --tt-button-active-bg-color: var(--tt-brand-color-900);
-      --tt-button-active-bg-color-emphasized: var(
-        --tt-brand-color-900
+      --fsdx-editor-button-default-bg-color: var(--fsdx-editor-brand-color-500);
+      --fsdx-editor-button-hover-bg-color: var(--fsdx-editor-brand-color-600);
+      --fsdx-editor-button-active-bg-color: var(--fsdx-editor-brand-color-900);
+      --fsdx-editor-button-active-bg-color-emphasized: var(
+        --fsdx-editor-brand-color-900
       ); //more important active state
-      --tt-button-active-bg-color-subdued: var(
-        --tt-brand-color-900
+      --fsdx-editor-button-active-bg-color-subdued: var(
+        --fsdx-editor-brand-color-900
       ); //less important active state
-      --tt-button-active-hover-bg-color: var(--tt-brand-color-800);
-      --tt-button-active-hover-bg-color-emphasized: var(
-        --tt-brand-color-800
+      --fsdx-editor-button-active-hover-bg-color: var(--fsdx-editor-brand-color-800);
+      --fsdx-editor-button-active-hover-bg-color-emphasized: var(
+        --fsdx-editor-brand-color-800
       ); //more important active state hover
-      --tt-button-active-hover-bg-color-subdued: var(
-        --tt-brand-color-800
+      --fsdx-editor-button-active-hover-bg-color-subdued: var(
+        --fsdx-editor-brand-color-800
       ); //less important active state hover
-      --tt-button-disabled-bg-color: var(--tt-gray-dark-a-100);
+      --fsdx-editor-button-disabled-bg-color: var(--fsdx-editor-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -335,21 +335,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-text-color: var(--white);
-    --tt-button-hover-text-color: var(--white);
-    --tt-button-active-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-default-text-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-hover-text-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-light-a-900);
+    --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-text-color: var(--white);
-      --tt-button-hover-text-color: var(--white);
-      --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+      --fsdx-editor-button-default-text-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-hover-text-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-active-text-color: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-text-color-emphasized: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-active-text-color-subdued: var(--fsdx-editor-gray-dark-a-900);
+      --fsdx-editor-button-disabled-text-color: var(--fsdx-editor-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -357,21 +357,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-color: var(--white);
-    --tt-button-hover-icon-color: var(--white);
-    --tt-button-active-icon-color: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-subdued: var(--tt-brand-color-600);
-    --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-default-icon-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-600);
+    --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-600);
+    --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-brand-color-600);
+    --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-icon-color: var(--white);
-      --tt-button-hover-icon-color: var(--white);
-      --tt-button-active-icon-color: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-emphasized: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-subdued: var(--tt-brand-color-400);
-      --tt-button-disabled-icon-color: var(--tt-gray-dark-a-300);
+      --fsdx-editor-button-default-icon-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-hover-icon-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-active-icon-color: var(--fsdx-editor-brand-color-400);
+      --fsdx-editor-button-active-icon-color-emphasized: var(--fsdx-editor-brand-color-400);
+      --fsdx-editor-button-active-icon-color-subdued: var(--fsdx-editor-brand-color-400);
+      --fsdx-editor-button-disabled-icon-color: var(--fsdx-editor-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -379,21 +379,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-500);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-500);
-    --tt-button-active-icon-sub-color: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-500);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+    --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-dark-a-500);
+    --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-dark-a-500);
+    --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-light-a-500);
+    --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-light-a-500);
+    --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-light-a-500);
+    --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-light-a-100);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-400);
-      --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-500);
-      --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-      --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+      --fsdx-editor-button-default-icon-sub-color: var(--fsdx-editor-gray-dark-a-400);
+      --fsdx-editor-button-hover-icon-sub-color: var(--fsdx-editor-gray-dark-a-500);
+      --fsdx-editor-button-active-icon-sub-color: var(--fsdx-editor-gray-dark-a-300);
+      --fsdx-editor-button-active-icon-sub-color-emphasized: var(--fsdx-editor-gray-dark-a-400);
+      --fsdx-editor-button-active-icon-sub-color-subdued: var(--fsdx-editor-gray-dark-a-300);
+      --fsdx-editor-button-disabled-icon-sub-color: var(--fsdx-editor-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -401,29 +401,29 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-dropdown-arrows-color: var(--white);
-    --tt-button-hover-dropdown-arrows-color: var(--white);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-700);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-light-a-700
+    --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-white);
+    --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-700);
+    --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+      --fsdx-editor-gray-light-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(
-      --tt-gray-light-a-700
+    --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(
+      --fsdx-editor-gray-light-a-700
     );
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+    --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-light-a-400);
 
     /* Dark mode */
     .fsdx-editor-dark & {
-      --tt-button-default-dropdown-arrows-color: var(--white);
-      --tt-button-hover-dropdown-arrows-color: var(--white);
-      --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-active-dropdown-arrows-color-emphasized: var(
-        --tt-gray-dark-a-600
+      --fsdx-editor-button-default-dropdown-arrows-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-hover-dropdown-arrows-color: var(--fsdx-editor-white);
+      --fsdx-editor-button-active-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-600);
+      --fsdx-editor-button-active-dropdown-arrows-color-emphasized: var(
+        --fsdx-editor-gray-dark-a-600
       );
-      --tt-button-active-dropdown-arrows-color-subdued: var(
-        --tt-gray-dark-a-600
+      --fsdx-editor-button-active-dropdown-arrows-color-subdued: var(
+        --fsdx-editor-gray-dark-a-600
       );
-      --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+      --fsdx-editor-button-disabled-dropdown-arrows-color: var(--fsdx-editor-gray-dark-a-400);
     }
   }
 }

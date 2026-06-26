@@ -4,9 +4,9 @@ import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
 // --- Lib ---
-import { parseShortcutKeys } from '../../core/tiptap-utils';
+import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
 import type { UseColorHighlightConfig } from './';
 import { COLOR_HIGHLIGHT_SHORTCUT_KEY, useColorHighlight } from './';
@@ -52,7 +52,7 @@ export function ColorHighlightShortcutBadge({
  *
  * // Node-based background coloring
  * <ColorHighlightButton
- *   highlightColor="var(--tt-color-highlight-blue)"
+ *   highlightColor="var(--fsdx-editor-color-highlight-blue)"
  *   mode="node"
  * />
  *
@@ -85,7 +85,7 @@ export const ColorHighlightButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const {
       isVisible,
       canColorHighlight,
@@ -145,12 +145,12 @@ export const ColorHighlightButton = forwardRef<
         {children ?? (
           <>
             <span
-              className="tiptap-button-highlight"
+              className="fsdx-editor-button-highlight"
               style={
                 { '--highlight-color': highlightColor } as React.CSSProperties
               }
             />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
             {showShortcut && (
               <ColorHighlightShortcutBadge shortcutKeys={shortcutKeys} />
             )}

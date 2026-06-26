@@ -3,7 +3,7 @@ import { forwardRef, useCallback } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
 import type { UseClearFormattingConfig } from './';
 import { useClearFormatting } from './';
@@ -38,7 +38,7 @@ export const ClearFormattingButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const { isVisible, handleClear, canExecute, label, Icon } =
       useClearFormatting({
         editor,
@@ -75,8 +75,8 @@ export const ClearFormattingButton = forwardRef<
       >
         {children ?? (
           <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
           </>
         )}
       </Button>

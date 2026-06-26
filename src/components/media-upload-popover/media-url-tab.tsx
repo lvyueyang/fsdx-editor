@@ -34,10 +34,13 @@ export function MediaUrlTab({ mediaType, onInsert }: MediaUrlTabProps) {
   );
 
   return (
-    <div className="tiptap-media-url-tab">
+    <div className="fsdx-editor-media-url-tab">
       <form onSubmit={handleSubmit}>
-        <div className="tiptap-media-url-input-group">
-          <label htmlFor="media-url-input" className="tiptap-media-url-label">
+        <div className="fsdx-editor-media-url-input-group">
+          <label
+            htmlFor="media-url-input"
+            className="fsdx-editor-media-url-label"
+          >
             输入
             {mediaType === 'image'
               ? '图片'
@@ -51,24 +54,26 @@ export function MediaUrlTab({ mediaType, onInsert }: MediaUrlTabProps) {
           <input
             id="media-url-input"
             type="url"
-            className="tiptap-media-url-input"
+            className="fsdx-editor-media-url-input"
             placeholder="https://example.com/file"
             value={url}
             onChange={handleUrlChange}
             data-invalid={!isValid}
           />
           {!isValid && (
-            <span className="tiptap-media-url-error">请输入有效的 URL</span>
+            <span className="fsdx-editor-media-url-error">
+              请输入有效的 URL
+            </span>
           )}
         </div>
 
         {url.trim() && isValid && (
-          <div className="tiptap-media-url-preview">
+          <div className="fsdx-editor-media-url-preview">
             {mediaType === 'image' && (
               <img
                 src={url}
                 alt="预览"
-                className="tiptap-media-url-preview-img"
+                className="fsdx-editor-media-url-preview-img"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
@@ -79,7 +84,7 @@ export function MediaUrlTab({ mediaType, onInsert }: MediaUrlTabProps) {
               <video
                 src={url}
                 controls
-                className="tiptap-media-url-preview-video"
+                className="fsdx-editor-media-url-preview-video"
               />
             )}
             {mediaType === 'audio' && (
@@ -87,13 +92,13 @@ export function MediaUrlTab({ mediaType, onInsert }: MediaUrlTabProps) {
               <audio
                 src={url}
                 controls
-                className="tiptap-media-url-preview-audio"
+                className="fsdx-editor-media-url-preview-audio"
               />
             )}
           </div>
         )}
 
-        <button type="submit" className="tiptap-media-url-submit">
+        <button type="submit" className="fsdx-editor-media-url-submit">
           确认插入
         </button>
       </form>

@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useState } from 'react';
 import { MediaUploadPopover } from '../../components/media-upload-popover';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { VideoIcon } from '../../icons/video-icon';
 
@@ -14,7 +14,7 @@ export const VideoUploadButton = forwardRef<
   HTMLButtonElement,
   VideoUploadButtonProps
 >(({ text, ...props }, ref) => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useFsdxEditor();
   const [open, setOpen] = useState(false);
 
   const handleInserted = useCallback(
@@ -43,9 +43,9 @@ export const VideoUploadButton = forwardRef<
         tooltip="添加视频"
         {...props}
       >
-        <VideoIcon className="tiptap-button-icon" />
+        <VideoIcon className="fsdx-editor-button-icon" />
         {text && <span>{text}</span>}
-        <ChevronDownIcon className="tiptap-button-dropdown-small" />
+        <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
       </Button>
     </MediaUploadPopover>
   );

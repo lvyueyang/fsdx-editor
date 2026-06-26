@@ -1,4 +1,4 @@
-.tiptap-button {
+.fsdx-editor-button {
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
@@ -14,10 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--tt-radius-lg, 0.75rem);
+  border-radius: var(--fsdx-editor-radius-lg, 0.75rem);
   transition-property: background, color, opacity;
-  transition-duration: var(--tt-transition-duration-default);
-  transition-timing-function: var(--tt-transition-easing-default);
+  transition-duration: var(--fsdx-editor-transition-duration-default);
+  transition-timing-function: var(--fsdx-editor-transition-easing-default);
 
   // focus-visible
   &:focus-visible {
@@ -26,9 +26,9 @@
 
   &[data-highlighted="true"],
   &[data-focus-visible="true"] {
-    background-color: var(--tt-button-hover-bg-color);
-    color: var(--tt-button-hover-text-color);
-    // outline: 2px solid var(--tt-button-active-icon-color);
+    background-color: var(--fsdx-editor-button-hover-bg-color);
+    color: var(--fsdx-editor-button-hover-text-color);
+    // outline: 2px solid var(--fsdx-editor-button-active-icon-color);
   }
 
   &[data-weight="small"] {
@@ -53,96 +53,96 @@
     height: 1.5rem;
     min-width: 1.5rem;
     padding: 0.3125rem;
-    border-radius: var(--tt-radius-md, 0.5rem);
+    border-radius: var(--fsdx-editor-radius-md, 0.5rem);
   }
 
   /* 修剪 / 展开按钮文本 */
-  .tiptap-button-text {
+  .fsdx-editor-button-text {
     padding: 0 0.125rem;
     flex-grow: 1;
     text-align: left;
     line-height: 1.5rem;
   }
 
-  .tiptap-button-text-fixed {
+  .fsdx-editor-button-text-fixed {
     width: 4em;
   }
 
   &[data-text-trim="on"] {
-    .tiptap-button-text {
+    .fsdx-editor-button-text {
       text-overflow: ellipsis;
       overflow: hidden;
     }
   }
 
   /* 全局图标设置 */
-  .tiptap-button-icon,
-  .tiptap-button-icon-sub,
-  .tiptap-button-dropdown-arrows,
-  .tiptap-button-dropdown-small {
+  .fsdx-editor-button-icon,
+  .fsdx-editor-button-icon-sub,
+  .fsdx-editor-button-dropdown-arrows,
+  .fsdx-editor-button-dropdown-small {
     flex-shrink: 0;
   }
 
   /* 标准图标，常规用法 */
-  .tiptap-button-icon {
+  .fsdx-editor-button-icon {
     width: 1rem;
     height: 1rem;
   }
 
-  &[data-size="large"] .tiptap-button-icon {
+  &[data-size="large"] .fsdx-editor-button-icon {
     width: 1.125rem;
     height: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-icon {
+  &[data-size="small"] .fsdx-editor-button-icon {
     width: 0.875rem;
     height: 0.875rem;
   }
 
   /* 使用双图标时，此图标更低调 */
-  .tiptap-button-icon-sub {
+  .fsdx-editor-button-icon-sub {
     width: 1rem;
     height: 1rem;
   }
 
-  &[data-size="large"] .tiptap-button-icon-sub {
+  &[data-size="large"] .fsdx-editor-button-icon-sub {
     width: 1.125rem;
     height: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-icon-sub {
+  &[data-size="small"] .fsdx-editor-button-icon-sub {
     width: 0.875rem;
     height: 0.875rem;
   }
 
   /* 下拉菜单/箭头略小 */
-  .tiptap-button-dropdown-arrows {
+  .fsdx-editor-button-dropdown-arrows {
     width: 0.75rem;
     height: 0.75rem;
   }
 
-  &[data-size="large"] .tiptap-button-dropdown-arrows {
+  &[data-size="large"] .fsdx-editor-button-dropdown-arrows {
     width: 0.875rem;
     height: 0.875rem;
   }
 
-  &[data-size="small"] .tiptap-button-dropdown-arrows {
+  &[data-size="small"] .fsdx-editor-button-dropdown-arrows {
     width: 0.625rem;
     height: 0.625rem;
   }
 
   /* 仅图标按钮的下拉菜单 */
-  .tiptap-button-dropdown-small {
+  .fsdx-editor-button-dropdown-small {
     width: 0.625rem;
     height: 0.625rem;
   }
 
-  &[data-size="large"] .tiptap-button-dropdown-small {
+  &[data-size="large"] .fsdx-editor-button-dropdown-small {
     width: 0.75rem;
     height: 0.75rem;
   }
 
-  &[data-size="small"] .tiptap-button-dropdown-small {
+  &[data-size="small"] .fsdx-editor-button-dropdown-small {
     width: 0.5rem;
     height: 0.5rem;
   }
@@ -158,9 +158,9 @@
   }
 
   /* button only has 2 icons and one of them is dropdown small */
-  &:has(> svg:nth-of-type(2)):has(> .tiptap-button-dropdown-small):not(
+  &:has(> svg:nth-of-type(2)):has(> .fsdx-editor-button-dropdown-small):not(
       :has(> svg:nth-of-type(3))
-    ):not(:has(> .tiptap-button-text)) {
+    ):not(:has(> .fsdx-editor-button-text)) {
     gap: 0;
     padding-right: 0.25rem;
 
@@ -174,17 +174,17 @@
   }
 
   /* 按钮中使用 Emoji */
-  .tiptap-button-emoji {
+  .fsdx-editor-button-emoji {
     width: 1rem;
     display: flex;
     justify-content: center;
   }
 
-  &[data-size="large"] .tiptap-button-emoji {
+  &[data-size="large"] .fsdx-editor-button-emoji {
     width: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-emoji {
+  &[data-size="small"] .fsdx-editor-button-emoji {
     width: 0.875rem;
   }
 }
@@ -193,127 +193,127 @@
 ----------- 按钮颜色设置 -------------
 -------------------------------------------- */
 
-.tiptap-button {
-  background-color: var(--tt-button-default-bg-color);
-  color: var(--tt-button-default-text-color);
+.fsdx-editor-button {
+  background-color: var(--fsdx-editor-button-default-bg-color);
+  color: var(--fsdx-editor-button-default-text-color);
 
-  .tiptap-button-icon {
-    color: var(--tt-button-default-icon-color);
+  .fsdx-editor-button-icon {
+    color: var(--fsdx-editor-button-default-icon-color);
   }
 
-  .tiptap-button-icon-sub {
-    color: var(--tt-button-default-icon-sub-color);
+  .fsdx-editor-button-icon-sub {
+    color: var(--fsdx-editor-button-default-icon-sub-color);
   }
 
-  .tiptap-button-dropdown-arrows {
-    color: var(--tt-button-default-dropdown-arrows-color);
+  .fsdx-editor-button-dropdown-arrows {
+    color: var(--fsdx-editor-button-default-dropdown-arrows-color);
   }
 
-  .tiptap-button-dropdown-small {
-    color: var(--tt-button-default-dropdown-arrows-color);
+  .fsdx-editor-button-dropdown-small {
+    color: var(--fsdx-editor-button-default-dropdown-arrows-color);
   }
 
   /* hover 状态 */
   &:hover:not([data-active-item="true"]):not([disabled]),
   &[data-active-item="true"]:not([disabled]),
   &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
-    background-color: var(--tt-button-hover-bg-color);
-    color: var(--tt-button-hover-text-color);
+    background-color: var(--fsdx-editor-button-hover-bg-color);
+    color: var(--fsdx-editor-button-hover-text-color);
 
-    .tiptap-button-icon {
-      color: var(--tt-button-hover-icon-color);
+    .fsdx-editor-button-icon {
+      color: var(--fsdx-editor-button-hover-icon-color);
     }
 
-    .tiptap-button-icon-sub {
-      color: var(--tt-button-hover-icon-sub-color);
+    .fsdx-editor-button-icon-sub {
+      color: var(--fsdx-editor-button-hover-icon-sub-color);
     }
 
-    .tiptap-button-dropdown-arrows,
-    .tiptap-button-dropdown-small {
-      color: var(--tt-button-hover-dropdown-arrows-color);
+    .fsdx-editor-button-dropdown-arrows,
+    .fsdx-editor-button-dropdown-small {
+      color: var(--fsdx-editor-button-hover-dropdown-arrows-color);
     }
   }
 
   /* Active 状态 */
   &[data-active-state="on"]:not([disabled]),
   &[data-state="open"]:not([disabled]) {
-    background-color: var(--tt-button-active-bg-color);
-    color: var(--tt-button-active-text-color);
+    background-color: var(--fsdx-editor-button-active-bg-color);
+    color: var(--fsdx-editor-button-active-text-color);
 
-    .tiptap-button-icon {
-      color: var(--tt-button-active-icon-color);
+    .fsdx-editor-button-icon {
+      color: var(--fsdx-editor-button-active-icon-color);
     }
 
-    .tiptap-button-icon-sub {
-      color: var(--tt-button-active-icon-sub-color);
+    .fsdx-editor-button-icon-sub {
+      color: var(--fsdx-editor-button-active-icon-sub-color);
     }
 
-    .tiptap-button-dropdown-arrows,
-    .tiptap-button-dropdown-small {
-      color: var(--tt-button-active-dropdown-arrows-color);
+    .fsdx-editor-button-dropdown-arrows,
+    .fsdx-editor-button-dropdown-small {
+      color: var(--fsdx-editor-button-active-dropdown-arrows-color);
     }
 
     &:hover {
-      background-color: var(--tt-button-active-hover-bg-color);
+      background-color: var(--fsdx-editor-button-active-hover-bg-color);
     }
 
     /* 强调 */
     &[data-appearance="emphasized"] {
-      background-color: var(--tt-button-active-bg-color-emphasized);
-      color: var(--tt-button-active-text-color-emphasized);
+      background-color: var(--fsdx-editor-button-active-bg-color-emphasized);
+      color: var(--fsdx-editor-button-active-text-color-emphasized);
 
-      .tiptap-button-icon {
-        color: var(--tt-button-active-icon-color-emphasized);
+      .fsdx-editor-button-icon {
+        color: var(--fsdx-editor-button-active-icon-color-emphasized);
       }
 
-      .tiptap-button-icon-sub {
-        color: var(--tt-button-active-icon-sub-color-emphasized);
+      .fsdx-editor-button-icon-sub {
+        color: var(--fsdx-editor-button-active-icon-sub-color-emphasized);
       }
 
-      .tiptap-button-dropdown-arrows,
-      .tiptap-button-dropdown-small {
-        color: var(--tt-button-active-dropdown-arrows-color-emphasized);
+      .fsdx-editor-button-dropdown-arrows,
+      .fsdx-editor-button-dropdown-small {
+        color: var(--fsdx-editor-button-active-dropdown-arrows-color-emphasized);
       }
 
       &:hover {
-        background-color: var(--tt-button-active-hover-bg-color-emphasized);
+        background-color: var(--fsdx-editor-button-active-hover-bg-color-emphasized);
       }
     }
 
     /* 弱化 */
     &[data-appearance="subdued"] {
-      background-color: var(--tt-button-active-bg-color-subdued);
-      color: var(--tt-button-active-text-color-subdued);
+      background-color: var(--fsdx-editor-button-active-bg-color-subdued);
+      color: var(--fsdx-editor-button-active-text-color-subdued);
 
-      .tiptap-button-icon {
-        color: var(--tt-button-active-icon-color-subdued);
+      .fsdx-editor-button-icon {
+        color: var(--fsdx-editor-button-active-icon-color-subdued);
       }
 
-      .tiptap-button-icon-sub {
-        color: var(--tt-button-active-icon-sub-color-subdued);
+      .fsdx-editor-button-icon-sub {
+        color: var(--fsdx-editor-button-active-icon-sub-color-subdued);
       }
 
-      .tiptap-button-dropdown-arrows,
-      .tiptap-button-dropdown-small {
-        color: var(--tt-button-active-dropdown-arrows-color-subdued);
+      .fsdx-editor-button-dropdown-arrows,
+      .fsdx-editor-button-dropdown-small {
+        color: var(--fsdx-editor-button-active-dropdown-arrows-color-subdued);
       }
 
       &:hover {
-        background-color: var(--tt-button-active-hover-bg-color-subdued);
+        background-color: var(--fsdx-editor-button-active-hover-bg-color-subdued);
 
-        .tiptap-button-icon {
-          color: var(--tt-button-active-icon-color-subdued);
+        .fsdx-editor-button-icon {
+          color: var(--fsdx-editor-button-active-icon-color-subdued);
         }
       }
     }
   }
 
   &:disabled {
-    background-color: var(--tt-button-disabled-bg-color);
-    color: var(--tt-button-disabled-text-color);
+    background-color: var(--fsdx-editor-button-disabled-bg-color);
+    color: var(--fsdx-editor-button-disabled-text-color);
 
-    .tiptap-button-icon {
-      color: var(--tt-button-disabled-icon-color);
+    .fsdx-editor-button-icon {
+      color: var(--fsdx-editor-button-disabled-icon-color);
     }
   }
 }

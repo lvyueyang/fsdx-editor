@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   isExtensionAvailable,
   isNodeTypeSelected,
-} from '../../core/tiptap-utils';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 
 // --- Icons ---
 import { AlignCenterIcon } from '../../icons/align-center-icon';
@@ -183,7 +183,7 @@ export function useTextAlign(config: UseTextAlignConfig) {
     onAligned,
   } = config;
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [canAlign, setCanAlign] = useState(false);
   const [isActive, setIsActive] = useState(false);

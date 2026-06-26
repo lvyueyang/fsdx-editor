@@ -1,9 +1,9 @@
 import type { Editor } from '@tiptap/react';
 import { useEffect, useMemo, useState } from 'react';
 // --- Lib ---
-import { isNodeInSchema } from '../../core/tiptap-utils';
+import { isNodeInSchema } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
 import { ListIcon } from '../../icons/list-icon';
 import { ListOrderedIcon } from '../../icons/list-ordered-icon';
@@ -166,7 +166,7 @@ export function useListDropdownMenu(config?: UseListDropdownMenuConfig) {
     hideWhenUnavailable = false,
   } = config || {};
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState(true);
   const [isAnyActive, setIsAnyActive] = useState(false);
   const [canToggleAny, setCanToggleAny] = useState(false);

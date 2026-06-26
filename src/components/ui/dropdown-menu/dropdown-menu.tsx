@@ -1,5 +1,5 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { cn } from '../../../core/tiptap-utils';
+import { cn } from '../../../core/editor-utils';
 import { CheckIcon } from '../../../icons/check-icon';
 
 import './dropdown-menu.scss';
@@ -8,7 +8,10 @@ function DropdownMenu({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
   return (
-    <DropdownMenuPrimitive.Root data-slot="tiptap-dropdown-menu" {...props} />
+    <DropdownMenuPrimitive.Root
+      data-slot="fsdx-editor-dropdown-menu"
+      {...props}
+    />
   );
 }
 
@@ -17,7 +20,7 @@ function DropdownMenuPortal({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
   return (
     <DropdownMenuPrimitive.Portal
-      data-slot="tiptap-dropdown-menu-portal"
+      data-slot="fsdx-editor-dropdown-menu-portal"
       {...props}
     />
   );
@@ -28,7 +31,7 @@ function DropdownMenuTrigger({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
   return (
     <DropdownMenuPrimitive.Trigger
-      data-slot="tiptap-dropdown-menu-trigger"
+      data-slot="fsdx-editor-dropdown-menu-trigger"
       {...props}
     />
   );
@@ -45,10 +48,10 @@ function DropdownMenuContent({
 }) {
   const content = (
     <DropdownMenuPrimitive.Content
-      data-slot="tiptap-dropdown-menu-content"
+      data-slot="fsdx-editor-dropdown-menu-content"
       sideOffset={sideOffset}
       align={align}
-      className={cn('tiptap-dropdown-menu-content', className)}
+      className={cn('fsdx-editor-dropdown-menu-content', className)}
       onCloseAutoFocus={(e) => e.preventDefault()}
       {...props}
     />
@@ -67,8 +70,8 @@ function DropdownMenuGroup({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
   return (
     <DropdownMenuPrimitive.Group
-      data-slot="tiptap-dropdown-menu-group"
-      className={cn('tiptap-dropdown-menu-group', className)}
+      data-slot="fsdx-editor-dropdown-menu-group"
+      className={cn('fsdx-editor-dropdown-menu-group', className)}
       {...props}
     />
   );
@@ -85,10 +88,10 @@ function DropdownMenuItem({
 }) {
   return (
     <DropdownMenuPrimitive.Item
-      data-slot="tiptap-dropdown-menu-item"
+      data-slot="fsdx-editor-dropdown-menu-item"
       data-inset={inset}
       data-variant={variant}
-      className={cn('tiptap-dropdown-menu-item', className)}
+      className={cn('fsdx-editor-dropdown-menu-item', className)}
       {...props}
     />
   );
@@ -105,15 +108,15 @@ function DropdownMenuCheckboxItem({
 }) {
   return (
     <DropdownMenuPrimitive.CheckboxItem
-      data-slot="tiptap-dropdown-menu-checkbox-item"
+      data-slot="fsdx-editor-dropdown-menu-checkbox-item"
       data-inset={inset}
-      className={cn('tiptap-dropdown-menu-checkbox-item', className)}
+      className={cn('fsdx-editor-dropdown-menu-checkbox-item', className)}
       checked={checked}
       {...props}
     >
       <span
-        className="tiptap-dropdown-menu-item-indicator"
-        data-slot="tiptap-dropdown-menu-checkbox-item-indicator"
+        className="fsdx-editor-dropdown-menu-item-indicator"
+        data-slot="fsdx-editor-dropdown-menu-checkbox-item-indicator"
       >
         <DropdownMenuPrimitive.ItemIndicator>
           <CheckIcon />
@@ -129,7 +132,7 @@ function DropdownMenuRadioGroup({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) {
   return (
     <DropdownMenuPrimitive.RadioGroup
-      data-slot="tiptap-dropdown-menu-radio-group"
+      data-slot="fsdx-editor-dropdown-menu-radio-group"
       {...props}
     />
   );
@@ -145,14 +148,14 @@ function DropdownMenuRadioItem({
 }) {
   return (
     <DropdownMenuPrimitive.RadioItem
-      data-slot="tiptap-dropdown-menu-radio-item"
+      data-slot="fsdx-editor-dropdown-menu-radio-item"
       data-inset={inset}
-      className={cn('tiptap-dropdown-menu-radio-item', className)}
+      className={cn('fsdx-editor-dropdown-menu-radio-item', className)}
       {...props}
     >
       <span
-        className="tiptap-dropdown-menu-item-indicator"
-        data-slot="tiptap-dropdown-menu-radio-item-indicator"
+        className="fsdx-editor-dropdown-menu-item-indicator"
+        data-slot="fsdx-editor-dropdown-menu-radio-item-indicator"
       >
         <DropdownMenuPrimitive.ItemIndicator>
           <CheckIcon />
@@ -172,9 +175,9 @@ function DropdownMenuLabel({
 }) {
   return (
     <DropdownMenuPrimitive.Label
-      data-slot="tiptap-dropdown-menu-label"
+      data-slot="fsdx-editor-dropdown-menu-label"
       data-inset={inset}
-      className={cn('tiptap-dropdown-menu-label', className)}
+      className={cn('fsdx-editor-dropdown-menu-label', className)}
       {...props}
     />
   );
@@ -186,8 +189,8 @@ function DropdownMenuSeparator({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
   return (
     <DropdownMenuPrimitive.Separator
-      data-slot="tiptap-dropdown-menu-separator"
-      className={cn('tiptap-dropdown-menu-separator', className)}
+      data-slot="fsdx-editor-dropdown-menu-separator"
+      className={cn('fsdx-editor-dropdown-menu-separator', className)}
       {...props}
     />
   );
@@ -199,8 +202,8 @@ function DropdownMenuShortcut({
 }: React.ComponentProps<'span'>) {
   return (
     <span
-      data-slot="tiptap-dropdown-menu-shortcut"
-      className={cn('tiptap-dropdown-menu-shortcut', className)}
+      data-slot="fsdx-editor-dropdown-menu-shortcut"
+      className={cn('fsdx-editor-dropdown-menu-shortcut', className)}
       {...props}
     />
   );
@@ -211,7 +214,7 @@ function DropdownMenuSub({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
   return (
     <DropdownMenuPrimitive.Sub
-      data-slot="tiptap-dropdown-menu-sub"
+      data-slot="fsdx-editor-dropdown-menu-sub"
       {...props}
     />
   );
@@ -227,9 +230,9 @@ function DropdownMenuSubTrigger({
 }) {
   return (
     <DropdownMenuPrimitive.SubTrigger
-      data-slot="tiptap-dropdown-menu-sub-trigger"
+      data-slot="fsdx-editor-dropdown-menu-sub-trigger"
       data-inset={inset}
-      className={cn('tiptap-dropdown-menu-sub-trigger', className)}
+      className={cn('fsdx-editor-dropdown-menu-sub-trigger', className)}
       {...props}
     >
       {children}
@@ -242,7 +245,7 @@ function DropdownMenuSubTrigger({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="tiptap-dropdown-menu-sub-trigger-chevron"
+        className="fsdx-editor-dropdown-menu-sub-trigger-chevron"
       >
         <path d="m9 18 6-6-6-6" />
       </svg>
@@ -256,8 +259,8 @@ function DropdownMenuSubContent({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
   return (
     <DropdownMenuPrimitive.SubContent
-      data-slot="tiptap-dropdown-menu-sub-content"
-      className={cn('tiptap-dropdown-menu-sub-content', className)}
+      data-slot="fsdx-editor-dropdown-menu-sub-content"
+      className={cn('fsdx-editor-dropdown-menu-sub-content', className)}
       {...props}
     />
   );

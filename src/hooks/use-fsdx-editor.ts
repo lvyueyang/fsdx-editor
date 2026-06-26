@@ -9,7 +9,7 @@ function getActivePageEditor(editor: Editor): Editor | null {
   return pages.activeEditor ?? null;
 }
 
-export function useTiptapEditor(providedEditor?: Editor | null): {
+export function useFsdxEditor(providedEditor?: Editor | null): {
   editor: Editor | null;
   editorState?: Editor['state'];
   canCommand?: Editor['can'];

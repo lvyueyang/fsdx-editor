@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cn } from '../core/tiptap-utils';
+import { cn } from '../core/editor-utils';
 
 interface MediaDragAreaProps {
   onFile: (files: File[]) => void;
@@ -50,7 +50,7 @@ export const MediaDragArea: React.FC<MediaDragAreaProps> = ({
 
   return (
     <div
-      className={cn('tiptap-image-upload-drag-area', className, {
+      className={cn('fsdx-editor-image-upload-drag-area', className, {
         'drag-active': isDragActive,
         'drag-over': isDragOver,
       })}

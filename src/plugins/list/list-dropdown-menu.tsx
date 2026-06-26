@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 // --- Tiptap UI ---
@@ -54,7 +54,7 @@ function ListDropdownMenuImpl(
   }: ListDropdownMenuProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isOpen, setIsOpen] = useState(false);
 
   const { filteredLists, canToggle, isActive, isVisible, label, Icon } =
@@ -92,8 +92,8 @@ function ListDropdownMenuImpl(
           {...props}
           ref={ref}
         >
-          <Icon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-dropdown-small" />
+          <Icon className="fsdx-editor-button-icon" />
+          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
         </Button>
       </DropdownMenuTrigger>
 

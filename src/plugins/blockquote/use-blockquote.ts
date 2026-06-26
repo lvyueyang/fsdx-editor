@@ -9,9 +9,9 @@ import {
   isNodeTypeSelected,
   isValidPosition,
   selectionWithinConvertibleTypes,
-} from '../../core/tiptap-utils';
+} from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
 import { BlockquoteIcon } from '../../icons/blockquote-icon';
 
@@ -224,7 +224,7 @@ export function useBlockquote(config?: UseBlockquoteConfig) {
     onToggled,
   } = config || {};
 
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [canToggle, setCanToggle] = useState(false);
   const [isActive, setIsActive] = useState(false);

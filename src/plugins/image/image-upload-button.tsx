@@ -4,9 +4,9 @@ import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
 // --- Lib ---
-import { parseShortcutKeys } from '../../core/tiptap-utils';
+import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
 import type { UseImageUploadConfig } from './';
 import { IMAGE_UPLOAD_SHORTCUT_KEY, useImageUpload } from './';
@@ -63,7 +63,7 @@ export const ImageUploadButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const {
       isVisible,
       canInsert,
@@ -111,8 +111,8 @@ export const ImageUploadButton = forwardRef<
       >
         {children ?? (
           <>
-            <RenderIcon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <RenderIcon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
             {showShortcut && <ImageShortcutBadge shortcutKeys={shortcutKeys} />}
           </>
         )}

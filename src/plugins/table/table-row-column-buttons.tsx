@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import {
   type TableBtnConfig,
   TableButtonRender,
@@ -30,7 +30,7 @@ export const TableDeleteRowButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableDeleteRowColumn({
     editor,
     orientation: 'row',
@@ -57,7 +57,7 @@ export const TableDeleteColumnButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableDeleteRowColumn({
     editor,
     orientation: 'column',
@@ -86,7 +86,7 @@ export const TableMoveRowUpButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMoveRowColumn({
     editor,
     orientation: 'row',
@@ -114,7 +114,7 @@ export const TableMoveRowDownButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMoveRowColumn({
     editor,
     orientation: 'row',
@@ -142,7 +142,7 @@ export const TableMoveColumnLeftButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMoveRowColumn({
     editor,
     orientation: 'column',
@@ -170,7 +170,7 @@ export const TableMoveColumnRightButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableMoveRowColumn({
     editor,
     orientation: 'column',
@@ -200,7 +200,7 @@ export const TableDuplicateRowButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableDuplicateRowColumn({
     editor,
     orientation: 'row',
@@ -227,7 +227,7 @@ export const TableDuplicateColumnButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableDuplicateRowColumn({
     editor,
     orientation: 'column',
@@ -256,7 +256,7 @@ export const TableSortColumnAscButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableSortRowColumn({
     editor,
     orientation: 'column',
@@ -284,7 +284,7 @@ export const TableSortColumnDescButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableSortRowColumn({
     editor,
     orientation: 'column',
@@ -315,7 +315,7 @@ export const TableClearRowContentButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableClearRowColumnContent({
     editor,
     orientation: 'row',
@@ -344,7 +344,7 @@ export const TableClearColumnContentButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableClearRowColumnContent({
     editor,
     orientation: 'column',
@@ -373,7 +373,7 @@ export const TableHeaderRowButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableHeaderRowColumn({
     editor,
     orientation: 'row',
@@ -400,7 +400,7 @@ export const TableHeaderColumnButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableHeaderRowColumn({
     editor,
     orientation: 'column',

@@ -4,9 +4,9 @@ import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
 // --- Lib ---
-import { parseShortcutKeys } from '../../core/tiptap-utils';
+import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
 import type { UndoRedoAction, UseUndoRedoConfig } from './';
 import { UNDO_REDO_SHORTCUT_KEYS, useUndoRedo } from './';
@@ -58,7 +58,7 @@ export const UndoRedoButton = forwardRef<
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const { isVisible, handleAction, label, canExecute, Icon, shortcutKeys } =
       useUndoRedo({
         editor,
@@ -96,8 +96,8 @@ export const UndoRedoButton = forwardRef<
       >
         {children ?? (
           <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
             {showShortcut && (
               <HistoryShortcutBadge
                 action={action}

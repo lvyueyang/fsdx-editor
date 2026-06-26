@@ -59,7 +59,7 @@ declare module '@tiptap/react' {
 
 /**
  * A Tiptap node extension that creates an image upload component.
- * @see registry/tiptap-node/image-upload-node/image-upload-node
+ * @see registry/fsdx-editor-node/image-upload-node/image-upload-node
  */
 export const ImageUploadNode = Node.create<ImageUploadNodeOptions>({
   name: 'imageUpload',

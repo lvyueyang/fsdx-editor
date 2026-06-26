@@ -1,20 +1,19 @@
-.tiptap-popover {
-  --tt-popover-bg-color: var(--white);
-  --tt-popover-border-color: var(--tt-gray-light-a-100);
-  --tt-popover-text-color: var(--tt-gray-light-a-600);
+:root {
+  --fsdx-editor-popover-bg-color: var(--fsdx-editor-white);
+  --fsdx-editor-popover-border-color: var(--fsdx-editor-gray-light-a-100);
+  --fsdx-editor-popover-text-color: var(--fsdx-editor-gray-light-a-600);
 }
 
-:root.fsdx-editor-dark,
-.fsdx-editor-dark {
-  --tt-popover-border-color: var(--tt-gray-dark-a-50);
-  --tt-popover-bg-color: var(--tt-gray-dark-50);
-  --tt-popover-text-color: var(--tt-gray-dark-a-600);
+:root.fsdx-editor-dark {
+  --fsdx-editor-popover-border-color: var(--fsdx-editor-gray-dark-a-50);
+  --fsdx-editor-popover-bg-color: var(--fsdx-editor-gray-dark-50);
+  --fsdx-editor-popover-text-color: var(--fsdx-editor-gray-dark-a-600);
 }
 
 /* --------------------------------------------
     --------- POPOVER STYLING SETTINGS -----------
     -------------------------------------------- */
-.tiptap-popover {
+.fsdx-editor-popover {
   z-index: 50;
   outline: none;
   transform-origin: var(--radix-popover-content-transform-origin);
@@ -27,38 +26,38 @@
   /* Animation states */
   &[data-state="open"] {
     animation:
-      fadeIn 150ms cubic-bezier(0.16, 1, 0.3, 1),
-      zoomIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+      fsdx-editor-fade-in 150ms cubic-bezier(0.16, 1, 0.3, 1),
+      fsdx-editor-zoom-in 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &[data-state="closed"] {
     animation:
-      fadeOut 150ms cubic-bezier(0.16, 1, 0.3, 1),
-      zoomOut 150ms cubic-bezier(0.16, 1, 0.3, 1);
+      fsdx-editor-fade-out 150ms cubic-bezier(0.16, 1, 0.3, 1),
+      fsdx-editor-zoom-out 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Position-based animations */
   &[data-side="top"],
   &[data-side="top-start"],
   &[data-side="top-end"] {
-    animation: slideFromBottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fsdx-editor-slide-from-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &[data-side="right"],
   &[data-side="right-start"],
   &[data-side="right-end"] {
-    animation: slideFromLeft 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fsdx-editor-slide-from-left 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &[data-side="bottom"],
   &[data-side="bottom-start"],
   &[data-side="bottom-end"] {
-    animation: slideFromTop 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fsdx-editor-slide-from-top 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &[data-side="left"],
   &[data-side="left-start"],
   &[data-side="left-end"] {
-    animation: slideFromRight 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fsdx-editor-slide-from-right 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

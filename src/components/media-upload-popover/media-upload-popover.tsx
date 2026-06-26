@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { cn } from '../../core/tiptap-utils';
+import { cn } from '../../core/editor-utils';
 import type { MediaPopupTab, MediaType } from '../../types';
 import { MediaLibraryTab } from './media-library-tab';
 import { MediaUploadTab } from './media-upload-tab';
@@ -61,17 +61,17 @@ export function MediaUploadPopover({
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
-        className={cn('tiptap-media-upload-popover', className)}
+        className={cn('fsdx-editor-media-upload-popover', className)}
         align="start"
         sideOffset={8}
       >
-        <div className="tiptap-media-upload-tabs">
+        <div className="fsdx-editor-media-upload-tabs">
           {TABS.map((tab) => (
             <button
               key={tab}
               type="button"
-              className={cn('tiptap-media-upload-tab', {
-                'tiptap-media-upload-tab--active': activeTab === tab,
+              className={cn('fsdx-editor-media-upload-tab', {
+                'fsdx-editor-media-upload-tab--active': activeTab === tab,
               })}
               onClick={() => setActiveTab(tab)}
             >
@@ -80,7 +80,7 @@ export function MediaUploadPopover({
           ))}
         </div>
 
-        <div className="tiptap-media-upload-content">
+        <div className="fsdx-editor-media-upload-content">
           {activeTab === 'upload' && (
             <MediaUploadTab
               mediaType={mediaType}

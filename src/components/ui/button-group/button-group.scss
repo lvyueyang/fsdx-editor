@@ -1,10 +1,10 @@
-.tiptap-button-group {
+.fsdx-editor-button-group {
   display: flex;
   width: fit-content;
   align-items: stretch;
 
-  /* nested tiptap-button-group gets a gap */
-  &:has(> [data-slot="tiptap-button-group"]) {
+  /* nested fsdx-editor-button-group gets a gap */
+  &:has(> [data-slot="fsdx-editor-button-group"]) {
     gap: 0.125rem;
   }
 
@@ -26,7 +26,7 @@
 }
 
 /* ─── Horizontal ────────────────────────────────────────── */
-.tiptap-button-group-horizontal {
+.fsdx-editor-button-group-horizontal {
   /* all [data-slot] children: remove right radius */
   & > [data-slot] {
     border-top-right-radius: 0;
@@ -35,8 +35,8 @@
 
   /* last [data-slot] child: restore right radius */
   & > [data-slot]:not(:has(~ [data-slot])) {
-    border-top-right-radius: var(--tt-radius-lg) !important;
-    border-bottom-right-radius: var(--tt-radius-lg) !important;
+    border-top-right-radius: var(--fsdx-editor-radius-lg) !important;
+    border-bottom-right-radius: var(--fsdx-editor-radius-lg) !important;
   }
 
   /* non-first [data-slot] children: remove left radius + left border */
@@ -49,13 +49,13 @@
   /* select trigger last of type when followed by hidden select */
   &:has(select[aria-hidden="true"]:last-child)
     > [data-slot="select-trigger"]:last-of-type {
-    border-top-right-radius: var(--tt-radius-lg);
-    border-bottom-right-radius: var(--tt-radius-lg);
+    border-top-right-radius: var(--fsdx-editor-radius-lg);
+    border-bottom-right-radius: var(--fsdx-editor-radius-lg);
   }
 }
 
 /* ─── Vertical ──────────────────────────────────────────── */
-.tiptap-button-group-vertical {
+.fsdx-editor-button-group-vertical {
   flex-direction: column;
 
   /* all [data-slot] children: remove bottom radius */
@@ -66,8 +66,8 @@
 
   /* last [data-slot] child: restore bottom radius */
   & > [data-slot]:not(:has(~ [data-slot])) {
-    border-bottom-left-radius: var(--tt-radius-lg) !important;
-    border-bottom-right-radius: var(--tt-radius-lg) !important;
+    border-bottom-left-radius: var(--fsdx-editor-radius-lg) !important;
+    border-bottom-right-radius: var(--fsdx-editor-radius-lg) !important;
   }
 
   /* non-first [data-slot] children: remove top radius + top border */
@@ -79,25 +79,25 @@
 }
 
 /* ─── Separator ──────────────────────────────────────────── */
-.tiptap-button-group-separator {
+.fsdx-editor-button-group-separator {
   position: relative;
   align-self: stretch;
 }
 
-.tiptap-button-group-separator[data-orientation="horizontal"] {
+.fsdx-editor-button-group-separator[data-orientation="horizontal"] {
   margin-left: 1px;
   margin-right: 1px;
 }
 
-.tiptap-button-group-separator[data-orientation="horizontal"] {
+.fsdx-editor-button-group-separator[data-orientation="horizontal"] {
   width: auto;
 }
 
-.tiptap-button-group-separator[data-orientation="vertical"] {
+.fsdx-editor-button-group-separator[data-orientation="vertical"] {
   margin-top: 1px;
   margin-bottom: 1px;
 }
 
-.tiptap-button-group-separator[data-orientation="vertical"] {
+.fsdx-editor-button-group-separator[data-orientation="vertical"] {
   height: auto;
 }

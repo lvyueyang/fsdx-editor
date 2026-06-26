@@ -4,5 +4,5 @@ import { Editor } from '../src/core/editor';
 
 test('Editor should render without crashing', async () => {
   const { container } = render(<Editor />);
-  expect(container.querySelector('.editor-wrapper')).toBeTruthy();
+  expect(container.querySelector('.fsdx-editor-wrapper')).toBeTruthy();
 });

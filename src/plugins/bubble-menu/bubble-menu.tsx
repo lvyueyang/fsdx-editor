@@ -68,7 +68,7 @@ export function BubbleMenu() {
     <FloatingPortal>
       <div
         ref={setFloatingRef}
-        className="tiptap-bubble-menu"
+        className="fsdx-editor-bubble-menu"
         data-visible={visible ? '' : undefined}
         style={{
           ...floatingStyles,

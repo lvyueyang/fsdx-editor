@@ -2,7 +2,7 @@ import type { Editor } from '@tiptap/react';
 import { forwardRef, useCallback } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useTableAddRowColumn } from './use-table-ops';
 
 type BaseBtn = Omit<ButtonProps, 'type'>;
@@ -58,7 +58,7 @@ export function TableButtonRender({
       {...buttonProps}
       ref={ref}
     >
-      {children ?? <Icon className="tiptap-button-icon" />}
+      {children ?? <Icon className="fsdx-editor-button-icon" />}
     </Button>
   );
 }
@@ -84,7 +84,7 @@ export const TableAddRowBeforeButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableAddRowColumn({
     editor,
     orientation: 'row',
@@ -112,7 +112,7 @@ export const TableAddRowAfterButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableAddRowColumn({
     editor,
     orientation: 'row',
@@ -140,7 +140,7 @@ export const TableAddColumnBeforeButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableAddRowColumn({
     editor,
     orientation: 'column',
@@ -168,7 +168,7 @@ export const TableAddColumnAfterButton = forwardRef<
     children,
     ...btn
   } = props;
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const h = useTableAddRowColumn({
     editor,
     orientation: 'column',

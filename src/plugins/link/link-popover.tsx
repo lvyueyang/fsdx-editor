@@ -12,9 +12,9 @@ import {
   PopoverTrigger,
 } from '../../components/ui/popover';
 import { Separator } from '../../components/ui/separator';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Hooks ---
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
 // --- Icons ---
 import { CornerDownLeftIcon } from '../../icons/corner-down-left-icon';
 import { ExternalLinkIcon } from '../../icons/external-link-icon';
@@ -84,7 +84,7 @@ export const LinkButton = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {children || <LinkIcon className="tiptap-button-icon" />}
+        {children || <LinkIcon className="fsdx-editor-button-icon" />}
       </Button>
     );
   },
@@ -134,7 +134,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
-            className="tiptap-link-input"
+            className="fsdx-editor-link-input"
           />
 
           <ButtonGroup>
@@ -145,7 +145,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
               disabled={!url && !isActive}
               variant="ghost"
             >
-              <CornerDownLeftIcon className="tiptap-button-icon" />
+              <CornerDownLeftIcon className="fsdx-editor-button-icon" />
             </Button>
           </ButtonGroup>
 
@@ -160,7 +160,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
                 disabled={!url && !isActive}
                 variant="ghost"
               >
-                <ExternalLinkIcon className="tiptap-button-icon" />
+                <ExternalLinkIcon className="fsdx-editor-button-icon" />
               </Button>
             </ButtonGroup>
 
@@ -172,7 +172,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
                 disabled={!url && !isActive}
                 variant="ghost"
               >
-                <TrashIcon className="tiptap-button-icon" />
+                <TrashIcon className="fsdx-editor-button-icon" />
               </Button>
             </ButtonGroup>
           </ButtonGroup>
@@ -214,7 +214,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
     },
     ref,
   ) => {
-    const { editor } = useTiptapEditor(providedEditor);
+    const { editor } = useFsdxEditor(providedEditor);
     const [isOpen, setIsOpen] = useState(false);
 
     const {
@@ -279,7 +279,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
             {...buttonProps}
             ref={ref}
           >
-            {children ?? <Icon className="tiptap-button-icon" />}
+            {children ?? <Icon className="fsdx-editor-button-icon" />}
           </LinkButton>
         </PopoverTrigger>
 

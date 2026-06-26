@@ -17,8 +17,8 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { Input } from '../../components/ui/input';
-import { cn } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { cn } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import {
   FONT_SIZE_PRESETS,
@@ -39,7 +39,7 @@ function FontSizeButtonImpl(
   { editor: providedEditor, className, ...props }: FontSizeButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -123,11 +123,14 @@ function FontSizeButtonImpl(
           ref={ref}
         >
           <span
-            className={cn('tiptap-button-text', 'tiptap-button-text-fixed')}
+            className={cn(
+              'fsdx-editor-button-text',
+              'fsdx-editor-button-text-fixed',
+            )}
           >
             {displayText}
           </span>
-          <ChevronDownIcon className="tiptap-button-dropdown-small" />
+          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
         </Button>
       </DropdownMenuTrigger>
 

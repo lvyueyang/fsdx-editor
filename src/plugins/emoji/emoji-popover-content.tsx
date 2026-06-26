@@ -6,9 +6,9 @@
 import type { Editor } from '@tiptap/react';
 import { useMemo, useRef, useState } from 'react';
 import { Card } from '../../components/ui/card';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 import { useMenuNavigation } from '../../hooks/use-menu-navigation';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
 import { EMOJI_CATEGORIES, type EmojiCategory } from './emoji-data';
 import './emoji.scss';
 
@@ -21,7 +21,7 @@ export function EmojiPopoverContent({
   editor: providedEditor,
   onEmojiSelect,
 }: EmojiPopoverContentProps) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const isMobile = useIsBreakpoint();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,15 +60,15 @@ export function EmojiPopoverContent({
     <Card
       ref={containerRef}
       tabIndex={0}
-      className="tiptap-emoji-popover"
+      className="fsdx-editor-emoji-popover"
       style={isMobile ? { boxShadow: 'none', border: 0 } : {}}
     >
-      <div className="tiptap-emoji-categories">
+      <div className="fsdx-editor-emoji-categories">
         {EMOJI_CATEGORIES.map((category: EmojiCategory, idx: number) => (
           <button
             key={category.label}
             type="button"
-            className="tiptap-emoji-category-btn"
+            className="fsdx-editor-emoji-category-btn"
             data-active={idx === activeCategoryIndex}
             onClick={() => setActiveCategoryIndex(idx)}
             aria-label={category.label}
@@ -79,12 +79,12 @@ export function EmojiPopoverContent({
         ))}
       </div>
 
-      <div className="tiptap-emoji-grid">
+      <div className="fsdx-editor-emoji-grid">
         {activeCategory?.items.map((emoji: string, idx: number) => (
           <button
             key={`${emoji}-${idx}`}
             type="button"
-            className="tiptap-emoji-item"
+            className="fsdx-editor-emoji-item"
             data-highlighted={selectedIndex === idx}
             tabIndex={selectedIndex === idx ? 0 : -1}
             onClick={() => handleEmojiClick(emoji)}

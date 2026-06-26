@@ -67,11 +67,6 @@ export function useCursorVisibility({
               top: Math.max(0, newScrollY),
               behavior: 'smooth',
             });
-          } else {
-            window.scrollTo({
-              top: Math.max(0, newScrollY),
-              behavior: 'smooth',
-            });
           }
         }
       }

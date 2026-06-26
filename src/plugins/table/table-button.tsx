@@ -6,8 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { cn } from '../../core/tiptap-utils';
-import { useTiptapEditor } from '../../hooks/use-tiptap-editor';
+import { cn } from '../../core/editor-utils';
+import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import type { UseTableConfig } from './';
 import { useTable } from './';
@@ -38,7 +38,7 @@ function TableButtonImpl(
   }: TableButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
-  const { editor } = useTiptapEditor(providedEditor);
+  const { editor } = useFsdxEditor(providedEditor);
   const {
     isVisible,
     canInsert,
@@ -113,11 +113,11 @@ function TableButtonImpl(
         >
           {children ?? (
             <>
-              <Icon className="tiptap-button-icon" />
+              <Icon className="fsdx-editor-button-icon" />
               {text && (
-                <span className="tiptap-button-text">{displayText}</span>
+                <span className="fsdx-editor-button-text">{displayText}</span>
               )}
-              <ChevronDownIcon className="tiptap-button-dropdown-small" />
+              <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
             </>
           )}
         </Button>
