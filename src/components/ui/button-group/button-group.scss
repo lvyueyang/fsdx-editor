@@ -35,8 +35,8 @@
 
   /* last [data-slot] child: restore right radius */
   & > [data-slot]:not(:has(~ [data-slot])) {
-    border-top-right-radius: var(--fsdx-editor-radius-lg) !important;
-    border-bottom-right-radius: var(--fsdx-editor-radius-lg) !important;
+    border-top-right-radius: var(--fsdx-editor-radius-md) !important;
+    border-bottom-right-radius: var(--fsdx-editor-radius-md) !important;
   }
 
   /* non-first [data-slot] children: remove left radius + left border */
@@ -49,8 +49,8 @@
   /* select trigger last of type when followed by hidden select */
   &:has(select[aria-hidden="true"]:last-child)
     > [data-slot="select-trigger"]:last-of-type {
-    border-top-right-radius: var(--fsdx-editor-radius-lg);
-    border-bottom-right-radius: var(--fsdx-editor-radius-lg);
+    border-top-right-radius: var(--fsdx-editor-radius-md);
+    border-bottom-right-radius: var(--fsdx-editor-radius-md);
   }
 }
 
@@ -66,8 +66,8 @@
 
   /* last [data-slot] child: restore bottom radius */
   & > [data-slot]:not(:has(~ [data-slot])) {
-    border-bottom-left-radius: var(--fsdx-editor-radius-lg) !important;
-    border-bottom-right-radius: var(--fsdx-editor-radius-lg) !important;
+    border-bottom-left-radius: var(--fsdx-editor-radius-md) !important;
+    border-bottom-right-radius: var(--fsdx-editor-radius-md) !important;
   }
 
   /* non-first [data-slot] children: remove top radius + top border */

@@ -1,24 +1,12 @@
-:root {
-  --fsdx-editor-toolbar-height: 2.75rem;
-  --fsdx-editor-safe-area-bottom: env(safe-area-inset-bottom, 0px);
-  --fsdx-editor-toolbar-bg-color: var(--fsdx-editor-white);
-  --fsdx-editor-toolbar-border-color: var(--fsdx-editor-gray-light-a-100);
-}
-
-:root.fsdx-editor-dark {
-  --fsdx-editor-toolbar-bg-color: var(--fsdx-editor-black);
-  --fsdx-editor-toolbar-border-color: var(--fsdx-editor-gray-dark-a-50);
-}
-
 .fsdx-editor-toolbar {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--fsdx-editor-space-1);
 
   &-group {
     display: flex;
     align-items: center;
-    gap: 0.125rem;
+    gap: var(--fsdx-editor-space-0_5);
 
     &:empty {
       display: none;
@@ -32,14 +20,14 @@
 
   &[data-variant="fixed"] {
     flex-shrink: 0;
-    z-index: 50;
+    z-index: var(--fsdx-editor-z-dropdown);
     justify-content: center;
     width: 100%;
     min-height: var(--fsdx-editor-toolbar-height);
-    background: var(--fsdx-editor-toolbar-bg-color);
-    border-bottom: 1px solid var(--fsdx-editor-toolbar-border-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    padding: 0 15px;
+    background: var(--fsdx-editor-toolbar-bg);
+    border-bottom: 1px solid var(--fsdx-editor-toolbar-border);
+    box-shadow: var(--fsdx-editor-shadow-sm);
+    padding: 0 var(--fsdx-editor-space-4);
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
@@ -53,10 +41,10 @@
     @media (max-width: 480px) {
       position: absolute;
       top: auto;
-      height: calc(var(--fsdx-editor-toolbar-height) + var(--fsdx-editor-safe-area-bottom));
-      border-top: 1px solid var(--fsdx-editor-toolbar-border-color);
+      height: calc(var(--fsdx-editor-toolbar-height) + var(--fsdx-editor-safe-bottom));
+      border-top: 1px solid var(--fsdx-editor-toolbar-border);
       border-bottom: none;
-      padding: 0 0.5rem var(--fsdx-editor-safe-area-bottom);
+      padding: 0 var(--fsdx-editor-space-2) var(--fsdx-editor-safe-bottom);
       flex-wrap: nowrap;
       justify-content: flex-start;
 
@@ -67,17 +55,17 @@
   }
 
   &[data-variant="floating"] {
-    --fsdx-editor-toolbar-padding: 0.125rem;
+    --fsdx-editor-toolbar-padding: var(--fsdx-editor-space-0_5);
     --fsdx-editor-toolbar-border-width: 1px;
 
-    padding: 0.188rem;
+    padding: var(--fsdx-editor-space-0_5);
     border-radius: calc(
-      var(--fsdx-editor-toolbar-padding) + var(--fsdx-editor-radius-lg) +
+      var(--fsdx-editor-toolbar-padding) + var(--fsdx-editor-radius-md) +
         var(--fsdx-editor-toolbar-border-width)
     );
-    border: var(--fsdx-editor-toolbar-border-width) solid var(--fsdx-editor-toolbar-border-color);
-    background-color: var(--fsdx-editor-toolbar-bg-color);
-    box-shadow: var(--fsdx-editor-shadow-elevated-md);
+    border: var(--fsdx-editor-toolbar-border-width) solid var(--fsdx-editor-toolbar-border);
+    background-color: var(--fsdx-editor-toolbar-bg);
+    box-shadow: var(--fsdx-editor-shadow-md);
     outline: none;
     overflow: hidden;
 

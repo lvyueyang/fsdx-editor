@@ -1,34 +1,107 @@
 .fsdx-editor-button {
+  --btn-bg: var(--fsdx-editor-gray-100);
+  --btn-text: var(--fsdx-editor-gray-600);
+  --btn-icon: var(--fsdx-editor-gray-600);
+
   cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  font-feature-settings:
-    "salt" on,
-    "cv01" on;
-  line-height: 1.15;
+  font-size: var(--fsdx-editor-font-md);
+  font-weight: var(--fsdx-editor-font-medium);
+  font-feature-settings: "salt" on, "cv01" on;
+  line-height: var(--fsdx-editor-line-sm);
   height: 2rem;
   min-width: 2rem;
   border: none;
-  padding: 0.5rem;
-  gap: 0.25rem;
+  padding: var(--fsdx-editor-space-2);
+  gap: var(--fsdx-editor-space-1);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--fsdx-editor-radius-lg, 0.75rem);
-  transition-property: background, color, opacity;
-  transition-duration: var(--fsdx-editor-transition-duration-default);
-  transition-timing-function: var(--fsdx-editor-transition-easing-default);
+  border-radius: var(--fsdx-editor-radius-sm);
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
 
-  // focus-visible
-  &:focus-visible {
-    outline: none;
+  .fsdx-editor-button-icon { color: var(--btn-icon); }
+
+  &:focus-visible { outline: none; }
+
+  &:hover:not([data-active-item]):not([disabled]),
+  &[data-active-item]:not([disabled]),
+  &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
+    --btn-bg: color-mix(in srgb, var(--btn-bg), #000 10%);
+    --btn-text: var(--fsdx-editor-gray-900);
+    --btn-icon: var(--fsdx-editor-gray-900);
   }
 
-  &[data-highlighted="true"],
-  &[data-focus-visible="true"] {
-    background-color: var(--fsdx-editor-button-hover-bg-color);
-    color: var(--fsdx-editor-button-hover-text-color);
-    // outline: 2px solid var(--fsdx-editor-button-active-icon-color);
+  &:active:not([disabled]) {
+    --btn-bg: color-mix(in srgb, var(--btn-bg), #000 5%);
+  }
+
+  &[data-active-state="on"]:not([disabled]),
+  &[data-state="open"]:not([disabled]) {
+    --btn-bg: var(--fsdx-editor-gray-200);
+    --btn-text: var(--fsdx-editor-gray-900);
+    --btn-icon: var(--fsdx-editor-brand-500);
+
+    &:hover {
+      --btn-bg: color-mix(in srgb, var(--fsdx-editor-gray-200), #000 6%);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Ghost */
+  &[data-style="ghost"] {
+    --btn-bg: transparent;
+
+    &:hover:not([data-active-item]):not([disabled]) {
+      --btn-bg: var(--fsdx-editor-gray-200);
+    }
+
+    &[data-active-state="on"]:not([disabled]) {
+      --btn-bg: var(--fsdx-editor-gray-100);
+    }
+  }
+
+  /* Primary */
+  &[data-style="primary"] {
+    --btn-bg: var(--fsdx-editor-brand-500);
+    --btn-text: var(--fsdx-editor-white);
+    --btn-icon: var(--fsdx-editor-white);
+
+    &:hover:not([data-active-item]):not([disabled]) {
+      --btn-bg: color-mix(in srgb, var(--fsdx-editor-brand-500), #000 15%);
+      --btn-text: var(--fsdx-editor-white);
+      --btn-icon: var(--fsdx-editor-white);
+    }
+
+    &[data-active-state="on"]:not([disabled]) {
+      --btn-bg: var(--fsdx-editor-brand-100);
+      --btn-text: var(--fsdx-editor-gray-900);
+      --btn-icon: var(--fsdx-editor-brand-500);
+
+      &:hover {
+        --btn-bg: var(--fsdx-editor-brand-200);
+      }
+    }
+  }
+
+  /* Size variants */
+  &[data-size="large"] {
+    font-size: var(--fsdx-editor-font-lg);
+    height: 2.375rem;
+    min-width: 2.375rem;
+    padding: var(--fsdx-editor-space-2_5);
+  }
+
+  &[data-size="small"] {
+    font-size: var(--fsdx-editor-font-sm);
+    line-height: 1.2;
+    height: 1.5rem;
+    min-width: 1.5rem;
+    padding: 0.3125rem;
   }
 
   &[data-weight="small"] {
@@ -38,282 +111,80 @@
     padding-left: 0;
   }
 
-  /* 按钮尺寸 - 大 */
-  &[data-size="large"] {
-    font-size: 0.9375rem;
-    height: 2.375rem;
-    min-width: 2.375rem;
-    padding: 0.625rem;
-  }
-
-  /* 按钮尺寸 - 小 */
-  &[data-size="small"] {
-    font-size: 0.75rem;
-    line-height: 1.2;
-    height: 1.5rem;
-    min-width: 1.5rem;
-    padding: 0.3125rem;
-    border-radius: var(--fsdx-editor-radius-md, 0.5rem);
-  }
-
-  /* 修剪 / 展开按钮文本 */
   .fsdx-editor-button-text {
-    padding: 0 0.125rem;
+    padding: 0 var(--fsdx-editor-space-0_5);
     flex-grow: 1;
     text-align: left;
     line-height: 1.5rem;
   }
 
-  .fsdx-editor-button-text-fixed {
-    width: 4em;
+  .fsdx-editor-button-text-fixed { width: 4em; }
+
+  &[data-text-trim="on"] .fsdx-editor-button-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
-  &[data-text-trim="on"] {
-    .fsdx-editor-button-text {
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-  }
-
-  /* 全局图标设置 */
   .fsdx-editor-button-icon,
   .fsdx-editor-button-icon-sub,
   .fsdx-editor-button-dropdown-arrows,
-  .fsdx-editor-button-dropdown-small {
-    flex-shrink: 0;
-  }
+  .fsdx-editor-button-dropdown-small { flex-shrink: 0; }
 
-  /* 标准图标，常规用法 */
-  .fsdx-editor-button-icon {
-    width: 1rem;
-    height: 1rem;
-  }
+  .fsdx-editor-button-icon { width: 1rem; height: 1rem; }
+  &[data-size="large"] .fsdx-editor-button-icon { width: 1.125rem; height: 1.125rem; }
+  &[data-size="small"] .fsdx-editor-button-icon { width: 0.875rem; height: 0.875rem; }
 
-  &[data-size="large"] .fsdx-editor-button-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
+  .fsdx-editor-button-icon-sub { width: 1rem; height: 1rem; }
+  &[data-size="large"] .fsdx-editor-button-icon-sub { width: 1.125rem; height: 1.125rem; }
+  &[data-size="small"] .fsdx-editor-button-icon-sub { width: 0.875rem; height: 0.875rem; }
 
-  &[data-size="small"] .fsdx-editor-button-icon {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
+  .fsdx-editor-button-dropdown-arrows { width: 0.75rem; height: 0.75rem; }
+  &[data-size="large"] .fsdx-editor-button-dropdown-arrows { width: 0.875rem; height: 0.875rem; }
+  &[data-size="small"] .fsdx-editor-button-dropdown-arrows { width: 0.625rem; height: 0.625rem; }
 
-  /* 使用双图标时，此图标更低调 */
-  .fsdx-editor-button-icon-sub {
-    width: 1rem;
-    height: 1rem;
-  }
+  .fsdx-editor-button-dropdown-small { width: 0.625rem; height: 0.625rem; }
+  &[data-size="large"] .fsdx-editor-button-dropdown-small { width: 0.75rem; height: 0.75rem; }
+  &[data-size="small"] .fsdx-editor-button-dropdown-small { width: 0.5rem; height: 0.5rem; }
 
-  &[data-size="large"] .fsdx-editor-button-icon-sub {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
+  &:has(> svg):not(:has(> :not(svg))) { gap: var(--fsdx-editor-space-0_5); }
 
-  &[data-size="small"] .fsdx-editor-button-icon-sub {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
+  .fsdx-editor-button-emoji { width: 1rem; display: flex; justify-content: center; }
+  &[data-size="large"] .fsdx-editor-button-emoji { width: 1.125rem; }
+  &[data-size="small"] .fsdx-editor-button-emoji { width: 0.875rem; }
 
-  /* 下拉菜单/箭头略小 */
-  .fsdx-editor-button-dropdown-arrows {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
+  /* Dark */
+  .fsdx-editor-dark & {
+    --btn-bg: var(--fsdx-editor-gray-100);
+    --btn-text: var(--fsdx-editor-gray-600);
+    --btn-icon: var(--fsdx-editor-gray-600);
 
-  &[data-size="large"] .fsdx-editor-button-dropdown-arrows {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  &[data-size="small"] .fsdx-editor-button-dropdown-arrows {
-    width: 0.625rem;
-    height: 0.625rem;
-  }
-
-  /* 仅图标按钮的下拉菜单 */
-  .fsdx-editor-button-dropdown-small {
-    width: 0.625rem;
-    height: 0.625rem;
-  }
-
-  &[data-size="large"] .fsdx-editor-button-dropdown-small {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-
-  &[data-size="small"] .fsdx-editor-button-dropdown-small {
-    width: 0.5rem;
-    height: 0.5rem;
-  }
-
-  /* 仅含图标的按钮 */
-  &:has(> svg):not(:has(> :not(svg))) {
-    gap: 0.125rem;
-
-    &[data-size="large"],
-    &[data-size="small"] {
-      gap: 0.125rem;
-    }
-  }
-
-  /* button only has 2 icons and one of them is dropdown small */
-  &:has(> svg:nth-of-type(2)):has(> .fsdx-editor-button-dropdown-small):not(
-      :has(> svg:nth-of-type(3))
-    ):not(:has(> .fsdx-editor-button-text)) {
-    gap: 0;
-    padding-right: 0.25rem;
-
-    &[data-size="large"] {
-      padding-right: 0.375rem;
+    &:hover:not([data-active-item]):not([disabled]),
+    &[data-active-item]:not([disabled]),
+    &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
+      --btn-bg: color-mix(in srgb, var(--btn-bg), #fff 10%);
+      --btn-text: var(--fsdx-editor-gray-900);
+      --btn-icon: var(--fsdx-editor-gray-900);
     }
 
-    &[data-size="small"] {
-      padding-right: 0.25rem;
-    }
-  }
-
-  /* 按钮中使用 Emoji */
-  .fsdx-editor-button-emoji {
-    width: 1rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  &[data-size="large"] .fsdx-editor-button-emoji {
-    width: 1.125rem;
-  }
-
-  &[data-size="small"] .fsdx-editor-button-emoji {
-    width: 0.875rem;
-  }
-}
-
-/* --------------------------------------------
------------ 按钮颜色设置 -------------
--------------------------------------------- */
-
-.fsdx-editor-button {
-  background-color: var(--fsdx-editor-button-default-bg-color);
-  color: var(--fsdx-editor-button-default-text-color);
-
-  .fsdx-editor-button-icon {
-    color: var(--fsdx-editor-button-default-icon-color);
-  }
-
-  .fsdx-editor-button-icon-sub {
-    color: var(--fsdx-editor-button-default-icon-sub-color);
-  }
-
-  .fsdx-editor-button-dropdown-arrows {
-    color: var(--fsdx-editor-button-default-dropdown-arrows-color);
-  }
-
-  .fsdx-editor-button-dropdown-small {
-    color: var(--fsdx-editor-button-default-dropdown-arrows-color);
-  }
-
-  /* hover 状态 */
-  &:hover:not([data-active-item="true"]):not([disabled]),
-  &[data-active-item="true"]:not([disabled]),
-  &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
-    background-color: var(--fsdx-editor-button-hover-bg-color);
-    color: var(--fsdx-editor-button-hover-text-color);
-
-    .fsdx-editor-button-icon {
-      color: var(--fsdx-editor-button-hover-icon-color);
+    &[data-active-state="on"]:not([disabled]) {
+      --btn-bg: var(--fsdx-editor-gray-200);
+      --btn-icon: var(--fsdx-editor-brand-500);
     }
 
-    .fsdx-editor-button-icon-sub {
-      color: var(--fsdx-editor-button-hover-icon-sub-color);
+    &[data-style="ghost"] {
+      --btn-bg: transparent;
     }
 
-    .fsdx-editor-button-dropdown-arrows,
-    .fsdx-editor-button-dropdown-small {
-      color: var(--fsdx-editor-button-hover-dropdown-arrows-color);
-    }
-  }
+    &[data-style="primary"] {
+      --btn-bg: var(--fsdx-editor-brand-500);
+      --btn-text: var(--fsdx-editor-white);
+      --btn-icon: var(--fsdx-editor-white);
 
-  /* Active 状态 */
-  &[data-active-state="on"]:not([disabled]),
-  &[data-state="open"]:not([disabled]) {
-    background-color: var(--fsdx-editor-button-active-bg-color);
-    color: var(--fsdx-editor-button-active-text-color);
-
-    .fsdx-editor-button-icon {
-      color: var(--fsdx-editor-button-active-icon-color);
-    }
-
-    .fsdx-editor-button-icon-sub {
-      color: var(--fsdx-editor-button-active-icon-sub-color);
-    }
-
-    .fsdx-editor-button-dropdown-arrows,
-    .fsdx-editor-button-dropdown-small {
-      color: var(--fsdx-editor-button-active-dropdown-arrows-color);
-    }
-
-    &:hover {
-      background-color: var(--fsdx-editor-button-active-hover-bg-color);
-    }
-
-    /* 强调 */
-    &[data-appearance="emphasized"] {
-      background-color: var(--fsdx-editor-button-active-bg-color-emphasized);
-      color: var(--fsdx-editor-button-active-text-color-emphasized);
-
-      .fsdx-editor-button-icon {
-        color: var(--fsdx-editor-button-active-icon-color-emphasized);
+      &[data-active-state="on"]:not([disabled]) {
+        --btn-bg: #3a1a8a;
+        --btn-text: var(--fsdx-editor-gray-900);
+        --btn-icon: var(--fsdx-editor-brand-500);
       }
-
-      .fsdx-editor-button-icon-sub {
-        color: var(--fsdx-editor-button-active-icon-sub-color-emphasized);
-      }
-
-      .fsdx-editor-button-dropdown-arrows,
-      .fsdx-editor-button-dropdown-small {
-        color: var(--fsdx-editor-button-active-dropdown-arrows-color-emphasized);
-      }
-
-      &:hover {
-        background-color: var(--fsdx-editor-button-active-hover-bg-color-emphasized);
-      }
-    }
-
-    /* 弱化 */
-    &[data-appearance="subdued"] {
-      background-color: var(--fsdx-editor-button-active-bg-color-subdued);
-      color: var(--fsdx-editor-button-active-text-color-subdued);
-
-      .fsdx-editor-button-icon {
-        color: var(--fsdx-editor-button-active-icon-color-subdued);
-      }
-
-      .fsdx-editor-button-icon-sub {
-        color: var(--fsdx-editor-button-active-icon-sub-color-subdued);
-      }
-
-      .fsdx-editor-button-dropdown-arrows,
-      .fsdx-editor-button-dropdown-small {
-        color: var(--fsdx-editor-button-active-dropdown-arrows-color-subdued);
-      }
-
-      &:hover {
-        background-color: var(--fsdx-editor-button-active-hover-bg-color-subdued);
-
-        .fsdx-editor-button-icon {
-          color: var(--fsdx-editor-button-active-icon-color-subdued);
-        }
-      }
-    }
-  }
-
-  &:disabled {
-    background-color: var(--fsdx-editor-button-disabled-bg-color);
-    color: var(--fsdx-editor-button-disabled-text-color);
-
-    .fsdx-editor-button-icon {
-      color: var(--fsdx-editor-button-disabled-icon-color);
     }
   }
 }

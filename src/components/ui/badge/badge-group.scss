@@ -2,10 +2,8 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-}
+  gap: var(--fsdx-editor-space-1);
 
-.fsdx-editor-badge-group {
   [data-orientation="vertical"] {
     flex-direction: column;
   }

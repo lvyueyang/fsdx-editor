@@ -7,14 +7,14 @@
 .fsdx-editor-indent-input {
   width: 2.25rem;
   height: 1.75rem;
-  padding: 0 0.25rem;
+  padding: 0 var(--fsdx-editor-space-1);
   border: 1px solid var(--fsdx-editor-input-border);
-  border-radius: var(--fsdx-editor-radius-sm);
+  border-radius: var(--fsdx-editor-radius-md);
   background: transparent;
-  font-size: 0.8125rem;
+  font-size: var(--fsdx-editor-font-base);
   text-align: center;
   outline: none;
-  color: var(--fsdx-editor-text-color);
+  color: var(--fsdx-editor-text);
   -moz-appearance: textfield;
   appearance: textfield;
 
@@ -25,8 +25,6 @@
   }
 
   &:focus-visible {
-    border-color: var(--fsdx-editor-input-border-focus);
+    border-color: var(--fsdx-editor-border-focus);
   }
 }
-
-

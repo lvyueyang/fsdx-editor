@@ -1,99 +1,122 @@
 .fsdx-editor-badge {
-  font-size: 0.625rem;
-  font-weight: 700;
-  font-feature-settings:
-    "salt" on,
-    "cv01" on;
-  line-height: 1.15;
+  --badge-bg: var(--fsdx-editor-white);
+  --badge-text: var(--fsdx-editor-gray-500);
+  --badge-border: var(--fsdx-editor-gray-200);
+  --badge-icon: var(--fsdx-editor-gray-500);
+
+  font-size: var(--fsdx-editor-font-xs);
+  font-weight: var(--fsdx-editor-font-bold);
+  font-feature-settings: "salt" on, "cv01" on;
+  line-height: var(--fsdx-editor-line-sm);
   height: 1.25rem;
   min-width: 1.25rem;
-  padding: 0.25rem;
+  padding: var(--fsdx-editor-space-1);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px;
-  border-radius: var(--fsdx-editor-radius-sm, 0.375rem);
-  transition-property: background, color, opacity;
-  transition-duration: var(--fsdx-editor-transition-duration-default);
-  transition-timing-function: var(--fsdx-editor-transition-easing-default);
+  border: solid 1px var(--badge-border);
+  border-radius: var(--fsdx-editor-radius-sm);
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
 
-  /* button size large */
-  &[data-size="large"] {
-    font-size: 0.75rem;
-    height: 1.5rem;
-    min-width: 1.5rem;
-    padding: 0.375rem;
-    border-radius: var(--fsdx-editor-radius-md, 0.375rem);
-  }
+  &[data-size="large"] { font-size: var(--fsdx-editor-font-sm); height: 1.5rem; min-width: 1.5rem; padding: var(--fsdx-editor-space-1_5); }
+  &[data-size="small"] { height: 1rem; min-width: 1rem; padding: var(--fsdx-editor-space-0_5); }
 
-  /* button size small */
-  &[data-size="small"] {
-    height: 1rem;
-    min-width: 1rem;
-    padding: 0.125rem;
-    border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
-  }
+  .fsdx-editor-badge-text { padding: 0 var(--fsdx-editor-space-0_5); flex-grow: 1; text-align: left; }
+  &[data-text-trim="on"] .fsdx-editor-badge-text { text-overflow: ellipsis; overflow: hidden; }
 
-  /* trim / expand text of the button */
-  .fsdx-editor-badge-text {
-    padding: 0 0.125rem;
-    flex-grow: 1;
-    text-align: left;
-  }
-
-  &[data-text-trim="on"] {
-    .fsdx-editor-badge-text {
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-  }
-
-  /* standard icon, what is used */
-  .fsdx-editor-badge-icon {
-    pointer-events: none;
-    flex-shrink: 0;
-    width: 0.625rem;
-    height: 0.625rem;
-  }
-
-  &[data-size="large"] .fsdx-editor-badge-icon {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-}
-
-/* --------------------------------------------
------------ BADGE COLOR SETTINGS -------------
--------------------------------------------- */
-
-.fsdx-editor-badge {
-  background-color: var(--fsdx-editor-badge-bg-color);
-  border-color: var(--fsdx-editor-badge-border-color);
-  color: var(--fsdx-editor-badge-text-color);
-
-  .fsdx-editor-badge-icon {
-    color: var(--fsdx-editor-badge-icon-color);
-  }
+  .fsdx-editor-badge-icon { pointer-events: none; flex-shrink: 0; width: 0.625rem; height: 0.625rem; color: var(--badge-icon); }
+  &[data-size="large"] .fsdx-editor-badge-icon { width: 0.75rem; height: 0.75rem; }
 
   /* Emphasized */
   &[data-appearance="emphasized"] {
-    background-color: var(--fsdx-editor-badge-bg-color-emphasized);
-    border-color: var(--fsdx-editor-badge-border-color-emphasized);
-    color: var(--fsdx-editor-badge-text-color-emphasized);
-
-    .fsdx-editor-badge-icon {
-      color: var(--fsdx-editor-badge-icon-color-emphasized);
-    }
+    --badge-border: var(--fsdx-editor-gray-500);
+    --badge-text: var(--fsdx-editor-gray-700);
+    --badge-icon: var(--fsdx-editor-brand-500);
   }
 
   /* Subdued */
   &[data-appearance="subdued"] {
-    background-color: var(--fsdx-editor-badge-bg-color-subdued);
-    border-color: var(--fsdx-editor-badge-border-color-subdued);
-    color: var(--fsdx-editor-badge-text-color-subdued);
+    --badge-text: var(--fsdx-editor-gray-400);
+    --badge-icon: var(--fsdx-editor-gray-400);
+  }
 
-    .fsdx-editor-badge-icon {
-      color: var(--fsdx-editor-badge-icon-color-subdued);
+  /* Ghost */
+  &[data-style="ghost"] { --badge-bg: transparent; }
+
+  /* Gray */
+  &[data-style="gray"] {
+    --badge-bg: var(--fsdx-editor-gray-100);
+    &[data-appearance="emphasized"] {
+      --badge-bg: var(--fsdx-editor-gray-700);
+      --badge-text: var(--fsdx-editor-white);
+      --badge-icon: var(--fsdx-editor-white);
     }
+  }
+
+  /* Green */
+  &[data-style="green"] {
+    --badge-bg: #dcfce7;
+    --badge-border: #86efac;
+    --badge-text: #166534;
+    --badge-icon: #166534;
+    &[data-appearance="emphasized"] {
+      --badge-bg: #16a34a;
+      --badge-text: #fff;
+      --badge-icon: #fff;
+    }
+  }
+
+  /* Yellow */
+  &[data-style="yellow"] {
+    --badge-bg: #fef9c3;
+    --badge-border: #fde047;
+    --badge-text: #854d0e;
+    --badge-icon: #854d0e;
+    &[data-appearance="emphasized"] {
+      --badge-bg: var(--fsdx-editor-yellow);
+      --badge-text: #713f12;
+      --badge-icon: #713f12;
+    }
+  }
+
+  /* Red */
+  &[data-style="red"] {
+    --badge-bg: #ffe4e6;
+    --badge-border: #fecaca;
+    --badge-text: #991b1b;
+    --badge-icon: #991b1b;
+    &[data-appearance="emphasized"] {
+      --badge-bg: var(--fsdx-editor-destructive);
+      --badge-text: #fff;
+      --badge-icon: #fff;
+    }
+  }
+
+  /* Brand */
+  &[data-style="brand"] {
+    --badge-bg: var(--fsdx-editor-brand-100);
+    --badge-border: var(--fsdx-editor-brand-200);
+    --badge-text: var(--fsdx-editor-brand-500);
+    --badge-icon: var(--fsdx-editor-brand-500);
+    &[data-appearance="emphasized"] {
+      --badge-bg: var(--fsdx-editor-brand-500);
+      --badge-text: #fff;
+      --badge-icon: #fff;
+    }
+  }
+
+  /* Dark */
+  .fsdx-editor-dark & {
+    --badge-bg: var(--fsdx-editor-black);
+    --badge-text: var(--fsdx-editor-gray-500);
+    --badge-border: var(--fsdx-editor-gray-200);
+
+    &[data-style="ghost"] { --badge-bg: transparent; }
+
+    &[data-style="green"] { --badge-bg: #052e16; --badge-text: #86efac; --badge-icon: #86efac; }
+    &[data-style="yellow"] { --badge-bg: #422006; --badge-text: #fde047; --badge-icon: #fde047; }
+    &[data-style="red"] { --badge-bg: #450a0a; --badge-text: #fecaca; --badge-icon: #fecaca; }
+    &[data-style="brand"] { --badge-bg: #1e0b4d; --badge-text: var(--fsdx-editor-brand-500); --badge-icon: var(--fsdx-editor-brand-500); }
   }
 }

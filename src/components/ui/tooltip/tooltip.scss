@@ -1,25 +1,13 @@
 .fsdx-editor-tooltip {
-  --fsdx-editor-tooltip-bg: var(--fsdx-editor-gray-light-900);
-  --fsdx-editor-tooltip-text: var(--fsdx-editor-white);
-  --fsdx-editor-kbd: var(--fsdx-editor-gray-dark-a-400);
-
-  .fsdx-editor-dark & {
-    --fsdx-editor-tooltip-bg: var(--fsdx-editor-white);
-    --fsdx-editor-tooltip-text: var(--fsdx-editor-gray-light-600);
-    --fsdx-editor-kbd: var(--fsdx-editor-gray-light-a-400);
-  }
-}
-
-.fsdx-editor-tooltip {
-  z-index: 50;
+  z-index: var(--fsdx-editor-z-tooltip);
   overflow: hidden;
-  border-radius: var(--fsdx-editor-radius-md, 0.375rem);
+  border-radius: var(--fsdx-editor-radius-sm);
   background-color: var(--fsdx-editor-tooltip-bg);
-  padding: 0.375rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: var(--fsdx-editor-space-1_5) var(--fsdx-editor-space-2);
+  font-size: var(--fsdx-editor-font-sm);
+  font-weight: var(--fsdx-editor-font-medium);
   color: var(--fsdx-editor-tooltip-text);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: var(--fsdx-editor-shadow-xs);
   text-align: center;
 
   kbd {
@@ -38,6 +26,6 @@
       "Noto Sans",
       sans-serif;
     text-transform: capitalize;
-    color: var(--fsdx-editor-kbd);
+    color: var(--fsdx-editor-tooltip-kbd);
   }
 }

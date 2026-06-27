@@ -1,7 +1,7 @@
 .fsdx-editor-image-editor-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: var(--fsdx-editor-z-bubble);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   background: var(--fsdx-editor-gray-50);
-  border-radius: var(--fsdx-editor-radius-lg, 0.75rem);
+  border-radius: var(--fsdx-editor-radius-md);
   overflow: hidden;
 }
 
@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 var(--fsdx-editor-space-4);
   border-bottom: 1px solid var(--fsdx-editor-gray-200);
   flex-shrink: 0;
 }
@@ -33,17 +33,15 @@
 }
 
 .fsdx-editor-image-editor-tab {
-  padding: 12px 16px;
-  font-size: 14px;
+  padding: var(--fsdx-editor-space-3) var(--fsdx-editor-space-4);
+  font-size: var(--fsdx-editor-font-md);
   color: var(--fsdx-editor-gray-600);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
 
-  &:hover {
-    color: var(--fsdx-editor-gray-900);
-  }
+  &:hover { color: var(--fsdx-editor-gray-900); }
 
   &--active {
     color: var(--fsdx-editor-brand-color-500);
@@ -52,16 +50,14 @@
 }
 
 .fsdx-editor-image-editor-close {
-  padding: 4px 8px;
+  padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
   font-size: 18px;
   color: var(--fsdx-editor-gray-500);
   background: none;
   border: none;
   cursor: pointer;
 
-  &:hover {
-    color: var(--fsdx-editor-gray-800);
-  }
+  &:hover { color: var(--fsdx-editor-gray-800); }
 }
 
 .fsdx-editor-image-editor-body {
@@ -88,7 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: var(--fsdx-editor-space-4);
   background: var(--fsdx-editor-gray-100);
   min-height: 200px;
   max-height: 300px;
@@ -102,39 +98,39 @@
 }
 
 .fsdx-editor-image-filter-panel {
-  padding: 12px 16px;
+  padding: var(--fsdx-editor-space-3) var(--fsdx-editor-space-4);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--fsdx-editor-space-2);
 }
 
 .fsdx-editor-image-filter-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--fsdx-editor-space-2);
 }
 
 .fsdx-editor-image-filter-label {
   width: 56px;
-  font-size: 12px;
+  font-size: var(--fsdx-editor-font-sm);
   color: var(--fsdx-editor-gray-600);
   flex-shrink: 0;
 }
 
 .fsdx-editor-image-filter-slider {
   flex: 1;
-  height: 4px;
+  height: var(--fsdx-editor-space-1);
   -webkit-appearance: none;
   appearance: none;
   background: var(--fsdx-editor-gray-300);
-  border-radius: 2px;
+  border-radius: var(--fsdx-editor-radius-xs);
   outline: none;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
-    border-radius: 50%;
+    border-radius: var(--fsdx-editor-radius-full);
     background: var(--fsdx-editor-brand-color-500);
     cursor: pointer;
   }
@@ -142,43 +138,43 @@
 
 .fsdx-editor-image-filter-value {
   width: 48px;
-  font-size: 11px;
+  font-size: var(--fsdx-editor-font-xs);
   color: var(--fsdx-editor-gray-500);
   text-align: right;
   flex-shrink: 0;
 }
 
 .fsdx-editor-image-editor-footer {
-  padding: 12px 16px;
+  padding: var(--fsdx-editor-space-3) var(--fsdx-editor-space-4);
   border-top: 1px solid var(--fsdx-editor-gray-200);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--fsdx-editor-space-3);
   flex-shrink: 0;
 }
 
 .fsdx-editor-image-editor-crop-controls {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--fsdx-editor-space-2);
 }
 
 .fsdx-editor-image-editor-control-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--fsdx-editor-space-2);
 }
 
 .fsdx-editor-image-editor-label {
   width: 36px;
-  font-size: 12px;
+  font-size: var(--fsdx-editor-font-sm);
   color: var(--fsdx-editor-gray-600);
   flex-shrink: 0;
 }
 
 .fsdx-editor-image-editor-value {
   width: 48px;
-  font-size: 11px;
+  font-size: var(--fsdx-editor-font-xs);
   color: var(--fsdx-editor-gray-500);
   text-align: right;
   flex-shrink: 0;
@@ -186,18 +182,18 @@
 
 .fsdx-editor-image-editor-control-row input[type='range'] {
   flex: 1;
-  height: 4px;
+  height: var(--fsdx-editor-space-1);
   -webkit-appearance: none;
   appearance: none;
   background: var(--fsdx-editor-gray-300);
-  border-radius: 2px;
+  border-radius: var(--fsdx-editor-radius-xs);
   outline: none;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
-    border-radius: 50%;
+    border-radius: var(--fsdx-editor-radius-full);
     background: var(--fsdx-editor-brand-color-500);
     cursor: pointer;
   }
@@ -205,25 +201,23 @@
 
 .fsdx-editor-image-editor-aspect-btns {
   display: flex;
-  gap: 4px;
+  gap: var(--fsdx-editor-space-1);
   flex: 1;
 }
 
 .fsdx-editor-image-editor-aspect-btn {
-  padding: 2px 10px;
-  font-size: 12px;
+  padding: var(--fsdx-editor-space-0_5) var(--fsdx-editor-space-2_5);
+  font-size: var(--fsdx-editor-font-sm);
   color: var(--fsdx-editor-gray-600);
   background: var(--fsdx-editor-gray-100);
   border: 1px solid var(--fsdx-editor-gray-300);
-  border-radius: var(--fsdx-editor-radius-sm, 0.375rem);
+  border-radius: var(--fsdx-editor-radius-md);
   cursor: pointer;
 
-  &:hover {
-    background: var(--fsdx-editor-gray-200);
-  }
+  &:hover { background: var(--fsdx-editor-gray-200); }
 
   &--active {
-    color: #fff;
+    color: var(--fsdx-editor-white);
     background: var(--fsdx-editor-brand-color-500);
     border-color: var(--fsdx-editor-brand-color-500);
   }
@@ -232,7 +226,7 @@
 .fsdx-editor-image-editor-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--fsdx-editor-space-2);
 }
 
 .fsdx-editor-image-editor-filter-actions {
@@ -241,9 +235,9 @@
 }
 
 .fsdx-editor-image-editor-btn {
-  padding: 6px 16px;
-  font-size: 13px;
-  border-radius: var(--fsdx-editor-radius-sm, 0.375rem);
+  padding: var(--fsdx-editor-space-1_5) var(--fsdx-editor-space-4);
+  font-size: var(--fsdx-editor-font-base);
+  border-radius: var(--fsdx-editor-radius-md);
   cursor: pointer;
   border: none;
 
@@ -251,18 +245,14 @@
     color: var(--fsdx-editor-gray-700);
     background: var(--fsdx-editor-gray-100);
 
-    &:hover {
-      background: var(--fsdx-editor-gray-200);
-    }
+    &:hover { background: var(--fsdx-editor-gray-200); }
   }
 
   &--primary {
-    color: #fff;
+    color: var(--fsdx-editor-white);
     background: var(--fsdx-editor-brand-color-500);
 
-    &:hover {
-      background: var(--fsdx-editor-brand-color-600);
-    }
+    &:hover { background: var(--fsdx-editor-brand-color-600); }
 
     &:disabled {
       opacity: 0.5;
@@ -272,50 +262,28 @@
 }
 
 .fsdx-editor-dark {
-  .fsdx-editor-image-editor {
-    background: var(--fsdx-editor-gray-900);
-  }
-
-  .fsdx-editor-image-editor-header {
-    border-bottom-color: var(--fsdx-editor-gray-700);
-  }
-
-  .fsdx-editor-image-editor-footer {
-    border-top-color: var(--fsdx-editor-gray-700);
-  }
+  .fsdx-editor-image-editor { background: var(--fsdx-editor-gray-900); }
+  .fsdx-editor-image-editor-header { border-bottom-color: var(--fsdx-editor-gray-700); }
+  .fsdx-editor-image-editor-footer { border-top-color: var(--fsdx-editor-gray-700); }
 
   .fsdx-editor-image-editor-tab {
     color: var(--fsdx-editor-gray-400);
-
-    &:hover {
-      color: var(--fsdx-editor-gray-200);
-    }
+    &:hover { color: var(--fsdx-editor-gray-200); }
   }
 
-  .fsdx-editor-image-editor-control-row input[type='range'] {
-    background: var(--fsdx-editor-gray-600);
-  }
+  .fsdx-editor-image-editor-control-row input[type='range'] { background: var(--fsdx-editor-gray-600); }
+  .fsdx-editor-image-filter-slider { background: var(--fsdx-editor-gray-600); }
 
   .fsdx-editor-image-editor-btn--ghost {
     color: var(--fsdx-editor-gray-300);
     background: var(--fsdx-editor-gray-800);
-
-    &:hover {
-      background: var(--fsdx-editor-gray-700);
-    }
-  }
-
-  .fsdx-editor-image-filter-slider {
-    background: var(--fsdx-editor-gray-600);
+    &:hover { background: var(--fsdx-editor-gray-700); }
   }
 
   .fsdx-editor-image-editor-aspect-btn {
     color: var(--fsdx-editor-gray-400);
     background: var(--fsdx-editor-gray-800);
     border-color: var(--fsdx-editor-gray-600);
-
-    &:hover {
-      background: var(--fsdx-editor-gray-700);
-    }
+    &:hover { background: var(--fsdx-editor-gray-700); }
   }
 }

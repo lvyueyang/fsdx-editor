@@ -1,24 +1,12 @@
-.fsdx-editor-wrapper {
-  --fsdx-editor-input-placeholder: var(--fsdx-editor-gray-light-a-400);
-  --fsdx-editor-input-border: var(--fsdx-editor-gray-light-a-200);
-  --fsdx-editor-input-border-focus: var(--fsdx-editor-gray-light-a-300);
-}
-
-.fsdx-editor-wrapper.fsdx-editor-dark {
-  --fsdx-editor-input-placeholder: var(--fsdx-editor-gray-dark-a-400);
-  --fsdx-editor-input-border: var(--fsdx-editor-gray-dark-a-200);
-  --fsdx-editor-input-border-focus: var(--fsdx-editor-gray-dark-a-300);
-}
-
 .fsdx-editor-input {
   width: 100%;
   min-width: 0;
   height: 2rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: var(--fsdx-editor-radius-md);
+  padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2_5);
+  border-radius: var(--fsdx-editor-radius-sm);
   border: 1px solid var(--fsdx-editor-input-border);
   background: transparent;
-  font-size: 1rem;
+  font-size: var(--fsdx-editor-font-lg);
   outline: none;
   transition:
     color,
@@ -31,11 +19,11 @@
 }
 
 .fsdx-editor-input:focus-visible {
-  border-color: var(--fsdx-editor-input-border-focus);
+  border-color: var(--fsdx-editor-border-focus);
 }
 
 @media (min-width: 768px) {
   .fsdx-editor-input {
-    font-size: 0.875rem;
+    font-size: var(--fsdx-editor-font-md);
   }
 }

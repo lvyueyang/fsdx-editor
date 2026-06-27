@@ -1,20 +1,5 @@
-:root {
-  --fsdx-editor-popover-bg-color: var(--fsdx-editor-white);
-  --fsdx-editor-popover-border-color: var(--fsdx-editor-gray-light-a-100);
-  --fsdx-editor-popover-text-color: var(--fsdx-editor-gray-light-a-600);
-}
-
-:root.fsdx-editor-dark {
-  --fsdx-editor-popover-border-color: var(--fsdx-editor-gray-dark-a-50);
-  --fsdx-editor-popover-bg-color: var(--fsdx-editor-gray-dark-50);
-  --fsdx-editor-popover-text-color: var(--fsdx-editor-gray-dark-a-600);
-}
-
-/* --------------------------------------------
-    --------- POPOVER STYLING SETTINGS -----------
-    -------------------------------------------- */
 .fsdx-editor-popover {
-  z-index: 50;
+  z-index: var(--fsdx-editor-z-popover);
   outline: none;
   transform-origin: var(--radix-popover-content-transform-origin);
   max-height: var(--radix-popover-content-available-height);
@@ -23,7 +8,6 @@
     max-height: var(--radix-popover-content-available-height);
   }
 
-  /* Animation states */
   &[data-state="open"] {
     animation:
       fsdx-editor-fade-in 150ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -36,7 +20,6 @@
       fsdx-editor-zoom-out 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Position-based animations */
   &[data-side="top"],
   &[data-side="top-start"],
   &[data-side="top-end"] {

@@ -9,9 +9,9 @@
 .fsdx-editor-emoji-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px;
-  padding: 8px 8px 4px;
-  border-bottom: 1px solid var(--fsdx-editor-border-color);
+  gap: var(--fsdx-editor-space-0_5);
+  padding: var(--fsdx-editor-space-2) var(--fsdx-editor-space-2) var(--fsdx-editor-space-1);
+  border-bottom: 1px solid var(--fsdx-editor-border);
 }
 
 .fsdx-editor-emoji-category-btn {
@@ -24,13 +24,11 @@
   background: transparent;
   border-radius: var(--fsdx-editor-radius-sm);
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--fsdx-editor-font-lg);
   color: var(--fsdx-editor-gray-light-a-400);
   transition:
-    background var(--fsdx-editor-transition-duration-short)
-      var(--fsdx-editor-transition-easing-default),
-    color var(--fsdx-editor-transition-duration-short)
-      var(--fsdx-editor-transition-easing-default);
+    background var(--fsdx-editor-duration-short) var(--fsdx-editor-ease),
+    color var(--fsdx-editor-duration-short) var(--fsdx-editor-ease);
 
   &:hover {
     background: var(--fsdx-editor-gray-light-a-100);
@@ -60,8 +58,8 @@
 .fsdx-editor-emoji-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 2px;
-  padding: 8px;
+  gap: var(--fsdx-editor-space-0_5);
+  padding: var(--fsdx-editor-space-2);
   overflow-y: auto;
   flex: 1;
   align-content: start;
@@ -80,10 +78,8 @@
   cursor: pointer;
   font-size: 20px;
   transition:
-    background var(--fsdx-editor-transition-duration-short)
-      var(--fsdx-editor-transition-easing-default),
-    transform var(--fsdx-editor-transition-duration-short)
-      var(--fsdx-editor-transition-easing-default);
+    background var(--fsdx-editor-duration-short) var(--fsdx-editor-ease),
+    transform var(--fsdx-editor-duration-short) var(--fsdx-editor-ease);
 
   &:hover {
     background: var(--fsdx-editor-gray-light-a-100);

@@ -3,7 +3,7 @@
   width: 1.25rem;
   height: 1.25rem;
   margin: 0 -0.175rem;
-  border-radius: var(--fsdx-editor-radius-xl);
+  border-radius: var(--fsdx-editor-radius-full);
   background-color: var(--highlight-color);
   transition: transform 0.2s ease;
 
@@ -40,7 +40,6 @@
     &[data-active-state="on"] {
       .fsdx-editor-button-highlight {
         &::after {
-          // Andere Eigenschaft für .fsdx-editor-dark Kontext
           filter: brightness(180%);
         }
       }

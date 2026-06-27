@@ -1,9 +1,9 @@
 .fsdx-editor-image-resize-handle {
   background: var(--fsdx-editor-brand-color-400);
-  border-radius: 2px;
+  border-radius: var(--fsdx-editor-radius-xs);
   opacity: 1;
   cursor: col-resize;
-  z-index: 51;
+  z-index: var(--fsdx-editor-z-overlay);
 
   &--active {
     background: var(--fsdx-editor-brand-color-500);

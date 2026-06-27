@@ -1,22 +1,8 @@
 .fsdx-editor-wrapper .tiptap.ProseMirror {
-  --fsdx-editor-table-border-color: var(--fsdx-editor-border-color);
-  --fsdx-editor-table-header-bg: var(--fsdx-editor-gray-light-a-100);
-  --fsdx-editor-table-cell-padding: 0.5rem 0.75rem;
-
-  .fsdx-editor-dark & {
-    --fsdx-editor-table-border-color: var(--fsdx-editor-border-color);
-    --fsdx-editor-table-header-bg: var(--fsdx-editor-gray-dark-a-100);
-  }
-}
-
-/* =====================
-     TABLE
-     ===================== */
-.fsdx-editor-wrapper .tiptap.ProseMirror {
   .tableWrapper {
     position: relative;
     overflow-x: auto;
-    margin: 1.5rem 0;
+    margin: var(--fsdx-editor-space-6) 0;
     padding-right: 36px;
     padding-bottom: 36px;
   }
@@ -31,7 +17,7 @@
     td,
     th {
       min-width: 1em;
-      border: 1px solid var(--fsdx-editor-table-border-color);
+      border: 1px solid var(--fsdx-editor-border);
       padding: var(--fsdx-editor-table-cell-padding);
       vertical-align: top;
       position: relative;
@@ -43,7 +29,7 @@
 
     th {
       background-color: var(--fsdx-editor-table-header-bg);
-      font-weight: 600;
+      font-weight: var(--fsdx-editor-font-semibold);
       text-align: left;
     }
 
@@ -61,7 +47,7 @@
         background-color: var(--fsdx-editor-brand-color-200);
         opacity: 0.18;
         pointer-events: none;
-        border-radius: 2px;
+        border-radius: var(--fsdx-editor-radius-xs);
       }
     }
 
@@ -70,7 +56,7 @@
       top: 0;
       bottom: 0;
       right: -2px;
-      width: 4px;
+      width: var(--fsdx-editor-space-1);
       background-color: var(--fsdx-editor-brand-color-400);
       cursor: col-resize;
       pointer-events: none;
@@ -78,9 +64,6 @@
   }
 }
 
-/* =====================
-     表格控件容器
-     ===================== */
 .table-controls {
   opacity: 0;
   transition: opacity 0.15s ease;
@@ -103,61 +86,48 @@
   }
 }
 
-/* =====================
-     表格扩展按钮
-     ===================== */
 .table-extend-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  border: 1px solid var(--fsdx-editor-gray-light-a-100, #efeaff);
-  border-radius: 2px;
-  background: var(--fsdx-editor-gray-light-a-100, #efeaff);
+  border: 1px solid var(--fsdx-editor-gray-light-a-100);
+  border-radius: var(--fsdx-editor-radius-xs);
+  background: var(--fsdx-editor-gray-light-a-100);
   color: var(--fsdx-editor-brand-color-400);
-  font-size: 12px;
+  font-size: var(--fsdx-editor-font-sm);
   cursor: pointer;
-  z-index: 50;
+  z-index: var(--fsdx-editor-z-dropdown);
   padding: 0;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: var(--fsdx-editor-brand-color-50, #f0f0f0);
+    background: var(--fsdx-editor-brand-color-50);
     color: var(--fsdx-editor-brand-color-400);
     border-color: var(--fsdx-editor-brand-color-400);
   }
 }
 
-.fsdx-editor-dark .table-extend-btn {
-  background: var(--fsdx-editor-gray-dark-a-100, #efeaff);
-  &:hover {
-    
-  }
-}
-
 .table-extend-btn--bottom {
-  bottom: 4px;
+  bottom: var(--fsdx-editor-space-1);
   left: 0;
   right: 35px;
-  height: 24px;
+  height: var(--fsdx-editor-space-6);
 }
 
 .table-extend-btn--right {
   top: 0;
-  right: 4px;
+  right: var(--fsdx-editor-space-1);
   bottom: 36px;
   writing-mode: vertical-rl;
-  width: 24px;
+  width: var(--fsdx-editor-space-6);
 }
 
-/* =====================
-     选区边框与手柄 (absolute → 相对于 tableWrapper)
-     ===================== */
 .table-selection-border {
-  border: 2px solid var(--fsdx-editor-brand-color-400, #7a52ff);
-  border-radius: 2px;
+  border: 2px solid var(--fsdx-editor-brand-color-400);
+  border-radius: var(--fsdx-editor-radius-xs);
   pointer-events: none;
-  z-index: 90;
+  z-index: var(--fsdx-editor-z-overlay);
 }
 
 .table-selection-handle {
@@ -170,7 +140,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  z-index: 91;
+  z-index: var(--fsdx-editor-z-overlay);
   transform: translate(-11px, -10px);
 }
 
@@ -178,10 +148,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--fsdx-editor-brand-color-400, #7a52ff);
+  width: var(--fsdx-editor-space-2);
+  height: var(--fsdx-editor-space-2);
+  border-radius: var(--fsdx-editor-radius-full);
+  background: var(--fsdx-editor-brand-color-400);
   transition: width 0.15s ease, height 0.15s ease, border-radius 0.15s ease;
   overflow: hidden;
 }
@@ -191,15 +161,15 @@
   height: 0;
   opacity: 0;
   transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
-  color: var(--fsdx-editor-brand-color-500, #6229ff);
+  color: var(--fsdx-editor-brand-color-500);
 }
 
 .table-selection-handle:hover .table-selection-handle-dot,
 .table-selection-handle:focus-visible .table-selection-handle-dot {
   width: 16px;
   height: 16px;
-  border-radius: 4px;
-  background: var(--fsdx-editor-brand-color-100, #dedbff);
+  border-radius: var(--fsdx-editor-radius-sm);
+  background: var(--fsdx-editor-brand-color-100);
 }
 
 .table-selection-handle:hover .table-selection-handle-icon,

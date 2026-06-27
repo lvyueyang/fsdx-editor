@@ -1,23 +1,15 @@
 .fsdx-editor-separator {
-  --fsdx-editor-link-border-color: var(--fsdx-editor-gray-light-a-200);
-
-  .fsdx-editor-dark & {
-    --fsdx-editor-link-border-color: var(--fsdx-editor-gray-dark-a-200);
-  }
-}
-
-.fsdx-editor-separator {
   flex-shrink: 0;
-  background-color: var(--fsdx-editor-link-border-color);
+  background-color: var(--fsdx-editor-border);
 
   &[data-orientation="horizontal"] {
     height: 1px;
     width: 100%;
-    margin: 0.5rem 0;
+    margin: var(--fsdx-editor-space-2) 0;
   }
 
   &[data-orientation="vertical"] {
-    height: 1.5rem;
+    height: var(--fsdx-editor-space-6);
     width: 1px;
   }
 }

@@ -1,11 +1,8 @@
 .fsdx-editor-link-input {
-  font-size: 0.875rem;
+  font-size: var(--fsdx-editor-font-md);
   border: none;
-
-  /* Clamp the input */
   min-width: 12rem;
   padding-right: 0;
-
   text-overflow: ellipsis;
   white-space: nowrap;
 

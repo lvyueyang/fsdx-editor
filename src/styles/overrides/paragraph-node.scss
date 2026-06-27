@@ -1,50 +1,22 @@
-.fsdx-editor-wrapper .tiptap.ProseMirror {
-  --fsdx-editor-collaboration-carets-label: var(--fsdx-editor-gray-light-900);
-  --link-text-color: var(--fsdx-editor-brand-color-500);
-  --thread-text: var(--fsdx-editor-gray-light-900);
-  --placeholder-color: var(--fsdx-editor-gray-light-a-400);
-  --thread-bg-color: var(--fsdx-editor-color-yellow-inc-2);
-
-  // ai
-  --fsdx-editor-ai-insertion-color: var(--fsdx-editor-brand-color-600);
-
-  .fsdx-editor-dark & {
-    --fsdx-editor-collaboration-carets-label: var(--fsdx-editor-gray-dark-100);
-    --link-text-color: var(--fsdx-editor-brand-color-400);
-    --thread-text: var(--fsdx-editor-gray-dark-900);
-    --placeholder-color: var(--fsdx-editor-gray-dark-a-400);
-    --thread-bg-color: var(--fsdx-editor-color-yellow-dec-2);
-
-    --fsdx-editor-ai-insertion-color: var(--fsdx-editor-brand-color-400);
-  }
-}
-
-/* Ensure each top-level node has relative positioning 
-   so absolutely positioned placeholders work correctly */
 .fsdx-editor-wrapper .tiptap.ProseMirror > * {
   position: relative;
 }
 
-/* =====================
-     CORE EDITOR STYLES
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   white-space: pre-wrap;
   outline: none;
-  caret-color: var(--fsdx-editor-cursor-color);
+  caret-color: var(--fsdx-editor-cursor);
 
-  // Paragraph spacing
   p:not(:first-child):not(td p):not(th p) {
-    font-size: 1rem;
-    line-height: 1.6;
-    font-weight: normal;
-    margin-top: 20px;
+    font-size: var(--fsdx-editor-font-lg);
+    line-height: var(--fsdx-editor-line-xl);
+    font-weight: var(--fsdx-editor-font-normal);
+    margin-top: var(--fsdx-editor-space-5);
   }
 
-  // Selection styles
   &:not(.readonly):not(.ProseMirror-hideselection) {
     ::selection {
-      background-color: var(--fsdx-editor-selection-color);
+      background-color: var(--fsdx-editor-selection);
     }
 
     .selection::selection {
@@ -54,51 +26,34 @@
 
   .selection {
     display: inline;
-    background-color: var(--fsdx-editor-selection-color);
+    background-color: var(--fsdx-editor-selection);
   }
 
-  // Selected node styles
   .ProseMirror-selectednode:not(img):not(pre):not(.react-renderer) {
-    border-radius: var(--fsdx-editor-radius-md);
-    background-color: var(--fsdx-editor-selection-color);
+    border-radius: var(--fsdx-editor-radius-sm);
+    background-color: var(--fsdx-editor-selection);
   }
 
   .ProseMirror-hideselection {
     caret-color: transparent;
   }
 
-  // Resize cursor
   &.resize-cursor {
     cursor: ew-resize;
     cursor: col-resize;
   }
 }
 
-/* =====================
-     TEXT DECORATION
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
-  // Text decoration inheritance for spans
-  a span {
-    text-decoration: underline;
-  }
-
-  s span {
-    text-decoration: line-through;
-  }
-
-  u span {
-    text-decoration: underline;
-  }
+  a span { text-decoration: underline; }
+  s span { text-decoration: line-through; }
+  u span { text-decoration: underline; }
 
   .fsdx-editor-ai-insertion {
     color: var(--fsdx-editor-ai-insertion-color);
   }
 }
 
-/* =====================
-     COLLABORATION
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   .collaboration-carets {
     &__caret {
@@ -113,13 +68,13 @@
 
     &__label {
       color: var(--fsdx-editor-collaboration-carets-label);
-      border-radius: 0.25rem;
+      border-radius: var(--fsdx-editor-radius-sm);
       border-bottom-left-radius: 0;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: var(--fsdx-editor-font-sm);
+      font-weight: var(--fsdx-editor-font-semibold);
       left: -1px;
       line-height: 1;
-      padding: 0.125rem 0.375rem;
+      padding: var(--fsdx-editor-space-0_5) var(--fsdx-editor-space-1_5);
       position: absolute;
       top: -1.3em;
       user-select: none;
@@ -128,9 +83,6 @@
   }
 }
 
-/* =====================
-     EMOJI
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror [data-type="emoji"] img {
   display: inline-block;
   width: 1.25em;
@@ -138,19 +90,13 @@
   cursor: text;
 }
 
-/* =====================
-     LINKS
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   a {
-    color: var(--link-text-color);
+    color: var(--fsdx-editor-link-color);
     text-decoration: underline;
   }
 }
 
-/* =====================
-     MENTION
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   [data-type="mention"] {
     display: inline-block;
@@ -158,31 +104,26 @@
   }
 }
 
-/* =====================
-     THREADS
-     ===================== */
 .fsdx-editor-wrapper .tiptap.ProseMirror {
-  // Base styles for inline threads
   .fsdx-editor-thread.fsdx-editor-thread--unresolved.fsdx-editor-thread--inline {
     transition:
       color 0.2s ease-in-out,
       background-color 0.2s ease-in-out;
-    color: var(--thread-text);
+    color: var(--fsdx-editor-thread-text);
     border-bottom: 2px dashed var(--fsdx-editor-color-yellow-base);
-    font-weight: 600;
+    font-weight: var(--fsdx-editor-font-semibold);
 
     &.fsdx-editor-thread--selected,
     &.fsdx-editor-thread--hovered {
-      background-color: var(--thread-bg-color);
+      background-color: var(--fsdx-editor-thread-bg-color);
       border-bottom-color: transparent;
     }
   }
 
-  // Block thread styles with images
   .fsdx-editor-thread.fsdx-editor-thread--unresolved.fsdx-editor-thread--block {
     &:has(img) {
       outline: 0.125rem solid var(--fsdx-editor-color-yellow-base);
-      border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
+      border-radius: var(--fsdx-editor-radius-sm);
       overflow: hidden;
       width: fit-content;
 
@@ -196,12 +137,10 @@
       }
     }
 
-    // Block thread styles without images
     &:not(:has(img)) {
-      border-radius: 0.25rem;
+      border-radius: var(--fsdx-editor-radius-sm);
       border-bottom: 0.125rem dashed var(--fsdx-editor-color-yellow-base);
       border-top: 0.125rem dashed var(--fsdx-editor-color-yellow-base);
-      // padding-bottom: 0.5rem;
       outline: 0.25rem solid transparent;
 
       &.fsdx-editor-thread--hovered,
@@ -212,23 +151,18 @@
     }
   }
 
-  // Resolved thread styles
   .fsdx-editor-thread.fsdx-editor-thread--resolved.fsdx-editor-thread--inline.fsdx-editor-thread--selected {
     background-color: var(--fsdx-editor-color-yellow-base);
     border-color: transparent;
     opacity: 0.5;
   }
 
-  // React renderer specific styles
   .fsdx-editor-thread.fsdx-editor-thread--block:has(.react-renderer) {
     margin-top: 3rem;
     margin-bottom: 3rem;
   }
 }
 
-/* =====================
-     PLACEHOLDER
-     ===================== */
 .is-empty:not(.with-slash)[data-placeholder]:has(
     > .ProseMirror-trailingBreak:only-child
   )::before {
@@ -255,26 +189,19 @@
 }
 
 .is-empty[data-placeholder]:has(> .ProseMirror-trailingBreak):before {
-  color: var(--placeholder-color);
+  color: var(--fsdx-editor-placeholder);
 }
 
-/* =====================
-     DROPCURSOR
-     ===================== */
 .fsdx-editor-wrapper .prosemirror-dropcursor-block,
 .fsdx-editor-wrapper .prosemirror-dropcursor-inline {
   background: var(--fsdx-editor-brand-color-400) !important;
-  border-radius: 0.25rem;
+  border-radius: var(--fsdx-editor-radius-sm);
   margin-left: -1px;
   margin-right: -1px;
   width: 100%;
   height: 0.188rem;
   cursor: grabbing;
 }
-
-/* =====================
-     INDENT
-     ===================== */
 
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   --fsdx-editor-indent-unit: 24px;

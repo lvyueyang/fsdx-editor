@@ -10,22 +10,21 @@
   }
 
   > img:not([data-type="emoji"] img) {
-    margin: 2rem 0;
+    margin: var(--fsdx-editor-space-8) 0;
     outline: 0.125rem solid transparent;
-    border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
+    border-radius: var(--fsdx-editor-radius-sm);
   }
 
   img:not([data-type="emoji"] img).ProseMirror-selectednode {
     outline-color: var(--fsdx-editor-brand-color-500);
   }
 
-  // Thread image handling
   .fsdx-editor-thread:has(> img) {
-    margin: 2rem 0;
+    margin: var(--fsdx-editor-space-8) 0;
 
     img {
       outline: 0.125rem solid transparent;
-      border-radius: var(--fsdx-editor-radius-xs, 0.25rem);
+      border-radius: var(--fsdx-editor-radius-sm);
     }
   }
 

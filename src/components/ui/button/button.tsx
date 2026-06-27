@@ -4,7 +4,6 @@ import { cn, parseShortcutKeys } from '../../../core/editor-utils';
 // --- Tiptap UI Primitive ---
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 
-import './button-colors.scss';
 import './button.scss';
 
 export type ButtonVariant = 'ghost' | 'primary';

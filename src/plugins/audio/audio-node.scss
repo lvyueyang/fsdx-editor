@@ -1,5 +1,5 @@
 .fsdx-editor-audio-node {
-  margin: 8px 0;
+  margin: var(--fsdx-editor-space-2) 0;
 
   &.ProseMirror-selectednode {
     .fsdx-editor-audio-card {
@@ -12,11 +12,11 @@
 .fsdx-editor-audio-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
+  gap: var(--fsdx-editor-space-3);
+  padding: var(--fsdx-editor-space-3);
   background: var(--fsdx-editor-gray-50);
   border: 1px solid var(--fsdx-editor-gray-200);
-  border-radius: var(--fsdx-editor-radius-md, 0.5rem);
+  border-radius: var(--fsdx-editor-radius-sm);
 }
 
 .fsdx-editor-audio-icon {
@@ -27,7 +27,7 @@
   justify-content: center;
   background: var(--fsdx-editor-brand-color-100);
   color: var(--fsdx-editor-brand-color-500);
-  border-radius: var(--fsdx-editor-radius-sm, 0.375rem);
+  border-radius: var(--fsdx-editor-radius-md);
   flex-shrink: 0;
 }
 
@@ -36,11 +36,11 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--fsdx-editor-space-1);
 }
 
 .fsdx-editor-audio-name {
-  font-size: 13px;
+  font-size: var(--fsdx-editor-font-base);
   color: var(--fsdx-editor-gray-800);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -54,12 +54,12 @@
 
 .fsdx-editor-audio-placeholder {
   width: 100%;
-  padding: 48px 16px;
+  padding: 48px var(--fsdx-editor-space-4);
   text-align: center;
   color: var(--fsdx-editor-gray-400);
   border: 2px dashed var(--fsdx-editor-gray-300);
-  border-radius: var(--fsdx-editor-radius-md, 0.5rem);
-  font-size: 14px;
+  border-radius: var(--fsdx-editor-radius-sm);
+  font-size: var(--fsdx-editor-font-md);
 }
 
 .fsdx-editor-dark {
@@ -69,7 +69,7 @@
   }
 
   .fsdx-editor-audio-icon {
-    background: rgba(99, 102, 241, 0.15);
+    background: var(--fsdx-editor-color-media-overlay);
   }
 
   .fsdx-editor-audio-name {

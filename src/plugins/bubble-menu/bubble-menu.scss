@@ -1,7 +1,7 @@
 .fsdx-editor-bubble-menu {
-  z-index: 9999;
+  z-index: var(--fsdx-editor-z-bubble);
   transition:
-    opacity var(--fsdx-editor-transition-duration-default) ease-out;
+    opacity var(--fsdx-editor-duration) ease-out;
 
   &:not([data-visible]) {
     opacity: 0;
@@ -14,7 +14,7 @@
 }
 
 .fsdx-bubble-menu-link-input {
-  font-size: 0.875rem;
+  font-size: var(--fsdx-editor-font-md);
   border: none;
   min-width: 12rem;
   padding-right: 0;
@@ -29,10 +29,10 @@
 .fsdx-editor-bubble-menu {
   .fsdx-editor-button[data-active-state='on'] {
     background-color: var(--fsdx-editor-brand-color-500);
-    color: #fff;
+    color: var(--fsdx-editor-white);
 
     .fsdx-editor-button-icon {
-      color: #fff;
+      color: var(--fsdx-editor-white);
     }
   }
 }
@@ -40,10 +40,10 @@
 .fsdx-editor-dark .fsdx-editor-bubble-menu {
   .fsdx-editor-button[data-active-state='on'] {
     background-color: var(--fsdx-editor-brand-color-400);
-    color: #fff;
+    color: var(--fsdx-editor-white);
 
     .fsdx-editor-button-icon {
-      color: #fff;
+      color: var(--fsdx-editor-white);
     }
   }
 }
