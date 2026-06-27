@@ -21,6 +21,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: '基础演示', href: '/demo', icon: '◇' },
       { label: '控制面板', href: '/control-panel', icon: '◈' },
+      { label: '主题配置', href: '/theme-config', icon: '🎨' },
     ],
   },
   {

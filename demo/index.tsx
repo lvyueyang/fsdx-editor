@@ -9,6 +9,7 @@ import { ApiReference } from './pages/api-reference';
 import { BasicDemo } from './pages/basic-demo';
 import { ControlPanel } from './pages/control-panel';
 import { Overview } from './pages/overview';
+import { ThemeConfig } from './pages/theme-config';
 import { DemoThemeContext } from './shared/demo-theme-context';
 
 type DemoTheme = 'light' | 'dark' | 'auto';
@@ -84,6 +85,9 @@ function App() {
             </Route>
             <Route path="/api">
               <ApiReference />
+            </Route>
+            <Route path="/theme-config">
+              <ThemeConfig />
             </Route>
             <Route>
               <Redirect to="/" />
