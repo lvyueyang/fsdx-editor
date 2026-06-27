@@ -26,10 +26,14 @@ src/                          # 组件库源码
 │   ├── editor-utils.ts
 │   ├── theme-toggle.tsx
 │   └── node-background-extension.ts
-├── styles/                   # 设计 token + StarterKit 内置节点样式覆盖
-│   ├── _variables.scss
+├── styles/                   # 设计 token（三层架构） + StarterKit 内置节点样式覆盖
+│   ├── _variables.scss       # token 入口（@forward primitives/semantic/components）
 │   ├── _keyframe-animations.scss
-│   └── overrides/
+│   ├── tokens/               # 设计令牌
+│   │   ├── _primitives.scss  # 原始令牌（色板/间距/字号/圆角/阴影/z-index）
+│   │   ├── _semantic.scss    # 语义令牌（surface/text/border + light/dark 切换）
+│   │   └── _components.scss  # 组件令牌（button/badge/card/toolbar 等 + light/dark 切换）
+│   └── overrides/            # Tiptap 节点样式覆盖
 ├── hooks/                    # 所有 React hooks
 ├── lib/                      # 通用工具
 │   └── format-file-size.ts
@@ -47,6 +51,29 @@ src/                          # 组件库源码
     ├── indent/ line-height/ blockquote/ code-block/
     ├── horizontal-rule/ undo-redo/ emoji/
     └── 每个模块自包含：extension + node + UI + hooks
+demo/                         # Demo 开发服务器（Rsbuild）
+├── index.tsx                 # 应用入口（React 挂载 + wouter hash 路由 + 主题 Context）
+├── index.html                # HTML 模板
+├── initial-content.ts        # 编辑器初始 HTML 内容
+├── components/
+│   ├── demo-editor.tsx       # Editor 组件的薄封装（注入 demoOptions + theme）
+│   ├── header.tsx            # 顶部栏（Demo 自身主题切换：light/dark/auto）
+│   ├── layout.tsx            # 布局容器（可折叠侧栏 + 主内容区）
+│   ├── sidebar.tsx           # 左侧导航栏
+│   └── color-picker-field.tsx# 可复用颜色输入组件（原生取色器 + hex 文本）
+├── pages/
+│   ├── overview.tsx          # 首页概览（功能卡片 + 核心导出表格）
+│   ├── basic-demo.tsx        # 基础演示（仅编辑器）
+│   ├── control-panel.tsx     # 控制面板（编辑 + iframe 实时预览 + 导出 HTML）
+│   ├── theme-config.tsx      # 主题配置页（令牌编辑 + 实时预览 + 预设 + 下载 CSS）
+│   └── api-reference.tsx     # API 参考文档
+├── shared/
+│   ├── demo-options.ts       # 模拟的 EditorOptions（mock 上传/列表接口）
+│   ├── demo-theme-context.ts # Demo 主题 Context（EditorTheme 传递）
+│   ├── mock-data.ts          # Mock 媒体数据
+│   └── token-groups.ts       # 可配置令牌定义 + 预设主题 + 色阶生成 + buildStyleText
+└── styles/
+    └── demo.css              # Demo 全部样式（含主题配置页样式）
 tests/                        # 测试文件
 └── index.test.tsx            # Button 组件测试
 ```
@@ -60,6 +87,7 @@ tests/                        # 测试文件
 | 编译优化 | babel-plugin-react-compiler（React Compiler） | 1.x |
 | 语言 | TypeScript（strict） | 6 |
 | 样式 | CSS（CSS Modules 解析） | - |
+| 路由 | wouter（hash 模式） | - |
 | 文档 | Rspress + `@rspress/plugin-api-docgen` + `@rspress/plugin-preview` | 2.x |
 | Lint/Format | Biome | 2.x |
 | 测试 | Rstest + `@testing-library/react` + `happy-dom` | - |
@@ -91,6 +119,56 @@ tests/                        # 测试文件
 - React 19 优先使用函数组件，通过 React Compiler 自动优化 memo
 - 所有可导出组件必须在 `src/index.tsx` 中统一导出
 - 组件类型通过 TypeScript interface 定义，支持 `@rspress/plugin-api-docgen` 自动提取 API 文档
+
+## 主题系统
+
+### 三层令牌架构
+
+`src/styles/` 下的设计令牌按三层组织，通过 `_variables.scss` 统一 @forward：
+
+1. **Primitives（原始令牌）** — `tokens/_primitives.scss`
+   - 不可变的原始值：色板、间距、字号、圆角、阴影、z-index、过渡、尺寸
+   - 不做 light/dark 切换，仅定义 `:root` 下的值
+   - 按 `/* @group 分组名 */` 标注，供 Demo 主题配置页解析
+
+2. **Semantics（语义令牌）** — `tokens/_semantic.scss`
+   - 从 Primitives 派生，表达语义含义（surface/text/border/interactive/content）
+   - 在 `:root.fsdx-editor-dark` 下重新赋值，实现暗色模式切换
+   - 组件应优先使用语义令牌而非原始灰色值
+
+3. **Components（组件令牌）** — `tokens/_components.scss`
+   - 每个 UI 组件拥有独立令牌（button-bg、badge-border 等）
+   - 在 `:root.fsdx-editor-dark` 下重新赋值
+   - 组件 SCSS 只引用组件令牌，不再自行处理暗色模式（禁止 `.fsdx-editor-dark &` 覆盖）
+
+### 命名约定
+
+- 所有 CSS 自定义属性统一前缀 `--fsdx-editor-`
+- 命名模式：`--fsdx-editor-{类别}-{变体}-{状态}`，如 `--fsdx-editor-button-primary-hover-bg`
+- 排版命名：`font-{size}`、`font-weight-{weight}`、`line-{size}`（不使用 `font-size-`、`line-height-` 旧名）
+- 间距命名：`space-{size}`（不使用 `spacing-` 旧名）
+- 品牌色命名：`brand-{level}`（不使用 `brand-color-` 旧名）
+- 禁止使用硬编码颜色值，所有颜色必须引用令牌
+
+### 主题定制
+
+外部使用方可通过 CSS 文件覆盖令牌值来定制主题：
+
+```css
+/* 引入在默认主题 CSS 之后即可覆盖 */
+:root {
+  --fsdx-editor-brand-500: #e5484d;
+  --fsdx-editor-gray-50: #fafafa;
+}
+```
+
+Demo 的主题配置页（`demo/pages/theme-config.tsx`）支持：
+- 可视化编辑 54 个可配置令牌（品牌色、灰色板、功能色、表面色、圆角、字体大小、阴影）
+- 实时预览（通过注入 `<style id="fsdx-theme-override">` 标签覆盖 CSS 变量）
+- 品牌色主色选择器自动生成色阶（50~600，基于 RGB 线性插值）
+- 5 套内置预设主题（默认紫色、暖橙、自然绿、深海蓝、暗紫）
+- 一键下载 CSS 文件（`fsdx-editor-theme.css`）
+- 配置持久化（localStorage）
 
 ## 测试约定
 
@@ -140,6 +218,7 @@ tests/                        # 测试文件
 - 涉及项目流程状态时，同步更新 `CHANGELOG.md`
 - 不提交临时文件、测试产物、密钥、`.env`
 - 临时文件统一放入仓库根目录 `.tmp/`，不要散落在其他目录
+- Demo 主题配置页修改令牌后必须同步更新 `demo/shared/token-groups.ts` 中的定义
 
 ## 提交建议
 
