@@ -1,11 +1,7 @@
 .fsdx-editor-button {
-  --btn-bg: var(--fsdx-editor-gray-100);
-  --btn-text: var(--fsdx-editor-gray-600);
-  --btn-icon: var(--fsdx-editor-gray-600);
-
   cursor: pointer;
   font-size: var(--fsdx-editor-font-md);
-  font-weight: var(--fsdx-editor-font-medium);
+  font-weight: var(--fsdx-editor-font-weight-medium);
   font-feature-settings: "salt" on, "cv01" on;
   line-height: var(--fsdx-editor-line-sm);
   height: 2rem;
@@ -17,73 +13,78 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--fsdx-editor-radius-sm);
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  background-color: var(--fsdx-editor-button-bg);
+  color: var(--fsdx-editor-button-text);
 
-  .fsdx-editor-button-icon { color: var(--btn-icon); }
+  .fsdx-editor-button-icon { color: var(--fsdx-editor-button-icon); }
 
   &:focus-visible { outline: none; }
 
   &:hover:not([data-active-item]):not([disabled]),
   &[data-active-item]:not([disabled]),
   &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
-    --btn-bg: color-mix(in srgb, var(--btn-bg), #000 10%);
-    --btn-text: var(--fsdx-editor-gray-900);
-    --btn-icon: var(--fsdx-editor-gray-900);
+    background-color: var(--fsdx-editor-button-hover-bg);
+    color: var(--fsdx-editor-button-hover-text);
+
+    .fsdx-editor-button-icon { color: var(--fsdx-editor-button-hover-icon); }
   }
 
   &:active:not([disabled]) {
-    --btn-bg: color-mix(in srgb, var(--btn-bg), #000 5%);
+    background-color: color-mix(in srgb, var(--fsdx-editor-button-bg), #000 5%);
   }
 
   &[data-active-state="on"]:not([disabled]),
   &[data-state="open"]:not([disabled]) {
-    --btn-bg: var(--fsdx-editor-gray-200);
-    --btn-text: var(--fsdx-editor-gray-900);
-    --btn-icon: var(--fsdx-editor-brand-500);
+    background-color: var(--fsdx-editor-button-active-bg);
+    color: var(--fsdx-editor-button-active-text);
+
+    .fsdx-editor-button-icon { color: var(--fsdx-editor-button-active-icon); }
 
     &:hover {
-      --btn-bg: color-mix(in srgb, var(--fsdx-editor-gray-200), #000 6%);
+      background-color: color-mix(in srgb, var(--fsdx-editor-gray-200), #000 6%);
     }
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: var(--fsdx-editor-button-disabled-opacity);
     pointer-events: none;
   }
 
   /* Ghost */
   &[data-style="ghost"] {
-    --btn-bg: transparent;
+    background-color: var(--fsdx-editor-button-ghost-bg);
 
     &:hover:not([data-active-item]):not([disabled]) {
-      --btn-bg: var(--fsdx-editor-gray-200);
+      background-color: var(--fsdx-editor-button-ghost-hover-bg);
     }
 
     &[data-active-state="on"]:not([disabled]) {
-      --btn-bg: var(--fsdx-editor-gray-100);
+      background-color: var(--fsdx-editor-surface-raised);
     }
   }
 
   /* Primary */
   &[data-style="primary"] {
-    --btn-bg: var(--fsdx-editor-brand-500);
-    --btn-text: var(--fsdx-editor-white);
-    --btn-icon: var(--fsdx-editor-white);
+    background-color: var(--fsdx-editor-button-primary-bg);
+    color: var(--fsdx-editor-button-primary-text);
+
+    .fsdx-editor-button-icon { color: var(--fsdx-editor-button-primary-icon); }
 
     &:hover:not([data-active-item]):not([disabled]) {
-      --btn-bg: color-mix(in srgb, var(--fsdx-editor-brand-500), #000 15%);
-      --btn-text: var(--fsdx-editor-white);
-      --btn-icon: var(--fsdx-editor-white);
+      background-color: var(--fsdx-editor-button-primary-hover-bg);
+      color: var(--fsdx-editor-button-primary-text);
+
+      .fsdx-editor-button-icon { color: var(--fsdx-editor-button-primary-icon); }
     }
 
     &[data-active-state="on"]:not([disabled]) {
-      --btn-bg: var(--fsdx-editor-brand-100);
-      --btn-text: var(--fsdx-editor-gray-900);
-      --btn-icon: var(--fsdx-editor-brand-500);
+      background-color: var(--fsdx-editor-button-primary-active-bg);
+      color: var(--fsdx-editor-button-primary-active-text);
+
+      .fsdx-editor-button-icon { color: var(--fsdx-editor-button-primary-active-icon); }
 
       &:hover {
-        --btn-bg: var(--fsdx-editor-brand-200);
+        background-color: var(--fsdx-editor-brand-200);
       }
     }
   }
@@ -151,40 +152,4 @@
   .fsdx-editor-button-emoji { width: 1rem; display: flex; justify-content: center; }
   &[data-size="large"] .fsdx-editor-button-emoji { width: 1.125rem; }
   &[data-size="small"] .fsdx-editor-button-emoji { width: 0.875rem; }
-
-  /* Dark */
-  .fsdx-editor-dark & {
-    --btn-bg: var(--fsdx-editor-gray-100);
-    --btn-text: var(--fsdx-editor-gray-600);
-    --btn-icon: var(--fsdx-editor-gray-600);
-
-    &:hover:not([data-active-item]):not([disabled]),
-    &[data-active-item]:not([disabled]),
-    &[data-highlighted]:not([disabled]):not([data-highlighted="false"]) {
-      --btn-bg: color-mix(in srgb, var(--btn-bg), #fff 10%);
-      --btn-text: var(--fsdx-editor-gray-900);
-      --btn-icon: var(--fsdx-editor-gray-900);
-    }
-
-    &[data-active-state="on"]:not([disabled]) {
-      --btn-bg: var(--fsdx-editor-gray-200);
-      --btn-icon: var(--fsdx-editor-brand-500);
-    }
-
-    &[data-style="ghost"] {
-      --btn-bg: transparent;
-    }
-
-    &[data-style="primary"] {
-      --btn-bg: var(--fsdx-editor-brand-500);
-      --btn-text: var(--fsdx-editor-white);
-      --btn-icon: var(--fsdx-editor-white);
-
-      &[data-active-state="on"]:not([disabled]) {
-        --btn-bg: #3a1a8a;
-        --btn-text: var(--fsdx-editor-gray-900);
-        --btn-icon: var(--fsdx-editor-brand-500);
-      }
-    }
-  }
 }

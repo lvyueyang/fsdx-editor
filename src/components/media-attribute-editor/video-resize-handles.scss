@@ -1,11 +1,11 @@
 .fsdx-editor-video-resize-handle {
-  background: var(--fsdx-editor-brand-color-400);
+  background: var(--fsdx-editor-brand-400);
   border-radius: var(--fsdx-editor-radius-xs);
   opacity: 1;
   cursor: col-resize;
   z-index: var(--fsdx-editor-z-overlay);
 
   &--active {
-    background: var(--fsdx-editor-brand-color-500);
+    background: var(--fsdx-editor-brand-500);
   }
 }

@@ -1,0 +1,162 @@
+/**************************************************
+ FSDX Editor 组件令牌（Component Tokens）
+ 每个组件拥有独立的令牌集，从语义令牌派生
+ 组件 SCSS 只引用此层令牌，不再自行处理暗色模式
+ **************************************************/
+
+/* ======== 亮色模式 ======== */
+:root {
+  /* @group 按钮 */
+  --fsdx-editor-button-bg: var(--fsdx-editor-surface-raised);
+  --fsdx-editor-button-text: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-button-icon: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-button-hover-bg: color-mix(in srgb, var(--fsdx-editor-surface-raised), #000 10%);
+  --fsdx-editor-button-hover-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-hover-icon: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-active-bg: var(--fsdx-editor-gray-200);
+  --fsdx-editor-button-active-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-active-icon: var(--fsdx-editor-brand-500);
+  --fsdx-editor-button-disabled-opacity: 0.4;
+  /* primary 变体 */
+  --fsdx-editor-button-primary-bg: var(--fsdx-editor-brand-500);
+  --fsdx-editor-button-primary-text: var(--fsdx-editor-white);
+  --fsdx-editor-button-primary-icon: var(--fsdx-editor-white);
+  --fsdx-editor-button-primary-hover-bg: color-mix(in srgb, var(--fsdx-editor-brand-500), #000 15%);
+  --fsdx-editor-button-primary-active-bg: var(--fsdx-editor-brand-100);
+  --fsdx-editor-button-primary-active-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-primary-active-icon: var(--fsdx-editor-brand-500);
+  /* ghost 变体 */
+  --fsdx-editor-button-ghost-bg: transparent;
+  --fsdx-editor-button-ghost-hover-bg: var(--fsdx-editor-gray-200);
+
+  /* @group 标签 */
+  --fsdx-editor-badge-bg: var(--fsdx-editor-white);
+  --fsdx-editor-badge-text: var(--fsdx-editor-text-tertiary);
+  --fsdx-editor-badge-border: var(--fsdx-editor-border-default);
+  --fsdx-editor-badge-icon: var(--fsdx-editor-text-tertiary);
+  --fsdx-editor-badge-emphasized-border: var(--fsdx-editor-gray-500);
+  --fsdx-editor-badge-emphasized-text: var(--fsdx-editor-gray-700);
+  --fsdx-editor-badge-emphasized-icon: var(--fsdx-editor-brand-500);
+  --fsdx-editor-badge-subdued-text: var(--fsdx-editor-text-muted);
+  --fsdx-editor-badge-subdued-icon: var(--fsdx-editor-text-muted);
+  --fsdx-editor-badge-gray-bg: var(--fsdx-editor-gray-100);
+  --fsdx-editor-badge-gray-emphasized-bg: var(--fsdx-editor-gray-700);
+  --fsdx-editor-badge-gray-emphasized-text: var(--fsdx-editor-white);
+  --fsdx-editor-badge-green-bg: #dcfce7;
+  --fsdx-editor-badge-green-border: #86efac;
+  --fsdx-editor-badge-green-text: #166534;
+  --fsdx-editor-badge-green-icon: #166534;
+  --fsdx-editor-badge-green-emphasized-bg: #16a34a;
+  --fsdx-editor-badge-yellow-bg: #fef9c3;
+  --fsdx-editor-badge-yellow-border: #fde047;
+  --fsdx-editor-badge-yellow-text: #854d0e;
+  --fsdx-editor-badge-yellow-icon: #854d0e;
+  --fsdx-editor-badge-red-bg: #ffe4e6;
+  --fsdx-editor-badge-red-border: #fecaca;
+  --fsdx-editor-badge-red-text: #991b1b;
+  --fsdx-editor-badge-red-icon: #991b1b;
+  --fsdx-editor-badge-brand-bg: var(--fsdx-editor-brand-100);
+  --fsdx-editor-badge-brand-border: var(--fsdx-editor-brand-200);
+  --fsdx-editor-badge-brand-text: var(--fsdx-editor-brand-500);
+  --fsdx-editor-badge-brand-icon: var(--fsdx-editor-brand-500);
+  --fsdx-editor-badge-brand-emphasized-text: #fff;
+
+  /* @group 工具栏 */
+  --fsdx-editor-toolbar-bg: var(--fsdx-editor-white);
+  --fsdx-editor-toolbar-border: var(--fsdx-editor-gray-100);
+
+  /* @group 卡片 */
+  --fsdx-editor-card-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-card-border: var(--fsdx-editor-gray-100);
+
+  /* @group 输入框 */
+  --fsdx-editor-input-border: var(--fsdx-editor-border-default);
+  --fsdx-editor-input-placeholder: var(--fsdx-editor-text-muted);
+
+  /* @group 提示框 */
+  --fsdx-editor-tooltip-bg: var(--fsdx-editor-gray-900);
+  --fsdx-editor-tooltip-text: var(--fsdx-editor-white);
+  --fsdx-editor-tooltip-kbd: var(--fsdx-editor-text-muted);
+
+  /* @group 弹窗 */
+  --fsdx-editor-popover-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-popover-border: var(--fsdx-editor-gray-100);
+  --fsdx-editor-popover-text: var(--fsdx-editor-text-muted);
+
+  /* @group 下拉菜单 */
+  --fsdx-editor-dropdown-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-dropdown-text: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-dropdown-label: var(--fsdx-editor-gray-800);
+
+  /* @group 高亮按钮 */
+  --fsdx-editor-highlight-border-filter: brightness(95%);
+  --fsdx-editor-highlight-border-blend: multiply;
+  --fsdx-editor-highlight-active-filter: brightness(80%);
+}
+
+/* ======== 暗色模式 ======== */
+:root.fsdx-editor-dark {
+  /* 按钮 */
+  --fsdx-editor-button-bg: var(--fsdx-editor-surface-raised);
+  --fsdx-editor-button-text: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-button-icon: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-button-hover-bg: color-mix(in srgb, var(--fsdx-editor-surface-raised), #fff 10%);
+  --fsdx-editor-button-hover-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-hover-icon: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-active-bg: var(--fsdx-editor-gray-200);
+  --fsdx-editor-button-active-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-active-icon: var(--fsdx-editor-brand-500);
+  --fsdx-editor-button-primary-active-bg: #3a1a8a;
+  --fsdx-editor-button-primary-active-text: var(--fsdx-editor-text-primary);
+  --fsdx-editor-button-primary-active-icon: var(--fsdx-editor-brand-500);
+  --fsdx-editor-button-ghost-hover-bg: var(--fsdx-editor-gray-200);
+
+  /* 标签 */
+  --fsdx-editor-badge-bg: var(--fsdx-editor-black);
+  --fsdx-editor-badge-text: var(--fsdx-editor-text-tertiary);
+  --fsdx-editor-badge-border: var(--fsdx-editor-border-default);
+  --fsdx-editor-badge-emphasized-text: var(--fsdx-editor-gray-700);
+  --fsdx-editor-badge-green-bg: #052e16;
+  --fsdx-editor-badge-green-text: #86efac;
+  --fsdx-editor-badge-green-icon: #86efac;
+  --fsdx-editor-badge-yellow-bg: #422006;
+  --fsdx-editor-badge-yellow-text: #fde047;
+  --fsdx-editor-badge-yellow-icon: #fde047;
+  --fsdx-editor-badge-red-bg: #450a0a;
+  --fsdx-editor-badge-red-text: #fecaca;
+  --fsdx-editor-badge-red-icon: #fecaca;
+  --fsdx-editor-badge-brand-bg: #1e0b4d;
+  --fsdx-editor-badge-brand-text: var(--fsdx-editor-brand-500);
+  --fsdx-editor-badge-brand-icon: var(--fsdx-editor-brand-500);
+
+  /* 工具栏 */
+  --fsdx-editor-toolbar-bg: var(--fsdx-editor-black);
+  --fsdx-editor-toolbar-border: var(--fsdx-editor-gray-200);
+
+  /* 卡片 */
+  --fsdx-editor-card-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-card-border: var(--fsdx-editor-gray-200);
+
+  /* 输入框 */
+  --fsdx-editor-input-border: var(--fsdx-editor-gray-200);
+  --fsdx-editor-input-placeholder: var(--fsdx-editor-text-muted);
+
+  /* 提示框 */
+  --fsdx-editor-tooltip-bg: var(--fsdx-editor-white);
+  --fsdx-editor-tooltip-text: var(--fsdx-editor-gray-700);
+
+  /* 弹窗 */
+  --fsdx-editor-popover-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-popover-border: var(--fsdx-editor-gray-200);
+  --fsdx-editor-popover-text: var(--fsdx-editor-text-muted);
+
+  /* 下拉菜单 */
+  --fsdx-editor-dropdown-bg: var(--fsdx-editor-surface-overlay);
+  --fsdx-editor-dropdown-text: var(--fsdx-editor-text-secondary);
+  --fsdx-editor-dropdown-label: var(--fsdx-editor-gray-800);
+
+  /* 高亮按钮 */
+  --fsdx-editor-highlight-border-filter: brightness(140%);
+  --fsdx-editor-highlight-border-blend: lighten;
+  --fsdx-editor-highlight-active-filter: brightness(180%);
+}

@@ -19,15 +19,15 @@
 
   &:focus-visible,
   &[data-highlighted="true"] {
-    border-color: var(--fsdx-editor-brand-color);
-    outline: 1px solid var(--fsdx-editor-brand-color);
+    border-color: var(--fsdx-editor-brand-500);
+    outline: 1px solid var(--fsdx-editor-brand-500);
     outline-offset: 0;
     z-index: 1;
   }
 
   &[data-active="true"] {
-    border-color: var(--fsdx-editor-brand-color);
-    box-shadow: 0 0 0 1px var(--fsdx-editor-brand-color);
+    border-color: var(--fsdx-editor-brand-500);
+    box-shadow: 0 0 0 1px var(--fsdx-editor-brand-500);
   }
 }
 
@@ -50,7 +50,7 @@
   &:hover { background: var(--fsdx-editor-color-highlight-gray-contrast); }
 
   &:focus-visible {
-    outline: 2px solid var(--fsdx-editor-brand-color);
+    outline: 2px solid var(--fsdx-editor-brand-500);
     outline-offset: -1px;
   }
 }

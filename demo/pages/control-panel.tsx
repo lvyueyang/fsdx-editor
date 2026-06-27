@@ -168,8 +168,8 @@ export function ControlPanel() {
             style={
               theme === t
                 ? {
-                    border: '1px solid var(--fsdx-editor-brand-color-500)',
-                    background: 'var(--fsdx-editor-brand-color-500)',
+                    border: '1px solid var(--fsdx-editor-brand-500)',
+                    background: 'var(--fsdx-editor-brand-500)',
                     color: '#fff',
                   }
                 : {}

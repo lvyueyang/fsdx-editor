@@ -3,7 +3,7 @@
 
   &.ProseMirror-selectednode {
     .fsdx-editor-audio-card {
-      outline: 2px solid var(--fsdx-editor-brand-color-500);
+      outline: 2px solid var(--fsdx-editor-brand-500);
       outline-offset: 2px;
     }
   }
@@ -14,8 +14,8 @@
   align-items: center;
   gap: var(--fsdx-editor-space-3);
   padding: var(--fsdx-editor-space-3);
-  background: var(--fsdx-editor-gray-50);
-  border: 1px solid var(--fsdx-editor-gray-200);
+  background: var(--fsdx-editor-surface-secondary);
+  border: 1px solid var(--fsdx-editor-border-default);
   border-radius: var(--fsdx-editor-radius-sm);
 }
 
@@ -25,8 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--fsdx-editor-brand-color-100);
-  color: var(--fsdx-editor-brand-color-500);
+  background: var(--fsdx-editor-brand-100);
+  color: var(--fsdx-editor-brand-500);
   border-radius: var(--fsdx-editor-radius-md);
   flex-shrink: 0;
 }
@@ -41,7 +41,7 @@
 
 .fsdx-editor-audio-name {
   font-size: var(--fsdx-editor-font-base);
-  color: var(--fsdx-editor-gray-800);
+  color: var(--fsdx-editor-text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -56,23 +56,8 @@
   width: 100%;
   padding: 48px var(--fsdx-editor-space-4);
   text-align: center;
-  color: var(--fsdx-editor-gray-400);
-  border: 2px dashed var(--fsdx-editor-gray-300);
+  color: var(--fsdx-editor-text-muted);
+  border: 2px dashed var(--fsdx-editor-border-hover);
   border-radius: var(--fsdx-editor-radius-sm);
   font-size: var(--fsdx-editor-font-md);
-}
-
-.fsdx-editor-dark {
-  .fsdx-editor-audio-card {
-    background: var(--fsdx-editor-gray-800);
-    border-color: var(--fsdx-editor-gray-700);
-  }
-
-  .fsdx-editor-audio-icon {
-    background: var(--fsdx-editor-color-media-overlay);
-  }
-
-  .fsdx-editor-audio-name {
-    color: var(--fsdx-editor-gray-200);
-  }
 }

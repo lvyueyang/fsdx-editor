@@ -3,7 +3,7 @@
 
 .fsdx-editor-wrapper .tiptap.ProseMirror {
   font-family: "DM Sans", sans-serif;
-  color: var(--fsdx-editor-text);
+  color: var(--fsdx-editor-text-primary);
 }
 
 .fsdx-editor-wrapper {
@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--fsdx-editor-bg);
+  background-color: var(--fsdx-editor-content-bg);
 
   &,
   *,
@@ -32,11 +32,11 @@
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--fsdx-editor-scrollbar) transparent;
+    scrollbar-color: var(--fsdx-editor-content-scrollbar) transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--fsdx-editor-scrollbar);
+    background-color: var(--fsdx-editor-content-scrollbar);
     border-radius: var(--fsdx-editor-radius-full);
   }
 

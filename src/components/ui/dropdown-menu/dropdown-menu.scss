@@ -73,7 +73,7 @@
 .fsdx-editor-dropdown-menu-label {
   padding: var(--fsdx-editor-space-3) var(--fsdx-editor-space-2) var(--fsdx-editor-space-1);
   font-size: var(--fsdx-editor-font-sm);
-  font-weight: var(--fsdx-editor-font-semibold);
+  font-weight: var(--fsdx-editor-font-weight-semibold);
   line-height: normal;
   text-transform: capitalize;
   color: var(--fsdx-editor-dropdown-label);
@@ -113,7 +113,7 @@
   }
 
   &[data-highlighted] {
-    background-color: var(--fsdx-editor-gray-light-a-100);
+    background-color: var(--fsdx-editor-surface-hover);
     outline: none;
   }
 
@@ -126,7 +126,7 @@
     color: var(--fsdx-editor-destructive);
 
     &[data-highlighted] {
-      color: var(--fsdx-editor-color-on-destructive);
+      color: var(--fsdx-editor-white);
       background-color: var(--fsdx-editor-destructive);
     }
   }
@@ -135,7 +135,7 @@
 .fsdx-editor-dropdown-menu-separator {
   height: 1px;
   margin: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
-  background-color: var(--fsdx-editor-border);
+  background-color: var(--fsdx-editor-border-default);
 }
 
 .fsdx-editor-dropdown-menu-shortcut {
@@ -177,7 +177,7 @@
 
   &[data-highlighted],
   &[data-state="open"] {
-    background-color: var(--fsdx-editor-gray-light-a-100);
+    background-color: var(--fsdx-editor-surface-hover);
   }
 
   .fsdx-editor-dropdown-menu-sub-trigger-chevron {

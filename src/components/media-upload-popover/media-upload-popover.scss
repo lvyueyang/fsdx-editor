@@ -8,7 +8,7 @@
 
 .fsdx-editor-media-upload-tabs {
   display: flex;
-  border-bottom: 1px solid var(--fsdx-editor-gray-200);
+  border-bottom: 1px solid var(--fsdx-editor-border-default);
   flex-shrink: 0;
 }
 
@@ -16,7 +16,7 @@
   flex: 1;
   padding: var(--fsdx-editor-space-2) var(--fsdx-editor-space-3);
   font-size: var(--fsdx-editor-font-base);
-  color: var(--fsdx-editor-gray-600);
+  color: var(--fsdx-editor-text-secondary);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
@@ -24,12 +24,12 @@
   transition: color var(--fsdx-editor-duration) var(--fsdx-editor-ease);
 
   &:hover {
-    color: var(--fsdx-editor-gray-900);
+    color: var(--fsdx-editor-text-primary);
   }
 
   &--active {
-    color: var(--fsdx-editor-brand-color-500);
-    border-bottom-color: var(--fsdx-editor-brand-color-500);
+    color: var(--fsdx-editor-brand-500);
+    border-bottom-color: var(--fsdx-editor-brand-500);
   }
 }
 
@@ -73,7 +73,7 @@
   align-items: center;
   gap: var(--fsdx-editor-space-2);
   padding: var(--fsdx-editor-space-1_5) var(--fsdx-editor-space-2_5);
-  background: var(--fsdx-editor-gray-50);
+  background: var(--fsdx-editor-surface-secondary);
   border-radius: var(--fsdx-editor-radius-md);
   font-size: var(--fsdx-editor-font-sm);
 }
@@ -83,18 +83,18 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--fsdx-editor-gray-800);
+  color: var(--fsdx-editor-text-secondary);
 }
 
 .fsdx-editor-media-upload-file-size {
-  color: var(--fsdx-editor-gray-500);
+  color: var(--fsdx-editor-text-tertiary);
   flex-shrink: 0;
 }
 
 .fsdx-editor-media-upload-progress {
   width: 60px;
   height: var(--fsdx-editor-space-1);
-  background: var(--fsdx-editor-gray-200);
+  background: var(--fsdx-editor-border-default);
   border-radius: var(--fsdx-editor-radius-xs);
   overflow: hidden;
   flex-shrink: 0;
@@ -102,25 +102,25 @@
 
 .fsdx-editor-media-upload-progress-bar {
   height: 100%;
-  background: var(--fsdx-editor-brand-color-500);
+  background: var(--fsdx-editor-brand-500);
   border-radius: var(--fsdx-editor-radius-xs);
   transition: width 0.3s ease;
 }
 
 .fsdx-editor-media-upload-success {
-  color: var(--fsdx-editor-green-500);
+  color: var(--fsdx-editor-green);
   flex-shrink: 0;
 }
 
 .fsdx-editor-media-upload-error {
-  color: var(--fsdx-editor-red-500);
+  color: var(--fsdx-editor-red);
   flex-shrink: 0;
 }
 
 .fsdx-editor-media-upload-placeholder {
   padding: var(--fsdx-editor-space-8) var(--fsdx-editor-space-4);
   text-align: center;
-  color: var(--fsdx-editor-gray-500);
+  color: var(--fsdx-editor-text-tertiary);
   font-size: var(--fsdx-editor-font-base);
 }
 
@@ -138,15 +138,15 @@
   width: 100%;
   padding: var(--fsdx-editor-space-1_5) var(--fsdx-editor-space-2_5);
   font-size: var(--fsdx-editor-font-base);
-  border: 1px solid var(--fsdx-editor-gray-300);
+  border: 1px solid var(--fsdx-editor-border-hover);
   border-radius: var(--fsdx-editor-radius-md);
   outline: none;
-  background: var(--fsdx-editor-gray-50);
-  color: var(--fsdx-editor-gray-900);
+  background: var(--fsdx-editor-surface-secondary);
+  color: var(--fsdx-editor-text-primary);
 
   &:focus {
-    border-color: var(--fsdx-editor-brand-color-400);
-    box-shadow: 0 0 0 2px var(--fsdx-editor-brand-color-100);
+    border-color: var(--fsdx-editor-brand-400);
+    box-shadow: 0 0 0 2px var(--fsdx-editor-brand-100);
   }
 }
 
@@ -154,7 +154,7 @@
 .fsdx-editor-media-library-empty {
   padding: var(--fsdx-editor-space-6) 0;
   text-align: center;
-  color: var(--fsdx-editor-gray-500);
+  color: var(--fsdx-editor-text-tertiary);
   font-size: var(--fsdx-editor-font-base);
 }
 
@@ -178,14 +178,14 @@
   align-items: center;
   gap: var(--fsdx-editor-space-1);
   padding: var(--fsdx-editor-space-2);
-  border: 1px solid var(--fsdx-editor-gray-200);
+  border: 1px solid var(--fsdx-editor-border-default);
   border-radius: var(--fsdx-editor-radius-md);
   background: none;
   cursor: pointer;
   transition: border-color var(--fsdx-editor-duration) var(--fsdx-editor-ease);
 
   &:hover {
-    border-color: var(--fsdx-editor-brand-color-400);
+    border-color: var(--fsdx-editor-brand-400);
   }
 
   .fsdx-editor-media-library-list--list & {
@@ -207,12 +207,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--fsdx-editor-gray-400);
+  color: var(--fsdx-editor-text-muted);
 }
 
 .fsdx-editor-media-library-item-name {
   font-size: var(--fsdx-editor-font-sm);
-  color: var(--fsdx-editor-gray-800);
+  color: var(--fsdx-editor-text-secondary);
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -227,7 +227,7 @@
 
 .fsdx-editor-media-library-item-size {
   font-size: var(--fsdx-editor-font-xs);
-  color: var(--fsdx-editor-gray-500);
+  color: var(--fsdx-editor-text-tertiary);
   flex-shrink: 0;
 
   .fsdx-editor-media-library-list--list & {
@@ -247,14 +247,14 @@
 .fsdx-editor-media-library-page-btn {
   padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2_5);
   font-size: var(--fsdx-editor-font-sm);
-  border: 1px solid var(--fsdx-editor-gray-300);
+  border: 1px solid var(--fsdx-editor-border-hover);
   border-radius: var(--fsdx-editor-radius-md);
-  background: var(--fsdx-editor-gray-50);
+  background: var(--fsdx-editor-surface-secondary);
   color: var(--fsdx-editor-gray-700);
   cursor: pointer;
 
   &:hover:not(:disabled) {
-    background: var(--fsdx-editor-gray-100);
+    background: var(--fsdx-editor-surface-raised);
   }
 
   &:disabled {
@@ -265,7 +265,7 @@
 
 .fsdx-editor-media-library-page-info {
   font-size: var(--fsdx-editor-font-sm);
-  color: var(--fsdx-editor-gray-600);
+  color: var(--fsdx-editor-text-secondary);
 }
 
 .fsdx-editor-media-url-tab {
@@ -291,25 +291,25 @@
   width: 100%;
   padding: var(--fsdx-editor-space-2) var(--fsdx-editor-space-2_5);
   font-size: var(--fsdx-editor-font-base);
-  border: 1px solid var(--fsdx-editor-gray-300);
+  border: 1px solid var(--fsdx-editor-border-hover);
   border-radius: var(--fsdx-editor-radius-md);
   outline: none;
-  color: var(--fsdx-editor-gray-900);
-  background: var(--fsdx-editor-gray-50);
+  color: var(--fsdx-editor-text-primary);
+  background: var(--fsdx-editor-surface-secondary);
 
   &:focus {
-    border-color: var(--fsdx-editor-brand-color-400);
-    box-shadow: 0 0 0 2px var(--fsdx-editor-brand-color-100);
+    border-color: var(--fsdx-editor-brand-400);
+    box-shadow: 0 0 0 2px var(--fsdx-editor-brand-100);
   }
 
   &[data-invalid='true'] {
-    border-color: var(--fsdx-editor-red-500);
+    border-color: var(--fsdx-editor-red);
   }
 }
 
 .fsdx-editor-media-url-error {
   font-size: var(--fsdx-editor-font-sm);
-  color: var(--fsdx-editor-red-500);
+  color: var(--fsdx-editor-red);
 }
 
 .fsdx-editor-media-url-preview {
@@ -339,76 +339,13 @@
   padding: var(--fsdx-editor-space-2) var(--fsdx-editor-space-4);
   font-size: var(--fsdx-editor-font-base);
   color: var(--fsdx-editor-white);
-  background: var(--fsdx-editor-brand-color-500);
+  background: var(--fsdx-editor-brand-500);
   border: none;
   border-radius: var(--fsdx-editor-radius-md);
   cursor: pointer;
   align-self: flex-end;
 
   &:hover {
-    background: var(--fsdx-editor-brand-color-600);
-  }
-}
-
-.fsdx-editor-dark {
-  .fsdx-editor-media-upload-tabs {
-    border-bottom-color: var(--fsdx-editor-gray-700);
-  }
-
-  .fsdx-editor-media-upload-tab {
-    color: var(--fsdx-editor-gray-400);
-
-    &:hover { color: var(--fsdx-editor-gray-200); }
-
-    &--active {
-      color: var(--fsdx-editor-brand-color-400);
-      border-bottom-color: var(--fsdx-editor-brand-color-400);
-    }
-  }
-
-  .fsdx-editor-image-upload-drag-area {
-    border-color: var(--fsdx-editor-gray-600);
-    color: var(--fsdx-editor-gray-400);
-
-    &:hover {
-      border-color: var(--fsdx-editor-brand-color-400);
-      color: var(--fsdx-editor-brand-color-400);
-    }
-
-    &.drag-active,
-    &.drag-over {
-      border-color: var(--fsdx-editor-brand-color-400);
-      background-color: rgba(99, 102, 241, 0.1);
-    }
-  }
-
-  .fsdx-editor-media-upload-preview-item {
-    background: var(--fsdx-editor-gray-800);
-  }
-
-  .fsdx-editor-media-library-item {
-    border-color: var(--fsdx-editor-gray-700);
-
-    &:hover { border-color: var(--fsdx-editor-brand-color-400); }
-  }
-
-  .fsdx-editor-media-library-search-input {
-    background: var(--fsdx-editor-gray-800);
-    border-color: var(--fsdx-editor-gray-600);
-    color: var(--fsdx-editor-gray-200);
-  }
-
-  .fsdx-editor-media-library-page-btn {
-    border-color: var(--fsdx-editor-gray-600);
-    background: var(--fsdx-editor-gray-800);
-    color: var(--fsdx-editor-gray-300);
-
-    &:hover:not(:disabled) { background: var(--fsdx-editor-gray-700); }
-  }
-
-  .fsdx-editor-media-url-input {
-    background: var(--fsdx-editor-gray-800);
-    border-color: var(--fsdx-editor-gray-600);
-    color: var(--fsdx-editor-gray-200);
+    background: var(--fsdx-editor-brand-600);
   }
 }

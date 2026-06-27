@@ -1,6 +1,8 @@
 /**************************************************
- 向后兼容入口 — 转发至 theme-default
- 所有 CSS 自定义属性现在统一在 theme-default.scss 中定义
+ FSDX Editor 设计令牌入口
+ 按层级顺序加载：原始值 → 语义 → 组件令牌
  **************************************************/
 
-@forward 'theme-default';
+@forward 'tokens/primitives';
+@forward 'tokens/semantic';
+@forward 'tokens/components';

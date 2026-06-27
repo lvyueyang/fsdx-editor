@@ -23,7 +23,7 @@
   .table-grid-cell {
     width: 20px;
     height: 20px;
-    border: 1px solid var(--fsdx-editor-border);
+    border: 1px solid var(--fsdx-editor-border-default);
     border-radius: var(--fsdx-editor-radius-xs);
     background: transparent;
     cursor: pointer;
@@ -32,8 +32,8 @@
 
     &:hover,
     &--active {
-      background-color: var(--fsdx-editor-brand-color-500);
-      border-color: var(--fsdx-editor-brand-color-500);
+      background-color: var(--fsdx-editor-brand-500);
+      border-color: var(--fsdx-editor-brand-500);
     }
   }
 }

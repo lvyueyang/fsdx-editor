@@ -45,14 +45,14 @@
   outline: none;
 
   &:focus {
-    border-color: var(--fsdx-editor-brand-color-400);
+    border-color: var(--fsdx-editor-brand-400);
   }
 }
 
 .fsdx-editor-attribute-unit-btn {
   padding: var(--fsdx-editor-space-0_5) 5px;
   font-size: var(--fsdx-editor-font-xs);
-  font-weight: var(--fsdx-editor-font-medium);
+  font-weight: var(--fsdx-editor-font-weight-medium);
   color: var(--fsdx-editor-gray-400);
   background: var(--fsdx-editor-gray-800);
   border: 1px solid var(--fsdx-editor-gray-600);
@@ -89,7 +89,7 @@
     width: 12px;
     height: 12px;
     border-radius: var(--fsdx-editor-radius-full);
-    background: var(--fsdx-editor-brand-color-500);
+    background: var(--fsdx-editor-brand-500);
     cursor: pointer;
   }
 }
@@ -117,7 +117,7 @@
   }
 
   &--active {
-    background: var(--fsdx-editor-brand-color-500);
+    background: var(--fsdx-editor-brand-500);
     color: var(--fsdx-editor-white);
   }
 }
@@ -133,7 +133,7 @@
   outline: none;
 
   &:focus {
-    border-color: var(--fsdx-editor-brand-color-400);
+    border-color: var(--fsdx-editor-brand-400);
   }
 }
 
@@ -151,7 +151,7 @@
   cursor: pointer;
 
   input[type='checkbox'] {
-    accent-color: var(--fsdx-editor-brand-color-500);
+    accent-color: var(--fsdx-editor-brand-500);
   }
 }
 

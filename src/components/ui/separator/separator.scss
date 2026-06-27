@@ -1,6 +1,6 @@
 .fsdx-editor-separator {
   flex-shrink: 0;
-  background-color: var(--fsdx-editor-border);
+  background-color: var(--fsdx-editor-border-default);
 
   &[data-orientation="horizontal"] {
     height: 1px;

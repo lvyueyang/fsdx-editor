@@ -14,12 +14,8 @@
 .table-selection-menu .fsdx-editor-dropdown-menu-label {
   padding: var(--fsdx-editor-space-1_5) var(--fsdx-editor-space-2) var(--fsdx-editor-space-2);
   font-size: var(--fsdx-editor-font-sm);
-  font-weight: var(--fsdx-editor-font-semibold);
-  color: var(--fsdx-editor-gray-light-a-500);
-}
-
-.fsdx-editor-dark .table-selection-menu .fsdx-editor-dropdown-menu-label {
-  color: var(--fsdx-editor-gray-dark-a-500);
+  font-weight: var(--fsdx-editor-font-weight-semibold);
+  color: var(--fsdx-editor-text-tertiary);
 }
 
 .table-selection-menu .fsdx-editor-dropdown-menu-item {
@@ -38,19 +34,12 @@
 
   &[data-highlighted],
   &[data-state='open'] {
-    background-color: var(--fsdx-editor-gray-light-a-100);
+    background-color: var(--fsdx-editor-surface-hover);
   }
 
   .fsdx-editor-dropdown-menu-sub-trigger-chevron {
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.5;
-  }
-}
-
-.fsdx-editor-dark .table-selection-menu .fsdx-editor-dropdown-menu-sub-trigger {
-  &[data-highlighted],
-  &[data-state='open'] {
-    background-color: var(--fsdx-editor-gray-dark-a-100);
   }
 }

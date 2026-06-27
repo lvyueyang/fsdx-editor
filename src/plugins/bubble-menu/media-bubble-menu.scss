@@ -15,21 +15,21 @@
 
 .fsdx-editor-media-bubble-menu-input {
   font-size: var(--fsdx-editor-font-base);
-  border: 1px solid var(--fsdx-editor-gray-light-a-100);
+  border: 1px solid var(--fsdx-editor-surface-hover);
   border-radius: var(--fsdx-editor-radius-sm);
   padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
   min-width: 5rem;
   width: 6rem;
-  color: var(--fsdx-editor-gray-900);
-  background: var(--fsdx-editor-white);
+  color: var(--fsdx-editor-text-primary);
+  background: var(--fsdx-editor-surface);
   outline: none;
 
   &::placeholder {
-    color: var(--fsdx-editor-gray-500);
+    color: var(--fsdx-editor-text-tertiary);
   }
 
   &:focus {
-    border-color: var(--fsdx-editor-brand-color-400);
+    border-color: var(--fsdx-editor-brand-500);
   }
 
   &--src {
@@ -39,13 +39,13 @@
 
 .fsdx-editor-media-bubble-menu-width-label {
   font-size: var(--fsdx-editor-font-sm);
-  color: var(--fsdx-editor-gray-500);
+  color: var(--fsdx-editor-text-tertiary);
   padding: 0 var(--fsdx-editor-space-1);
   white-space: nowrap;
 }
 
 .fsdx-editor-media-bubble-menu-btn--active {
-  background-color: var(--fsdx-editor-brand-color-500);
+  background-color: var(--fsdx-editor-brand-500);
   color: var(--fsdx-editor-white);
 }
 
@@ -58,26 +58,5 @@
   &:hover {
     background-color: rgba(239, 68, 68, 0.1);
     color: var(--fsdx-editor-destructive);
-  }
-}
-
-.fsdx-editor-dark .fsdx-editor-media-bubble-menu {
-  .fsdx-editor-media-bubble-menu-input {
-    border-color: var(--fsdx-editor-gray-dark-a-50);
-    color: var(--fsdx-editor-gray-200);
-    background: var(--fsdx-editor-gray-800);
-
-    &::placeholder {
-      color: var(--fsdx-editor-gray-500);
-    }
-  }
-
-  .fsdx-editor-media-bubble-menu-btn--active {
-    background-color: var(--fsdx-editor-brand-color-400);
-    color: var(--fsdx-editor-white);
-  }
-
-  .fsdx-editor-media-bubble-menu-width-label {
-    color: var(--fsdx-editor-gray-400);
   }
 }

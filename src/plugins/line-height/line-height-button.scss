@@ -15,7 +15,7 @@
   background: transparent;
   font-size: var(--fsdx-editor-font-md);
   outline: none;
-  color: var(--fsdx-editor-text);
+  color: var(--fsdx-editor-text-primary);
   transition: border-color 150ms;
 
   &::placeholder {
@@ -35,34 +35,20 @@
   border: none;
   background: transparent;
   font-size: var(--fsdx-editor-font-md);
-  color: var(--fsdx-editor-text);
+  color: var(--fsdx-editor-text-primary);
   cursor: pointer;
   border-radius: var(--fsdx-editor-radius-sm);
   transition: background-color 100ms;
 
   &:hover {
-    background-color: var(--fsdx-editor-gray-light-a-100);
-  }
-
-  .fsdx-editor-dark & {
-    &:hover {
-      background-color: var(--fsdx-editor-gray-dark-a-100);
-    }
+    background-color: var(--fsdx-editor-surface-hover);
   }
 
   &--active {
-    background-color: var(--fsdx-editor-gray-light-a-200);
-
-    .fsdx-editor-dark & {
-      background-color: var(--fsdx-editor-gray-dark-a-200);
-    }
+    background-color: var(--fsdx-editor-surface-active);
 
     &:hover {
-      background-color: var(--fsdx-editor-gray-light-a-200);
-
-      .fsdx-editor-dark & {
-        background-color: var(--fsdx-editor-gray-dark-a-200);
-      }
+      background-color: var(--fsdx-editor-surface-active);
     }
   }
 }

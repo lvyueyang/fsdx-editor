@@ -16,7 +16,7 @@
   }
 
   img:not([data-type="emoji"] img).ProseMirror-selectednode {
-    outline-color: var(--fsdx-editor-brand-color-500);
+    outline-color: var(--fsdx-editor-brand-500);
   }
 
   .fsdx-editor-thread:has(> img) {

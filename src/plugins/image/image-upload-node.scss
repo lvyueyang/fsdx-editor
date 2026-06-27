@@ -51,7 +51,7 @@
 
   .fsdx-editor-image-upload-text {
     color: var(--fsdx-editor-media-text);
-    font-weight: var(--fsdx-editor-font-medium);
+    font-weight: var(--fsdx-editor-font-weight-medium);
     font-size: var(--fsdx-editor-font-md);
     line-height: normal;
 
@@ -63,7 +63,7 @@
 
   .fsdx-editor-image-upload-subtext {
     color: var(--fsdx-editor-media-muted);
-    font-weight: var(--fsdx-editor-font-semibold);
+    font-weight: var(--fsdx-editor-font-weight-semibold);
     line-height: normal;
     font-size: var(--fsdx-editor-font-sm);
   }
@@ -126,7 +126,7 @@
 
     span {
       font-size: var(--fsdx-editor-font-md);
-      font-weight: var(--fsdx-editor-font-medium);
+      font-weight: var(--fsdx-editor-font-weight-medium);
       color: var(--fsdx-editor-media-text);
     }
   }
@@ -185,7 +185,7 @@
       .fsdx-editor-image-upload-progress-text {
         font-size: var(--fsdx-editor-font-sm);
         color: var(--fsdx-editor-media-active);
-        font-weight: var(--fsdx-editor-font-semibold);
+        font-weight: var(--fsdx-editor-font-weight-semibold);
       }
     }
   }

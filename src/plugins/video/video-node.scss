@@ -8,7 +8,7 @@
   &--align-right { justify-content: flex-end; }
 
   &.ProseMirror-selectednode {
-    outline: 2px solid var(--fsdx-editor-brand-color-500);
+    outline: 2px solid var(--fsdx-editor-brand-500);
     outline-offset: 2px;
     border-radius: var(--fsdx-editor-radius-md);
   }

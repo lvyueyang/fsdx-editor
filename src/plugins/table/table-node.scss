@@ -17,8 +17,8 @@
     td,
     th {
       min-width: 1em;
-      border: 1px solid var(--fsdx-editor-border);
-      padding: var(--fsdx-editor-table-cell-padding);
+      border: 1px solid var(--fsdx-editor-border-default);
+      padding: var(--fsdx-editor-space-2) var(--fsdx-editor-space-3);
       vertical-align: top;
       position: relative;
 
@@ -28,8 +28,8 @@
     }
 
     th {
-      background-color: var(--fsdx-editor-table-header-bg);
-      font-weight: var(--fsdx-editor-font-semibold);
+      background-color: var(--fsdx-editor-content-table-header-bg);
+      font-weight: var(--fsdx-editor-font-weight-semibold);
       text-align: left;
     }
 
@@ -44,7 +44,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-color: var(--fsdx-editor-brand-color-200);
+        background-color: var(--fsdx-editor-brand-200);
         opacity: 0.18;
         pointer-events: none;
         border-radius: var(--fsdx-editor-radius-xs);
@@ -57,7 +57,7 @@
       bottom: 0;
       right: -2px;
       width: var(--fsdx-editor-space-1);
-      background-color: var(--fsdx-editor-brand-color-400);
+      background-color: var(--fsdx-editor-brand-400);
       cursor: col-resize;
       pointer-events: none;
     }
@@ -91,10 +91,10 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  border: 1px solid var(--fsdx-editor-gray-light-a-100);
+  border: 1px solid var(--fsdx-editor-surface-hover);
   border-radius: var(--fsdx-editor-radius-xs);
-  background: var(--fsdx-editor-gray-light-a-100);
-  color: var(--fsdx-editor-brand-color-400);
+  background: var(--fsdx-editor-surface-hover);
+  color: var(--fsdx-editor-brand-400);
   font-size: var(--fsdx-editor-font-sm);
   cursor: pointer;
   z-index: var(--fsdx-editor-z-dropdown);
@@ -102,9 +102,9 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: var(--fsdx-editor-brand-color-50);
-    color: var(--fsdx-editor-brand-color-400);
-    border-color: var(--fsdx-editor-brand-color-400);
+    background: var(--fsdx-editor-brand-50);
+    color: var(--fsdx-editor-brand-400);
+    border-color: var(--fsdx-editor-brand-400);
   }
 }
 
@@ -124,7 +124,7 @@
 }
 
 .table-selection-border {
-  border: 2px solid var(--fsdx-editor-brand-color-400);
+  border: 2px solid var(--fsdx-editor-brand-400);
   border-radius: var(--fsdx-editor-radius-xs);
   pointer-events: none;
   z-index: var(--fsdx-editor-z-overlay);
@@ -151,7 +151,7 @@
   width: var(--fsdx-editor-space-2);
   height: var(--fsdx-editor-space-2);
   border-radius: var(--fsdx-editor-radius-full);
-  background: var(--fsdx-editor-brand-color-400);
+  background: var(--fsdx-editor-brand-400);
   transition: width 0.15s ease, height 0.15s ease, border-radius 0.15s ease;
   overflow: hidden;
 }
@@ -161,7 +161,7 @@
   height: 0;
   opacity: 0;
   transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
-  color: var(--fsdx-editor-brand-color-500);
+  color: var(--fsdx-editor-brand-500);
 }
 
 .table-selection-handle:hover .table-selection-handle-dot,
@@ -169,7 +169,7 @@
   width: 16px;
   height: 16px;
   border-radius: var(--fsdx-editor-radius-sm);
-  background: var(--fsdx-editor-brand-color-100);
+  background: var(--fsdx-editor-brand-100);
 }
 
 .table-selection-handle:hover .table-selection-handle-icon,
