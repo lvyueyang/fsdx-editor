@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { EditorTheme } from '../../src/core/editor';
 import { DemoEditor } from '../components/demo-editor';
 import { initialContent } from '../initial-content';
+import { DemoThemeContext } from '../shared/demo-theme-context';
 
 function buildPreviewDoc(html: string): string {
   return `<!DOCTYPE html>
@@ -120,7 +121,7 @@ const themeLabels: Record<EditorTheme, string> = {
 
 export function ControlPanel() {
   const [html, setHtml] = useState(initialContent);
-  const [theme, setTheme] = useState<EditorTheme>('auto');
+  const { theme, setTheme } = useContext(DemoThemeContext);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const updatePreview = useCallback(() => {

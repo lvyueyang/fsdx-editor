@@ -1,9 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { DemoEditor } from '../components/demo-editor';
 import { initialContent } from '../initial-content';
+import { DemoThemeContext } from '../shared/demo-theme-context';
 
 export function BasicDemo() {
   const [html, setHtml] = useState(initialContent);
+  const { theme } = useContext(DemoThemeContext);
 
   const handleReset = useCallback(() => {
     setHtml(initialContent);
@@ -20,7 +22,7 @@ export function BasicDemo() {
         </span>
       </div>
       <div className="demo-editor-body">
-        <DemoEditor html={html} onChange={setHtml} />
+        <DemoEditor html={html} onChange={setHtml} theme={theme} />
       </div>
     </div>
   );

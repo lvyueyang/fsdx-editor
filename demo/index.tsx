@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Redirect, Route, Router, Switch } from 'wouter';
 import { useHashLocation } from 'wouter/use-hash-location';
+import type { EditorTheme } from '../src/core/editor';
 import { Header } from './components/header';
 import { Layout } from './components/layout';
 import { ApiReference } from './pages/api-reference';
 import { BasicDemo } from './pages/basic-demo';
 import { ControlPanel } from './pages/control-panel';
 import { Overview } from './pages/overview';
+import { DemoThemeContext } from './shared/demo-theme-context';
 
 type DemoTheme = 'light' | 'dark' | 'auto';
 
@@ -60,29 +62,36 @@ function useDemoTheme() {
 function App() {
   const [theme, setTheme] = useDemoTheme();
 
+  const contextValue = useMemo(
+    () => ({ theme: theme as EditorTheme, setTheme }),
+    [theme, setTheme],
+  );
+
   return (
-    <Router hook={useHashLocation}>
-      <Layout>
-        <Header theme={theme} onThemeChange={setTheme} />
-        <Switch>
-          <Route path="/">
-            <Overview />
-          </Route>
-          <Route path="/demo">
-            <BasicDemo />
-          </Route>
-          <Route path="/control-panel">
-            <ControlPanel />
-          </Route>
-          <Route path="/api">
-            <ApiReference />
-          </Route>
-          <Route>
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-      </Layout>
-    </Router>
+    <DemoThemeContext.Provider value={contextValue}>
+      <Router hook={useHashLocation}>
+        <Layout>
+          <Header theme={theme} onThemeChange={setTheme} />
+          <Switch>
+            <Route path="/">
+              <Overview />
+            </Route>
+            <Route path="/demo">
+              <BasicDemo />
+            </Route>
+            <Route path="/control-panel">
+              <ControlPanel />
+            </Route>
+            <Route path="/api">
+              <ApiReference />
+            </Route>
+            <Route>
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </Layout>
+      </Router>
+    </DemoThemeContext.Provider>
   );
 }
 
