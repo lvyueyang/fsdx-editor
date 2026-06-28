@@ -9,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
-import { Separator } from '../../components/ui/separator';
 import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
@@ -147,7 +146,11 @@ export function ColorHighlightPopoverContent({
               </Tooltip>
             ))}
           </div>
-          <Separator />
+          <div
+            className="fsdx-editor-separator"
+            data-orientation="vertical"
+            role="none"
+          />
           <Tooltip title="移除高亮">
             <Button
               onClick={handleRemoveHighlight}

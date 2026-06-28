@@ -24,11 +24,6 @@ const components: ComponentCard[] = [
   },
   { name: 'Input 输入框', href: '/ui-demo/input', desc: '透传原生 input 属性' },
   {
-    name: 'Separator 分隔线',
-    href: '/ui-demo/separator',
-    desc: '水平 / 垂直两种方向',
-  },
-  {
     name: 'Toolbar 工具栏',
     href: '/ui-demo/toolbar',
     desc: 'fixed / floating 变体，内置键盘导航',

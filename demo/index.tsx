@@ -17,7 +17,6 @@ import { UiDemoDropdownMenu } from './pages/ui-demo/dropdown-menu';
 import { UiDemoIndex } from './pages/ui-demo/index';
 import { UiDemoInput } from './pages/ui-demo/input';
 import { UiDemoPopover } from './pages/ui-demo/popover';
-import { UiDemoSeparator } from './pages/ui-demo/separator';
 import { UiDemoToolbar } from './pages/ui-demo/toolbar';
 import { UiDemoTooltip } from './pages/ui-demo/tooltip';
 import { DemoThemeContext } from './shared/demo-theme-context';
@@ -113,9 +112,6 @@ function App() {
             </Route>
             <Route path="/ui-demo/input">
               <UiDemoInput />
-            </Route>
-            <Route path="/ui-demo/separator">
-              <UiDemoSeparator />
             </Route>
             <Route path="/ui-demo/toolbar">
               <UiDemoToolbar />
