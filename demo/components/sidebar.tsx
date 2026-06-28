@@ -29,7 +29,6 @@ const navGroups: NavGroup[] = [
     items: [
       { label: '组件概览', href: '/ui-demo', icon: '□' },
       { label: 'Button', href: '/ui-demo/button', icon: '◇' },
-      { label: 'ButtonGroup', href: '/ui-demo/button-group', icon: '◇' },
       { label: 'Badge', href: '/ui-demo/badge', icon: '◇' },
       { label: 'Card', href: '/ui-demo/card', icon: '◇' },
       { label: 'Input', href: '/ui-demo/input', icon: '◇' },

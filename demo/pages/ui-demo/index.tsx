@@ -13,11 +13,6 @@ const components: ComponentCard[] = [
     desc: '支持 primary / ghost 变体和 small / default / large 尺寸',
   },
   {
-    name: 'ButtonGroup 按钮组',
-    href: '/ui-demo/button-group',
-    desc: '按钮组容器，支持水平/垂直排列，含标签和分隔线',
-  },
-  {
     name: 'Badge 徽标',
     href: '/ui-demo/badge',
     desc: '6 种变体 + 3 种外观 + 2 种尺寸',

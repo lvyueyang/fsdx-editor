@@ -12,7 +12,6 @@ import { Overview } from './pages/overview';
 import { ThemeConfig } from './pages/theme-config';
 import { UiDemoBadge } from './pages/ui-demo/badge';
 import { UiDemoButton } from './pages/ui-demo/button';
-import { UiDemoButtonGroup } from './pages/ui-demo/button-group';
 import { UiDemoCard } from './pages/ui-demo/card';
 import { UiDemoDropdownMenu } from './pages/ui-demo/dropdown-menu';
 import { UiDemoIndex } from './pages/ui-demo/index';
@@ -105,9 +104,6 @@ function App() {
             </Route>
             <Route path="/ui-demo/button">
               <UiDemoButton />
-            </Route>
-            <Route path="/ui-demo/button-group">
-              <UiDemoButtonGroup />
             </Route>
             <Route path="/ui-demo/badge">
               <UiDemoBadge />

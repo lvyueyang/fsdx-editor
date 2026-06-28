@@ -3,7 +3,6 @@ import { forwardRef, useMemo, useRef, useState } from 'react';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
-import { ButtonGroup } from '../../components/ui/button-group';
 import { Card, CardBody, CardItemGroup } from '../../components/ui/card';
 import {
   Popover,
@@ -132,40 +131,36 @@ export function ColorHighlightPopoverContent({
     >
       <CardBody style={isMobile ? { padding: 0 } : {}}>
         <CardItemGroup orientation="horizontal">
-          <ButtonGroup>
+          <div style={{ display: 'flex' }}>
             {colors.map((color, index) => (
-              <ButtonGroup key={color.value}>
-                <Tooltip title={color.label}>
-                  <ColorHighlightButton
-                    editor={editor}
-                    highlightColor={
-                      useColorValue ? color.colorValue : color.value
-                    }
-                    aria-label={`${color.label} 高亮色`}
-                    tabIndex={index === selectedIndex ? 0 : -1}
-                    data-highlighted={selectedIndex === index}
-                    useColorValue={useColorValue}
-                  />
-                </Tooltip>
-              </ButtonGroup>
+              <Tooltip key={color.value} title={color.label}>
+                <ColorHighlightButton
+                  editor={editor}
+                  highlightColor={
+                    useColorValue ? color.colorValue : color.value
+                  }
+                  aria-label={`${color.label} 高亮色`}
+                  tabIndex={index === selectedIndex ? 0 : -1}
+                  data-highlighted={selectedIndex === index}
+                  useColorValue={useColorValue}
+                />
+              </Tooltip>
             ))}
-          </ButtonGroup>
+          </div>
           <Separator />
-          <ButtonGroup>
-            <Tooltip title="移除高亮">
-              <Button
-                onClick={handleRemoveHighlight}
-                aria-label="移除高亮"
-                tabIndex={selectedIndex === colors.length ? 0 : -1}
-                type="button"
-                role="menuitem"
-                variant="ghost"
-                data-highlighted={selectedIndex === colors.length}
-              >
-                <BanIcon className="fsdx-editor-button-icon" />
-              </Button>
-            </Tooltip>
-          </ButtonGroup>
+          <Tooltip title="移除高亮">
+            <Button
+              onClick={handleRemoveHighlight}
+              aria-label="移除高亮"
+              tabIndex={selectedIndex === colors.length ? 0 : -1}
+              type="button"
+              role="menuitem"
+              variant="ghost"
+              data-highlighted={selectedIndex === colors.length}
+            >
+              <BanIcon className="fsdx-editor-button-icon" />
+            </Button>
+          </Tooltip>
         </CardItemGroup>
       </CardBody>
     </Card>
