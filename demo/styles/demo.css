@@ -958,3 +958,116 @@ body {
 .theme-config-panel::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ====== UI 组件演示 ====== */
+
+.ui-demo-desc {
+  font-size: 14px;
+  color: var(--demo-text-muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.ui-demo-section {
+  margin-bottom: 32px;
+}
+
+.ui-demo-group {
+  margin-bottom: 20px;
+}
+
+.ui-demo-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--demo-text);
+  margin: 0 0 8px;
+}
+
+.ui-demo-block {
+  padding: 16px;
+  background: var(--demo-bg-secondary);
+  border: 1px solid var(--demo-border);
+  border-radius: 8px;
+}
+
+.ui-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.ui-demo-input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ui-demo-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ui-demo-label {
+  font-size: 13px;
+  color: var(--demo-text-muted);
+  min-width: 64px;
+  flex-shrink: 0;
+}
+
+.ui-demo-input-hint {
+  font-size: 12px;
+  color: var(--demo-accent-text);
+  margin: 0;
+  padding-top: 4px;
+}
+
+.ui-demo-popover-content {
+  min-width: 180px;
+  background: var(--demo-card-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: 8px;
+  box-shadow: var(--demo-card-shadow);
+}
+
+.ui-demo-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.ui-demo-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ui-demo-card {
+  padding: 20px;
+  background: var(--demo-card-bg);
+  border: 1px solid var(--demo-card-border);
+  border-radius: 8px;
+  box-shadow: var(--demo-card-shadow);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.ui-demo-card:hover {
+  border-color: var(--demo-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ui-demo-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--demo-text);
+  margin: 0 0 8px;
+}
+
+.ui-demo-card-desc {
+  font-size: 13px;
+  color: var(--demo-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}

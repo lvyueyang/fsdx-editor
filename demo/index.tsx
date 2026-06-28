@@ -10,6 +10,17 @@ import { BasicDemo } from './pages/basic-demo';
 import { ControlPanel } from './pages/control-panel';
 import { Overview } from './pages/overview';
 import { ThemeConfig } from './pages/theme-config';
+import { UiDemoBadge } from './pages/ui-demo/badge';
+import { UiDemoButton } from './pages/ui-demo/button';
+import { UiDemoButtonGroup } from './pages/ui-demo/button-group';
+import { UiDemoCard } from './pages/ui-demo/card';
+import { UiDemoDropdownMenu } from './pages/ui-demo/dropdown-menu';
+import { UiDemoIndex } from './pages/ui-demo/index';
+import { UiDemoInput } from './pages/ui-demo/input';
+import { UiDemoPopover } from './pages/ui-demo/popover';
+import { UiDemoSeparator } from './pages/ui-demo/separator';
+import { UiDemoToolbar } from './pages/ui-demo/toolbar';
+import { UiDemoTooltip } from './pages/ui-demo/tooltip';
 import { DemoThemeContext } from './shared/demo-theme-context';
 
 type DemoTheme = 'light' | 'dark' | 'auto';
@@ -88,6 +99,39 @@ function App() {
             </Route>
             <Route path="/theme-config">
               <ThemeConfig />
+            </Route>
+            <Route path="/ui-demo">
+              <UiDemoIndex />
+            </Route>
+            <Route path="/ui-demo/button">
+              <UiDemoButton />
+            </Route>
+            <Route path="/ui-demo/button-group">
+              <UiDemoButtonGroup />
+            </Route>
+            <Route path="/ui-demo/badge">
+              <UiDemoBadge />
+            </Route>
+            <Route path="/ui-demo/card">
+              <UiDemoCard />
+            </Route>
+            <Route path="/ui-demo/input">
+              <UiDemoInput />
+            </Route>
+            <Route path="/ui-demo/separator">
+              <UiDemoSeparator />
+            </Route>
+            <Route path="/ui-demo/toolbar">
+              <UiDemoToolbar />
+            </Route>
+            <Route path="/ui-demo/tooltip">
+              <UiDemoTooltip />
+            </Route>
+            <Route path="/ui-demo/popover">
+              <UiDemoPopover />
+            </Route>
+            <Route path="/ui-demo/dropdown-menu">
+              <UiDemoDropdownMenu />
             </Route>
             <Route>
               <Redirect to="/" />

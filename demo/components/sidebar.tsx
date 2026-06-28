@@ -25,6 +25,22 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
+    label: '基础组件',
+    items: [
+      { label: '组件概览', href: '/ui-demo', icon: '□' },
+      { label: 'Button', href: '/ui-demo/button', icon: '◇' },
+      { label: 'ButtonGroup', href: '/ui-demo/button-group', icon: '◇' },
+      { label: 'Badge', href: '/ui-demo/badge', icon: '◇' },
+      { label: 'Card', href: '/ui-demo/card', icon: '◇' },
+      { label: 'Input', href: '/ui-demo/input', icon: '◇' },
+      { label: 'Separator', href: '/ui-demo/separator', icon: '◇' },
+      { label: 'Toolbar', href: '/ui-demo/toolbar', icon: '◇' },
+      { label: 'Tooltip', href: '/ui-demo/tooltip', icon: '◇' },
+      { label: 'Popover', href: '/ui-demo/popover', icon: '◇' },
+      { label: 'DropdownMenu', href: '/ui-demo/dropdown-menu', icon: '◇' },
+    ],
+  },
+  {
     label: '参考',
     items: [{ label: 'API 文档', href: '/api', icon: '{}' }],
   },
