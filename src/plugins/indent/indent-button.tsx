@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
 import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { IndentIcon } from '../../icons/indent-icon';
@@ -124,7 +125,7 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
             <IndentIcon className="fsdx-editor-button-icon" />
           </Button>
         </Tooltip>
-        <input
+        <Input
           ref={inputRef}
           className="fsdx-editor-indent-input"
           type="number"

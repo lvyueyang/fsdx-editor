@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import type { MediaType } from '../../types';
+import { Input } from '../ui/input';
 
 interface MediaUrlTabProps {
   mediaType: MediaType;
@@ -51,10 +52,9 @@ export function MediaUrlTab({ mediaType, onInsert }: MediaUrlTabProps) {
                   : '附件'}
             地址
           </label>
-          <input
+          <Input
             id="media-url-input"
             type="url"
-            className="fsdx-editor-media-url-input"
             placeholder="https://example.com/file"
             value={url}
             onChange={handleUrlChange}

@@ -119,13 +119,10 @@
 
 .fsdx-editor-attribute-text-input {
   width: 100px;
-  padding: var(--fsdx-editor-space-0_5) var(--fsdx-editor-space-1_5);
   font-size: var(--fsdx-editor-font-sm);
   background: var(--fsdx-editor-gray-800);
   color: var(--fsdx-editor-gray-200);
-  border: 1px solid var(--fsdx-editor-gray-600);
-  border-radius: var(--fsdx-editor-radius-sm);
-  outline: none;
+  border-color: var(--fsdx-editor-gray-600);
 
   &:focus {
     border-color: var(--fsdx-editor-brand-400);

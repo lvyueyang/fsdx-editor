@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Badge } from '../../components/ui/badge';
+import { Input } from '../../components/ui/input';
 import { useEditorOptions } from '../../core/editor-context';
 import { cn } from '../../core/editor-utils';
 import { formatFileSize } from '../../lib/format-file-size';
@@ -107,9 +108,8 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
   return (
     <div className="fsdx-editor-media-library-tab">
       <div className="fsdx-editor-media-library-search">
-        <input
+        <Input
           type="text"
-          className="fsdx-editor-media-library-search-input"
           placeholder="搜索..."
           value={keyword}
           onChange={(e) => handleSearch(e.target.value)}

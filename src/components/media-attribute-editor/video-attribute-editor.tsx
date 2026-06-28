@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { Input } from '../../components/ui/input';
 import { getVideoElement } from './media-dom-utils';
 
 interface VideoAttributeEditorProps {
@@ -153,7 +154,7 @@ export function VideoAttributeEditor({ editor }: VideoAttributeEditorProps) {
         >
           封面图
         </label>
-        <input
+        <Input
           id="video-poster-input"
           type="text"
           value={posterValue}

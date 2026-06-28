@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { Input } from '../../components/ui/input';
 import { ImageEditor } from '../../plugins/image/image-editor';
 import type { FilterValues } from '../../plugins/image/image-filter-panel';
 import { getImageElement } from './media-dom-utils';
@@ -235,7 +236,7 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
           >
             Alt
           </label>
-          <input
+          <Input
             id="image-alt-input"
             type="text"
             value={altValue}
@@ -254,7 +255,7 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
           >
             源地址
           </label>
-          <input
+          <Input
             id="image-src-input"
             type="text"
             value={srcValue}
@@ -273,7 +274,7 @@ export function ImageAttributeEditor({ editor }: ImageAttributeEditorProps) {
           >
             链接
           </label>
-          <input
+          <Input
             id="image-link-input"
             type="text"
             value={linkValue}

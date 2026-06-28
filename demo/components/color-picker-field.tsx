@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { Input } from '../../src/components/ui/input';
 
 interface ColorPickerFieldProps {
   label: string;
@@ -30,7 +31,7 @@ export function ColorPickerField({
           value={colorPickerValue}
           onChange={handleChange}
         />
-        <input
+        <Input
           type="text"
           className="theme-color-text"
           value={value}

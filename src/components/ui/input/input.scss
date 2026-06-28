@@ -8,6 +8,7 @@
   background: transparent;
   font-size: var(--fsdx-editor-font-lg);
   outline: none;
+  color: var(--fsdx-editor-text-primary);
   transition:
     color,
     background-color,
@@ -15,6 +16,10 @@
 
   &::placeholder {
     color: var(--fsdx-editor-input-placeholder);
+  }
+
+  &[data-invalid='true'] {
+    border-color: var(--fsdx-editor-red);
   }
 }
 

@@ -1,10 +1,10 @@
+import { Input as BaseUIInput } from '@base-ui/react/input';
 import { cn } from '../../../core/editor-utils';
 import './input.scss';
 
-function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
+function Input({ className, ...props }: React.ComponentProps<'input'>) {
   return (
-    <input
-      type={type}
+    <BaseUIInput
       data-slot="fsdx-editor-input"
       className={cn('fsdx-editor-input', className)}
       {...props}

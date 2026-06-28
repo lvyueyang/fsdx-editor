@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Input } from '../../src/components/ui/input';
 import type { EditorTheme } from '../../src/core/editor';
 import { ColorPickerField } from '../components/color-picker-field';
 import { DemoEditor } from '../components/demo-editor';
@@ -164,7 +165,7 @@ export function ThemeConfig() {
           return (
             <div key={token.name} className="theme-text-field">
               <span className="theme-text-field-label">{token.label}</span>
-              <input
+              <Input
                 type="text"
                 className="theme-text-input"
                 value={values[token.name] ?? token.defaultValue}

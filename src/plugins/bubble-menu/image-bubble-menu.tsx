@@ -2,6 +2,7 @@ import { FloatingPortal } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
 import { ImageResizeHandles } from '../../components/media-attribute-editor/image-resize-handles';
+import { Input } from '../../components/ui/input';
 import {
   Toolbar,
   ToolbarGroup,
@@ -268,7 +269,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
             <ToolbarSeparator />
 
             <ToolbarGroup>
-              <input
+              <Input
                 type="text"
                 value={altValue}
                 onChange={(e) => setAltValue(e.target.value)}
@@ -280,7 +281,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
             </ToolbarGroup>
 
             <ToolbarGroup>
-              <input
+              <Input
                 type="text"
                 value={srcValue}
                 onChange={(e) => setSrcValue(e.target.value)}
@@ -292,7 +293,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
             </ToolbarGroup>
 
             <ToolbarGroup>
-              <input
+              <Input
                 type="text"
                 value={linkValue}
                 onChange={(e) => setLinkValue(e.target.value)}

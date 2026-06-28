@@ -2,6 +2,7 @@ import { FloatingPortal } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
 import { VideoResizeHandles } from '../../components/media-attribute-editor/video-resize-handles';
+import { Input } from '../../components/ui/input';
 import {
   Toolbar,
   ToolbarGroup,
@@ -225,7 +226,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
             <ToolbarSeparator />
 
             <ToolbarGroup>
-              <input
+              <Input
                 type="text"
                 value={posterValue}
                 onChange={(e) => setPosterValue(e.target.value)}

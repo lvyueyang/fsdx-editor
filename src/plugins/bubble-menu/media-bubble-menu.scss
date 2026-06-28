@@ -14,23 +14,9 @@
 }
 
 .fsdx-editor-media-bubble-menu-input {
-  font-size: var(--fsdx-editor-font-base);
-  border: 1px solid var(--fsdx-editor-surface-hover);
-  border-radius: var(--fsdx-editor-radius-sm);
-  padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
-  min-width: 5rem;
   width: 6rem;
-  color: var(--fsdx-editor-text-primary);
-  background: var(--fsdx-editor-surface);
-  outline: none;
-
-  &::placeholder {
-    color: var(--fsdx-editor-text-tertiary);
-  }
-
-  &:focus {
-    border-color: var(--fsdx-editor-brand-500);
-  }
+  min-width: 5rem;
+  font-size: var(--fsdx-editor-font-base);
 
   &--src {
     width: 8rem;

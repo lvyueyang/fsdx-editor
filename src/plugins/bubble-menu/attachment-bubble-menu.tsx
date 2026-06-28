@@ -1,6 +1,7 @@
 import { FloatingPortal } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
+import { Input } from '../../components/ui/input';
 import {
   Toolbar,
   ToolbarGroup,
@@ -75,7 +76,7 @@ export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
       >
         <Toolbar variant="floating">
           <ToolbarGroup>
-            <input
+            <Input
               type="text"
               value={nameValue}
               onChange={(e) => setNameValue(e.target.value)}

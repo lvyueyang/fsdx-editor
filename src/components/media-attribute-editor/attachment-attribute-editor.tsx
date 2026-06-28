@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Input } from '../../components/ui/input';
 
 interface AttachmentAttributeEditorProps {
   editor: Editor;
@@ -46,7 +47,7 @@ export function AttachmentAttributeEditor({
         >
           文件名
         </label>
-        <input
+        <Input
           id="attachment-name-input"
           type="text"
           value={nameValue}
