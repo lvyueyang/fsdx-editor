@@ -2,6 +2,7 @@ import type { NodeViewProps } from '@tiptap/react';
 import { NodeViewWrapper } from '@tiptap/react';
 import { useCallback, useRef, useState } from 'react';
 import { MediaDragArea } from '../../components/media-drag-area';
+import { Badge } from '../../components/ui/badge';
 import { Button } from '../../components/ui/button';
 import { CloseIcon } from '../../icons/close-icon';
 import './image-upload-node.scss';
@@ -305,15 +306,17 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               {fileItem.file.name}
             </span>
             <span className="fsdx-editor-image-upload-subtext">
-              {formatFileSize(fileItem.file.size)}
+              <Badge variant="gray" size="small">
+                {formatFileSize(fileItem.file.size)}
+              </Badge>
             </span>
           </div>
         </div>
         <div className="fsdx-editor-image-upload-actions">
           {fileItem.status === 'uploading' && (
-            <span className="fsdx-editor-image-upload-progress-text">
+            <Badge variant="yellow" size="small">
               {fileItem.progress}%
-            </span>
+            </Badge>
           )}
           <Button
             type="button"

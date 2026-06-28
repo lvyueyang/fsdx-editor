@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Badge } from '../../components/ui/badge';
 import { useEditorOptions } from '../../core/editor-context';
 import { cn } from '../../core/editor-utils';
 import { formatFileSize } from '../../lib/format-file-size';
@@ -172,9 +173,9 @@ export function MediaLibraryTab({ mediaType, onInsert }: MediaLibraryTabProps) {
                 {item.name}
               </span>
               {item.size !== undefined && (
-                <span className="fsdx-editor-media-library-item-size">
+                <Badge variant="gray" size="small">
                   {formatFileSize(item.size)}
-                </span>
+                </Badge>
               )}
             </button>
           ))}

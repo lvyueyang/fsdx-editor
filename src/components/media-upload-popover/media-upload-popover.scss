@@ -107,16 +107,6 @@
   transition: width 0.3s ease;
 }
 
-.fsdx-editor-media-upload-success {
-  color: var(--fsdx-editor-green);
-  flex-shrink: 0;
-}
-
-.fsdx-editor-media-upload-error {
-  color: var(--fsdx-editor-red);
-  flex-shrink: 0;
-}
-
 .fsdx-editor-media-upload-placeholder {
   padding: var(--fsdx-editor-space-8) var(--fsdx-editor-space-4);
   text-align: center;
@@ -222,16 +212,6 @@
   .fsdx-editor-media-library-list--list & {
     flex: 1;
     text-align: left;
-  }
-}
-
-.fsdx-editor-media-library-item-size {
-  font-size: var(--fsdx-editor-font-xs);
-  color: var(--fsdx-editor-text-tertiary);
-  flex-shrink: 0;
-
-  .fsdx-editor-media-library-list--list & {
-    margin-left: auto;
   }
 }
 

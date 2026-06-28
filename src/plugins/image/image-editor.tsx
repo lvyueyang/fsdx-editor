@@ -1,5 +1,11 @@
 import { useCallback, useState } from 'react';
 import Cropper, { type Area } from 'react-easy-crop';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from '../../components/ui/card';
 import { type FilterValues, ImageFilterPanel } from './image-filter-panel';
 import { createImage, getCroppedImg } from './image-utils';
 import './image-editor.scss';
@@ -62,14 +68,14 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
       role="button"
       tabIndex={-1}
     >
-      <div
+      <Card
         className="fsdx-editor-image-editor"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.key === 'Escape') onCancel();
         }}
       >
-        <div className="fsdx-editor-image-editor-header">
+        <CardHeader className="fsdx-editor-image-editor-header">
           <div className="fsdx-editor-image-editor-tabs">
             <button
               type="button"
@@ -93,9 +99,9 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
           >
             ✕
           </button>
-        </div>
+        </CardHeader>
 
-        <div className="fsdx-editor-image-editor-body">
+        <CardBody className="fsdx-editor-image-editor-body">
           {viewMode === 'crop' ? (
             <div className="fsdx-editor-image-editor-crop-area">
               <Cropper
@@ -146,9 +152,9 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
               />
             </div>
           )}
-        </div>
+        </CardBody>
 
-        <div className="fsdx-editor-image-editor-footer">
+        <CardFooter className="fsdx-editor-image-editor-footer">
           {viewMode === 'crop' && (
             <div className="fsdx-editor-image-editor-crop-controls">
               <div className="fsdx-editor-image-editor-control-row">
@@ -244,8 +250,8 @@ export function ImageEditor({ src, onConfirm, onCancel }: ImageEditorProps) {
               {processing ? '处理中...' : '确认'}
             </button>
           </div>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

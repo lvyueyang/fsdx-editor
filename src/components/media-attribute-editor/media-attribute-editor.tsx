@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
+import { Card } from '../../components/ui/card';
 import { FloatingElement } from '../../components/ui/floating-element';
 import type { MediaType } from '../../types';
 import { AttachmentAttributeEditor } from './attachment-attribute-editor';
@@ -56,12 +57,12 @@ export function MediaAttributeEditor({ editor }: MediaAttributeEditorProps) {
       getBoundingClientRect={getBoundingClientRect}
       zIndex={50}
     >
-      <div className="fsdx-editor-media-attribute-editor-content">
+      <Card className="fsdx-editor-media-attribute-editor-content">
         {mediaType === 'audio' && <AudioAttributeEditor editor={editor} />}
         {mediaType === 'attachment' && (
           <AttachmentAttributeEditor editor={editor} />
         )}
-      </div>
+      </Card>
     </FloatingElement>
   );
 }

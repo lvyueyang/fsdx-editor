@@ -1,11 +1,14 @@
 import { Link } from 'wouter';
+import { Badge } from '../../src/components/ui/badge';
 import { CodeBlock } from '../components/code-block';
 
 export function Overview() {
   return (
     <div className="demo-content">
       <div className="demo-cover">
-        <span className="demo-cover-badge">v1.0.0</span>
+        <Badge variant="brand" appearance="emphasized">
+          v1.0.0
+        </Badge>
         <h1 className="demo-cover-title">FSDX Editor</h1>
         <p className="demo-cover-desc">
           基于 Tiptap + React
@@ -89,21 +92,27 @@ function App() {
           <tr>
             <td>Editor</td>
             <td>
-              <span className="demo-prop-type">Component</span>
+              <Badge variant="gray" size="small">
+                Component
+              </Badge>
             </td>
             <td>编辑器组件，接收 value、onChange 等属性</td>
           </tr>
           <tr>
             <td>EditorProps</td>
             <td>
-              <span className="demo-prop-type">Type</span>
+              <Badge variant="gray" size="small">
+                Type
+              </Badge>
             </td>
             <td>Editor 组件的 Props 类型</td>
           </tr>
           <tr>
             <td>EditorTheme</td>
             <td>
-              <span className="demo-prop-type">Type</span>
+              <Badge variant="gray" size="small">
+                Type
+              </Badge>
             </td>
             <td>
               主题类型：&apos;light&apos; | &apos;dark&apos; | &apos;auto&apos;
@@ -112,7 +121,9 @@ function App() {
           <tr>
             <td>EditorOptions</td>
             <td>
-              <span className="demo-prop-type">Type</span>
+              <Badge variant="gray" size="small">
+                Type
+              </Badge>
             </td>
             <td>编辑器功能配置（媒体上传、列表接口等）</td>
           </tr>

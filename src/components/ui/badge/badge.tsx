@@ -3,7 +3,15 @@ import './badge-group.scss';
 import './badge.scss';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'ghost' | 'white' | 'gray' | 'green' | 'yellow' | 'default';
+  variant?:
+    | 'ghost'
+    | 'white'
+    | 'gray'
+    | 'green'
+    | 'yellow'
+    | 'red'
+    | 'brand'
+    | 'default';
   size?: 'default' | 'small';
   appearance?: 'default' | 'subdued' | 'emphasized';
   trimText?: boolean;

@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { MediaDragArea } from '../../components/media-drag-area';
+import { Badge } from '../../components/ui/badge';
 import { useEditorOptions } from '../../core/editor-context';
 import { formatFileSize } from '../../lib/format-file-size';
 import type { MediaType } from '../../types';
@@ -163,10 +164,14 @@ export function MediaUploadTab({
                 </div>
               )}
               {item.status === 'success' && (
-                <span className="fsdx-editor-media-upload-success">✓</span>
+                <Badge variant="green" size="small">
+                  完成
+                </Badge>
               )}
               {item.status === 'error' && (
-                <span className="fsdx-editor-media-upload-error">✕</span>
+                <Badge variant="red" size="small">
+                  失败
+                </Badge>
               )}
             </div>
           ))}

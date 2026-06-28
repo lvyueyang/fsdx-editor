@@ -12,20 +12,11 @@
   width: 90vw;
   max-width: 800px;
   max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--fsdx-editor-surface-secondary);
-  border-radius: var(--fsdx-editor-radius-md);
   overflow: hidden;
 }
 
 .fsdx-editor-image-editor-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0 var(--fsdx-editor-space-4);
-  border-bottom: 1px solid var(--fsdx-editor-border-default);
-  flex-shrink: 0;
 }
 
 .fsdx-editor-image-editor-tabs {
@@ -61,8 +52,7 @@
 }
 
 .fsdx-editor-image-editor-body {
-  flex: 1;
-  min-height: 0;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -146,11 +136,9 @@
 
 .fsdx-editor-image-editor-footer {
   padding: var(--fsdx-editor-space-3) var(--fsdx-editor-space-4);
-  border-top: 1px solid var(--fsdx-editor-border-default);
   display: flex;
   flex-direction: column;
   gap: var(--fsdx-editor-space-3);
-  flex-shrink: 0;
 }
 
 .fsdx-editor-image-editor-crop-controls {
