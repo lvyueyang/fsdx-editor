@@ -71,3 +71,12 @@
     padding: var(--fsdx-editor-space-4) var(--fsdx-editor-space-6) 30vh;
   }
 }
+
+.fsdx-editor-media-bubble-menu,.fsdx-editor-bubble-menu {
+  z-index: 2026;
+}
+[data-base-ui-portal] {
+  [data-open] {
+    z-index: 2026;
+  }
+}
