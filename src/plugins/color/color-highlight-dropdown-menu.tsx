@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { BackgroundColorIcon } from '../../icons/background-color-icon';
 import { ColorGrid } from './color-grid';
@@ -54,18 +55,19 @@ export function ColorHighlightDropdownMenu({
   return (
     <DropdownMenu modal={modal} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={currentHighlightColor ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          aria-label="背景色"
-          tooltip="背景色"
-          {...props}
-        >
-          <BackgroundColorIcon className="fsdx-editor-button-icon" />
-        </Button>
+        <Tooltip title="背景色">
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={currentHighlightColor ? 'on' : 'off'}
+            role="button"
+            tabIndex={-1}
+            aria-label="背景色"
+            {...props}
+          >
+            <BackgroundColorIcon className="fsdx-editor-button-icon" />
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent style={{ minWidth: GRID_WIDTH }}>

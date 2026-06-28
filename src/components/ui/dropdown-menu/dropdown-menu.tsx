@@ -1,75 +1,83 @@
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { Menu } from '@base-ui/react/menu';
 import { cn } from '../../../core/editor-utils';
 import { CheckIcon } from '../../../icons/check-icon';
 
 import './dropdown-menu.scss';
 
-function DropdownMenu({
-  ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
-  return (
-    <DropdownMenuPrimitive.Root
-      data-slot="fsdx-editor-dropdown-menu"
-      {...props}
-    />
-  );
+function DropdownMenu({ ...props }: React.ComponentProps<typeof Menu.Root>) {
+  return <Menu.Root data-slot="fsdx-editor-dropdown-menu" {...props} />;
 }
 
 function DropdownMenuPortal({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
+}: React.ComponentProps<typeof Menu.Portal>) {
   return (
-    <DropdownMenuPrimitive.Portal
-      data-slot="fsdx-editor-dropdown-menu-portal"
-      {...props}
-    />
+    <Menu.Portal data-slot="fsdx-editor-dropdown-menu-portal" {...props} />
   );
 }
 
 function DropdownMenuTrigger({
+  asChild,
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
+}: React.ComponentProps<typeof Menu.Trigger> & {
+  asChild?: boolean;
+}) {
+  if (asChild) {
+    return (
+      <Menu.Trigger
+        data-slot="fsdx-editor-dropdown-menu-trigger"
+        render={children as React.ReactElement}
+        {...props}
+      />
+    );
+  }
   return (
-    <DropdownMenuPrimitive.Trigger
-      data-slot="fsdx-editor-dropdown-menu-trigger"
-      {...props}
-    />
+    <Menu.Trigger data-slot="fsdx-editor-dropdown-menu-trigger" {...props}>
+      {children}
+    </Menu.Trigger>
   );
 }
 
 function DropdownMenuContent({
   className,
   align = 'start',
+  side = 'bottom',
   sideOffset = 4,
   portal = true,
+  onCloseAutoFocus,
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & {
+}: React.HTMLAttributes<HTMLDivElement> & {
+  align?: 'center' | 'start' | 'end';
+  side?: 'top' | 'bottom' | 'left' | 'right';
+  sideOffset?: number;
   portal?: boolean;
+  onCloseAutoFocus?: (event: Event) => void;
 }) {
-  const content = (
-    <DropdownMenuPrimitive.Content
-      data-slot="fsdx-editor-dropdown-menu-content"
-      sideOffset={sideOffset}
-      align={align}
-      className={cn('fsdx-editor-dropdown-menu-content', className)}
-      onCloseAutoFocus={(e) => e.preventDefault()}
-      {...props}
-    />
+  const popup = (
+    <Menu.Positioner side={side} sideOffset={sideOffset} align={align}>
+      <Menu.Popup
+        data-slot="fsdx-editor-dropdown-menu-content"
+        className={cn('fsdx-editor-dropdown-menu-content', className)}
+        {...props}
+      >
+        {children}
+      </Menu.Popup>
+    </Menu.Positioner>
   );
 
-  if (!portal) {
-    return content;
-  }
+  if (!portal) return popup;
 
-  return <DropdownMenuPrimitive.Portal>{content}</DropdownMenuPrimitive.Portal>;
+  return <Menu.Portal>{popup}</Menu.Portal>;
 }
 
 function DropdownMenuGroup({
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
+}: React.ComponentProps<typeof Menu.Group>) {
   return (
-    <DropdownMenuPrimitive.Group
+    <Menu.Group
       data-slot="fsdx-editor-dropdown-menu-group"
       className={cn('fsdx-editor-dropdown-menu-group', className)}
       {...props}
@@ -81,20 +89,26 @@ function DropdownMenuItem({
   className,
   inset,
   variant = 'default',
+  asChild,
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
+}: React.ComponentProps<typeof Menu.Item> & {
   inset?: boolean;
   variant?: 'default' | 'destructive';
+  asChild?: boolean;
 }) {
-  return (
-    <DropdownMenuPrimitive.Item
-      data-slot="fsdx-editor-dropdown-menu-item"
-      data-inset={inset}
-      data-variant={variant}
-      className={cn('fsdx-editor-dropdown-menu-item', className)}
-      {...props}
-    />
-  );
+  const itemProps = {
+    'data-slot': 'fsdx-editor-dropdown-menu-item' as const,
+    'data-inset': inset,
+    'data-variant': variant,
+    className: cn('fsdx-editor-dropdown-menu-item', className),
+    ...props,
+  };
+
+  if (asChild) {
+    return <Menu.Item render={children as React.ReactElement} {...itemProps} />;
+  }
+  return <Menu.Item {...itemProps}>{children}</Menu.Item>;
 }
 
 function DropdownMenuCheckboxItem({
@@ -103,11 +117,11 @@ function DropdownMenuCheckboxItem({
   checked,
   inset,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem> & {
+}: React.ComponentProps<typeof Menu.CheckboxItem> & {
   inset?: boolean;
 }) {
   return (
-    <DropdownMenuPrimitive.CheckboxItem
+    <Menu.CheckboxItem
       data-slot="fsdx-editor-dropdown-menu-checkbox-item"
       data-inset={inset}
       className={cn('fsdx-editor-dropdown-menu-checkbox-item', className)}
@@ -118,20 +132,20 @@ function DropdownMenuCheckboxItem({
         className="fsdx-editor-dropdown-menu-item-indicator"
         data-slot="fsdx-editor-dropdown-menu-checkbox-item-indicator"
       >
-        <DropdownMenuPrimitive.ItemIndicator>
+        <Menu.CheckboxItemIndicator>
           <CheckIcon />
-        </DropdownMenuPrimitive.ItemIndicator>
+        </Menu.CheckboxItemIndicator>
       </span>
       {children}
-    </DropdownMenuPrimitive.CheckboxItem>
+    </Menu.CheckboxItem>
   );
 }
 
 function DropdownMenuRadioGroup({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) {
+}: React.ComponentProps<typeof Menu.RadioGroup>) {
   return (
-    <DropdownMenuPrimitive.RadioGroup
+    <Menu.RadioGroup
       data-slot="fsdx-editor-dropdown-menu-radio-group"
       {...props}
     />
@@ -143,11 +157,11 @@ function DropdownMenuRadioItem({
   children,
   inset,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem> & {
+}: React.ComponentProps<typeof Menu.RadioItem> & {
   inset?: boolean;
 }) {
   return (
-    <DropdownMenuPrimitive.RadioItem
+    <Menu.RadioItem
       data-slot="fsdx-editor-dropdown-menu-radio-item"
       data-inset={inset}
       className={cn('fsdx-editor-dropdown-menu-radio-item', className)}
@@ -157,12 +171,12 @@ function DropdownMenuRadioItem({
         className="fsdx-editor-dropdown-menu-item-indicator"
         data-slot="fsdx-editor-dropdown-menu-radio-item-indicator"
       >
-        <DropdownMenuPrimitive.ItemIndicator>
+        <Menu.RadioItemIndicator>
           <CheckIcon />
-        </DropdownMenuPrimitive.ItemIndicator>
+        </Menu.RadioItemIndicator>
       </span>
       {children}
-    </DropdownMenuPrimitive.RadioItem>
+    </Menu.RadioItem>
   );
 }
 
@@ -170,11 +184,11 @@ function DropdownMenuLabel({
   className,
   inset,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Label> & {
+}: React.ComponentProps<typeof Menu.GroupLabel> & {
   inset?: boolean;
 }) {
   return (
-    <DropdownMenuPrimitive.Label
+    <Menu.GroupLabel
       data-slot="fsdx-editor-dropdown-menu-label"
       data-inset={inset}
       className={cn('fsdx-editor-dropdown-menu-label', className)}
@@ -186,9 +200,9 @@ function DropdownMenuLabel({
 function DropdownMenuSeparator({
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
+}: React.ComponentProps<typeof Menu.Separator>) {
   return (
-    <DropdownMenuPrimitive.Separator
+    <Menu.Separator
       data-slot="fsdx-editor-dropdown-menu-separator"
       className={cn('fsdx-editor-dropdown-menu-separator', className)}
       {...props}
@@ -211,12 +225,9 @@ function DropdownMenuShortcut({
 
 function DropdownMenuSub({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
+}: React.ComponentProps<typeof Menu.SubmenuRoot>) {
   return (
-    <DropdownMenuPrimitive.Sub
-      data-slot="fsdx-editor-dropdown-menu-sub"
-      {...props}
-    />
+    <Menu.SubmenuRoot data-slot="fsdx-editor-dropdown-menu-sub" {...props} />
   );
 }
 
@@ -225,11 +236,11 @@ function DropdownMenuSubTrigger({
   inset,
   children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
+}: React.ComponentProps<typeof Menu.SubmenuTrigger> & {
   inset?: boolean;
 }) {
   return (
-    <DropdownMenuPrimitive.SubTrigger
+    <Menu.SubmenuTrigger
       data-slot="fsdx-editor-dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn('fsdx-editor-dropdown-menu-sub-trigger', className)}
@@ -249,20 +260,27 @@ function DropdownMenuSubTrigger({
       >
         <path d="m9 18 6-6-6-6" />
       </svg>
-    </DropdownMenuPrimitive.SubTrigger>
+    </Menu.SubmenuTrigger>
   );
 }
 
 function DropdownMenuSubContent({
   className,
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <DropdownMenuPrimitive.SubContent
-      data-slot="fsdx-editor-dropdown-menu-sub-content"
-      className={cn('fsdx-editor-dropdown-menu-sub-content', className)}
-      {...props}
-    />
+    <Menu.Portal>
+      <Menu.Positioner>
+        <Menu.Popup
+          data-slot="fsdx-editor-dropdown-menu-sub-content"
+          className={cn('fsdx-editor-dropdown-menu-sub-content', className)}
+          {...props}
+        >
+          {children}
+        </Menu.Popup>
+      </Menu.Positioner>
+    </Menu.Portal>
   );
 }
 

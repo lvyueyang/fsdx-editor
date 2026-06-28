@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
+import { Tooltip } from '../../components/ui/tooltip';
 // --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
@@ -79,22 +80,23 @@ function ListDropdownMenuImpl(
   return (
     <DropdownMenu modal={modal} open={isOpen} onOpenChange={handleOnOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          disabled={!canToggle}
-          data-disabled={!canToggle}
-          aria-label={label}
-          tooltip={label}
-          {...props}
-          ref={ref}
-        >
-          <Icon className="fsdx-editor-button-icon" />
-          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-        </Button>
+        <Tooltip title={label}>
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={isActive ? 'on' : 'off'}
+            role="button"
+            tabIndex={-1}
+            disabled={!canToggle}
+            data-disabled={!canToggle}
+            aria-label={label}
+            {...props}
+            ref={ref}
+          >
+            <Icon className="fsdx-editor-button-icon" />
+            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start">
@@ -105,7 +107,6 @@ function ListDropdownMenuImpl(
                 editor={editor}
                 type={option.type}
                 text={option.label}
-                showTooltip={false}
               />
             </DropdownMenuItem>
           ))}

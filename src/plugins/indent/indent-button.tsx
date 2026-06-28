@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { IndentIcon } from '../../icons/indent-icon';
 
@@ -107,19 +108,22 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
 
     return (
       <span className="fsdx-editor-indent-group" ref={ref}>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          aria-label={
-            isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON
-          }
-          aria-pressed={isActive}
-          tooltip={isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON}
-          onClick={handleToggle}
+        <Tooltip
+          title={isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON}
         >
-          <IndentIcon className="fsdx-editor-button-icon" />
-        </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={isActive ? 'on' : 'off'}
+            aria-label={
+              isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON
+            }
+            aria-pressed={isActive}
+            onClick={handleToggle}
+          >
+            <IndentIcon className="fsdx-editor-button-icon" />
+          </Button>
+        </Tooltip>
         <input
           ref={inputRef}
           className="fsdx-editor-indent-input"

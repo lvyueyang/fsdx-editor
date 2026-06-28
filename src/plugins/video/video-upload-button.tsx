@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useState } from 'react';
 import { MediaUploadPopover } from '../../components/media-upload-popover';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { VideoIcon } from '../../icons/video-icon';
@@ -36,17 +37,13 @@ export const VideoUploadButton = forwardRef<
       onOpenChange={setOpen}
       onInserted={handleInserted}
     >
-      <Button
-        ref={ref}
-        variant="ghost"
-        size="small"
-        tooltip="添加视频"
-        {...props}
-      >
-        <VideoIcon className="fsdx-editor-button-icon" />
-        {text && <span>{text}</span>}
-        <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-      </Button>
+      <Tooltip title="添加视频">
+        <Button ref={ref} variant="ghost" size="small" {...props}>
+          <VideoIcon className="fsdx-editor-button-icon" />
+          {text && <span>{text}</span>}
+          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+        </Button>
+      </Tooltip>
     </MediaUploadPopover>
   );
 });

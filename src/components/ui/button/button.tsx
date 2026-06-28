@@ -1,9 +1,5 @@
-import { Fragment, forwardRef, useMemo } from 'react';
-// --- Lib ---
-import { cn, parseShortcutKeys } from '../../../core/editor-utils';
-// --- Tiptap UI Primitive ---
-import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
-
+import { forwardRef } from 'react';
+import { cn } from '../../../core/editor-utils';
 import './button.scss';
 
 export type ButtonVariant = 'ghost' | 'primary';
@@ -11,81 +7,23 @@ export type ButtonSize = 'small' | 'default' | 'large';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  showTooltip?: boolean;
-  tooltip?: React.ReactNode;
-  shortcutKeys?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
 }
 
-export const ShortcutDisplay: React.FC<{ shortcuts: string[] }> = ({
-  shortcuts,
-}) => {
-  if (shortcuts.length === 0) return null;
-
-  return (
-    <div>
-      {shortcuts.map((key, index) => (
-        <Fragment key={index}>
-          {index > 0 && <kbd>+</kbd>}
-          <kbd>{key}</kbd>
-        </Fragment>
-      ))}
-    </div>
-  );
-};
-
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      children,
-      tooltip,
-      showTooltip = true,
-      shortcutKeys,
-      variant,
-      size,
-      ...props
-    },
-    ref,
-  ) => {
-    const shortcuts = useMemo<string[]>(
-      () => parseShortcutKeys({ shortcutKeys }),
-      [shortcutKeys],
-    );
-
-    if (!tooltip || !showTooltip) {
-      return (
-        <button
-          data-slot="fsdx-editor-button"
-          className={cn('fsdx-editor-button', className)}
-          ref={ref}
-          data-style={variant}
-          data-size={size}
-          {...props}
-        >
-          {children}
-        </button>
-      );
-    }
-
+  ({ className, children, variant, size, ...props }, ref) => {
     return (
-      <Tooltip delay={200}>
-        <TooltipTrigger
-          data-slot="fsdx-editor-button"
-          className={cn('fsdx-editor-button', className)}
-          ref={ref}
-          data-style={variant}
-          data-size={size}
-          {...props}
-        >
-          {children}
-        </TooltipTrigger>
-        <TooltipContent>
-          {tooltip}
-          <ShortcutDisplay shortcuts={shortcuts} />
-        </TooltipContent>
-      </Tooltip>
+      <button
+        data-slot="fsdx-editor-button"
+        className={cn('fsdx-editor-button', className)}
+        ref={ref}
+        data-style={variant}
+        data-size={size}
+        {...props}
+      >
+        {children}
+      </button>
     );
   },
 );

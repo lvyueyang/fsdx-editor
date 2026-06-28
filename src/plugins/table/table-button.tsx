@@ -6,6 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
+import { Tooltip } from '../../components/ui/tooltip';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
@@ -96,31 +97,32 @@ function TableButtonImpl(
   return (
     <DropdownMenu modal={false} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state="off"
-          role="button"
-          tabIndex={-1}
-          disabled={!canInsert}
-          data-disabled={!canInsert}
-          aria-label={label}
-          tooltip={label}
-          className={cn(className)}
-          onClick={handleButtonClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && (
-                <span className="fsdx-editor-button-text">{displayText}</span>
-              )}
-              <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-            </>
-          )}
-        </Button>
+        <Tooltip title={label}>
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state="off"
+            role="button"
+            tabIndex={-1}
+            disabled={!canInsert}
+            data-disabled={!canInsert}
+            aria-label={label}
+            className={cn(className)}
+            onClick={handleButtonClick}
+            {...buttonProps}
+            ref={ref}
+          >
+            {children ?? (
+              <>
+                <Icon className="fsdx-editor-button-icon" />
+                {text && (
+                  <span className="fsdx-editor-button-text">{displayText}</span>
+                )}
+                <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+              </>
+            )}
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

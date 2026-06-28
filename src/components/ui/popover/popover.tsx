@@ -1,35 +1,48 @@
-import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { Popover } from '@base-ui/react/popover';
 import { cn } from '../../../core/editor-utils';
 import './popover.scss';
 
-function Popover({
-  ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Root>) {
-  return <PopoverPrimitive.Root {...props} />;
+function PopoverRoot({ ...props }: React.ComponentProps<typeof Popover.Root>) {
+  return <Popover.Root {...props} />;
 }
 
 function PopoverTrigger({
+  asChild,
+  children,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
-  return <PopoverPrimitive.Trigger {...props} />;
+}: React.ComponentProps<typeof Popover.Trigger> & {
+  asChild?: boolean;
+}) {
+  if (asChild) {
+    return (
+      <Popover.Trigger render={children as React.ReactElement} {...props} />
+    );
+  }
+  return <Popover.Trigger {...props}>{children}</Popover.Trigger>;
 }
 
 function PopoverContent({
   className,
   align = 'center',
   sideOffset = 4,
+  children,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+}: React.ComponentProps<typeof Popover.Popup> & {
+  align?: 'center' | 'start' | 'end';
+  sideOffset?: number;
+}) {
   return (
-    <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
-        align={align}
-        sideOffset={sideOffset}
-        className={cn('fsdx-editor-popover', className)}
-        {...props}
-      />
-    </PopoverPrimitive.Portal>
+    <Popover.Portal>
+      <Popover.Positioner sideOffset={sideOffset} align={align}>
+        <Popover.Popup
+          className={cn('fsdx-editor-popover', className)}
+          {...props}
+        >
+          {children}
+        </Popover.Popup>
+      </Popover.Positioner>
+    </Popover.Portal>
   );
 }
 
-export { Popover, PopoverContent, PopoverTrigger };
+export { PopoverContent, PopoverRoot as Popover, PopoverTrigger };

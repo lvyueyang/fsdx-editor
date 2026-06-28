@@ -2,6 +2,7 @@ import { forwardRef, useCallback } from 'react';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 // --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Tiptap UI ---
@@ -60,26 +61,27 @@ export const ClearFormattingButton = forwardRef<
     }
 
     return (
-      <Button
-        type="button"
-        disabled={!canExecute}
-        variant="ghost"
-        data-disabled={!canExecute}
-        role="button"
-        tabIndex={-1}
-        aria-label={label}
-        tooltip={label}
-        onClick={handleClick}
-        {...buttonProps}
-        ref={ref}
-      >
-        {children ?? (
-          <>
-            <Icon className="fsdx-editor-button-icon" />
-            {text && <span className="fsdx-editor-button-text">{text}</span>}
-          </>
-        )}
-      </Button>
+      <Tooltip title={label}>
+        <Button
+          type="button"
+          disabled={!canExecute}
+          variant="ghost"
+          data-disabled={!canExecute}
+          role="button"
+          tabIndex={-1}
+          aria-label={label}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <Icon className="fsdx-editor-button-icon" />
+              {text && <span className="fsdx-editor-button-text">{text}</span>}
+            </>
+          )}
+        </Button>
+      </Tooltip>
     );
   },
 );

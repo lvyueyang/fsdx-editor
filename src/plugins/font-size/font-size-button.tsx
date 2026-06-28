@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { Input } from '../../components/ui/input';
+import { Tooltip } from '../../components/ui/tooltip';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
@@ -108,30 +109,31 @@ function FontSizeButtonImpl(
   return (
     <DropdownMenu modal={false} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={hasFontSize ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          disabled={!canSetFontSize}
-          data-disabled={!canSetFontSize}
-          aria-label={`字号：${displayText}`}
-          tooltip="字号"
-          className={cn(className)}
-          {...props}
-          ref={ref}
-        >
-          <span
-            className={cn(
-              'fsdx-editor-button-text',
-              'fsdx-editor-button-text-fixed',
-            )}
+        <Tooltip title="字号">
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={hasFontSize ? 'on' : 'off'}
+            role="button"
+            tabIndex={-1}
+            disabled={!canSetFontSize}
+            data-disabled={!canSetFontSize}
+            aria-label={`字号：${displayText}`}
+            className={cn(className)}
+            {...props}
+            ref={ref}
           >
-            {displayText}
-          </span>
-          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-        </Button>
+            <span
+              className={cn(
+                'fsdx-editor-button-text',
+                'fsdx-editor-button-text-fixed',
+              )}
+            >
+              {displayText}
+            </span>
+            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start" className="font-size-dropdown-content">

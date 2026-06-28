@@ -3,6 +3,7 @@ import { Badge } from '../../components/ui/badge';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 // --- Lib ---
 import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
@@ -94,29 +95,32 @@ export const ImageUploadButton = forwardRef<
     const RenderIcon = CustomIcon ?? Icon;
 
     return (
-      <Button
-        type="button"
-        variant="ghost"
-        data-active-state={isActive ? 'on' : 'off'}
-        role="button"
-        tabIndex={-1}
-        disabled={!canInsert}
-        data-disabled={!canInsert}
-        aria-label={label}
-        aria-pressed={isActive}
-        tooltip={label}
-        onClick={handleClick}
-        {...buttonProps}
-        ref={ref}
-      >
-        {children ?? (
-          <>
-            <RenderIcon className="fsdx-editor-button-icon" />
-            {text && <span className="fsdx-editor-button-text">{text}</span>}
-            {showShortcut && <ImageShortcutBadge shortcutKeys={shortcutKeys} />}
-          </>
-        )}
-      </Button>
+      <Tooltip title={label}>
+        <Button
+          type="button"
+          variant="ghost"
+          data-active-state={isActive ? 'on' : 'off'}
+          role="button"
+          tabIndex={-1}
+          disabled={!canInsert}
+          data-disabled={!canInsert}
+          aria-label={label}
+          aria-pressed={isActive}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <RenderIcon className="fsdx-editor-button-icon" />
+              {text && <span className="fsdx-editor-button-text">{text}</span>}
+              {showShortcut && (
+                <ImageShortcutBadge shortcutKeys={shortcutKeys} />
+              )}
+            </>
+          )}
+        </Button>
+      </Tooltip>
     );
   },
 );

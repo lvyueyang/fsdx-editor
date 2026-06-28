@@ -3,6 +3,7 @@ import { Badge } from '../../components/ui/badge';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 // --- Lib ---
 import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
@@ -84,31 +85,32 @@ export const CodeBlockButton = forwardRef<
     }
 
     return (
-      <Button
-        type="button"
-        variant="ghost"
-        data-active-state={isActive ? 'on' : 'off'}
-        role="button"
-        disabled={!canToggle}
-        data-disabled={!canToggle}
-        tabIndex={-1}
-        aria-label={label}
-        aria-pressed={isActive}
-        tooltip={label}
-        onClick={handleClick}
-        {...buttonProps}
-        ref={ref}
-      >
-        {children ?? (
-          <>
-            <Icon className="fsdx-editor-button-icon" />
-            {text && <span className="fsdx-editor-button-text">{text}</span>}
-            {showShortcut && (
-              <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
-            )}
-          </>
-        )}
-      </Button>
+      <Tooltip title={label}>
+        <Button
+          type="button"
+          variant="ghost"
+          data-active-state={isActive ? 'on' : 'off'}
+          role="button"
+          disabled={!canToggle}
+          data-disabled={!canToggle}
+          tabIndex={-1}
+          aria-label={label}
+          aria-pressed={isActive}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <Icon className="fsdx-editor-button-icon" />
+              {text && <span className="fsdx-editor-button-text">{text}</span>}
+              {showShortcut && (
+                <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
+              )}
+            </>
+          )}
+        </Button>
+      </Tooltip>
     );
   },
 );

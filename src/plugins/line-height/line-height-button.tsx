@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { Input } from '../../components/ui/input';
+import { Tooltip } from '../../components/ui/tooltip';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
@@ -108,30 +109,31 @@ function LineHeightButtonImpl(
   return (
     <DropdownMenu modal={false} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={hasLineHeight ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          disabled={!canSetLineHeight}
-          data-disabled={!canSetLineHeight}
-          aria-label={`行高：${displayText}`}
-          tooltip="行高"
-          className={cn(className)}
-          {...props}
-          ref={ref}
-        >
-          <span
-            className={cn(
-              'fsdx-editor-button-text',
-              'fsdx-editor-button-text-fixed',
-            )}
+        <Tooltip title="行高">
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={hasLineHeight ? 'on' : 'off'}
+            role="button"
+            tabIndex={-1}
+            disabled={!canSetLineHeight}
+            data-disabled={!canSetLineHeight}
+            aria-label={`行高：${displayText}`}
+            className={cn(className)}
+            {...props}
+            ref={ref}
           >
-            {displayText}
-          </span>
-          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-        </Button>
+            <span
+              className={cn(
+                'fsdx-editor-button-text',
+                'fsdx-editor-button-text-fixed',
+              )}
+            >
+              {displayText}
+            </span>
+            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

@@ -13,7 +13,7 @@ export function UiDemoPopover() {
   return (
     <div className="demo-content">
       {pageTitle('Popover 弹出框')}
-      {pageDesc('基于 @radix-ui/react-popover，点击触发弹出内容。')}
+      {pageDesc('基于 @base-ui/react/popover，点击触发弹出内容。')}
 
       <div className="ui-demo-section">
         <div className="ui-demo-group">

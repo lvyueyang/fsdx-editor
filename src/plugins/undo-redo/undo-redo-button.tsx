@@ -3,6 +3,7 @@ import { Badge } from '../../components/ui/badge';
 // --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 // --- Lib ---
 import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
@@ -81,32 +82,33 @@ export const UndoRedoButton = forwardRef<
     }
 
     return (
-      <Button
-        type="button"
-        disabled={!canExecute}
-        variant="ghost"
-        data-disabled={!canExecute}
-        role="button"
-        tabIndex={-1}
-        aria-label={label}
-        tooltip={label}
-        onClick={handleClick}
-        {...buttonProps}
-        ref={ref}
-      >
-        {children ?? (
-          <>
-            <Icon className="fsdx-editor-button-icon" />
-            {text && <span className="fsdx-editor-button-text">{text}</span>}
-            {showShortcut && (
-              <HistoryShortcutBadge
-                action={action}
-                shortcutKeys={shortcutKeys}
-              />
-            )}
-          </>
-        )}
-      </Button>
+      <Tooltip title={label}>
+        <Button
+          type="button"
+          disabled={!canExecute}
+          variant="ghost"
+          data-disabled={!canExecute}
+          role="button"
+          tabIndex={-1}
+          aria-label={label}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <Icon className="fsdx-editor-button-icon" />
+              {text && <span className="fsdx-editor-button-text">{text}</span>}
+              {showShortcut && (
+                <HistoryShortcutBadge
+                  action={action}
+                  shortcutKeys={shortcutKeys}
+                />
+              )}
+            </>
+          )}
+        </Button>
+      </Tooltip>
     );
   },
 );

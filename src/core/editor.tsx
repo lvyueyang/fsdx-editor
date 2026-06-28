@@ -14,6 +14,7 @@ import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../components/ui/button';
+import { UIProvider } from '../components/ui/provider';
 import {
   Toolbar,
   ToolbarGroup,
@@ -335,49 +336,51 @@ export function Editor({
   }, [theme]);
 
   return (
-    <div ref={wrapperRef} className="fsdx-editor-wrapper">
-      <EditorContext.Provider value={{ editor }}>
-        <EditorOptionsContext.Provider value={options}>
-          <PortalContainerContext.Provider value={portalContainerRef}>
-            <Toolbar
-              ref={toolbarRef}
-              style={{
-                ...(isMobile
-                  ? {
-                      bottom: `calc(100% - ${height - rect.y}px)`,
-                    }
-                  : {}),
-              }}
-            >
-              {mobileView === 'main' ? (
-                <MainToolbarContent
-                  onLinkClick={() => setMobileView('link')}
-                  onEmojiClick={() => setMobileView('emoji')}
-                  isMobile={isMobile}
-                />
-              ) : (
-                <MobileToolbarContent
-                  type={mobileView}
-                  onBack={() => setMobileView('main')}
-                />
-              )}
-            </Toolbar>
+    <UIProvider>
+      <div ref={wrapperRef} className="fsdx-editor-wrapper">
+        <EditorContext.Provider value={{ editor }}>
+          <EditorOptionsContext.Provider value={options}>
+            <PortalContainerContext.Provider value={portalContainerRef}>
+              <Toolbar
+                ref={toolbarRef}
+                style={{
+                  ...(isMobile
+                    ? {
+                        bottom: `calc(100% - ${height - rect.y}px)`,
+                      }
+                    : {}),
+                }}
+              >
+                {mobileView === 'main' ? (
+                  <MainToolbarContent
+                    onLinkClick={() => setMobileView('link')}
+                    onEmojiClick={() => setMobileView('emoji')}
+                    isMobile={isMobile}
+                  />
+                ) : (
+                  <MobileToolbarContent
+                    type={mobileView}
+                    onBack={() => setMobileView('main')}
+                  />
+                )}
+              </Toolbar>
 
-            <div ref={contentRef} className="fsdx-editor-content">
-              {editor && <ImageBubbleMenu editor={editor} />}
-              {editor && <VideoBubbleMenu editor={editor} />}
-              {editor && <AudioBubbleMenu editor={editor} />}
-              {editor && <AttachmentBubbleMenu editor={editor} />}
-              <BubbleMenu />
-              <EditorContent editor={editor} role="presentation" />
-            </div>
+              <div ref={contentRef} className="fsdx-editor-content">
+                {editor && <ImageBubbleMenu editor={editor} />}
+                {editor && <VideoBubbleMenu editor={editor} />}
+                {editor && <AudioBubbleMenu editor={editor} />}
+                {editor && <AttachmentBubbleMenu editor={editor} />}
+                <BubbleMenu />
+                <EditorContent editor={editor} role="presentation" />
+              </div>
 
-            <TableSelectionOverlay />
-            <TableExtendButtons />
-            <div ref={portalContainerRef} />
-          </PortalContainerContext.Provider>
-        </EditorOptionsContext.Provider>
-      </EditorContext.Provider>
-    </div>
+              <TableSelectionOverlay />
+              <TableExtendButtons />
+              <div ref={portalContainerRef} />
+            </PortalContainerContext.Provider>
+          </EditorOptionsContext.Provider>
+        </EditorContext.Provider>
+      </div>
+    </UIProvider>
   );
 }

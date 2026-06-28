@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { DropdownMenuButtonItem } from '../../components/ui/dropdown-menu-button-item';
+import { Tooltip } from '../../components/ui/tooltip';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
@@ -51,29 +52,30 @@ function TextStyleDropdownMenuImpl(
   return (
     <DropdownMenu modal={modal} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={activeLevel ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          disabled={!canToggle}
-          data-disabled={!canToggle}
-          aria-label={`文本风格：${displayText}`}
-          tooltip="文本风格"
-          {...props}
-          ref={ref}
-        >
-          <span
-            className={cn(
-              'fsdx-editor-button-text',
-              'fsdx-editor-button-text-fixed',
-            )}
+        <Tooltip title="文本风格">
+          <Button
+            type="button"
+            variant="ghost"
+            data-active-state={activeLevel ? 'on' : 'off'}
+            role="button"
+            tabIndex={-1}
+            disabled={!canToggle}
+            data-disabled={!canToggle}
+            aria-label={`文本风格：${displayText}`}
+            {...props}
+            ref={ref}
           >
-            {displayText}
-          </span>
-          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-        </Button>
+            <span
+              className={cn(
+                'fsdx-editor-button-text',
+                'fsdx-editor-button-text-fixed',
+              )}
+            >
+              {displayText}
+            </span>
+            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+          </Button>
+        </Tooltip>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start">
@@ -90,7 +92,6 @@ function TextStyleDropdownMenuImpl(
                 editor={editor}
                 level={level}
                 text={`标题${level}`}
-                showTooltip={false}
               />
             </DropdownMenuItem>
           ))}

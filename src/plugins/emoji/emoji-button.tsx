@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { SmileIcon } from '../../icons/smile-icon';
 import { EmojiPopoverContent } from './emoji-popover-content';
@@ -21,19 +22,20 @@ export interface EmojiButtonProps extends Omit<ButtonProps, 'type'> {
 
 export const EmojiPopoverButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => (
-    <Button
-      type="button"
-      className={className}
-      variant="ghost"
-      role="button"
-      tabIndex={-1}
-      aria-label="插入表情"
-      tooltip="表情"
-      ref={ref}
-      {...props}
-    >
-      {children ?? <SmileIcon className="fsdx-editor-button-icon" />}
-    </Button>
+    <Tooltip title="表情">
+      <Button
+        type="button"
+        className={className}
+        variant="ghost"
+        role="button"
+        tabIndex={-1}
+        aria-label="插入表情"
+        ref={ref}
+        {...props}
+      >
+        {children ?? <SmileIcon className="fsdx-editor-button-icon" />}
+      </Button>
+    </Tooltip>
   ),
 );
 

@@ -116,7 +116,7 @@ export function useMediaBubbleMenu({
       if (portalContainerRef?.current?.contains(target)) return;
       if (
         target.closest(
-          '[data-radix-popper-content-wrapper], [data-radix-popover-content], [data-radix-dropdown-menu-content], [data-radix-tooltip-content]',
+          '.fsdx-editor-popover, .fsdx-editor-dropdown-menu-content, .fsdx-editor-tooltip',
         )
       ) {
         return;

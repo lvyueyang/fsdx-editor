@@ -2,6 +2,7 @@ import type { Editor } from '@tiptap/react';
 import { forwardRef, useCallback } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useTableAddRowColumn } from './use-table-ops';
 
@@ -44,22 +45,23 @@ export function TableButtonRender({
   if (!isVisible) return null;
 
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      data-active-state="off"
-      data-disabled={!canDo}
-      role="button"
-      tabIndex={-1}
-      disabled={!canDo}
-      aria-label={label}
-      tooltip={label}
-      onClick={handleClick}
-      {...buttonProps}
-      ref={ref}
-    >
-      {children ?? <Icon className="fsdx-editor-button-icon" />}
-    </Button>
+    <Tooltip title={label}>
+      <Button
+        type="button"
+        variant="ghost"
+        data-active-state="off"
+        data-disabled={!canDo}
+        role="button"
+        tabIndex={-1}
+        disabled={!canDo}
+        aria-label={label}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? <Icon className="fsdx-editor-button-icon" />}
+      </Button>
+    </Tooltip>
   );
 }
 

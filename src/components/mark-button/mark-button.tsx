@@ -7,6 +7,7 @@ import { Button } from '../../components/ui/button';
 import { parseShortcutKeys } from '../../core/editor-utils';
 // --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
+import { Tooltip } from '../ui/tooltip';
 // --- Tiptap UI ---
 import type { Mark, UseMarkConfig } from './';
 import { MARK_SHORTCUT_KEYS, useMark } from './';
@@ -85,31 +86,32 @@ export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
     }
 
     return (
-      <Button
-        type="button"
-        disabled={!canToggle}
-        variant="ghost"
-        data-active-state={isActive ? 'on' : 'off'}
-        data-disabled={!canToggle}
-        role="button"
-        tabIndex={-1}
-        aria-label={label}
-        aria-pressed={isActive}
-        tooltip={label}
-        onClick={handleClick}
-        {...buttonProps}
-        ref={ref}
-      >
-        {children ?? (
-          <>
-            <Icon className="fsdx-editor-button-icon" />
-            {text && <span className="fsdx-editor-button-text">{text}</span>}
-            {showShortcut && (
-              <MarkShortcutBadge type={type} shortcutKeys={shortcutKeys} />
-            )}
-          </>
-        )}
-      </Button>
+      <Tooltip title={label}>
+        <Button
+          type="button"
+          disabled={!canToggle}
+          variant="ghost"
+          data-active-state={isActive ? 'on' : 'off'}
+          data-disabled={!canToggle}
+          role="button"
+          tabIndex={-1}
+          aria-label={label}
+          aria-pressed={isActive}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <Icon className="fsdx-editor-button-icon" />
+              {text && <span className="fsdx-editor-button-text">{text}</span>}
+              {showShortcut && (
+                <MarkShortcutBadge type={type} shortcutKeys={shortcutKeys} />
+              )}
+            </>
+          )}
+        </Button>
+      </Tooltip>
     );
   },
 );

@@ -23,7 +23,6 @@ export function DropdownMenuButtonItem({
         type="button"
         variant="ghost"
         data-active-state={active ? 'on' : 'off'}
-        showTooltip={false}
         {...buttonProps}
       >
         {Icon ? (

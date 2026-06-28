@@ -86,12 +86,12 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       return;
     }
 
-    // 悬浮菜单内的 popover/dropdown 打开时，Radix 会将焦点移到 portal 内容，
+    // 悬浮菜单内的 popover/dropdown 打开时，Base UI 会将焦点移到 portal 内容，
     // 导致编辑器选区暂时为空，此时不应隐藏悬浮菜单
     const activeEl = document.activeElement as HTMLElement | null;
     if (
       activeEl?.closest(
-        '[data-radix-popover-content], [data-radix-dropdown-menu-content], [data-radix-tooltip-content]',
+        '.fsdx-editor-popover, .fsdx-editor-dropdown-menu-content, .fsdx-editor-tooltip',
       )
     ) {
       return;
@@ -178,7 +178,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     window.addEventListener('resize', computeRect, { passive: true });
 
     // 通过 mousedown 捕获阶段检测点击外部区域，
-    // 同时排除悬浮菜单内的 popover/dropdown（radix portal）
+    // 同时排除悬浮菜单内的 popover/dropdown（portal）
     const handleDocumentMouseDown = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
@@ -188,7 +188,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
 
       if (
         target.closest(
-          '[data-radix-popper-content-wrapper], [data-radix-popover-content], [data-radix-dropdown-menu-content], [data-radix-tooltip-content]',
+          '.fsdx-editor-popover, .fsdx-editor-dropdown-menu-content, .fsdx-editor-tooltip',
         )
       ) {
         return;

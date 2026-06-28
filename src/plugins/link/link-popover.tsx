@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 // --- Icons ---
 import { LinkIcon } from '../../icons/link-icon';
@@ -39,19 +40,20 @@ export interface LinkPopoverProps
 export const LinkButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <Button
-        type="button"
-        className={className}
-        variant="ghost"
-        role="button"
-        tabIndex={-1}
-        aria-label="链接"
-        tooltip="链接"
-        ref={ref}
-        {...props}
-      >
-        {children || <LinkIcon className="fsdx-editor-button-icon" />}
-      </Button>
+      <Tooltip title="链接">
+        <Button
+          type="button"
+          className={className}
+          variant="ghost"
+          role="button"
+          tabIndex={-1}
+          aria-label="链接"
+          ref={ref}
+          {...props}
+        >
+          {children || <LinkIcon className="fsdx-editor-button-icon" />}
+        </Button>
+      </Tooltip>
     );
   },
 );

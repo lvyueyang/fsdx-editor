@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from '../../components/ui/popover';
 import { Separator } from '../../components/ui/separator';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
 // --- Hooks ---
@@ -68,20 +69,21 @@ export const ColorHighlightPopoverButton = forwardRef<
   HTMLButtonElement,
   ButtonProps
 >(({ className, children, ...props }, ref) => (
-  <Button
-    type="button"
-    className={className}
-    variant="ghost"
-    data-appearance="default"
-    role="button"
-    tabIndex={-1}
-    aria-label="高亮文本"
-    tooltip="高亮"
-    ref={ref}
-    {...props}
-  >
-    {children ?? <HighlighterIcon className="fsdx-editor-button-icon" />}
-  </Button>
+  <Tooltip title="高亮">
+    <Button
+      type="button"
+      className={className}
+      variant="ghost"
+      data-appearance="default"
+      role="button"
+      tabIndex={-1}
+      aria-label="高亮文本"
+      ref={ref}
+      {...props}
+    >
+      {children ?? <HighlighterIcon className="fsdx-editor-button-icon" />}
+    </Button>
+  </Tooltip>
 ));
 
 ColorHighlightPopoverButton.displayName = 'ColorHighlightPopoverButton';
@@ -133,34 +135,36 @@ export function ColorHighlightPopoverContent({
           <ButtonGroup>
             {colors.map((color, index) => (
               <ButtonGroup key={color.value}>
-                <ColorHighlightButton
-                  editor={editor}
-                  highlightColor={
-                    useColorValue ? color.colorValue : color.value
-                  }
-                  tooltip={color.label}
-                  aria-label={`${color.label} 高亮色`}
-                  tabIndex={index === selectedIndex ? 0 : -1}
-                  data-highlighted={selectedIndex === index}
-                  useColorValue={useColorValue}
-                />
+                <Tooltip title={color.label}>
+                  <ColorHighlightButton
+                    editor={editor}
+                    highlightColor={
+                      useColorValue ? color.colorValue : color.value
+                    }
+                    aria-label={`${color.label} 高亮色`}
+                    tabIndex={index === selectedIndex ? 0 : -1}
+                    data-highlighted={selectedIndex === index}
+                    useColorValue={useColorValue}
+                  />
+                </Tooltip>
               </ButtonGroup>
             ))}
           </ButtonGroup>
           <Separator />
           <ButtonGroup>
-            <Button
-              onClick={handleRemoveHighlight}
-              aria-label="移除高亮"
-              tooltip="移除高亮"
-              tabIndex={selectedIndex === colors.length ? 0 : -1}
-              type="button"
-              role="menuitem"
-              variant="ghost"
-              data-highlighted={selectedIndex === colors.length}
-            >
-              <BanIcon className="fsdx-editor-button-icon" />
-            </Button>
+            <Tooltip title="移除高亮">
+              <Button
+                onClick={handleRemoveHighlight}
+                aria-label="移除高亮"
+                tabIndex={selectedIndex === colors.length ? 0 : -1}
+                type="button"
+                role="menuitem"
+                variant="ghost"
+                data-highlighted={selectedIndex === colors.length}
+              >
+                <BanIcon className="fsdx-editor-button-icon" />
+              </Button>
+            </Tooltip>
           </ButtonGroup>
         </CardItemGroup>
       </CardBody>
@@ -196,17 +200,18 @@ export function ColorHighlightPopover({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <ColorHighlightPopoverButton
-          disabled={!canColorHighlight}
-          data-active-state={isActive ? 'on' : 'off'}
-          data-disabled={!canColorHighlight}
-          aria-pressed={isActive}
-          aria-label={label}
-          tooltip={label}
-          {...props}
-        >
-          <Icon className="fsdx-editor-button-icon" />
-        </ColorHighlightPopoverButton>
+        <Tooltip title={label}>
+          <ColorHighlightPopoverButton
+            disabled={!canColorHighlight}
+            data-active-state={isActive ? 'on' : 'off'}
+            data-disabled={!canColorHighlight}
+            aria-pressed={isActive}
+            aria-label={label}
+            {...props}
+          >
+            <Icon className="fsdx-editor-button-icon" />
+          </ColorHighlightPopoverButton>
+        </Tooltip>
       </PopoverTrigger>
       <PopoverContent aria-label="高亮颜色">
         <ColorHighlightPopoverContent

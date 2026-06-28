@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useState } from 'react';
 import { MediaUploadPopover } from '../../components/media-upload-popover';
 import type { ButtonProps } from '../../components/ui/button';
 import { Button } from '../../components/ui/button';
+import { Tooltip } from '../../components/ui/tooltip';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { ImagePlusIcon } from '../../icons/image-plus-icon';
@@ -39,17 +40,13 @@ export const ImageUploadPopoverButton = forwardRef<
       onOpenChange={setOpen}
       onInserted={handleInserted}
     >
-      <Button
-        ref={ref}
-        variant="ghost"
-        size="small"
-        tooltip="添加图片"
-        {...props}
-      >
-        <ImagePlusIcon className="fsdx-editor-button-icon" />
-        {text && <span>{text}</span>}
-        <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-      </Button>
+      <Tooltip title="添加图片">
+        <Button ref={ref} variant="ghost" size="small" {...props}>
+          <ImagePlusIcon className="fsdx-editor-button-icon" />
+          {text && <span>{text}</span>}
+          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
+        </Button>
+      </Tooltip>
     </MediaUploadPopover>
   );
 });
