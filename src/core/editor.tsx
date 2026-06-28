@@ -15,11 +15,7 @@ import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../components/ui/button';
 import { UIProvider } from '../components/ui/provider';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../components/ui/toolbar';
+import { Toolbar } from '../components/ui/toolbar';
 import { HorizontalRule } from '../plugins/horizontal-rule/horizontal-rule-node-extension';
 import { ImageUploadNode } from '../plugins/image/image-upload-node-extension';
 import { Indent } from '../plugins/indent/indent-extension';
@@ -102,15 +98,15 @@ const MainToolbarContent = ({
 }) => {
   return (
     <>
-      <ToolbarGroup>
+      <Toolbar.Group>
         <UndoRedoButton action="undo" />
         <UndoRedoButton action="redo" />
         <ClearFormattingButton />
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <TextStyleDropdownMenu modal={false} />
         <FontSizeButton />
         <LineHeightButton />
@@ -123,11 +119,11 @@ const MainToolbarContent = ({
         <CodeBlockButton />
         <HorizontalRuleButton />
         <TableButton />
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <MarkButton type="bold" />
         <MarkButton type="italic" />
         <MarkButton type="strike" />
@@ -140,27 +136,27 @@ const MainToolbarContent = ({
         ) : (
           <LinkButton onClick={onLinkClick} />
         )}
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <MarkButton type="superscript" />
         <MarkButton type="subscript" />
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <TextAlignButton align="left" />
         <TextAlignButton align="center" />
         <TextAlignButton align="right" />
         <TextAlignButton align="justify" />
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         {!isMobile ? (
           <EmojiButton />
         ) : (
@@ -170,7 +166,7 @@ const MainToolbarContent = ({
         <VideoUploadButton />
         <AudioUploadButton />
         <AttachmentUploadButton />
-      </ToolbarGroup>
+      </Toolbar.Group>
     </>
   );
 };
@@ -183,7 +179,7 @@ const MobileToolbarContent = ({
   onBack: () => void;
 }) => (
   <>
-    <ToolbarGroup>
+    <Toolbar.Group>
       <Button variant="ghost" onClick={onBack}>
         <ArrowLeftIcon className="fsdx-editor-button-icon" />
         {type === 'link' ? (
@@ -192,9 +188,9 @@ const MobileToolbarContent = ({
           <SmileIcon className="fsdx-editor-button-icon" />
         )}
       </Button>
-    </ToolbarGroup>
+    </Toolbar.Group>
 
-    <ToolbarSeparator />
+    <Toolbar.Separator />
 
     {type === 'link' ? <LinkContent /> : <EmojiPopoverContent />}
   </>

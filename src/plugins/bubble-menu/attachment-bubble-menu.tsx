@@ -2,11 +2,7 @@ import { FloatingPortal } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
 import { Input } from '../../components/ui/input';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useMediaBubbleMenu } from './use-media-bubble-menu';
 import './media-bubble-menu.scss';
 
@@ -75,7 +71,7 @@ export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
         }}
       >
         <Toolbar variant="floating">
-          <ToolbarGroup>
+          <Toolbar.Group>
             <Input
               type="text"
               value={nameValue}
@@ -85,11 +81,11 @@ export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
               className="fsdx-editor-media-bubble-menu-input"
               aria-label="文件名"
             />
-          </ToolbarGroup>
+          </Toolbar.Group>
 
-          <ToolbarSeparator />
+          <Toolbar.Separator />
 
-          <ToolbarGroup>
+          <Toolbar.Group>
             <button
               type="button"
               className="fsdx-editor-button fsdx-editor-media-bubble-menu-btn--danger"
@@ -111,7 +107,7 @@ export function AttachmentBubbleMenu({ editor }: AttachmentBubbleMenuProps) {
                 <line x1="14" y1="11" x2="14" y2="17" />
               </svg>
             </button>
-          </ToolbarGroup>
+          </Toolbar.Group>
         </Toolbar>
       </div>
     </FloatingPortal>

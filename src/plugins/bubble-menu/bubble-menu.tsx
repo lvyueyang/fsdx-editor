@@ -1,11 +1,7 @@
 import { FloatingPortal } from '@floating-ui/react';
 import { useCurrentEditor } from '@tiptap/react';
 import { MarkButton } from '../../components/mark-button';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { ColorHighlightDropdownMenu } from '../color/color-highlight-dropdown-menu';
 import { ColorTextDropdownMenu } from '../color/color-text-dropdown-menu';
 import { FontSizeButton } from '../font-size';
@@ -58,39 +54,39 @@ export function BubbleMenu() {
           <LinkBubbleMenuContent editor={editor} onAction={hideMenu} />
         ) : (
           <Toolbar variant="floating">
-            <ToolbarGroup>
+            <Toolbar.Group>
               <TextStyleDropdownMenu modal={false} />
               <FontSizeButton />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <MarkButton type="bold" />
               <MarkButton type="italic" />
               <MarkButton type="underline" />
               <MarkButton type="strike" />
               <MarkButton type="code" />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <ColorTextDropdownMenu modal={false} />
               <ColorHighlightDropdownMenu modal={false} />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <LinkPopover />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <ClearFormattingButton />
-            </ToolbarGroup>
+            </Toolbar.Group>
           </Toolbar>
         )}
       </div>

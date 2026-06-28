@@ -3,11 +3,7 @@ import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
 import { VideoResizeHandles } from '../../components/media-attribute-editor/video-resize-handles';
 import { Input } from '../../components/ui/input';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useMediaBubbleMenu } from './use-media-bubble-menu';
 import './media-bubble-menu.scss';
 
@@ -152,7 +148,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
           }}
         >
           <Toolbar variant="floating">
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className={`fsdx-editor-button ${currentAlignment === 'left' ? 'fsdx-editor-media-bubble-menu-btn--active' : ''}`}
@@ -221,11 +217,11 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
                   {widthPercent}%
                 </span>
               )}
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <Input
                 type="text"
                 value={posterValue}
@@ -235,11 +231,11 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
                 className="fsdx-editor-media-bubble-menu-input"
                 aria-label="视频封面图"
               />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className={`fsdx-editor-button fsdx-editor-media-bubble-menu-toggle ${autoplay ? 'fsdx-editor-media-bubble-menu-btn--active' : ''}`}
@@ -267,11 +263,11 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
               >
                 循环
               </button>
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className="fsdx-editor-button fsdx-editor-media-bubble-menu-btn--danger"
@@ -293,7 +289,7 @@ export function VideoBubbleMenu({ editor }: VideoBubbleMenuProps) {
                   <line x1="14" y1="11" x2="14" y2="17" />
                 </svg>
               </button>
-            </ToolbarGroup>
+            </Toolbar.Group>
           </Toolbar>
         </div>
       </FloatingPortal>

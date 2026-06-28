@@ -2,11 +2,7 @@ import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { Tooltip } from '../../components/ui/tooltip';
 import { sanitizeUrl } from '../../core/editor-utils';
 import { CornerDownLeftIcon } from '../../icons/corner-down-left-icon';
@@ -97,7 +93,7 @@ export function LinkBubbleMenuContent({
 
   return (
     <Toolbar variant="floating">
-      <ToolbarGroup>
+      <Toolbar.Group>
         <Input
           type="url"
           placeholder="粘贴链接..."
@@ -121,11 +117,11 @@ export function LinkBubbleMenuContent({
             <CornerDownLeftIcon className="fsdx-editor-button-icon" />
           </Button>
         </Tooltip>
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <Tooltip title="新窗口打开">
           <Button
             type="button"
@@ -138,11 +134,11 @@ export function LinkBubbleMenuContent({
             新窗口
           </Button>
         </Tooltip>
-      </ToolbarGroup>
+      </Toolbar.Group>
 
-      <ToolbarSeparator />
+      <Toolbar.Separator />
 
-      <ToolbarGroup>
+      <Toolbar.Group>
         <Tooltip title="打开链接">
           <Button
             type="button"
@@ -164,7 +160,7 @@ export function LinkBubbleMenuContent({
             <TrashIcon className="fsdx-editor-button-icon" />
           </Button>
         </Tooltip>
-      </ToolbarGroup>
+      </Toolbar.Group>
     </Toolbar>
   );
 }

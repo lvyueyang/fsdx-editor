@@ -3,11 +3,7 @@ import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
 import { ImageResizeHandles } from '../../components/media-attribute-editor/image-resize-handles';
 import { Input } from '../../components/ui/input';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { ImageEditor } from '../image/image-editor';
 import type { FilterValues } from '../image/image-filter-panel';
 import { useMediaBubbleMenu } from './use-media-bubble-menu';
@@ -195,7 +191,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
           }}
         >
           <Toolbar variant="floating">
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className={`fsdx-editor-button ${currentAlignment === 'left' ? 'fsdx-editor-media-bubble-menu-btn--active' : ''}`}
@@ -264,11 +260,11 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                   {widthPercent}%
                 </span>
               )}
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <Input
                 type="text"
                 value={altValue}
@@ -278,9 +274,9 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                 className="fsdx-editor-media-bubble-menu-input"
                 aria-label="图片描述"
               />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <Input
                 type="text"
                 value={srcValue}
@@ -290,9 +286,9 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                 className="fsdx-editor-media-bubble-menu-input fsdx-editor-media-bubble-menu-input--src"
                 aria-label="图片源地址"
               />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <Input
                 type="text"
                 value={linkValue}
@@ -302,11 +298,11 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                 className="fsdx-editor-media-bubble-menu-input"
                 aria-label="链接地址"
               />
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className="fsdx-editor-button"
@@ -325,11 +321,11 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
               </button>
-            </ToolbarGroup>
+            </Toolbar.Group>
 
-            <ToolbarSeparator />
+            <Toolbar.Separator />
 
-            <ToolbarGroup>
+            <Toolbar.Group>
               <button
                 type="button"
                 className="fsdx-editor-button fsdx-editor-media-bubble-menu-btn--danger"
@@ -351,7 +347,7 @@ export function ImageBubbleMenu({ editor }: ImageBubbleMenuProps) {
                   <line x1="14" y1="11" x2="14" y2="17" />
                 </svg>
               </button>
-            </ToolbarGroup>
+            </Toolbar.Group>
           </Toolbar>
         </div>
       </FloatingPortal>

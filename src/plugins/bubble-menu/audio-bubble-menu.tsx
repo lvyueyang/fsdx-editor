@@ -1,11 +1,7 @@
 import { FloatingPortal } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
 import { useCallback, useState } from 'react';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from '../../components/ui/toolbar';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useMediaBubbleMenu } from './use-media-bubble-menu';
 import './media-bubble-menu.scss';
 
@@ -100,7 +96,7 @@ export function AudioBubbleMenu({ editor }: AudioBubbleMenuProps) {
         }}
       >
         <Toolbar variant="floating">
-          <ToolbarGroup>
+          <Toolbar.Group>
             <button
               type="button"
               className={`fsdx-editor-button fsdx-editor-media-bubble-menu-toggle ${autoplay ? 'fsdx-editor-media-bubble-menu-btn--active' : ''}`}
@@ -128,11 +124,11 @@ export function AudioBubbleMenu({ editor }: AudioBubbleMenuProps) {
             >
               循环
             </button>
-          </ToolbarGroup>
+          </Toolbar.Group>
 
-          <ToolbarSeparator />
+          <Toolbar.Separator />
 
-          <ToolbarGroup>
+          <Toolbar.Group>
             <button
               type="button"
               className="fsdx-editor-button fsdx-editor-media-bubble-menu-btn--danger"
@@ -154,7 +150,7 @@ export function AudioBubbleMenu({ editor }: AudioBubbleMenuProps) {
                 <line x1="14" y1="11" x2="14" y2="17" />
               </svg>
             </button>
-          </ToolbarGroup>
+          </Toolbar.Group>
         </Toolbar>
       </div>
     </FloatingPortal>
