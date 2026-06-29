@@ -5,12 +5,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
+import { DropdownMenuButtonItem } from '../../components/ui/dropdown-menu-button-item';
 import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { ListButton } from './list-button';
 import type { ListType } from './use-list';
 import { useListDropdownMenu } from './use-list-dropdown-menu';
 
@@ -51,6 +50,13 @@ function ListDropdownMenuImpl(
     [onOpenChange],
   );
 
+  const handleList = useCallback(
+    (type: ListType) => {
+      editor?.chain().focus().toggleList(type, 'listItem').run();
+    },
+    [editor],
+  );
+
   if (!isVisible) {
     return null;
   }
@@ -75,13 +81,13 @@ function ListDropdownMenuImpl(
       <DropdownMenuContent align="start">
         <DropdownMenuGroup>
           {filteredLists.map((option) => (
-            <DropdownMenuItem key={option.type} asChild>
-              <ListButton
-                editor={editor}
-                type={option.type}
-                text={option.label}
-              />
-            </DropdownMenuItem>
+            <DropdownMenuButtonItem
+              key={option.type}
+              icon={option.icon}
+              onClick={() => handleList(option.type)}
+            >
+              <span className="fsdx-editor-button-text">{option.label}</span>
+            </DropdownMenuButtonItem>
           ))}
         </DropdownMenuGroup>
       </DropdownMenuContent>

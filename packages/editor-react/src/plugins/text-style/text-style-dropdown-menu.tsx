@@ -5,13 +5,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { DropdownMenuButtonItem } from '../../components/ui/dropdown-menu-button-item';
 import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { HeadingButton, type Level } from '../heading';
+import { headingIcons, type Level } from '../heading';
 import { useTextStyleDropdownMenu } from './use-text-style-dropdown-menu';
 
 const ALL_LEVELS: Level[] = [1, 2, 3, 4, 5, 6];
@@ -41,7 +40,20 @@ function TextStyleDropdownMenuImpl(
 
   const handleParagraph = useCallback(() => {
     editor?.chain().focus().setNode('paragraph').run();
+    setIsOpen(false);
   }, [editor]);
+
+  const handleHeading = useCallback(
+    (level: Level) => {
+      if (activeLevel === level) {
+        editor?.chain().focus().setNode('paragraph').run();
+      } else {
+        editor?.chain().focus().setNode('heading', { level }).run();
+      }
+      setIsOpen(false);
+    },
+    [editor, activeLevel],
+  );
 
   return (
     <DropdownMenu modal={modal} open={isOpen} onOpenChange={handleOpenChange}>
@@ -66,15 +78,19 @@ function TextStyleDropdownMenuImpl(
           >
             <span className="fsdx-editor-button-text">正文</span>
           </DropdownMenuButtonItem>
-          {ALL_LEVELS.map((level) => (
-            <DropdownMenuItem key={`heading-${level}`} asChild>
-              <HeadingButton
-                editor={editor}
-                level={level}
-                text={`标题${level}`}
-              />
-            </DropdownMenuItem>
-          ))}
+          {ALL_LEVELS.map((level) => {
+            const HeadingIcon = headingIcons[level];
+            return (
+              <DropdownMenuButtonItem
+                key={`heading-${level}`}
+                active={activeLevel === level}
+                icon={HeadingIcon}
+                onClick={() => handleHeading(level)}
+              >
+                <span className="fsdx-editor-button-text">{`标题${level}`}</span>
+              </DropdownMenuButtonItem>
+            );
+          })}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

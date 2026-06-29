@@ -181,7 +181,7 @@
     outline: none;
   }
 
-  &[data-disabled] {
+  &[data-disabled='true'] {
     opacity: 0.4;
     pointer-events: none;
   }
@@ -248,7 +248,7 @@
     outline: none;
   }
 
-  &[data-disabled] {
+  &[data-disabled='true'] {
     opacity: 0.4;
     pointer-events: none;
   }

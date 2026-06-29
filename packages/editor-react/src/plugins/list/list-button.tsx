@@ -98,8 +98,8 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
           data-disabled={!canToggle}
           aria-label={label}
           aria-pressed={isActive}
-          onClick={handleClick}
           {...buttonProps}
+          onClick={handleClick}
           ref={ref}
         >
           {children ?? (

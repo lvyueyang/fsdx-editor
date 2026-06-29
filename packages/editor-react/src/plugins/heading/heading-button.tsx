@@ -70,6 +70,7 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
 
     return (
       <Toolbar.Button
+        {...buttonProps}
         label={label}
         active={isActive}
         disabled={!canToggle}
@@ -77,7 +78,6 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
         aria-label={label}
         aria-pressed={isActive}
         onClick={handleClick}
-        {...buttonProps}
         ref={ref}
       >
         {children ?? (
