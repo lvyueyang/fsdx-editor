@@ -188,6 +188,17 @@
     opacity: var(--fsdx-editor-button-disabled-opacity);
     pointer-events: none;
   }
+
+  &[data-variant="danger"] {
+    &:hover:not(:disabled) {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: var(--fsdx-editor-destructive);
+
+      .fsdx-editor-button-icon {
+        color: var(--fsdx-editor-destructive);
+      }
+    }
+  }
 }
 
 /* ======== Toolbar Select ======== */

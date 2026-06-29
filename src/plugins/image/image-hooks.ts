@@ -1,39 +1,22 @@
-import type { Editor } from '@tiptap/react';
+import type { Editor } from '@tiptap/core';
+import type { Editor as ReactEditor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-// --- Lib ---
 import { isExtensionAvailable } from '../../core/editor-utils';
-// --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { useIsBreakpoint } from '../../hooks/use-is-breakpoint';
-
-// --- Icons ---
 import { ImagePlusIcon } from '../../icons/image-plus-icon';
+
+// ======== useImageUpload ========
 
 export const IMAGE_UPLOAD_SHORTCUT_KEY = 'mod+shift+i';
 
-/**
- * Configuration for the image upload functionality
- */
 export interface UseImageUploadConfig {
-  /**
-   * The Tiptap editor instance.
-   */
-  editor?: Editor | null;
-  /**
-   * Whether the button should hide when insertion is not available.
-   * @default false
-   */
+  editor?: ReactEditor | null;
   hideWhenUnavailable?: boolean;
-  /**
-   * Callback function called after a successful image insertion.
-   */
   onInserted?: () => void;
 }
 
-/**
- * Checks if image can be inserted in the current editor state
- */
 export function canInsertImage(editor: Editor | null): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!isExtensionAvailable(editor, 'imageUpload')) return false;
@@ -41,17 +24,11 @@ export function canInsertImage(editor: Editor | null): boolean {
   return editor.can().insertContent({ type: 'imageUpload' });
 }
 
-/**
- * Checks if image is currently active
- */
 export function isImageActive(editor: Editor | null): boolean {
   if (!editor || !editor.isEditable) return false;
   return editor.isActive('imageUpload');
 }
 
-/**
- * Inserts an image in the editor
- */
 export function insertImage(editor: Editor | null): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!canInsertImage(editor)) return false;
@@ -69,9 +46,6 @@ export function insertImage(editor: Editor | null): boolean {
   }
 }
 
-/**
- * Determines if the image button should be shown
- */
 export function shouldShowButton(props: {
   editor: Editor | null;
   hideWhenUnavailable: boolean;
@@ -93,42 +67,6 @@ export function shouldShowButton(props: {
   return true;
 }
 
-/**
- * Custom hook that provides image functionality for Tiptap editor
- *
- * @example
- * ```tsx
- * // Simple usage - no params needed
- * function MySimpleImageButton() {
- *   const { isVisible, handleImage } = useImage()
- *
- *   if (!isVisible) return null
- *
- *   return <button onClick={handleImage}>Add Image</button>
- * }
- *
- * // Advanced usage with configuration
- * function MyAdvancedImageButton() {
- *   const { isVisible, handleImage, label, isActive } = useImage({
- *     editor: myEditor,
- *     hideWhenUnavailable: true,
- *     onInserted: () => console.log('Image inserted!')
- *   })
- *
- *   if (!isVisible) return null
- *
- *   return (
- *     <MyButton
- *       onClick={handleImage}
- *       aria-pressed={isActive}
- *       aria-label={label}
- *     >
- *       Add Image
- *     </MyButton>
- *   )
- * }
- * ```
- */
 export function useImageUpload(config?: UseImageUploadConfig) {
   const {
     editor: providedEditor,
@@ -189,5 +127,75 @@ export function useImageUpload(config?: UseImageUploadConfig) {
     label: '添加图片',
     shortcutKeys: IMAGE_UPLOAD_SHORTCUT_KEY,
     Icon: ImagePlusIcon,
+  };
+}
+
+// ======== useImageBubbleState ========
+
+interface UseImageBubbleStateConfig {
+  editor: Editor | null;
+  nodePosRef: React.MutableRefObject<number>;
+}
+
+/**
+ * 图片悬浮菜单状态管理：alt / src / link 的读写和提交
+ */
+export function useImageBubbleState({
+  editor,
+  nodePosRef,
+}: UseImageBubbleStateConfig) {
+  const [altValue, setAltValue] = useState('');
+  const [srcValue, setSrcValue] = useState('');
+  const [linkValue, setLinkValue] = useState('');
+
+  const syncAttrs = useCallback((attrs: Record<string, unknown>) => {
+    setAltValue((attrs.alt as string) || '');
+    setSrcValue((attrs.src as string) || '');
+    setLinkValue((attrs.link as string) || '');
+  }, []);
+
+  const commitAlt = useCallback(() => {
+    if (!editor) return;
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateAttributes('customImage', { alt: altValue || null })
+      .run() ||
+      editor
+        .chain()
+        .setNodeSelection(nodePosRef.current)
+        .updateAttributes('image', { alt: altValue || null })
+        .run();
+  }, [editor, altValue, nodePosRef]);
+
+  const commitSrc = useCallback(() => {
+    if (!editor || !srcValue?.trim()) return;
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateImageSrc?.(srcValue.trim())
+      .run();
+  }, [editor, srcValue, nodePosRef]);
+
+  const commitLink = useCallback(() => {
+    if (!editor) return;
+    editor
+      .chain()
+      .setNodeSelection(nodePosRef.current)
+      .updateImageLink?.(linkValue || null)
+      .run();
+  }, [editor, linkValue, nodePosRef]);
+
+  return {
+    altValue,
+    srcValue,
+    linkValue,
+    setAltValue,
+    setSrcValue,
+    setLinkValue,
+    syncAttrs,
+    commitAlt,
+    commitSrc,
+    commitLink,
   };
 }

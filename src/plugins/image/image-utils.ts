@@ -1,3 +1,4 @@
+import type { Editor } from '@tiptap/core';
 import type { Area } from 'react-easy-crop';
 
 export function createImage(url: string): Promise<HTMLImageElement> {
@@ -55,4 +56,21 @@ export function getCroppedImg(
       if (blob) resolve(blob);
     }, 'image/png');
   });
+}
+
+export function getImageWidthPercent(editor: Editor): number | null {
+  const attrs = editor.getAttributes('customImage');
+  const widthAttr: string | null = attrs?.width || null;
+  if (!widthAttr) return null;
+
+  const editorWidth = editor.view.dom.clientWidth;
+  if (editorWidth <= 0) return null;
+
+  if (widthAttr.endsWith('%')) {
+    return Math.round(Number.parseFloat(widthAttr));
+  }
+
+  const pxValue = Number.parseFloat(widthAttr);
+  if (Number.isNaN(pxValue)) return null;
+  return Math.round((pxValue / editorWidth) * 100);
 }

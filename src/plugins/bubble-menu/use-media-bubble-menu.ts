@@ -8,6 +8,8 @@ export interface UseMediaBubbleMenuConfig {
   nodeTypes: string[];
   /** 当节点激活时同步属性到本地状态 */
   onActive?: (attrs: Record<string, unknown>, pos: number) => void;
+  /** 可选的外部 nodePosRef，与调用方共享节点位置 */
+  nodePosRef?: React.MutableRefObject<number>;
 }
 
 const EMPTY_RECT = {
@@ -29,10 +31,12 @@ export function useMediaBubbleMenu({
   editor,
   nodeTypes,
   onActive,
+  nodePosRef: externalNodePosRef,
 }: UseMediaBubbleMenuConfig) {
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState<DOMRect>(EMPTY_RECT);
-  const nodePosRef = useRef(0);
+  const internalNodePosRef = useRef(0);
+  const nodePosRef = externalNodePosRef ?? internalNodePosRef;
   const portalContainerRef = usePortalContainer();
 
   // 使用 ref 持有回调/配置避免 computeRect 依赖变化导致事件重复订阅

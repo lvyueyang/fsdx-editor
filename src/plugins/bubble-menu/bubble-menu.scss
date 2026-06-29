@@ -27,7 +27,8 @@
 }
 
 .fsdx-editor-bubble-menu {
-  .fsdx-editor-button[data-active-state='on'] {
+  .fsdx-editor-button[data-active-state='on'],
+  .fsdx-editor-toolbar-button[data-active-state='on'] {
     background-color: var(--fsdx-editor-brand-500);
     color: var(--fsdx-editor-white);
 

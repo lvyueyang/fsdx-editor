@@ -1,9 +1,6 @@
 import type { Editor } from '@tiptap/react';
 import { useCallback, useEffect, useState } from 'react';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
 import { Toolbar } from '../../components/ui/toolbar';
-import { Tooltip } from '../../components/ui/tooltip';
 import { sanitizeUrl } from '../../core/editor-utils';
 import { CornerDownLeftIcon } from '../../icons/corner-down-left-icon';
 import { ExternalLinkIcon } from '../../icons/external-link-icon';
@@ -94,7 +91,7 @@ export function LinkBubbleMenuContent({
   return (
     <Toolbar variant="floating">
       <Toolbar.Group>
-        <Input
+        <Toolbar.Input
           type="url"
           placeholder="粘贴链接..."
           value={url}
@@ -106,60 +103,32 @@ export function LinkBubbleMenuContent({
           autoCapitalize="off"
           className="fsdx-bubble-menu-link-input"
         />
-        <Tooltip title="应用链接">
-          <Button
-            type="button"
-            variant="ghost"
-            aria-label="应用链接"
-            disabled={!url}
-            onClick={applyLink}
-          >
-            <CornerDownLeftIcon className="fsdx-editor-button-icon" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Button label="应用链接" disabled={!url} onClick={applyLink}>
+          <CornerDownLeftIcon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
       </Toolbar.Group>
 
       <Toolbar.Separator />
 
       <Toolbar.Group>
-        <Tooltip title="新窗口打开">
-          <Button
-            type="button"
-            variant="ghost"
-            size="small"
-            data-active-state={isBlank ? 'on' : 'off'}
-            aria-label="新窗口打开"
-            onClick={toggleTarget}
-          >
-            新窗口
-          </Button>
-        </Tooltip>
+        <Toolbar.Button
+          label="新窗口打开"
+          active={isBlank}
+          onClick={toggleTarget}
+        >
+          新窗口
+        </Toolbar.Button>
       </Toolbar.Group>
 
       <Toolbar.Separator />
 
       <Toolbar.Group>
-        <Tooltip title="打开链接">
-          <Button
-            type="button"
-            variant="ghost"
-            aria-label="打开链接"
-            disabled={!url}
-            onClick={openLink}
-          >
-            <ExternalLinkIcon className="fsdx-editor-button-icon" />
-          </Button>
-        </Tooltip>
-        <Tooltip title="取消链接">
-          <Button
-            type="button"
-            variant="ghost"
-            aria-label="取消链接"
-            onClick={removeLink}
-          >
-            <TrashIcon className="fsdx-editor-button-icon" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Button label="打开链接" disabled={!url} onClick={openLink}>
+          <ExternalLinkIcon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
+        <Toolbar.Button label="取消链接" onClick={removeLink}>
+          <TrashIcon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
       </Toolbar.Group>
     </Toolbar>
   );

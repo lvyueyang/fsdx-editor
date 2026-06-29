@@ -51,10 +51,20 @@ const ToolbarButton = forwardRef<
     label?: string;
     showDropdown?: boolean;
     active?: boolean;
+    variant?: string;
   }
 >(
   (
-    { label, showDropdown, active, className, children, disabled, ...props },
+    {
+      label,
+      showDropdown,
+      active,
+      variant = 'default',
+      className,
+      children,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     const btn = (
@@ -62,6 +72,7 @@ const ToolbarButton = forwardRef<
         ref={ref}
         data-slot="fsdx-editor-toolbar-button"
         data-active-state={active ? 'on' : 'off'}
+        data-variant={variant}
         className={cn('fsdx-editor-toolbar-button', className)}
         disabled={disabled}
         tabIndex={-1}

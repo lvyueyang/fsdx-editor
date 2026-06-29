@@ -1,6 +1,7 @@
 export { AttachmentBubbleMenu } from './attachment-bubble-menu';
 export { AudioBubbleMenu } from './audio-bubble-menu';
 export { BubbleMenu } from './bubble-menu';
+export { BubbleMenuWrapper } from './bubble-menu-wrapper';
 export { ImageBubbleMenu } from './image-bubble-menu';
 export { LinkBubbleMenuContent } from './link-bubble-menu-content';
 export type { BubbleMenuSelectionType } from './use-bubble-menu';

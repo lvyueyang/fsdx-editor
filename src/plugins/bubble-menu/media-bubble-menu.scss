@@ -11,12 +11,26 @@
   &[data-visible] {
     opacity: 1;
   }
+
+  .fsdx-editor-toolbar-button[data-active-state='on'] {
+    background-color: var(--fsdx-editor-brand-500);
+    color: var(--fsdx-editor-white);
+
+    .fsdx-editor-button-icon {
+      color: var(--fsdx-editor-white);
+    }
+  }
 }
 
 .fsdx-editor-media-bubble-menu-input {
+  text-align: left;
   width: 6rem;
   min-width: 5rem;
   font-size: var(--fsdx-editor-font-base);
+
+  &::placeholder {
+    color: var(--fsdx-editor-text-tertiary);
+  }
 
   &--src {
     width: 8rem;
@@ -30,19 +44,7 @@
   white-space: nowrap;
 }
 
-.fsdx-editor-media-bubble-menu-btn--active {
-  background-color: var(--fsdx-editor-brand-500);
-  color: var(--fsdx-editor-white);
-}
-
 .fsdx-editor-media-bubble-menu-toggle {
   font-size: var(--fsdx-editor-font-sm);
   padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
-}
-
-.fsdx-editor-media-bubble-menu-btn--danger {
-  &:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--fsdx-editor-destructive);
-  }
 }
