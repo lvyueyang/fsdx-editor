@@ -269,6 +269,10 @@ function OverlayContent({
               top: `${rect.top + height / 2}px`,
             }}
             onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             aria-label="表格操作"
           >
             <div className="table-selection-handle-dot">
@@ -283,7 +287,9 @@ function OverlayContent({
           className="table-selection-menu"
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
-          <DropdownMenuLabel>表格操作</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>表格操作</DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           {menuItems.map((group, gi) => (
             <DropdownMenuGroup key={gi}>

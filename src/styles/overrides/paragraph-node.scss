@@ -7,11 +7,15 @@
   outline: none;
   caret-color: var(--fsdx-editor-content-cursor);
 
-  p:not(:first-child):not(td p):not(th p) {
+  p:not(td p):not(th p) {
     font-size: var(--fsdx-editor-font-lg);
     line-height: var(--fsdx-editor-line-xl);
     font-weight: var(--fsdx-editor-font-weight-normal);
-    margin-top: var(--fsdx-editor-space-5);
+    margin-bottom: var(--fsdx-editor-space-2);
+  }
+
+  p:first-child:not(td p):not(th p) {
+    margin-top: 0;
   }
 
   &:not(.readonly):not(.ProseMirror-hideselection) {

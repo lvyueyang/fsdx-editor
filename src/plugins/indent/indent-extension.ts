@@ -62,7 +62,7 @@ export const Indent = Extension.create({
               if (indent === 0) return {};
               return {
                 'data-indent': String(indent),
-                style: `text-indent: ${indent}em`,
+                style: `--fsdx-editor-indent-level: ${indent}`,
               };
             },
           },

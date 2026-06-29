@@ -70,6 +70,7 @@ const ToolbarButton = forwardRef<
     const btn = (
       <button
         ref={ref}
+        type="button"
         data-slot="fsdx-editor-toolbar-button"
         data-active-state={active ? 'on' : 'off'}
         data-variant={variant}
@@ -100,6 +101,7 @@ const ToolbarSelect = forwardRef<
   <Tooltip title={label}>
     <button
       ref={ref}
+      type="button"
       data-slot="fsdx-editor-toolbar-select"
       data-active-state={active ? 'on' : 'off'}
       className={cn('fsdx-editor-toolbar-select', className)}

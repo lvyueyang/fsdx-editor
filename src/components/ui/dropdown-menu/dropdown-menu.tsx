@@ -1,4 +1,5 @@
 import { Menu } from '@base-ui/react/menu';
+import { cloneElement } from 'react';
 import { cn } from '../../../core/editor-utils';
 import { CheckIcon } from '../../../icons/check-icon';
 
@@ -106,7 +107,32 @@ function DropdownMenuItem({
   };
 
   if (asChild) {
-    return <Menu.Item render={children as React.ReactElement} {...itemProps} />;
+    const childElement = children as React.ReactElement;
+    const childOnClick = (childElement.props as Record<string, unknown>)
+      .onClick as ((e: React.MouseEvent) => void) | undefined;
+    return (
+      <Menu.Item
+        {...itemProps}
+        render={(renderProps) => {
+          const rawProps = renderProps as Record<string, unknown>;
+          const menuOnClick = rawProps.onClick as
+            | ((e: React.MouseEvent) => void)
+            | undefined;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const merged = { ...renderProps } as any;
+          merged.onClick =
+            childOnClick || menuOnClick
+              ? (e: React.MouseEvent) => {
+                  menuOnClick?.(e as never);
+                  if (!e.defaultPrevented) {
+                    childOnClick?.(e);
+                  }
+                }
+              : undefined;
+          return cloneElement(childElement, merged);
+        }}
+      />
+    );
   }
   return <Menu.Item {...itemProps}>{children}</Menu.Item>;
 }

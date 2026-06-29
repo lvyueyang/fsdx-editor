@@ -36,7 +36,11 @@ export function useTextStyleDropdownMenu(
           ? ALL_LEVELS.find((level) => isHeadingActive(editor, level))
           : undefined,
       );
-      setCanToggleState(canToggle(editor));
+      setCanToggleState(
+        editor?.isEditable
+          ? ALL_LEVELS.some((level) => canToggle(editor, level))
+          : false,
+      );
     };
 
     handleUpdate();

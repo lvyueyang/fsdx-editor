@@ -12,6 +12,13 @@ export interface TooltipProps
   className?: string;
 }
 
+/** 需要从 children 原始 props 中优先保留的事件处理器 */
+const PRESERVE_EVENT_HANDLERS = [
+  'onClick',
+  'onPointerDown',
+  'onMouseDown',
+] as const;
+
 export function Tooltip({
   title,
   children,
@@ -28,7 +35,20 @@ export function Tooltip({
   return (
     <BaseTooltip.Root>
       <BaseTooltip.Trigger
-        render={(props) => cloneElement(children, { ...props, ...restProps })}
+        render={(props) => {
+          const childProps = children.props as Record<string, unknown>;
+          const preserved: Record<string, unknown> = {};
+          for (const key of PRESERVE_EVENT_HANDLERS) {
+            if (childProps[key] !== undefined) {
+              preserved[key] = childProps[key];
+            }
+          }
+          return cloneElement(children, {
+            ...props,
+            ...restProps,
+            ...preserved,
+          });
+        }}
         delay={delay}
         disabled={disabled}
       />
