@@ -1,10 +1,18 @@
 import { flip, offset, shift, useFloating } from '@floating-ui/react';
 import type { Editor } from '@tiptap/core';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { usePortalContainer } from '../../core/editor-context';
 
-export type BubbleMenuSelectionType = 'text' | 'link';
+export type BubbleMenuActiveType =
+  | 'text'
+  | 'link'
+  | 'image'
+  | 'video'
+  | 'audio'
+  | 'attachment'
+  | null;
 
-export interface UseBubbleMenuConfig {
+export interface UseBubbleMenuManagerConfig {
   editor: Editor | null;
 }
 
@@ -19,6 +27,24 @@ const EMPTY_RECT = {
   bottom: 0,
 } as DOMRect;
 
+function coordsToRect(pos: {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}): DOMRect {
+  return {
+    x: pos.left,
+    y: pos.top,
+    width: pos.right - pos.left,
+    height: pos.bottom - pos.top,
+    top: pos.top,
+    left: pos.left,
+    right: pos.right,
+    bottom: pos.bottom,
+  } as DOMRect;
+}
+
 function findScrollableAncestor(el: HTMLElement | null): HTMLElement | null {
   let current: HTMLElement | null = el;
   while (current) {
@@ -32,62 +58,70 @@ function findScrollableAncestor(el: HTMLElement | null): HTMLElement | null {
 }
 
 /**
- * 悬浮菜单 hook：文字选区非空时显示文本菜单，
- * 光标位于链接上时显示链接菜单，
- * 媒体节点选中或选区折叠或点击外部区域后隐藏
+ * 统一悬浮菜单 hook：合并文字/链接和媒体节点的定位逻辑，
+ * 按优先级确定当前活跃的菜单类型，保证同一时刻只显示一种悬浮菜单
  */
-export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
+export function useBubbleMenuManager({ editor }: UseBubbleMenuManagerConfig) {
   const [visible, setVisible] = useState(false);
-  const [selectionType, setSelectionType] =
-    useState<BubbleMenuSelectionType | null>(null);
+  const [activeType, setActiveType] = useState<BubbleMenuActiveType>(null);
   const [rect, setRect] = useState<DOMRect>(EMPTY_RECT);
+  const nodePosRef = useRef(0);
+  const portalContainerRef = usePortalContainer();
 
   const computeRect = useCallback(() => {
     if (!editor || editor.isDestroyed) {
       setVisible(false);
-      setSelectionType(null);
+      setActiveType(null);
       return;
     }
 
-    // 链接优先：光标位于链接上时显示链接菜单
     if (editor.isActive('link')) {
       const { $from } = editor.state.selection;
       try {
-        const pos = editor.view.coordsAtPos($from.pos);
-        const linkRect: DOMRect = {
-          x: pos.left,
-          y: pos.top,
-          width: pos.right - pos.left,
-          height: pos.bottom - pos.top,
-          top: pos.top,
-          left: pos.left,
-          right: pos.right,
-          bottom: pos.bottom,
-        } as DOMRect;
-        setRect(linkRect);
-        setSelectionType('link');
+        setRect(coordsToRect(editor.view.coordsAtPos($from.pos)));
+        setActiveType('link');
         setVisible(true);
         return;
       } catch {
-        // coordsAtPos 可能对某些位置抛出异常
+        // coordsAtPos 可能对某些位置抛出异常，回退到后续检测
       }
     }
 
-    // 媒体节点选中时隐藏文字悬浮菜单，避免与媒体悬浮菜单冲突
-    if (
-      editor.isActive('customImage') ||
-      editor.isActive('image') ||
-      editor.isActive('video') ||
-      editor.isActive('audio') ||
-      editor.isActive('attachment')
-    ) {
-      setVisible(false);
-      setSelectionType(null);
+    const { $from } = editor.state.selection;
+
+    if (editor.isActive('customImage') || editor.isActive('image')) {
+      nodePosRef.current = $from.pos;
+      setRect(coordsToRect(editor.view.coordsAtPos($from.pos)));
+      setActiveType('image');
+      setVisible(true);
       return;
     }
 
-    // 悬浮菜单内的 popover/dropdown 打开时，Base UI 会将焦点移到 portal 内容，
-    // 导致编辑器选区暂时为空，此时不应隐藏悬浮菜单
+    if (editor.isActive('video')) {
+      nodePosRef.current = $from.pos;
+      setRect(coordsToRect(editor.view.coordsAtPos($from.pos)));
+      setActiveType('video');
+      setVisible(true);
+      return;
+    }
+
+    if (editor.isActive('audio')) {
+      nodePosRef.current = $from.pos;
+      setRect(coordsToRect(editor.view.coordsAtPos($from.pos)));
+      setActiveType('audio');
+      setVisible(true);
+      return;
+    }
+
+    if (editor.isActive('attachment')) {
+      nodePosRef.current = $from.pos;
+      setRect(coordsToRect(editor.view.coordsAtPos($from.pos)));
+      setActiveType('attachment');
+      setVisible(true);
+      return;
+    }
+
+    // 悬浮菜单内的 popover/dropdown 打开时保持当前状态
     const activeEl = document.activeElement as HTMLElement | null;
     if (
       activeEl?.closest(
@@ -100,7 +134,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     const { selection } = editor.state;
     if (selection.empty) {
       setVisible(false);
-      setSelectionType(null);
+      setActiveType(null);
       return;
     }
 
@@ -111,7 +145,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       domSelection.rangeCount === 0
     ) {
       setVisible(false);
-      setSelectionType(null);
+      setActiveType(null);
       return;
     }
 
@@ -119,18 +153,18 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     const domRect = range.getBoundingClientRect();
     if (domRect.width === 0 && domRect.height === 0) {
       setVisible(false);
-      setSelectionType(null);
+      setActiveType(null);
       return;
     }
 
     setRect(domRect);
-    setSelectionType('text');
+    setActiveType('text');
     setVisible(true);
   }, [editor]);
 
   const hideMenu = useCallback(() => {
     setVisible(false);
-    setSelectionType(null);
+    setActiveType(null);
   }, []);
 
   const virtualRef = useMemo(
@@ -166,7 +200,6 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     editor.on('selectionUpdate', computeRect);
     editor.on('transaction', computeRect);
 
-    // 页面滚动/缩放时重新计算选区位置，保证悬浮菜单跟随移动
     const scrollHost = findScrollableAncestor(editor.view.dom.parentElement);
     if (scrollHost) {
       scrollHost.addEventListener('scroll', computeRect, { passive: true });
@@ -177,15 +210,13 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
     });
     window.addEventListener('resize', computeRect, { passive: true });
 
-    // 通过 mousedown 捕获阶段检测点击外部区域，
-    // 同时排除悬浮菜单内的 popover/dropdown（portal）
     const handleDocumentMouseDown = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
       if (editor.view.dom.contains(target)) return;
       if (refs.floating.current?.contains(target)) return;
-
+      if (portalContainerRef?.current?.contains(target)) return;
       if (
         target.closest(
           '.fsdx-editor-popover, .fsdx-editor-dropdown-menu-content, .fsdx-editor-tooltip',
@@ -209,7 +240,7 @@ export function useBubbleMenu({ editor }: UseBubbleMenuConfig) {
       window.removeEventListener('resize', computeRect);
       document.removeEventListener('mousedown', handleDocumentMouseDown, true);
     };
-  }, [editor, computeRect, hideMenu, refs]);
+  }, [editor, computeRect, hideMenu, refs, portalContainerRef]);
 
-  return { visible, selectionType, hideMenu, refs, floatingStyles };
+  return { visible, activeType, hideMenu, refs, floatingStyles, nodePosRef };
 }

@@ -40,13 +40,7 @@ import { SmileIcon } from '../icons/smile-icon';
 import { AttachmentNode, AttachmentUploadButton } from '../plugins/attachment';
 import { AudioNode, AudioUploadButton } from '../plugins/audio';
 import { BlockquoteButton } from '../plugins/blockquote';
-import {
-  AttachmentBubbleMenu,
-  AudioBubbleMenu,
-  BubbleMenu,
-  ImageBubbleMenu,
-  VideoBubbleMenu,
-} from '../plugins/bubble-menu';
+import { BubbleMenuManager } from '../plugins/bubble-menu';
 import { CodeBlockButton } from '../plugins/code-block';
 import { ColorHighlightDropdownMenu } from '../plugins/color/color-highlight-dropdown-menu';
 import { ColorTextDropdownMenu } from '../plugins/color/color-text-dropdown-menu';
@@ -361,11 +355,7 @@ export function Editor({
               </Toolbar>
 
               <div ref={contentRef} className="fsdx-editor-content">
-                {editor && <ImageBubbleMenu editor={editor} />}
-                {editor && <VideoBubbleMenu editor={editor} />}
-                {editor && <AudioBubbleMenu editor={editor} />}
-                {editor && <AttachmentBubbleMenu editor={editor} />}
-                <BubbleMenu />
+                <BubbleMenuManager />
                 <EditorContent editor={editor} role="presentation" />
               </div>
 
