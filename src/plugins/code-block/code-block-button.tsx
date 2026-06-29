@@ -1,28 +1,16 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Lib ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
-// --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Tiptap UI ---
 import type { UseCodeBlockConfig } from './';
 import { CODE_BLOCK_SHORTCUT_KEY, useCodeBlock } from './';
 
 export interface CodeBlockButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseCodeBlockConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
   showShortcut?: boolean;
 }
 
@@ -85,32 +73,27 @@ export const CodeBlockButton = forwardRef<
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          role="button"
-          disabled={!canToggle}
-          data-disabled={!canToggle}
-          tabIndex={-1}
-          aria-label={label}
-          aria-pressed={isActive}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        active={isActive}
+        disabled={!canToggle}
+        data-disabled={!canToggle}
+        aria-label={label}
+        aria-pressed={isActive}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

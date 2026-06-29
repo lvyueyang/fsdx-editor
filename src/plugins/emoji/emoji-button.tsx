@@ -5,13 +5,12 @@
 import type { Editor } from '@tiptap/react';
 import { forwardRef, useState } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { SmileIcon } from '../../icons/smile-icon';
 import { EmojiPopoverContent } from './emoji-popover-content';
@@ -22,20 +21,15 @@ export interface EmojiButtonProps extends Omit<ButtonProps, 'type'> {
 
 export const EmojiPopoverButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => (
-    <Tooltip title="表情">
-      <Button
-        type="button"
-        className={className}
-        variant="ghost"
-        role="button"
-        tabIndex={-1}
-        aria-label="插入表情"
-        ref={ref}
-        {...props}
-      >
-        {children ?? <SmileIcon className="fsdx-editor-button-icon" />}
-      </Button>
-    </Tooltip>
+    <Toolbar.Button
+      label="表情"
+      className={className}
+      aria-label="插入表情"
+      ref={ref}
+      {...props}
+    >
+      {children ?? <SmileIcon className="fsdx-editor-button-icon" />}
+    </Toolbar.Button>
   ),
 );
 

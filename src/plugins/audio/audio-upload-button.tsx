@@ -1,11 +1,9 @@
 import { forwardRef, useCallback, useState } from 'react';
 import { MediaUploadPopover } from '../../components/media-upload-popover';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { AudioIcon } from '../../icons/audio-icon';
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 
 export interface AudioUploadButtonProps extends ButtonProps {
   text?: string;
@@ -37,13 +35,10 @@ export const AudioUploadButton = forwardRef<
       onOpenChange={setOpen}
       onInserted={handleInserted}
     >
-      <Tooltip title="添加音频">
-        <Button ref={ref} variant="ghost" size="small" {...props}>
-          <AudioIcon className="fsdx-editor-button-icon" />
-          {text && <span>{text}</span>}
-          <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-        </Button>
-      </Tooltip>
+      <Toolbar.Button label="添加音频" showDropdown {...props} ref={ref}>
+        <AudioIcon className="fsdx-editor-button-icon" />
+        {text && <span>{text}</span>}
+      </Toolbar.Button>
     </MediaUploadPopover>
   );
 });

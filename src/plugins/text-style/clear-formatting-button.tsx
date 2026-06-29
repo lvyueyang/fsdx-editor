@@ -1,20 +1,13 @@
 import { forwardRef, useCallback } from 'react';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Hooks ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Tiptap UI ---
 import type { UseClearFormattingConfig } from './';
 import { useClearFormatting } from './';
 
 export interface ClearFormattingButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseClearFormattingConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
 }
 
@@ -61,27 +54,22 @@ export const ClearFormattingButton = forwardRef<
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          disabled={!canExecute}
-          variant="ghost"
-          data-disabled={!canExecute}
-          role="button"
-          tabIndex={-1}
-          aria-label={label}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        disabled={!canExecute}
+        data-disabled={!canExecute}
+        aria-label={label}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

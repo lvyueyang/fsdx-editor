@@ -1,21 +1,35 @@
 .fsdx-editor-indent-group {
   display: inline-flex;
   align-items: center;
-  gap: 0;
-}
 
-.fsdx-editor-indent-input {
-  width: 2.25rem;
-  height: 1.75rem;
-  padding: 0 var(--fsdx-editor-space-1);
-  font-size: var(--fsdx-editor-font-base);
-  text-align: center;
-  -moz-appearance: textfield;
-  appearance: textfield;
+  .fsdx-editor-toolbar-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  .fsdx-editor-toolbar-input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
+
+  /* 按钮悬浮 → 输入框同步悬浮 */
+  .fsdx-editor-toolbar-button:hover:not([disabled])
+    + .fsdx-editor-toolbar-input {
+    background-color: var(--fsdx-editor-button-hover-bg);
+  }
+
+  /* 输入框悬浮/聚焦 → 按钮同步悬浮 */
+  &:has(.fsdx-editor-toolbar-input:hover)
+    .fsdx-editor-toolbar-button:not([disabled]),
+  &:has(.fsdx-editor-toolbar-input:focus-visible)
+    .fsdx-editor-toolbar-button:not([disabled]) {
+    background-color: var(--fsdx-editor-button-hover-bg);
+  }
+
+  /* 按钮选中 → 输入框同步选中背景 */
+  .fsdx-editor-toolbar-button[data-active-state="on"]:not([disabled])
+    + .fsdx-editor-toolbar-input {
+    background-color: var(--fsdx-editor-button-active-bg);
   }
 }

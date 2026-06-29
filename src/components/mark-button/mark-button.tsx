@@ -1,28 +1,16 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-// --- Lib ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
-// --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { Tooltip } from '../ui/tooltip';
-// --- Tiptap UI ---
 import type { Mark, UseMarkConfig } from './';
 import { MARK_SHORTCUT_KEYS, useMark } from './';
 
 export interface MarkButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseMarkConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
   showShortcut?: boolean;
 }
 
@@ -36,11 +24,6 @@ export function MarkShortcutBadge({
   return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
-/**
- * Button component for toggling marks in a Tiptap editor.
- *
- * For custom button implementations, use the `useMark` hook instead.
- */
 export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
   (
     {
@@ -86,32 +69,27 @@ export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          disabled={!canToggle}
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          data-disabled={!canToggle}
-          role="button"
-          tabIndex={-1}
-          aria-label={label}
-          aria-pressed={isActive}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <MarkShortcutBadge type={type} shortcutKeys={shortcutKeys} />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        active={isActive}
+        disabled={!canToggle}
+        data-disabled={!canToggle}
+        aria-label={label}
+        aria-pressed={isActive}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <MarkShortcutBadge type={type} shortcutKeys={shortcutKeys} />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

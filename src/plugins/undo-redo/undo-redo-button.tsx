@@ -1,28 +1,16 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Lib ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
-// --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Tiptap UI ---
 import type { UndoRedoAction, UseUndoRedoConfig } from './';
 import { UNDO_REDO_SHORTCUT_KEYS, useUndoRedo } from './';
 
 export interface UndoRedoButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseUndoRedoConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
   showShortcut?: boolean;
 }
 
@@ -82,33 +70,28 @@ export const UndoRedoButton = forwardRef<
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          disabled={!canExecute}
-          variant="ghost"
-          data-disabled={!canExecute}
-          role="button"
-          tabIndex={-1}
-          aria-label={label}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <HistoryShortcutBadge
-                  action={action}
-                  shortcutKeys={shortcutKeys}
-                />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        disabled={!canExecute}
+        data-disabled={!canExecute}
+        aria-label={label}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <HistoryShortcutBadge
+                action={action}
+                shortcutKeys={shortcutKeys}
+              />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

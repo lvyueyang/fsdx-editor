@@ -1,8 +1,7 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import type { UseHorizontalRuleConfig } from './';
@@ -67,31 +66,25 @@ export const HorizontalRuleButton = forwardRef<
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state="off"
-          role="button"
-          tabIndex={-1}
-          disabled={!canInsert}
-          data-disabled={!canInsert}
-          aria-label={label}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <HorizontalRuleShortcutBadge shortcutKeys={shortcutKeys} />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        disabled={!canInsert}
+        data-disabled={!canInsert}
+        aria-label={label}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <HorizontalRuleShortcutBadge shortcutKeys={shortcutKeys} />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

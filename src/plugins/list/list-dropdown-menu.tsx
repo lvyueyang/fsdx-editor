@@ -1,8 +1,6 @@
 import type { Editor } from '@tiptap/react';
 import { type ForwardedRef, forwardRef, useCallback, useState } from 'react';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,37 +8,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Hooks ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Icons ---
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
-// --- Tiptap UI ---
 import { ListButton } from './list-button';
 import type { ListType } from './use-list';
 import { useListDropdownMenu } from './use-list-dropdown-menu';
 
 export interface ListDropdownMenuProps extends Omit<ButtonProps, 'type'> {
-  /**
-   * The Tiptap editor instance.
-   */
   editor?: Editor;
-  /**
-   * The list types to display in the dropdown.
-   */
   types?: ListType[];
-  /**
-   * Whether the dropdown should be hidden when no list types are available
-   * @default false
-   */
   hideWhenUnavailable?: boolean;
-  /**
-   * Callback for when the dropdown opens or closes
-   */
   onOpenChange?: (isOpen: boolean) => void;
-  /**
-   * Whether the dropdown should use a modal
-   */
   modal?: boolean;
 }
 
@@ -80,23 +58,18 @@ function ListDropdownMenuImpl(
   return (
     <DropdownMenu modal={modal} open={isOpen} onOpenChange={handleOnOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Tooltip title={label}>
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state={isActive ? 'on' : 'off'}
-            role="button"
-            tabIndex={-1}
-            disabled={!canToggle}
-            data-disabled={!canToggle}
-            aria-label={label}
-            {...props}
-            ref={ref}
-          >
-            <Icon className="fsdx-editor-button-icon" />
-            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Button
+          label={label}
+          active={isActive}
+          showDropdown
+          disabled={!canToggle}
+          data-disabled={!canToggle}
+          aria-label={label}
+          {...props}
+          ref={ref}
+        >
+          <Icon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start">

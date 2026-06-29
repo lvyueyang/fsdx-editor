@@ -1,20 +1,15 @@
 import type { Editor } from '@tiptap/react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '../../components/ui/popover';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Icons ---
 import { LinkIcon } from '../../icons/link-icon';
-// --- Hooks ---
 import { LinkBubbleMenuContent } from '../bubble-menu/link-bubble-menu-content';
-// --- Tiptap UI ---
 import type { UseLinkPopoverConfig } from './';
 import { useLinkPopover } from './';
 
@@ -23,14 +18,7 @@ import './link-popover.scss';
 export interface LinkPopoverProps
   extends Omit<ButtonProps, 'type'>,
     UseLinkPopoverConfig {
-  /**
-   * Callback for when the popover opens or closes.
-   */
   onOpenChange?: (isOpen: boolean) => void;
-  /**
-   * Whether to automatically open the popover when a link is active.
-   * @default true
-   */
   autoOpenOnLinkActive?: boolean;
 }
 
@@ -40,20 +28,15 @@ export interface LinkPopoverProps
 export const LinkButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <Tooltip title="链接">
-        <Button
-          type="button"
-          className={className}
-          variant="ghost"
-          role="button"
-          tabIndex={-1}
-          aria-label="链接"
-          ref={ref}
-          {...props}
-        >
-          {children || <LinkIcon className="fsdx-editor-button-icon" />}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label="链接"
+        className={className}
+        aria-label="链接"
+        ref={ref}
+        {...props}
+      >
+        {children || <LinkIcon className="fsdx-editor-button-icon" />}
+      </Toolbar.Button>
     );
   },
 );
@@ -145,7 +128,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
           </LinkButton>
         </PopoverTrigger>
 
-        <PopoverContent collisionPadding={4}>
+        <PopoverContent>
           <LinkBubbleMenuContent editor={editor} onAction={handleClose} />
         </PopoverContent>
       </Popover>

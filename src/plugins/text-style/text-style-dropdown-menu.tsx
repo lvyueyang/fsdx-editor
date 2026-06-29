@@ -1,7 +1,6 @@
 import type { Editor } from '@tiptap/react';
 import { forwardRef, useCallback, useState } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +9,8 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { DropdownMenuButtonItem } from '../../components/ui/dropdown-menu-button-item';
-import { Tooltip } from '../../components/ui/tooltip';
-import { cn } from '../../core/editor-utils';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { HeadingButton, type Level } from '../heading';
 import { useTextStyleDropdownMenu } from './use-text-style-dropdown-menu';
 
@@ -24,9 +21,6 @@ export interface TextStyleDropdownMenuProps extends Omit<ButtonProps, 'type'> {
   modal?: boolean;
 }
 
-/**
- * 文本风格下拉菜单，在正文与标题 H1~H6 之间切换
- */
 function TextStyleDropdownMenuImpl(
   {
     editor: providedEditor,
@@ -52,30 +46,16 @@ function TextStyleDropdownMenuImpl(
   return (
     <DropdownMenu modal={modal} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Tooltip title="文本风格">
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state={activeLevel ? 'on' : 'off'}
-            role="button"
-            tabIndex={-1}
-            disabled={!canToggle}
-            data-disabled={!canToggle}
-            aria-label={`文本风格：${displayText}`}
-            {...props}
-            ref={ref}
-          >
-            <span
-              className={cn(
-                'fsdx-editor-button-text',
-                'fsdx-editor-button-text-fixed',
-              )}
-            >
-              {displayText}
-            </span>
-            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Select
+          label="文本风格"
+          displayText={displayText}
+          active={!!activeLevel}
+          disabled={!canToggle}
+          data-disabled={!canToggle}
+          aria-label={`文本风格：${displayText}`}
+          {...props}
+          ref={ref}
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start">

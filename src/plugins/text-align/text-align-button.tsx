@@ -1,14 +1,9 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Lib ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
-// --- Hooks ---
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Tiptap UI ---
 import type { TextAlign, UseTextAlignConfig } from './';
 import { TEXT_ALIGN_SHORTCUT_KEYS, useTextAlign } from './';
 
@@ -18,18 +13,8 @@ type IconComponent = ({ className, ...props }: IconProps) => React.ReactElement;
 export interface TextAlignButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseTextAlignConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
   showShortcut?: boolean;
-  /**
-   * Optional custom icon component to render instead of the default.
-   */
   icon?: React.MemoExoticComponent<IconComponent> | React.FC<IconProps>;
 }
 
@@ -99,35 +84,30 @@ export const TextAlignButton = forwardRef<
     const RenderIcon = CustomIcon ?? Icon;
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          disabled={!canAlign}
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          data-disabled={!canAlign}
-          role="button"
-          tabIndex={-1}
-          aria-label={label}
-          aria-pressed={isActive}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <RenderIcon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <TextAlignShortcutBadge
-                  align={align}
-                  shortcutKeys={shortcutKeys}
-                />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        active={isActive}
+        disabled={!canAlign}
+        data-disabled={!canAlign}
+        aria-label={label}
+        aria-pressed={isActive}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <RenderIcon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <TextAlignShortcutBadge
+                align={align}
+                shortcutKeys={shortcutKeys}
+              />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

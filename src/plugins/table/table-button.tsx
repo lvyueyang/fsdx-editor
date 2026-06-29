@@ -1,15 +1,13 @@
 import { forwardRef, useCallback, useId, useState } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import type { UseTableConfig } from './';
 import { useTable } from './';
 
@@ -97,32 +95,26 @@ function TableButtonImpl(
   return (
     <DropdownMenu modal={false} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Tooltip title={label}>
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state="off"
-            role="button"
-            tabIndex={-1}
-            disabled={!canInsert}
-            data-disabled={!canInsert}
-            aria-label={label}
-            className={cn(className)}
-            onClick={handleButtonClick}
-            {...buttonProps}
-            ref={ref}
-          >
-            {children ?? (
-              <>
-                <Icon className="fsdx-editor-button-icon" />
-                {text && (
-                  <span className="fsdx-editor-button-text">{displayText}</span>
-                )}
-                <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-              </>
-            )}
-          </Button>
-        </Tooltip>
+        <Toolbar.Button
+          label={label}
+          showDropdown
+          disabled={!canInsert}
+          data-disabled={!canInsert}
+          aria-label={label}
+          className={cn(className)}
+          onClick={handleButtonClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? (
+            <>
+              <Icon className="fsdx-editor-button-icon" />
+              {text && (
+                <span className="fsdx-editor-button-text">{displayText}</span>
+              )}
+            </>
+          )}
+        </Toolbar.Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

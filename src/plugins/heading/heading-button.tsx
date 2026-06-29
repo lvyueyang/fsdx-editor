@@ -1,27 +1,16 @@
 import { forwardRef, useCallback } from 'react';
 import { Badge } from '../../components/ui/badge';
-// --- UI Primitives ---
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
-import { Tooltip } from '../../components/ui/tooltip';
-// --- Lib ---
+import { Toolbar } from '../../components/ui/toolbar';
 import { parseShortcutKeys } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-// --- Tiptap UI ---
 import type { Level, UseHeadingConfig } from './';
 import { HEADING_SHORTCUT_KEYS, useHeading } from './';
 
 export interface HeadingButtonProps
   extends Omit<ButtonProps, 'type'>,
     UseHeadingConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
   text?: string;
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
   showShortcut?: boolean;
 }
 
@@ -35,11 +24,6 @@ export function HeadingShortcutBadge({
   return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
-/**
- * Button component for toggling heading in a Tiptap editor.
- *
- * For custom button implementations, use the `useHeading` hook instead.
- */
 export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
   (
     {
@@ -85,35 +69,27 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
     }
 
     return (
-      <Tooltip title={label}>
-        <Button
-          type="button"
-          variant="ghost"
-          data-active-state={isActive ? 'on' : 'off'}
-          role="button"
-          tabIndex={-1}
-          disabled={!canToggle}
-          data-disabled={!canToggle}
-          aria-label={label}
-          aria-pressed={isActive}
-          onClick={handleClick}
-          {...buttonProps}
-          ref={ref}
-        >
-          {children ?? (
-            <>
-              <Icon className="fsdx-editor-button-icon" />
-              {text && <span className="fsdx-editor-button-text">{text}</span>}
-              {showShortcut && (
-                <HeadingShortcutBadge
-                  level={level}
-                  shortcutKeys={shortcutKeys}
-                />
-              )}
-            </>
-          )}
-        </Button>
-      </Tooltip>
+      <Toolbar.Button
+        label={label}
+        active={isActive}
+        disabled={!canToggle}
+        data-disabled={!canToggle}
+        aria-label={label}
+        aria-pressed={isActive}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <Icon className="fsdx-editor-button-icon" />
+            {text && <span className="fsdx-editor-button-text">{text}</span>}
+            {showShortcut && (
+              <HeadingShortcutBadge level={level} shortcutKeys={shortcutKeys} />
+            )}
+          </>
+        )}
+      </Toolbar.Button>
     );
   },
 );

@@ -1,14 +1,13 @@
 import type { Editor } from '@tiptap/react';
 import { useState } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { TextColorIcon } from '../../icons/text-color-icon';
 import { ColorGrid } from './color-grid';
@@ -44,19 +43,14 @@ export function ColorTextDropdownMenu({
   return (
     <DropdownMenu modal={modal} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Tooltip title="文字颜色">
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state={currentColor ? 'on' : 'off'}
-            role="button"
-            tabIndex={-1}
-            aria-label="文字颜色"
-            {...props}
-          >
-            <TextColorIcon className="fsdx-editor-button-icon" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Button
+          label="文字颜色"
+          active={!!currentColor}
+          aria-label="文字颜色"
+          {...props}
+        >
+          <TextColorIcon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent style={{ minWidth: GRID_WIDTH }}>

@@ -13,7 +13,6 @@ import { Selection } from '@tiptap/extensions';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '../components/ui/button';
 import { UIProvider } from '../components/ui/provider';
 import { Toolbar } from '../components/ui/toolbar';
 import { HorizontalRule } from '../plugins/horizontal-rule/horizontal-rule-node-extension';
@@ -180,14 +179,14 @@ const MobileToolbarContent = ({
 }) => (
   <>
     <Toolbar.Group>
-      <Button variant="ghost" onClick={onBack}>
+      <Toolbar.Button onClick={onBack}>
         <ArrowLeftIcon className="fsdx-editor-button-icon" />
         {type === 'link' ? (
           <LinkIcon className="fsdx-editor-button-icon" />
         ) : (
           <SmileIcon className="fsdx-editor-button-icon" />
         )}
-      </Button>
+      </Toolbar.Button>
     </Toolbar.Group>
 
     <Toolbar.Separator />

@@ -1,7 +1,5 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
 import { IndentIcon } from '../../icons/indent-icon';
 
@@ -11,7 +9,6 @@ import { useIndent } from './use-indent';
 import './indent-toggle.scss';
 
 export interface IndentToggleProps extends UseIndentConfig {
-  /** 无缩进时输入框显示的默认值 */
   defaultInputValue?: number;
   hideWhenUnavailable?: boolean;
 }
@@ -44,7 +41,6 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
     );
     const isEditing = useRef(false);
 
-    // 非编辑状态时同步外部缩进值到输入框
     useEffect(() => {
       if (!isEditing.current) {
         if (currentIndent > 0) {
@@ -109,23 +105,18 @@ export const IndentToggle = forwardRef<HTMLDivElement, IndentToggleProps>(
 
     return (
       <span className="fsdx-editor-indent-group" ref={ref}>
-        <Tooltip
-          title={isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON}
+        <Toolbar.Button
+          label={isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON}
+          active={isActive}
+          aria-label={
+            isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON
+          }
+          aria-pressed={isActive}
+          onClick={handleToggle}
         >
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state={isActive ? 'on' : 'off'}
-            aria-label={
-              isActive ? INDENT_LABEL_TOGGLE_OFF : INDENT_LABEL_TOGGLE_ON
-            }
-            aria-pressed={isActive}
-            onClick={handleToggle}
-          >
-            <IndentIcon className="fsdx-editor-button-icon" />
-          </Button>
-        </Tooltip>
-        <Input
+          <IndentIcon className="fsdx-editor-button-icon" />
+        </Toolbar.Button>
+        <Toolbar.Input
           ref={inputRef}
           className="fsdx-editor-indent-input"
           type="number"

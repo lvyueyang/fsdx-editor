@@ -7,7 +7,6 @@ import {
   useState,
 } from 'react';
 import type { ButtonProps } from '../../components/ui/button';
-import { Button } from '../../components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,10 +16,9 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import { Input } from '../../components/ui/input';
-import { Tooltip } from '../../components/ui/tooltip';
+import { Toolbar } from '../../components/ui/toolbar';
 import { cn } from '../../core/editor-utils';
 import { useFsdxEditor } from '../../hooks/use-fsdx-editor';
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import {
   LINE_HEIGHT_PRESETS,
   normalizeLineHeight,
@@ -33,9 +31,6 @@ export interface LineHeightButtonProps extends Omit<ButtonProps, 'type'> {
   editor?: Editor | null;
 }
 
-/**
- * 行高工具栏按钮，支持直接输入和下拉选择备选行高
- */
 function LineHeightButtonImpl(
   { editor: providedEditor, className, ...props }: LineHeightButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
@@ -109,31 +104,17 @@ function LineHeightButtonImpl(
   return (
     <DropdownMenu modal={false} open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Tooltip title="行高">
-          <Button
-            type="button"
-            variant="ghost"
-            data-active-state={hasLineHeight ? 'on' : 'off'}
-            role="button"
-            tabIndex={-1}
-            disabled={!canSetLineHeight}
-            data-disabled={!canSetLineHeight}
-            aria-label={`行高：${displayText}`}
-            className={cn(className)}
-            {...props}
-            ref={ref}
-          >
-            <span
-              className={cn(
-                'fsdx-editor-button-text',
-                'fsdx-editor-button-text-fixed',
-              )}
-            >
-              {displayText}
-            </span>
-            <ChevronDownIcon className="fsdx-editor-button-dropdown-small" />
-          </Button>
-        </Tooltip>
+        <Toolbar.Select
+          label="行高"
+          displayText={displayText}
+          active={hasLineHeight}
+          disabled={!canSetLineHeight}
+          data-disabled={!canSetLineHeight}
+          aria-label={`行高：${displayText}`}
+          className={cn(className)}
+          {...props}
+          ref={ref}
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
