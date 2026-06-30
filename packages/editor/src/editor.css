@@ -1,0 +1,580 @@
+/* ===== CSS 变量 ===== */
+.fsdx-editor {
+  /* 编辑器区域 */
+  --fsdx-editor-bg: #ffffff;
+  --fsdx-editor-text: #1f2937;
+  --fsdx-editor-font-family:
+    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fsdx-editor-font-size: 16px;
+  --fsdx-editor-line-height: 1.6;
+  --fsdx-editor-min-height: 200px;
+  --fsdx-editor-padding: 16px;
+  --fsdx-editor-border: #e5e7eb;
+  --fsdx-editor-border-focus: #6366f1;
+  --fsdx-editor-radius: 8px;
+  --fsdx-editor-placeholder-color: #9ca3af;
+
+  /* 主题色 */
+  --fsdx-editor-primary: #6366f1;
+  --fsdx-editor-primary-hover: #4f46e5;
+  --fsdx-editor-primary-light: rgba(99, 102, 241, 0.1);
+
+  /* 选中 */
+  --fsdx-editor-selection-bg: rgba(99, 102, 241, 0.25);
+
+  /* 标题 */
+  --fsdx-editor-heading-color: #111827;
+
+  /* 引用 */
+  --fsdx-editor-blockquote-border: #6366f1;
+  --fsdx-editor-blockquote-bg: #f9fafb;
+  --fsdx-editor-blockquote-text: #4b5563;
+
+  /* 行内代码 */
+  --fsdx-editor-code-color: #e11d48;
+  --fsdx-editor-code-bg: #fce7f3;
+
+  /* 代码块 */
+  --fsdx-editor-pre-bg: #1e293b;
+  --fsdx-editor-pre-color: #e2e8f0;
+
+  /* 链接 */
+  --fsdx-editor-link-color: #6366f1;
+
+  /* 分割线 */
+  --fsdx-editor-hr-color: #e5e7eb;
+
+  /* 表格 */
+  --fsdx-editor-table-border: #e5e7eb;
+  --fsdx-editor-table-header-bg: #f9fafb;
+
+  /* 列表 */
+  --fsdx-editor-list-marker-color: #6b7280;
+
+  /* 媒体 */
+  --fsdx-editor-image-radius: 6px;
+  --fsdx-editor-video-radius: 6px;
+  --fsdx-editor-audio-radius: 6px;
+  --fsdx-editor-attachment-bg: #f9fafb;
+  --fsdx-editor-attachment-border: #e5e7eb;
+
+  /* 工具栏 */
+  --fsdx-editor-toolbar-bg: #ffffff;
+  --fsdx-editor-toolbar-border: #e5e7eb;
+  --fsdx-editor-toolbar-padding: 6px;
+  --fsdx-editor-toolbar-btn-hover: #f3f4f6;
+  --fsdx-editor-toolbar-btn-active: #e0e7ff;
+  --fsdx-editor-toolbar-btn-size: 32px;
+  --fsdx-editor-toolbar-btn-radius: 6px;
+  --fsdx-editor-toolbar-btn-color: #4b5563;
+  --fsdx-editor-toolbar-divider: #e5e7eb;
+
+  /* 气泡菜单 */
+  --fsdx-editor-bubble-bg: #ffffff;
+  --fsdx-editor-bubble-border: #e5e7eb;
+  --fsdx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --fsdx-editor-bubble-radius: 8px;
+  --fsdx-editor-bubble-padding: 4px;
+  --fsdx-editor-bubble-btn-hover: #f3f4f6;
+  --fsdx-editor-bubble-btn-active: #e0e7ff;
+  --fsdx-editor-bubble-btn-size: 32px;
+  --fsdx-editor-bubble-btn-radius: 6px;
+  --fsdx-editor-bubble-btn-color: #4b5563;
+  --fsdx-editor-bubble-divider: #e5e7eb;
+}
+
+/* 暗色主题 */
+.fsdx-editor.fsdx-editor-dark {
+  --fsdx-editor-bg: #111827;
+  --fsdx-editor-text: #f9fafb;
+  --fsdx-editor-border: #374151;
+  --fsdx-editor-border-focus: #818cf8;
+  --fsdx-editor-placeholder-color: #6b7280;
+
+  --fsdx-editor-primary: #818cf8;
+  --fsdx-editor-primary-hover: #6366f1;
+  --fsdx-editor-primary-light: rgba(129, 140, 248, 0.15);
+
+  --fsdx-editor-selection-bg: rgba(129, 140, 248, 0.3);
+
+  --fsdx-editor-heading-color: #f9fafb;
+
+  --fsdx-editor-blockquote-border: #818cf8;
+  --fsdx-editor-blockquote-bg: #1f2937;
+  --fsdx-editor-blockquote-text: #d1d5db;
+
+  --fsdx-editor-code-color: #fca5a5;
+  --fsdx-editor-code-bg: #3d1a28;
+
+  --fsdx-editor-pre-bg: #0f172a;
+  --fsdx-editor-pre-color: #e2e8f0;
+
+  --fsdx-editor-link-color: #818cf8;
+
+  --fsdx-editor-hr-color: #374151;
+
+  --fsdx-editor-table-border: #374151;
+  --fsdx-editor-table-header-bg: #1f2937;
+
+  --fsdx-editor-list-marker-color: #9ca3af;
+
+  --fsdx-editor-attachment-bg: #1f2937;
+  --fsdx-editor-attachment-border: #374151;
+
+  /* 工具栏（暗色） */
+  --fsdx-editor-toolbar-bg: #1f2937;
+  --fsdx-editor-toolbar-border: #374151;
+  --fsdx-editor-toolbar-btn-hover: #374151;
+  --fsdx-editor-toolbar-btn-active: #312e81;
+  --fsdx-editor-toolbar-btn-color: #d1d5db;
+  --fsdx-editor-toolbar-divider: #374151;
+
+  /* 气泡菜单（暗色） */
+  --fsdx-editor-bubble-bg: #1f2937;
+  --fsdx-editor-bubble-border: #374151;
+  --fsdx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --fsdx-editor-bubble-btn-hover: #374151;
+  --fsdx-editor-bubble-btn-active: #312e81;
+  --fsdx-editor-bubble-btn-color: #d1d5db;
+  --fsdx-editor-bubble-divider: #374151;
+}
+
+/* ===== 编辑器容器 ===== */
+.fsdx-editor {
+  background: var(--fsdx-editor-bg);
+  color: var(--fsdx-editor-text);
+  font-family: var(--fsdx-editor-font-family);
+  font-size: var(--fsdx-editor-font-size);
+  line-height: var(--fsdx-editor-line-height);
+  min-height: var(--fsdx-editor-min-height);
+  border: 1px solid var(--fsdx-editor-border);
+  border-radius: var(--fsdx-editor-radius);
+  transition: border-color 0.2s ease;
+  position: relative;
+}
+
+.fsdx-editor:focus-within {
+  border-color: var(--fsdx-editor-border-focus);
+}
+
+.fsdx-editor-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ===== ProseMirror 编辑区域 ===== */
+.fsdx-editor-content {
+  padding: var(--fsdx-editor-padding);
+  min-height: var(--fsdx-editor-min-height);
+  outline: none;
+  word-break: break-word;
+}
+
+.fsdx-editor-content > *:first-child {
+  margin-top: 0;
+}
+
+.fsdx-editor-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 占位符 */
+.fsdx-editor-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--fsdx-editor-placeholder-color);
+  pointer-events: none;
+  height: 0;
+}
+
+/* 选中样式 */
+.fsdx-editor-content ::selection {
+  background: var(--fsdx-editor-selection-bg);
+}
+
+/* ===== 标题 ===== */
+.fsdx-editor-content h1 {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--fsdx-editor-heading-color);
+  margin: 0.67em 0 0.4em;
+  line-height: 1.3;
+}
+
+.fsdx-editor-content h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--fsdx-editor-heading-color);
+  margin: 0.75em 0 0.35em;
+  line-height: 1.35;
+}
+
+.fsdx-editor-content h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--fsdx-editor-heading-color);
+  margin: 0.8em 0 0.3em;
+  line-height: 1.4;
+}
+
+.fsdx-editor-content h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--fsdx-editor-heading-color);
+  margin: 0.8em 0 0.3em;
+  line-height: 1.45;
+}
+
+.fsdx-editor-content h5,
+.fsdx-editor-content h6 {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--fsdx-editor-heading-color);
+  margin: 0.8em 0 0.3em;
+  line-height: 1.5;
+}
+
+/* ===== 段落 ===== */
+.fsdx-editor-content p {
+  margin: 0.5em 0;
+}
+
+/* ===== 引用 ===== */
+.fsdx-editor-content blockquote {
+  border-left: 3px solid var(--fsdx-editor-blockquote-border);
+  background: var(--fsdx-editor-blockquote-bg);
+  color: var(--fsdx-editor-blockquote-text);
+  margin: 0.75em 0;
+  padding: 12px 16px;
+  border-radius: 0 4px 4px 0;
+}
+
+.fsdx-editor-content blockquote > *:first-child {
+  margin-top: 0;
+}
+
+.fsdx-editor-content blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== 行内代码 ===== */
+.fsdx-editor-content code {
+  background: var(--fsdx-editor-code-bg);
+  color: var(--fsdx-editor-code-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* ===== 代码块 ===== */
+.fsdx-editor-content pre {
+  background: var(--fsdx-editor-pre-bg);
+  color: var(--fsdx-editor-pre-color);
+  border-radius: 8px;
+  margin: 0.75em 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.fsdx-editor-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* ===== 无序列表 ===== */
+.fsdx-editor-content ul {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.fsdx-editor-content ul li {
+  list-style-type: disc;
+  margin: 0.25em 0;
+}
+
+.fsdx-editor-content ul li p {
+  margin: 0;
+}
+
+.fsdx-editor-content ul ul li {
+  list-style-type: circle;
+}
+
+.fsdx-editor-content ul ul ul li {
+  list-style-type: square;
+}
+
+/* ===== 有序列表 ===== */
+.fsdx-editor-content ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.fsdx-editor-content ol li {
+  list-style-type: decimal;
+  margin: 0.25em 0;
+}
+
+.fsdx-editor-content ol li p {
+  margin: 0;
+}
+
+/* ===== 分割线 ===== */
+.fsdx-editor-content hr {
+  border: none;
+  border-top: 1px solid var(--fsdx-editor-hr-color);
+  margin: 1.5em 0;
+}
+
+/* ===== 链接 ===== */
+.fsdx-editor-content a {
+  color: var(--fsdx-editor-link-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.fsdx-editor-content a:hover {
+  opacity: 0.8;
+}
+
+/* ===== 图片 ===== */
+.fsdx-editor-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--fsdx-editor-image-radius);
+  margin: 0.75em 0;
+  display: block;
+}
+
+.fsdx-editor-content img.ProseMirror-selectednode {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: 2px;
+}
+
+/* ===== 视频 ===== */
+.fsdx-editor-video-wrapper {
+  margin: 0.75em 0;
+  border-radius: var(--fsdx-editor-video-radius);
+  overflow: hidden;
+}
+
+.fsdx-editor-video-wrapper video {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--fsdx-editor-video-radius);
+}
+
+.fsdx-editor-video-wrapper.ProseMirror-selectednode video {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: 2px;
+}
+
+/* ===== 音频 ===== */
+.fsdx-editor-audio-wrapper {
+  margin: 0.75em 0;
+  padding: 12px 16px;
+  border-radius: var(--fsdx-editor-audio-radius);
+  background: var(--fsdx-editor-attachment-bg);
+  border: 1px solid var(--fsdx-editor-attachment-border);
+}
+
+.fsdx-editor-audio-wrapper audio {
+  display: block;
+  width: 100%;
+}
+
+.fsdx-editor-audio-wrapper.ProseMirror-selectednode {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: 2px;
+}
+
+/* ===== 附件 ===== */
+.fsdx-editor-attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  margin: 0.5em 0;
+  border: 1px solid var(--fsdx-editor-attachment-border);
+  border-radius: 8px;
+  background: var(--fsdx-editor-attachment-bg);
+  color: var(--fsdx-editor-text);
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: border-color 0.15s ease;
+}
+
+.fsdx-editor-attachment:hover {
+  border-color: var(--fsdx-editor-primary);
+  text-decoration: none;
+}
+
+.fsdx-editor-attachment-icon {
+  font-size: 1.2em;
+}
+
+.fsdx-editor-attachment-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fsdx-editor-attachment-size {
+  font-size: 0.85em;
+  color: var(--fsdx-editor-placeholder-color);
+  white-space: nowrap;
+}
+
+.fsdx-editor-attachment.ProseMirror-selectednode {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: 2px;
+}
+
+/* ===== 表格 ===== */
+.fsdx-editor-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.75em 0;
+  overflow: hidden;
+}
+
+.fsdx-editor-content table td,
+.fsdx-editor-content table th {
+  border: 1px solid var(--fsdx-editor-table-border);
+  padding: 8px 12px;
+  min-width: 60px;
+  vertical-align: top;
+}
+
+.fsdx-editor-content table th {
+  background: var(--fsdx-editor-table-header-bg);
+  font-weight: 600;
+  text-align: left;
+}
+
+.fsdx-editor-content table .selectedCell {
+  background: var(--fsdx-editor-primary-light);
+}
+
+/* ===== 固定工具栏 ===== */
+.fsdx-editor-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: var(--fsdx-editor-toolbar-padding);
+  background: var(--fsdx-editor-toolbar-bg);
+  border-bottom: 1px solid var(--fsdx-editor-toolbar-border);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.fsdx-editor-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.fsdx-editor-toolbar-btn:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-toolbar-btn.is-active {
+  background: var(--fsdx-editor-toolbar-btn-active);
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-toolbar-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fsdx-editor-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--fsdx-editor-toolbar-divider);
+  margin: 0 4px;
+}
+
+/* ===== 气泡菜单 ===== */
+.fsdx-editor-bubble-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--fsdx-editor-bubble-padding);
+  background: var(--fsdx-editor-bubble-bg);
+  border: 1px solid var(--fsdx-editor-bubble-border);
+  border-radius: var(--fsdx-editor-bubble-radius);
+  box-shadow: var(--fsdx-editor-bubble-shadow);
+  z-index: 100;
+}
+
+.fsdx-editor-bubble-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-bubble-btn-size);
+  height: var(--fsdx-editor-bubble-btn-size);
+  border: none;
+  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-bubble-btn-color);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.fsdx-editor-bubble-btn:hover {
+  background: var(--fsdx-editor-bubble-btn-hover);
+}
+
+.fsdx-editor-bubble-btn.is-active {
+  background: var(--fsdx-editor-bubble-btn-active);
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-bubble-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fsdx-editor-bubble-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--fsdx-editor-bubble-divider);
+  margin: 0 4px;
+}

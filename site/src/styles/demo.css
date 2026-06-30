@@ -1071,3 +1071,177 @@ body {
   margin: 0;
   line-height: 1.5;
 }
+
+/* Tiptap Table Demo */
+
+.tiptap-table-kit-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--demo-bg-secondary);
+  border-bottom: 1px solid var(--demo-border);
+}
+
+.tiptap-table-kit-demo-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--demo-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.tiptap-table-kit-demo-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid var(--demo-border);
+  border-radius: 4px;
+  background: var(--demo-card-bg);
+  color: var(--demo-text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.tiptap-table-kit-demo-btn:hover:not(:disabled) {
+  background: var(--demo-accent-light);
+  border-color: var(--demo-accent);
+  color: var(--demo-accent);
+}
+
+.tiptap-table-kit-demo-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tiptap-table-kit-demo-spacer {
+  width: 12px;
+  flex-shrink: 0;
+}
+
+.tiptap-editor-demo {
+  padding: 16px 20px;
+  min-height: 300px;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--demo-text);
+}
+
+.tiptap-editor-demo--dark {
+  color: var(--demo-text);
+}
+
+.tiptap-editor-demo .tableWrapper {
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+.tiptap-editor-demo .tableWrapper table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.tiptap-editor-demo .tableWrapper td,
+.tiptap-editor-demo .tableWrapper th {
+  min-width: 1em;
+  border: 1px solid var(--demo-border);
+  padding: 6px 10px;
+  vertical-align: top;
+  position: relative;
+}
+
+.tiptap-editor-demo .tableWrapper th {
+  background-color: var(--demo-bg-secondary);
+  font-weight: 600;
+  text-align: left;
+}
+
+.tiptap-editor-demo .tableWrapper .selectedCell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--demo-accent);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.tiptap-editor-demo .tableWrapper .column-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -2px;
+  width: 4px;
+  background-color: var(--demo-accent);
+  cursor: col-resize;
+  pointer-events: none;
+}
+
+/* 原生编辑器演示 */
+.vanilla-editor-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.vanilla-demo-state {
+  padding: 12px 16px;
+  background: var(--demo-card-bg);
+  border-top: 1px solid var(--demo-border);
+}
+
+.vanilla-demo-state-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--demo-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.vanilla-demo-state-items {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.vanilla-demo-state-item {
+  font-size: 13px;
+  color: var(--demo-text);
+}
+
+.vanilla-demo-state-item strong {
+  color: var(--demo-text-secondary);
+  font-weight: 500;
+}
+
+.vanilla-demo-output {
+  margin-top: 16px;
+}
+
+.vanilla-demo-output-summary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--demo-text-secondary);
+  cursor: pointer;
+  padding: 8px 16px;
+  background: var(--demo-card-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: 6px;
+  user-select: none;
+}
+
+.vanilla-demo-output-summary:hover {
+  border-color: var(--demo-accent);
+  color: var(--demo-accent);
+}
+
+.vanilla-demo-output pre {
+  margin-top: 8px;
+  max-height: 200px;
+}

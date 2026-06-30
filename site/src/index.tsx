@@ -10,6 +10,7 @@ import { BasicDemo } from './pages/basic-demo';
 import { ControlPanel } from './pages/control-panel';
 import { Overview } from './pages/overview';
 import { ThemeConfig } from './pages/theme-config';
+import { TiptapTableDemo } from './pages/tiptap-table-kit-demo';
 import { UiDemoBadge } from './pages/ui-demo/badge';
 import { UiDemoButton } from './pages/ui-demo/button';
 import { UiDemoCard } from './pages/ui-demo/card';
@@ -19,6 +20,7 @@ import { UiDemoInput } from './pages/ui-demo/input';
 import { UiDemoPopover } from './pages/ui-demo/popover';
 import { UiDemoToolbar } from './pages/ui-demo/toolbar';
 import { UiDemoTooltip } from './pages/ui-demo/tooltip';
+import { VanillaDemo } from './pages/vanilla-demo';
 import { DemoThemeContext } from './shared/demo-theme-context';
 
 type DemoTheme = 'light' | 'dark' | 'auto';
@@ -89,6 +91,9 @@ function App() {
             <Route path="/demo">
               <BasicDemo />
             </Route>
+            <Route path="/vanilla-demo">
+              <VanillaDemo />
+            </Route>
             <Route path="/control-panel">
               <ControlPanel />
             </Route>
@@ -97,6 +102,9 @@ function App() {
             </Route>
             <Route path="/theme-config">
               <ThemeConfig />
+            </Route>
+            <Route path="/tiptap-table-kit">
+              <TiptapTableDemo />
             </Route>
             <Route path="/ui-demo">
               <UiDemoIndex />
