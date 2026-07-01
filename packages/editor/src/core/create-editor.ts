@@ -19,15 +19,15 @@ import StarterKit from '@tiptap/starter-kit';
 import {
   createBubbleMenuElement,
   populateBubbleMenu,
-} from './create-bubble-menu';
-import { createToolbarElement, populateToolbar } from './create-toolbar';
-import { EventEmitter } from './event-emitter';
-import AttachmentNode from './extensions/attachment-node';
-import AudioNode from './extensions/audio-node';
-import ImageUpload from './extensions/image-upload';
-import { Indent } from './extensions/indent-extension';
-import VideoNode from './extensions/video-node';
-import type { FsdxEditorOptions } from './types';
+} from '../toolbar/create-bubble-menu';
+import { createToolbarElement, populateToolbar } from '../toolbar/create-toolbar';
+import { EventEmitter } from '../utils/event-emitter';
+import AttachmentNode from '../extensions/attachment-node';
+import AudioNode from '../extensions/audio-node';
+import ImageUpload from '../extensions/image-upload';
+import { Indent } from '../extensions/indent-extension';
+import VideoNode from '../extensions/video-node';
+import type { FsdxEditorOptions } from '../types';
 
 export function createEditorInstance(
   container: HTMLElement,

@@ -1,17 +1,19 @@
 import type { Editor } from '@tiptap/core';
 import {
+  FONT_SIZE_OPTIONS,
+  ICONS,
+  updateColorIndicators,
+  updateSelectStates,
+} from './toolbar-shared';
+import {
   addBtn,
   createColorBtn,
   createDivider,
   createSelect,
-  FONT_SIZE_OPTIONS,
-  ICONS,
-  triggerMediaUpload,
   updateBtnStates,
-  updateColorIndicators,
-  updateSelectStates,
-} from './toolbar-shared';
-import type { MediaUploadConfig } from './types';
+} from '../shared/controls';
+import { triggerMediaUpload } from '../utils/media-upload';
+import type { MediaUploadConfig } from '../types';
 
 const BTN_CLASS = 'fsdx-editor-bubble-btn';
 const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';

@@ -1,8 +1,8 @@
-import { createEditorInstance } from './create-editor';
-import type { EventHandler } from './event-emitter';
+import { createEditorInstance } from './core/create-editor';
+import type { EventHandler } from './utils/event-emitter';
 import type { FsdxEditorOptions, ThemeType } from './types';
 
-export type { EventHandler } from './event-emitter';
+export type { EventHandler } from './utils/event-emitter';
 
 export type {
   ContentType,
