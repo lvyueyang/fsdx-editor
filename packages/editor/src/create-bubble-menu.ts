@@ -1,15 +1,21 @@
 import type { Editor } from '@tiptap/core';
 import {
   addBtn,
+  createColorBtn,
   createDivider,
+  createSelect,
+  FONT_SIZE_OPTIONS,
   ICONS,
   triggerMediaUpload,
   updateBtnStates,
+  updateColorIndicators,
+  updateSelectStates,
 } from './toolbar-shared';
 import type { MediaUploadConfig } from './types';
 
 const BTN_CLASS = 'fsdx-editor-bubble-btn';
 const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
+const SELECT_CLASS = 'fsdx-editor-bubble-select';
 
 export function createBubbleMenuElement(): HTMLElement {
   const menuEl = document.createElement('div');
@@ -38,6 +44,13 @@ export function populateBubbleMenu(
 
   const div = () => menuEl.appendChild(createDivider(DIVIDER_CLASS));
 
+  const refreshAll = () => {
+    updateBtnStates(menuEl, BTN_CLASS, editor);
+    updateSelectStates(menuEl, SELECT_CLASS, editor);
+    updateColorIndicators(menuEl, BTN_CLASS, editor);
+  };
+
+  // ===== 文本样式 =====
   add(
     ICONS.bold,
     '加粗 (Ctrl+B)',
@@ -51,6 +64,12 @@ export function populateBubbleMenu(
     (e) => e.chain().focus().toggleItalic().run(),
   );
   add(
+    ICONS.underline,
+    '下划线 (Ctrl+U)',
+    (e) => e.isActive('underline'),
+    (e) => e.chain().focus().toggleUnderline().run(),
+  );
+  add(
     ICONS.strike,
     '删除线',
     (e) => e.isActive('strike'),
@@ -62,30 +81,98 @@ export function populateBubbleMenu(
     (e) => e.isActive('code'),
     (e) => e.chain().focus().toggleCode().run(),
   );
-
-  div();
-
   add(
-    ICONS.h1,
-    '一级标题',
-    (e) => e.isActive('heading', { level: 1 }),
-    (e) => e.chain().focus().toggleHeading({ level: 1 }).run(),
+    ICONS.subscript,
+    '下标',
+    (e) => e.isActive('subscript'),
+    (e) => e.chain().focus().toggleSubscript().run(),
   );
   add(
-    ICONS.h2,
-    '二级标题',
-    (e) => e.isActive('heading', { level: 2 }),
-    (e) => e.chain().focus().toggleHeading({ level: 2 }).run(),
-  );
-  add(
-    ICONS.h3,
-    '三级标题',
-    (e) => e.isActive('heading', { level: 3 }),
-    (e) => e.chain().focus().toggleHeading({ level: 3 }).run(),
+    ICONS.superscript,
+    '上标',
+    (e) => e.isActive('superscript'),
+    (e) => e.chain().focus().toggleSuperscript().run(),
   );
 
   div();
 
+  // ===== 标题 =====
+  for (const level of [1, 2, 3] as const) {
+    const key = `h${level}` as keyof typeof ICONS;
+    const labels = ['', '一级标题', '二级标题', '三级标题'];
+    add(
+      ICONS[key],
+      labels[level],
+      (e) => e.isActive('heading', { level }),
+      (e) => e.chain().focus().toggleHeading({ level }).run(),
+    );
+  }
+
+  div();
+
+  // ===== 字体大小 =====
+  const fontSizeWrapper = createSelect(
+    menuEl,
+    SELECT_CLASS,
+    editor,
+    ICONS.fontSize,
+    '字体大小',
+    FONT_SIZE_OPTIONS,
+    (e) => {
+      const attrs = e.getAttributes('textStyle');
+      return (attrs.fontSize as string) || null;
+    },
+    (e, value) => e.chain().focus().setFontSize(value).run(),
+    (e) => e.chain().focus().unsetFontSize().run(),
+  );
+  fontSizeWrapper.classList.add('fsdx-editor-bubble-select-wrapper');
+
+  div();
+
+  // ===== 文字颜色 =====
+  createColorBtn(
+    menuEl,
+    BTN_CLASS,
+    editor,
+    ICONS.textColor,
+    '文字颜色',
+    (e) => !!e.getAttributes('textStyle').color,
+    (e, color) => e.chain().focus().setColor(color).run(),
+    'color',
+  );
+
+  // ===== 高亮背景色 =====
+  createColorBtn(
+    menuEl,
+    BTN_CLASS,
+    editor,
+    ICONS.highlight,
+    '背景高亮色',
+    (e) => !!e.getAttributes('textStyle').backgroundColor,
+    (e, color) => e.chain().focus().setBackgroundColor(color).run(),
+    'backgroundColor',
+  );
+
+  div();
+
+  // ===== 文本对齐 =====
+  const alignBtns = [
+    { icon: ICONS.alignLeft, title: '左对齐', align: 'left' as const },
+    { icon: ICONS.alignCenter, title: '居中', align: 'center' as const },
+    { icon: ICONS.alignRight, title: '右对齐', align: 'right' as const },
+  ];
+  for (const { icon, title, align } of alignBtns) {
+    add(
+      icon,
+      title,
+      (e) => e.isActive({ textAlign: align }),
+      (e) => e.chain().focus().setTextAlign(align).run(),
+    );
+  }
+
+  div();
+
+  // ===== 块级 =====
   add(
     ICONS.blockquote,
     '引用',
@@ -95,10 +182,11 @@ export function populateBubbleMenu(
 
   div();
 
+  // ===== 链接 =====
   add(
     ICONS.link,
     '插入/编辑链接',
-    () => false,
+    (e) => e.isActive('link'),
     (e) => {
       const previousUrl = e.getAttributes('link').href || '';
       const url = window.prompt('请输入链接地址：', previousUrl);
@@ -111,6 +199,17 @@ export function populateBubbleMenu(
     },
   );
 
+  div();
+
+  // ===== 清除格式 =====
+  add(
+    ICONS.clearFormat,
+    '清除格式',
+    () => false,
+    (e) => e.chain().focus().clearNodes().unsetAllMarks().run(),
+  );
+
+  // ===== 媒体 =====
   if (mediaConfig) {
     const { image, video, audio, attachment } = mediaConfig;
 
@@ -163,5 +262,5 @@ export function populateBubbleMenu(
     }
   }
 
-  updateBtnStates(menuEl, BTN_CLASS, editor);
+  refreshAll();
 }

@@ -1,15 +1,26 @@
 import type { Editor } from '@tiptap/core';
 import {
   addBtn,
+  createColorBtn,
   createDivider,
+  createIndentInput,
+  createSelect,
+  createTableBtn,
+  FONT_SIZE_OPTIONS,
   ICONS,
+  LINE_HEIGHT_OPTIONS,
   triggerMediaUpload,
   updateBtnStates,
+  updateColorIndicators,
+  updateSelectStates,
 } from './toolbar-shared';
 import type { MediaUploadConfig } from './types';
 
 const BTN_CLASS = 'fsdx-editor-toolbar-btn';
 const DIVIDER_CLASS = 'fsdx-editor-toolbar-divider';
+const SELECT_CLASS = 'fsdx-editor-toolbar-select';
+const INDENT_INPUT_CLASS = 'fsdx-editor-toolbar-indent-input';
+const TABLE_PICKER_CLASS = 'fsdx-editor-toolbar-table-picker';
 
 export function createToolbarElement(): HTMLElement {
   const toolbarEl = document.createElement('div');
@@ -38,6 +49,29 @@ export function populateToolbar(
 
   const div = () => toolbarEl.appendChild(createDivider(DIVIDER_CLASS));
 
+  const refreshAll = () => {
+    updateBtnStates(toolbarEl, BTN_CLASS, editor);
+    updateSelectStates(toolbarEl, SELECT_CLASS, editor);
+    updateColorIndicators(toolbarEl, BTN_CLASS, editor);
+  };
+
+  // ===== 撤销 / 重做 =====
+  add(
+    ICONS.undo,
+    '撤销 (Ctrl+Z)',
+    () => editor.can().undo(),
+    (e) => e.chain().focus().undo().run(),
+  );
+  add(
+    ICONS.redo,
+    '重做 (Ctrl+Shift+Z)',
+    () => editor.can().redo(),
+    (e) => e.chain().focus().redo().run(),
+  );
+
+  div();
+
+  // ===== 文本样式 =====
   add(
     ICONS.bold,
     '加粗 (Ctrl+B)',
@@ -68,30 +102,128 @@ export function populateToolbar(
     (e) => e.isActive('code'),
     (e) => e.chain().focus().toggleCode().run(),
   );
-
-  div();
-
   add(
-    ICONS.h1,
-    '一级标题',
-    (e) => e.isActive('heading', { level: 1 }),
-    (e) => e.chain().focus().toggleHeading({ level: 1 }).run(),
+    ICONS.subscript,
+    '下标',
+    (e) => e.isActive('subscript'),
+    (e) => e.chain().focus().toggleSubscript().run(),
   );
   add(
-    ICONS.h2,
-    '二级标题',
-    (e) => e.isActive('heading', { level: 2 }),
-    (e) => e.chain().focus().toggleHeading({ level: 2 }).run(),
-  );
-  add(
-    ICONS.h3,
-    '三级标题',
-    (e) => e.isActive('heading', { level: 3 }),
-    (e) => e.chain().focus().toggleHeading({ level: 3 }).run(),
+    ICONS.superscript,
+    '上标',
+    (e) => e.isActive('superscript'),
+    (e) => e.chain().focus().toggleSuperscript().run(),
   );
 
   div();
 
+  // ===== 标题 =====
+  for (const level of [1, 2, 3, 4, 5, 6] as const) {
+    const key = `h${level}` as keyof typeof ICONS;
+    const labels = [
+      '',
+      '一级标题',
+      '二级标题',
+      '三级标题',
+      '四级标题',
+      '五级标题',
+      '六级标题',
+    ];
+    add(
+      ICONS[key],
+      labels[level],
+      (e) => e.isActive('heading', { level }),
+      (e) => e.chain().focus().toggleHeading({ level }).run(),
+    );
+  }
+
+  div();
+
+  // ===== 字体大小（下拉） =====
+  const fontSizeWrapper = createSelect(
+    toolbarEl,
+    SELECT_CLASS,
+    editor,
+    ICONS.fontSize,
+    '字体大小',
+    FONT_SIZE_OPTIONS,
+    (e) => {
+      const attrs = e.getAttributes('textStyle');
+      return (attrs.fontSize as string) || null;
+    },
+    (e, value) => e.chain().focus().setFontSize(value).run(),
+    (e) => e.chain().focus().unsetFontSize().run(),
+  );
+  fontSizeWrapper.classList.add('fsdx-editor-toolbar-select-wrapper');
+
+  // ===== 行高（下拉） =====
+  const lineHeightWrapper = createSelect(
+    toolbarEl,
+    SELECT_CLASS,
+    editor,
+    ICONS.lineHeight,
+    '行高',
+    LINE_HEIGHT_OPTIONS,
+    (e) => {
+      const attrs = e.getAttributes('textStyle');
+      return (attrs.lineHeight as string) || null;
+    },
+    (e, value) => e.chain().focus().setLineHeight(value).run(),
+    (e) => e.chain().focus().unsetLineHeight().run(),
+  );
+  lineHeightWrapper.classList.add('fsdx-editor-toolbar-select-wrapper');
+
+  div();
+
+  // ===== 文本对齐 =====
+  const alignBtns = [
+    { icon: ICONS.alignLeft, title: '左对齐', align: 'left' as const },
+    { icon: ICONS.alignCenter, title: '居中', align: 'center' as const },
+    { icon: ICONS.alignRight, title: '右对齐', align: 'right' as const },
+    {
+      icon: ICONS.alignJustify,
+      title: '两端对齐',
+      align: 'justify' as const,
+    },
+  ];
+  for (const { icon, title, align } of alignBtns) {
+    add(
+      icon,
+      title,
+      (e) => e.isActive({ textAlign: align }),
+      (e) => e.chain().focus().setTextAlign(align).run(),
+    );
+  }
+
+  div();
+
+  // ===== 文字颜色 =====
+  createColorBtn(
+    toolbarEl,
+    BTN_CLASS,
+    editor,
+    ICONS.textColor,
+    '文字颜色',
+    (e) => !!e.getAttributes('textStyle').color,
+    (e, color) => e.chain().focus().setColor(color).run(),
+    'color',
+  );
+
+  // ===== 高亮背景色 =====
+  createColorBtn(
+    toolbarEl,
+    BTN_CLASS,
+    editor,
+    ICONS.highlight,
+    '背景高亮色',
+    (e) => !!e.getAttributes('textStyle').backgroundColor,
+    (e, color) => e.chain().focus().setBackgroundColor(color).run(),
+    'backgroundColor',
+  );
+
+  div();
+
+  // ===== 块级 =====
   add(
     ICONS.blockquote,
     '引用',
@@ -107,6 +239,7 @@ export function populateToolbar(
 
   div();
 
+  // ===== 列表 =====
   add(
     ICONS.bulletList,
     '无序列表',
@@ -119,9 +252,56 @@ export function populateToolbar(
     (e) => e.isActive('orderedList'),
     (e) => e.chain().focus().toggleOrderedList().run(),
   );
+  add(
+    ICONS.taskList,
+    '任务列表',
+    (e) => e.isActive('taskList'),
+    (e) => e.chain().focus().toggleTaskList().run(),
+  );
 
   div();
 
+  // ===== 缩进 =====
+  const indentBtn = add(
+    ICONS.indentIncrease,
+    '缩进',
+    (e) => {
+      const attrs = e.getAttributes('paragraph');
+      const headingAttrs = e.getAttributes('heading');
+      return (
+        ((attrs.indent as number) || 0) > 0 ||
+        ((headingAttrs.indent as number) || 0) > 0
+      );
+    },
+    (e) => {
+      e.chain().focus().toggleIndent(2).run();
+      refreshAll();
+    },
+  );
+  indentBtn.classList.add('fsdx-editor-toolbar-btn--indent');
+
+  createIndentInput(
+    toolbarEl,
+    INDENT_INPUT_CLASS,
+    editor,
+    '缩进值（em）',
+    (e) => {
+      const pAttrs = e.getAttributes('paragraph');
+      const hAttrs = e.getAttributes('heading');
+      return Math.max(
+        (pAttrs.indent as number) || 0,
+        (hAttrs.indent as number) || 0,
+      );
+    },
+    (e, value) => {
+      e.chain().focus().setIndent(value).run();
+      refreshAll();
+    },
+  );
+
+  div();
+
+  // ===== 插入 =====
   add(
     ICONS.hr,
     '分割线',
@@ -129,6 +309,42 @@ export function populateToolbar(
     (e) => e.chain().focus().setHorizontalRule().run(),
   );
 
+  add(
+    ICONS.link,
+    '插入/编辑链接',
+    (e) => e.isActive('link'),
+    (e) => {
+      const previousUrl = e.getAttributes('link').href || '';
+      const url = window.prompt('请输入链接地址：', previousUrl);
+      if (url === null) return;
+      if (url === '') {
+        e.chain().focus().extendMarkRange('link').unsetLink().run();
+      } else {
+        e.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+      }
+    },
+  );
+
+  createTableBtn(
+    toolbarEl,
+    BTN_CLASS,
+    TABLE_PICKER_CLASS,
+    editor,
+    ICONS.table,
+    '插入表格',
+  );
+
+  div();
+
+  // ===== 清除格式 =====
+  add(
+    ICONS.clearFormat,
+    '清除格式',
+    () => false,
+    (e) => e.chain().focus().clearNodes().unsetAllMarks().run(),
+  );
+
+  // ===== 媒体 =====
   if (mediaConfig) {
     const { image, video, audio, attachment } = mediaConfig;
 
@@ -181,5 +397,5 @@ export function populateToolbar(
     }
   }
 
-  updateBtnStates(toolbarEl, BTN_CLASS, editor);
+  refreshAll();
 }

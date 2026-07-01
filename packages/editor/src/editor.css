@@ -509,7 +509,6 @@
 .fsdx-editor-toolbar-btn svg {
   width: 16px;
   height: 16px;
-  fill: none;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
@@ -565,7 +564,6 @@
 .fsdx-editor-bubble-btn svg {
   width: 16px;
   height: 16px;
-  fill: none;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
@@ -577,4 +575,213 @@
   height: 20px;
   background: var(--fsdx-editor-bubble-divider);
   margin: 0 4px;
+}
+
+/* ===== 工具栏下拉选择框 ===== */
+.fsdx-editor-toolbar-select-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  transition: border-color 0.15s ease;
+}
+
+.fsdx-editor-toolbar-select-wrapper:hover {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-toolbar-select-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  color: var(--fsdx-editor-toolbar-btn-color);
+  pointer-events: none;
+}
+
+.fsdx-editor-toolbar-select-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fsdx-editor-toolbar-select {
+  background: transparent;
+  border: none;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 12px;
+  padding: 0 6px 0 2px;
+  height: 100%;
+  cursor: pointer;
+  outline: none;
+  min-width: 56px;
+  font-family: inherit;
+}
+
+.fsdx-editor-toolbar-select:focus {
+  outline: none;
+}
+
+.fsdx-editor-toolbar-select option {
+  background: var(--fsdx-editor-toolbar-bg);
+  color: var(--fsdx-editor-toolbar-btn-color);
+}
+
+/* ===== 颜色按钮指示器 ===== */
+.fsdx-editor-toolbar-btn-color-indicator {
+  display: block;
+  width: 12px;
+  height: 3px;
+  border-radius: 1px;
+  margin: 1px auto 0;
+}
+
+.fsdx-editor-toolbar-btn-input {
+  position: absolute;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* ===== 工具栏缩进输入框 ===== */
+.fsdx-editor-toolbar-indent-input {
+  width: 36px;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 11px;
+  text-align: center;
+  padding: 0 2px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.fsdx-editor-toolbar-indent-input:focus {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-toolbar-indent-input::-webkit-inner-spin-button,
+.fsdx-editor-toolbar-indent-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ===== 表格 Grid Picker 弹出层 ===== */
+.fsdx-editor-toolbar-table-picker {
+  background: var(--fsdx-editor-toolbar-bg);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  z-index: 200;
+}
+
+.fsdx-editor-toolbar-table-picker-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  margin-bottom: 6px;
+  height: 16px;
+  line-height: 16px;
+}
+
+.fsdx-editor-toolbar-table-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 20px);
+  grid-template-rows: repeat(10, 20px);
+  gap: 1px;
+}
+
+.fsdx-editor-toolbar-table-picker-cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--fsdx-editor-toolbar-divider);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.fsdx-editor-toolbar-table-picker-cell.is-highlighted {
+  background: var(--fsdx-editor-primary-light);
+  border-color: var(--fsdx-editor-primary);
+}
+
+/* ===== 气泡菜单下拉选择框 ===== */
+.fsdx-editor-bubble-select-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--fsdx-editor-bubble-divider);
+  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  background: transparent;
+  height: var(--fsdx-editor-bubble-btn-size);
+  transition: border-color 0.15s ease;
+}
+
+.fsdx-editor-bubble-select-wrapper:hover {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-bubble-select-wrapper .fsdx-editor-bubble-select-icon {
+  width: var(--fsdx-editor-bubble-btn-size);
+  height: var(--fsdx-editor-bubble-btn-size);
+  color: var(--fsdx-editor-bubble-btn-color);
+}
+
+.fsdx-editor-bubble-select {
+  background: transparent;
+  border: none;
+  color: var(--fsdx-editor-bubble-btn-color);
+  font-size: 12px;
+  padding: 0 6px 0 2px;
+  height: 100%;
+  cursor: pointer;
+  outline: none;
+  min-width: 56px;
+  font-family: inherit;
+}
+
+.fsdx-editor-bubble-select:focus {
+  outline: none;
+}
+
+.fsdx-editor-bubble-select option {
+  background: var(--fsdx-editor-bubble-bg);
+  color: var(--fsdx-editor-bubble-btn-color);
+}
+
+/* ===== 气泡菜单颜色指示器 ===== */
+.fsdx-editor-bubble-btn-color-indicator {
+  display: block;
+  width: 12px;
+  height: 3px;
+  border-radius: 1px;
+  margin: 1px auto 0;
+}
+
+.fsdx-editor-bubble-btn-input {
+  position: absolute;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* ===== 缩进 CSS 变量（indent 扩展渲染） ===== */
+.fsdx-editor-content p[data-indent],
+.fsdx-editor-content h1[data-indent],
+.fsdx-editor-content h2[data-indent],
+.fsdx-editor-content h3[data-indent],
+.fsdx-editor-content h4[data-indent],
+.fsdx-editor-content h5[data-indent],
+.fsdx-editor-content h6[data-indent] {
+  padding-left: calc(var(--fsdx-editor-indent-level, 0) * 1em);
 }

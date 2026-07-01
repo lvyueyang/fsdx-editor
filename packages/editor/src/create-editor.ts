@@ -1,12 +1,18 @@
 import { Editor } from '@tiptap/core';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
-import Color from '@tiptap/extension-color';
-import FontFamily from '@tiptap/extension-font-family';
+import { TaskItem, TaskList } from '@tiptap/extension-list';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import { TableKit } from '@tiptap/extension-table';
 import TextAlign from '@tiptap/extension-text-align';
-import { TextStyle } from '@tiptap/extension-text-style';
+import {
+  BackgroundColor,
+  Color,
+  FontFamily,
+  FontSize,
+  LineHeight,
+  TextStyle,
+} from '@tiptap/extension-text-style';
 import Typography from '@tiptap/extension-typography';
 import { Placeholder } from '@tiptap/extensions';
 import StarterKit from '@tiptap/starter-kit';
@@ -19,6 +25,7 @@ import { EventEmitter } from './event-emitter';
 import AttachmentNode from './extensions/attachment-node';
 import AudioNode from './extensions/audio-node';
 import ImageUpload from './extensions/image-upload';
+import { Indent } from './extensions/indent-extension';
 import VideoNode from './extensions/video-node';
 import type { FsdxEditorOptions } from './types';
 
@@ -55,14 +62,20 @@ export function createEditorInstance(
         },
       }),
       TextStyle,
-      Color,
-      FontFamily,
+      Color.configure({ types: ['textStyle'] }),
+      FontFamily.configure({ types: ['textStyle'] }),
+      BackgroundColor.configure({ types: ['textStyle'] }),
+      FontSize.configure({ types: ['textStyle'] }),
+      LineHeight.configure({ types: ['textStyle'] }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
       Subscript,
       Superscript,
       Typography,
+      TaskList,
+      TaskItem.configure({ nested: true }),
+      Indent,
       TableKit.configure({
         table: {
           resizable: true,
