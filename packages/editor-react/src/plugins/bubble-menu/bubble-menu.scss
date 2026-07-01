@@ -37,3 +37,32 @@
     }
   }
 }
+
+/* ======== Bubble Select Dropdown ======== */
+.fsdx-editor-bubble-select-dropdown {
+  z-index: var(--fsdx-editor-z-bubble);
+  min-width: 4.5rem;
+  padding: var(--fsdx-editor-space-1);
+  border-radius: var(--fsdx-editor-radius-md);
+  border: 1px solid var(--fsdx-editor-border-default);
+  background-color: var(--fsdx-editor-surface-primary);
+  box-shadow: var(--fsdx-editor-shadow-md);
+}
+
+.fsdx-editor-bubble-select-item {
+  padding: var(--fsdx-editor-space-1) var(--fsdx-editor-space-2);
+  font-size: var(--fsdx-editor-font-sm);
+  border-radius: var(--fsdx-editor-radius-sm);
+  color: var(--fsdx-editor-text-primary);
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background-color: var(--fsdx-editor-button-hover-bg);
+  }
+
+  &.is-selected {
+    background-color: var(--fsdx-editor-button-active-bg);
+    color: var(--fsdx-editor-button-active-text);
+  }
+}

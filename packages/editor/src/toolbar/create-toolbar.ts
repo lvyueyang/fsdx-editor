@@ -1,12 +1,5 @@
 import type { Editor } from '@tiptap/core';
 import {
-  FONT_SIZE_OPTIONS,
-  ICONS,
-  LINE_HEIGHT_OPTIONS,
-  updateColorIndicators,
-  updateSelectStates,
-} from './toolbar-shared';
-import {
   addBtn,
   createColorBtn,
   createDivider,
@@ -15,8 +8,15 @@ import {
   createTableBtn,
   updateBtnStates,
 } from '../shared/controls';
-import { triggerMediaUpload } from '../utils/media-upload';
 import type { MediaUploadConfig } from '../types';
+import { triggerMediaUpload } from '../utils/media-upload';
+import {
+  FONT_SIZE_OPTIONS,
+  ICONS,
+  LINE_HEIGHT_OPTIONS,
+  updateColorIndicators,
+  updateSelectStates,
+} from './toolbar-shared';
 
 const BTN_CLASS = 'fsdx-editor-toolbar-btn';
 const DIVIDER_CLASS = 'fsdx-editor-toolbar-divider';
@@ -142,7 +142,7 @@ export function populateToolbar(
   div();
 
   // ===== 字体大小（下拉） =====
-  const fontSizeWrapper = createSelect(
+  createSelect(
     toolbarEl,
     SELECT_CLASS,
     editor,
@@ -156,10 +156,9 @@ export function populateToolbar(
     (e, value) => e.chain().focus().setFontSize(value).run(),
     (e) => e.chain().focus().unsetFontSize().run(),
   );
-  fontSizeWrapper.classList.add('fsdx-editor-toolbar-select-wrapper');
 
   // ===== 行高（下拉） =====
-  const lineHeightWrapper = createSelect(
+  createSelect(
     toolbarEl,
     SELECT_CLASS,
     editor,
@@ -173,7 +172,6 @@ export function populateToolbar(
     (e, value) => e.chain().focus().setLineHeight(value).run(),
     (e) => e.chain().focus().unsetLineHeight().run(),
   );
-  lineHeightWrapper.classList.add('fsdx-editor-toolbar-select-wrapper');
 
   div();
 

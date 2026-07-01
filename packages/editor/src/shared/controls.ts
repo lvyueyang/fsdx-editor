@@ -1,3 +1,10 @@
+import {
+  autoUpdate,
+  computePosition,
+  flip,
+  offset,
+  shift,
+} from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
 
 export function updateBtnStates(
@@ -53,7 +60,7 @@ export function addBtn(
   return btn;
 }
 
-/** 创建下拉选择框，用于字体大小 / 行高等场景 */
+/** 基于 floating-ui 的自定义下拉选择控件 */
 export function createSelect(
   container: HTMLElement,
   selectClassName: string,
@@ -65,55 +72,227 @@ export function createSelect(
   onSelect: (e: Editor, value: string) => void,
   onClear: (e: Editor) => void,
 ): HTMLElement {
-  const wrapper = document.createElement('div');
-  wrapper.className = `${selectClassName}-wrapper`;
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = selectClassName;
+  trigger.title = title;
+  trigger.setAttribute('aria-haspopup', 'listbox');
+  trigger.setAttribute('aria-expanded', 'false');
 
   const iconEl = document.createElement('span');
   iconEl.className = `${selectClassName}-icon`;
   iconEl.innerHTML = icon;
 
-  const select = document.createElement('select');
-  select.className = selectClassName;
-  select.title = title;
+  const valueEl = document.createElement('span');
+  valueEl.className = `${selectClassName}-value`;
+
+  const arrowEl = document.createElement('span');
+  arrowEl.className = `${selectClassName}-arrow`;
+  arrowEl.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>';
+
+  trigger.appendChild(iconEl);
+  trigger.appendChild(valueEl);
+  trigger.appendChild(arrowEl);
+
+  let cleanup: (() => void) | null = null;
+  let dropdown: HTMLElement | null = null;
 
   const updateValue = () => {
     const current = getCurrent(editor) ?? '';
-    if (select.value !== current) {
-      select.value = current;
+    const currentLabel =
+      options.find((o) => o.value === current)?.label ?? '默认';
+    valueEl.textContent = currentLabel;
+
+    if (dropdown?.isConnected) {
+      const items = dropdown.querySelectorAll(`.${selectClassName}-item`);
+      items.forEach((item) => {
+        if ((item as HTMLElement).dataset.value === current) {
+          item.classList.add('is-selected');
+        } else {
+          item.classList.remove('is-selected');
+        }
+      });
     }
   };
 
-  select.addEventListener('mousedown', (e) => e.stopPropagation());
-  select.addEventListener('change', () => {
-    const value = select.value;
-    if (value === '') {
+  let closeDropdown = () => {
+    cleanup?.();
+    cleanup = null;
+    dropdown?.remove();
+    dropdown = null;
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+
+  const buildDropdown = () => {
+    const menu = document.createElement('div');
+    menu.className = `${selectClassName}-dropdown`;
+    menu.setAttribute('role', 'listbox');
+
+    const currentValue = getCurrent(editor) ?? '';
+
+    const defaultItem = createSelectItem(
+      selectClassName,
+      '',
+      '默认',
+      !currentValue,
+    );
+    defaultItem.addEventListener('click', (e) => {
+      e.stopPropagation();
       onClear(editor);
-    } else {
-      onSelect(editor, value);
+      updateBtnStates(container, selectClassName, editor);
+      closeDropdown();
+    });
+    menu.appendChild(defaultItem);
+
+    for (const opt of options) {
+      const item = createSelectItem(
+        selectClassName,
+        opt.value,
+        opt.label,
+        currentValue === opt.value,
+      );
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        onSelect(editor, opt.value);
+        updateBtnStates(container, selectClassName, editor);
+        closeDropdown();
+      });
+      menu.appendChild(item);
     }
-    updateBtnStates(container, selectClassName, editor);
+
+    document.body.appendChild(menu);
+    return menu;
+  };
+
+  const openDropdown = () => {
+    if (dropdown) return;
+
+    dropdown = buildDropdown();
+    trigger.setAttribute('aria-expanded', 'true');
+
+    cleanup = autoUpdate(trigger, dropdown, () => {
+      if (!dropdown?.isConnected || !trigger.isConnected) {
+        cleanup?.();
+        closeDropdown();
+        return;
+      }
+      computePosition(trigger, dropdown, {
+        placement: 'bottom-start',
+        middleware: [offset(4), flip(), shift({ padding: 8 })],
+      }).then(({ x, y }) => {
+        if (!dropdown) return;
+        Object.assign(dropdown.style, {
+          position: 'fixed',
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    });
+
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        dropdown?.isConnected &&
+        !dropdown.contains(e.target as Node) &&
+        !trigger.contains(e.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('mousedown', handleOutsideClick, true);
+    }, 0);
+
+    const getItems = () =>
+      dropdown?.querySelectorAll(`.${selectClassName}-item`) ?? [];
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeDropdown();
+        return;
+      }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const items = Array.from(getItems());
+        const activeIdx = items.indexOf(document.activeElement as Element);
+        const nextIdx =
+          e.key === 'ArrowDown'
+            ? (activeIdx + 1) % items.length
+            : (activeIdx - 1 + items.length) % items.length;
+        (items[nextIdx] as HTMLElement).focus();
+        return;
+      }
+      if (e.key === 'Enter') {
+        const focused = document.activeElement as HTMLElement | null;
+        if (focused?.classList.contains(`${selectClassName}-item`)) {
+          focused.click();
+        }
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.removedNodes) {
+          if (node === dropdown) {
+            cleanup?.();
+            document.removeEventListener('mousedown', handleOutsideClick, true);
+            document.removeEventListener('keydown', handleKeyDown);
+            observer.disconnect();
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true });
+
+    const origCloseDropdown = closeDropdown;
+    closeDropdown = () => {
+      observer.disconnect();
+      document.removeEventListener('mousedown', handleOutsideClick, true);
+      document.removeEventListener('keydown', handleKeyDown);
+      origCloseDropdown();
+    };
+  };
+
+  trigger.addEventListener('mousedown', (e) => e.preventDefault());
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (dropdown) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
   });
 
-  const renderOptions = () => {
-    select.innerHTML = '<option value="">默认</option>';
-    for (const opt of options) {
-      const option = document.createElement('option');
-      option.value = opt.value;
-      option.textContent = opt.label;
-      select.appendChild(option);
-    }
-    updateValue();
+  (trigger as unknown as Record<string, unknown>)._update = updateValue;
+  (trigger as unknown as Record<string, unknown>)._check = () => false;
+  (trigger as unknown as Record<string, unknown>)._destroy = () => {
+    closeDropdown();
   };
-  renderOptions();
 
-  (select as unknown as Record<string, unknown>)._update = updateValue;
-  (select as unknown as Record<string, unknown>)._check = () => false;
+  container.appendChild(trigger);
+  updateValue();
+  return trigger;
+}
 
-  wrapper.appendChild(iconEl);
-  wrapper.appendChild(select);
-  container.appendChild(wrapper);
-
-  return wrapper;
+/** 创建下拉选择项 */
+function createSelectItem(
+  selectClassName: string,
+  value: string,
+  label: string,
+  selected: boolean,
+): HTMLElement {
+  const item = document.createElement('div');
+  item.className = `${selectClassName}-item`;
+  if (selected) item.classList.add('is-selected');
+  item.dataset.value = value;
+  item.setAttribute('role', 'option');
+  item.setAttribute('aria-selected', String(selected));
+  item.setAttribute('tabindex', '-1');
+  item.textContent = label;
+  return item;
 }
 
 /** 创建颜色按钮，内嵌隐藏的 <input type="color"> */

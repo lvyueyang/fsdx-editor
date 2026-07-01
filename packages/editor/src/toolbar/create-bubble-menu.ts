@@ -1,19 +1,19 @@
 import type { Editor } from '@tiptap/core';
 import {
-  FONT_SIZE_OPTIONS,
-  ICONS,
-  updateColorIndicators,
-  updateSelectStates,
-} from './toolbar-shared';
-import {
   addBtn,
   createColorBtn,
   createDivider,
   createSelect,
   updateBtnStates,
 } from '../shared/controls';
-import { triggerMediaUpload } from '../utils/media-upload';
 import type { MediaUploadConfig } from '../types';
+import { triggerMediaUpload } from '../utils/media-upload';
+import {
+  FONT_SIZE_OPTIONS,
+  ICONS,
+  updateColorIndicators,
+  updateSelectStates,
+} from './toolbar-shared';
 
 const BTN_CLASS = 'fsdx-editor-bubble-btn';
 const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
@@ -113,7 +113,7 @@ export function populateBubbleMenu(
   div();
 
   // ===== 字体大小 =====
-  const fontSizeWrapper = createSelect(
+  createSelect(
     menuEl,
     SELECT_CLASS,
     editor,
@@ -127,7 +127,6 @@ export function populateBubbleMenu(
     (e, value) => e.chain().focus().setFontSize(value).run(),
     (e) => e.chain().focus().unsetFontSize().run(),
   );
-  fontSizeWrapper.classList.add('fsdx-editor-bubble-select-wrapper');
 
   div();
 

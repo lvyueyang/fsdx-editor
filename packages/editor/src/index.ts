@@ -1,8 +1,6 @@
 import { createEditorInstance } from './core/create-editor';
-import type { EventHandler } from './utils/event-emitter';
 import type { FsdxEditorOptions, ThemeType } from './types';
-
-export type { EventHandler } from './utils/event-emitter';
+import type { EventHandler } from './utils/event-emitter';
 
 export type {
   ContentType,
@@ -14,6 +12,7 @@ export type {
   ThemeType,
   UploadProgressCallback,
 } from './types';
+export type { EventHandler } from './utils/event-emitter';
 
 export function createEditor(
   container: HTMLElement,

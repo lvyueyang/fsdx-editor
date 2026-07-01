@@ -578,17 +578,21 @@
 }
 
 /* ===== 工具栏下拉选择框 ===== */
-.fsdx-editor-toolbar-select-wrapper {
+.fsdx-editor-toolbar-select {
   display: inline-flex;
   align-items: center;
+  gap: 2px;
   border: 1px solid var(--fsdx-editor-toolbar-border);
   border-radius: var(--fsdx-editor-toolbar-btn-radius);
   background: transparent;
   height: var(--fsdx-editor-toolbar-btn-size);
+  cursor: pointer;
+  padding: 0 4px;
   transition: border-color 0.15s ease;
+  outline: none;
 }
 
-.fsdx-editor-toolbar-select-wrapper:hover {
+.fsdx-editor-toolbar-select:hover {
   border-color: var(--fsdx-editor-primary);
 }
 
@@ -611,26 +615,65 @@
   stroke-linejoin: round;
 }
 
-.fsdx-editor-toolbar-select {
-  background: transparent;
-  border: none;
-  color: var(--fsdx-editor-toolbar-btn-color);
+.fsdx-editor-toolbar-select-value {
   font-size: 12px;
-  padding: 0 6px 0 2px;
-  height: 100%;
-  cursor: pointer;
-  outline: none;
-  min-width: 56px;
-  font-family: inherit;
-}
-
-.fsdx-editor-toolbar-select:focus {
-  outline: none;
-}
-
-.fsdx-editor-toolbar-select option {
-  background: var(--fsdx-editor-toolbar-bg);
   color: var(--fsdx-editor-toolbar-btn-color);
+  white-space: nowrap;
+}
+
+.fsdx-editor-toolbar-select-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.fsdx-editor-toolbar-select[aria-expanded="true"]
+  .fsdx-editor-toolbar-select-arrow {
+  transform: rotate(180deg);
+}
+
+.fsdx-editor-toolbar-select-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fsdx-editor-toolbar-select-dropdown {
+  z-index: 60;
+  min-width: 4.5rem;
+  padding: 4px;
+  border-radius: var(--fsdx-editor-radius-md, 6px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fsdx-editor-toolbar-select-item {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.fsdx-editor-toolbar-select-item:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-toolbar-select-item:focus-visible {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: -2px;
+}
+
+.fsdx-editor-toolbar-select-item.is-selected {
+  background: var(--fsdx-editor-primary-light, #e0e7ff);
+  color: var(--fsdx-editor-primary);
 }
 
 /* ===== 颜色按钮指示器 ===== */
@@ -717,46 +760,102 @@
 }
 
 /* ===== 气泡菜单下拉选择框 ===== */
-.fsdx-editor-bubble-select-wrapper {
+.fsdx-editor-bubble-select {
   display: inline-flex;
   align-items: center;
+  gap: 2px;
   border: 1px solid var(--fsdx-editor-bubble-divider);
   border-radius: var(--fsdx-editor-bubble-btn-radius);
   background: transparent;
   height: var(--fsdx-editor-bubble-btn-size);
+  cursor: pointer;
+  padding: 0 4px;
   transition: border-color 0.15s ease;
+  outline: none;
 }
 
-.fsdx-editor-bubble-select-wrapper:hover {
+.fsdx-editor-bubble-select:hover {
   border-color: var(--fsdx-editor-primary);
 }
 
-.fsdx-editor-bubble-select-wrapper .fsdx-editor-bubble-select-icon {
+.fsdx-editor-bubble-select-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--fsdx-editor-bubble-btn-size);
   height: var(--fsdx-editor-bubble-btn-size);
   color: var(--fsdx-editor-bubble-btn-color);
+  pointer-events: none;
 }
 
-.fsdx-editor-bubble-select {
-  background: transparent;
-  border: none;
-  color: var(--fsdx-editor-bubble-btn-color);
+.fsdx-editor-bubble-select-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fsdx-editor-bubble-select-value {
   font-size: 12px;
-  padding: 0 6px 0 2px;
-  height: 100%;
-  cursor: pointer;
-  outline: none;
-  min-width: 56px;
-  font-family: inherit;
-}
-
-.fsdx-editor-bubble-select:focus {
-  outline: none;
-}
-
-.fsdx-editor-bubble-select option {
-  background: var(--fsdx-editor-bubble-bg);
   color: var(--fsdx-editor-bubble-btn-color);
+  white-space: nowrap;
+}
+
+.fsdx-editor-bubble-select-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--fsdx-editor-bubble-btn-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.fsdx-editor-bubble-select[aria-expanded="true"]
+  .fsdx-editor-bubble-select-arrow {
+  transform: rotate(180deg);
+}
+
+.fsdx-editor-bubble-select-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fsdx-editor-bubble-select-dropdown {
+  z-index: var(--fsdx-editor-z-bubble, 100);
+  min-width: 4.5rem;
+  padding: 4px;
+  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  border: 1px solid var(--fsdx-editor-bubble-divider);
+  background: var(--fsdx-editor-bubble-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fsdx-editor-bubble-select-item {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: var(--fsdx-editor-bubble-btn-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.fsdx-editor-bubble-select-item:hover {
+  background: var(--fsdx-editor-bubble-btn-hover);
+}
+
+.fsdx-editor-bubble-select-item:focus-visible {
+  background: var(--fsdx-editor-bubble-btn-hover);
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: -2px;
+}
+
+.fsdx-editor-bubble-select-item.is-selected {
+  background: var(--fsdx-editor-bubble-btn-active);
+  color: var(--fsdx-editor-primary);
 }
 
 /* ===== 气泡菜单颜色指示器 ===== */
