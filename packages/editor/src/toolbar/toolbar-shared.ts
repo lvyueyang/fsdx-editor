@@ -63,6 +63,8 @@ export const ICONS: Record<string, string> = {
     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.2277 18.7323L20.9955 16.9645L22.7632 18.7323C23.7395 19.7086 23.7395 21.2915 22.7632 22.2678C21.7869 23.2441 20.204 23.2441 19.2277 22.2678C18.2514 21.2915 18.2514 19.7086 19.2277 18.7323ZM8.87861 1.07971L20.1923 12.3934C20.5828 12.7839 20.5828 13.4171 20.1923 13.8076L11.707 22.2929C11.3165 22.6834 10.6833 22.6834 10.2928 22.2929L1.80754 13.8076C1.41702 13.4171 1.41702 12.7839 1.80754 12.3934L9.58572 4.61525L7.4644 2.49393L8.87861 1.07971ZM10.9999 6.02946L3.92886 13.1005H18.071L10.9999 6.02946Z"/></svg>',
   lineHeight:
     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 4H21V6H11V4ZM6 7V11H4V7H1L5 3L9 7H6ZM6 17H9L5 21L1 17H4V13H6V17ZM11 18H21V20H11V18ZM9 11H21V13H9V11Z"/></svg>',
+  heading:
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4H5V11H11V4H13V20H11V13H5V20H3V4ZM18 8H20V20H18V15H15.5C14.6716 15 14 14.3284 14 13.5V10C14 9.17157 14.6716 8.5 15.5 8.5H18V8Z"/></svg>',
 };
 
 /** 字体大小预设 */
@@ -87,6 +89,16 @@ export const LINE_HEIGHT_OPTIONS = [
   { label: '2', value: '2' },
   { label: '2.5', value: '2.5' },
   { label: '3', value: '3' },
+];
+
+/** 标题级别预设 */
+export const HEADING_OPTIONS = [
+  { label: '标题1', value: '1' },
+  { label: '标题2', value: '2' },
+  { label: '标题3', value: '3' },
+  { label: '标题4', value: '4' },
+  { label: '标题5', value: '5' },
+  { label: '标题6', value: '6' },
 ];
 
 /** 批量更新容器内所有 select 的选中值 */

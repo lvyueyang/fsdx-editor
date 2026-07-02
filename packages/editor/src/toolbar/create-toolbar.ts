@@ -12,6 +12,7 @@ import type { MediaUploadConfig } from '../types';
 import { triggerMediaUpload } from '../utils/media-upload';
 import {
   FONT_SIZE_OPTIONS,
+  HEADING_OPTIONS,
   ICONS,
   LINE_HEIGHT_OPTIONS,
   updateColorIndicators,
@@ -122,24 +123,26 @@ export function populateToolbar(
   div();
 
   // ===== 标题 =====
-  for (const level of [1, 2, 3, 4, 5, 6] as const) {
-    const key = `h${level}` as keyof typeof ICONS;
-    const labels = [
-      '',
-      '一级标题',
-      '二级标题',
-      '三级标题',
-      '四级标题',
-      '五级标题',
-      '六级标题',
-    ];
-    add(
-      ICONS[key],
-      labels[level],
-      (e) => e.isActive('heading', { level }),
-      (e) => e.chain().focus().toggleHeading({ level }).run(),
-    );
-  }
+  createSelect(
+    toolbarEl,
+    SELECT_CLASS,
+    editor,
+    ICONS.heading,
+    '标题',
+    HEADING_OPTIONS,
+    (e) => {
+      for (const level of [1, 2, 3, 4, 5, 6]) {
+        if (e.isActive('heading', { level })) return String(level);
+      }
+      return null;
+    },
+    (e, value) => {
+      const level = Number(value) as 1 | 2 | 3 | 4 | 5 | 6;
+      e.chain().focus().setNode('heading', { level }).run();
+    },
+    (e) => e.chain().focus().setNode('paragraph').run(),
+    '正文',
+  );
 
   div();
 

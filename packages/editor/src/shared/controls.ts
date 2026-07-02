@@ -71,6 +71,7 @@ export function createSelect(
   getCurrent: (e: Editor) => string | null,
   onSelect: (e: Editor, value: string) => void,
   onClear: (e: Editor) => void,
+  defaultLabel = '默认',
 ): HTMLElement {
   const trigger = document.createElement('button');
   trigger.type = 'button';
@@ -101,7 +102,7 @@ export function createSelect(
   const updateValue = () => {
     const current = getCurrent(editor) ?? '';
     const currentLabel =
-      options.find((o) => o.value === current)?.label ?? '默认';
+      options.find((o) => o.value === current)?.label ?? defaultLabel;
     valueEl.textContent = currentLabel;
 
     if (dropdown?.isConnected) {
@@ -134,7 +135,7 @@ export function createSelect(
     const defaultItem = createSelectItem(
       selectClassName,
       '',
-      '默认',
+      defaultLabel,
       !currentValue,
     );
     defaultItem.addEventListener('click', (e) => {
