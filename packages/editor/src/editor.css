@@ -163,6 +163,10 @@
 }
 
 /* ===== ProseMirror 编辑区域 ===== */
+.fsdx-editor-content .ProseMirror {
+  outline: none;
+}
+
 .fsdx-editor-content {
   padding: var(--fsdx-editor-padding);
   min-height: var(--fsdx-editor-min-height);
@@ -643,7 +647,7 @@
 }
 
 .fsdx-editor-toolbar-select-dropdown {
-  z-index: 60;
+  z-index: 100;
   min-width: 4.5rem;
   padding: 4px;
   border-radius: var(--fsdx-editor-radius-md, 6px);

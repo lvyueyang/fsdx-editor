@@ -15,6 +15,7 @@ import {
   ICONS,
   LINE_HEIGHT_OPTIONS,
   updateColorIndicators,
+  updateIndentInputs,
   updateSelectStates,
 } from './toolbar-shared';
 
@@ -39,7 +40,7 @@ export function populateToolbar(
     audio?: MediaUploadConfig;
     attachment?: MediaUploadConfig;
   },
-): void {
+): () => void {
   toolbarEl.innerHTML = '';
 
   const add = (
@@ -55,6 +56,7 @@ export function populateToolbar(
     updateBtnStates(toolbarEl, BTN_CLASS, editor);
     updateSelectStates(toolbarEl, SELECT_CLASS, editor);
     updateColorIndicators(toolbarEl, BTN_CLASS, editor);
+    updateIndentInputs(toolbarEl, INDENT_INPUT_CLASS, editor);
   };
 
   // ===== 撤销 / 重做 =====
@@ -398,4 +400,5 @@ export function populateToolbar(
   }
 
   refreshAll();
+  return refreshAll;
 }

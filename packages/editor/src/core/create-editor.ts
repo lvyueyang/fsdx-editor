@@ -53,6 +53,8 @@ export function createEditorInstance(
 
   const emitter = new EventEmitter();
 
+  let refreshAllToolbar: (() => void) | null = null;
+
   const editor = new Editor({
     element: editorContent,
     content: options.defaultContent ?? undefined,
@@ -106,18 +108,26 @@ export function createEditorInstance(
       }),
     ],
     onCreate() {
-      populateToolbar(toolbarEl, editor, {
+      const toolbarRefresh = populateToolbar(toolbarEl, editor, {
         image: options.image,
         video: options.video,
         audio: options.audio,
         attachment: options.attachment,
       });
-      populateBubbleMenu(bubbleMenuEl, editor, {
+      const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor, {
         image: options.image,
         video: options.video,
         audio: options.audio,
         attachment: options.attachment,
       });
+
+      refreshAllToolbar = () => {
+        toolbarRefresh();
+        bubbleRefresh();
+      };
+
+      editor.on('selectionUpdate', refreshAllToolbar);
+
       emitter.emit('ready');
       options.onReady?.();
     },
@@ -135,6 +145,9 @@ export function createEditorInstance(
       options.onBlur?.();
     },
     onDestroy() {
+      if (refreshAllToolbar) {
+        editor.off('selectionUpdate', refreshAllToolbar);
+      }
       emitter.emit('destroy');
       options.onDestroy?.();
     },

@@ -141,6 +141,7 @@ export function createSelect(
       e.stopPropagation();
       onClear(editor);
       updateBtnStates(container, selectClassName, editor);
+      updateValue();
       closeDropdown();
     });
     menu.appendChild(defaultItem);
@@ -156,12 +157,13 @@ export function createSelect(
         e.stopPropagation();
         onSelect(editor, opt.value);
         updateBtnStates(container, selectClassName, editor);
+        updateValue();
         closeDropdown();
       });
       menu.appendChild(item);
     }
 
-    document.body.appendChild(menu);
+    container.appendChild(menu);
     return menu;
   };
 
@@ -244,7 +246,7 @@ export function createSelect(
         }
       }
     });
-    observer.observe(document.body, { childList: true });
+    observer.observe(container, { childList: true });
 
     const origCloseDropdown = closeDropdown;
     closeDropdown = () => {

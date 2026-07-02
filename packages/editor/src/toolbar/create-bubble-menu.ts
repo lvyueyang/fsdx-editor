@@ -34,7 +34,7 @@ export function populateBubbleMenu(
     audio?: MediaUploadConfig;
     attachment?: MediaUploadConfig;
   },
-): void {
+): () => void {
   menuEl.innerHTML = '';
 
   const add = (
@@ -264,4 +264,5 @@ export function populateBubbleMenu(
   }
 
   refreshAll();
+  return refreshAll;
 }
