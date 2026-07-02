@@ -116,20 +116,6 @@ export function updateSelectStates(
   });
 }
 
-/** 更新容器内颜色按钮的指示器 */
-export function updateColorIndicators(
-  container: HTMLElement,
-  btnClassName: string,
-  _editor: Editor,
-): void {
-  const buttons = container.querySelectorAll(`.${btnClassName}`);
-  buttons.forEach((btn) => {
-    const updateIndicator = (btn as unknown as Record<string, unknown>)
-      ._updateIndicator as (() => void) | undefined;
-    updateIndicator?.();
-  });
-}
-
 /** 更新缩进输入框显示值 */
 export function updateIndentInputs(
   container: HTMLElement,

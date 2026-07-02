@@ -6,6 +6,7 @@ import {
   shift,
 } from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
+import { PALETTE_COLORS, PALETTE_COLUMNS, PALETTE_ROWS } from './color-palette';
 
 export function updateBtnStates(
   container: HTMLElement,
@@ -22,6 +23,9 @@ export function updateBtnStates(
     } else {
       btn.classList.remove('is-active');
     }
+    const updateIndicator = (btn as unknown as Record<string, unknown>)
+      ._updateIndicator as (() => void) | undefined;
+    updateIndicator?.();
   });
 }
 
@@ -298,16 +302,22 @@ function createSelectItem(
   return item;
 }
 
-/** 创建颜色按钮，内嵌隐藏的 <input type="color"> */
-export function createColorBtn(
+/** 颜色值标准化，用于比较匹配 */
+function normalizeColor(color: string): string {
+  return color.toLowerCase().replace(/\s/g, '');
+}
+
+/** 颜色下拉模式 */
+export type ColorDropdownMode = 'textColor' | 'highlight';
+
+/** 创建带颜色网格下拉的按钮 */
+export function createColorDropdown(
   container: HTMLElement,
   btnClassName: string,
   editor: Editor,
   icon: string,
   title: string,
-  isActive: (e: Editor) => boolean,
-  applyColor: (e: Editor, color: string) => void,
-  attributeKey: 'color' | 'backgroundColor',
+  mode: ColorDropdownMode,
 ): HTMLButtonElement {
   const btn = document.createElement('button');
   btn.type = 'button';
@@ -319,38 +329,306 @@ export function createColorBtn(
   colorIndicator.className = `${btnClassName}-color-indicator`;
   btn.appendChild(colorIndicator);
 
-  (btn as unknown as Record<string, unknown>)._check = isActive;
-  (btn as unknown as Record<string, unknown>)._updateIndicator = () => {
-    if (isActive(editor)) {
-      const attrs = editor.getAttributes('textStyle');
-      const color = attrs[attributeKey] as string | undefined;
-      colorIndicator.style.backgroundColor = color || '';
-    } else {
-      colorIndicator.style.backgroundColor = '';
-    }
+  const attributeKey = mode === 'textColor' ? 'color' : 'backgroundColor';
+
+  const isActive = () => !!editor.getAttributes('textStyle')[attributeKey];
+
+  const getCurrentColor = (): string | null => {
+    const attrs = editor.getAttributes('textStyle');
+    return (attrs[attributeKey] as string) || null;
   };
 
-  const input = document.createElement('input');
-  input.type = 'color';
-  input.className = `${btnClassName}-input`;
-  input.setAttribute('aria-label', title);
-  input.addEventListener('input', (e) => {
-    const color = (e.target as HTMLInputElement).value;
-    applyColor(editor, color);
-    updateBtnStates(container, btnClassName, editor);
-    const indicator = (btn as unknown as Record<string, unknown>)
-      ._updateIndicator as (() => void) | undefined;
-    indicator?.();
-  });
+  (btn as unknown as Record<string, unknown>)._check = () => isActive();
+  (btn as unknown as Record<string, unknown>)._updateIndicator = () => {
+    colorIndicator.style.backgroundColor = getCurrentColor() || '';
+  };
+
+  const applyColor =
+    mode === 'textColor'
+      ? (e: Editor, color: string) => e.chain().focus().setColor(color).run()
+      : (e: Editor, color: string) =>
+          e.chain().focus().setBackgroundColor(color).run();
+
+  const clearColor =
+    mode === 'textColor'
+      ? (e: Editor) => e.chain().focus().unsetColor().run()
+      : (e: Editor) => e.chain().focus().setBackgroundColor('').run();
+
+  const actionLabel = mode === 'textColor' ? '默认颜色' : '清除背景色';
+
+  let cleanup: (() => void) | null = null;
+  let dropdown: HTMLElement | null = null;
+
+  let closeDropdown = () => {
+    cleanup?.();
+    cleanup = null;
+    dropdown?.remove();
+    dropdown = null;
+  };
+
+  const buildDropdown = (): HTMLElement => {
+    const menu = document.createElement('div');
+    menu.className = 'fsdx-editor-color-dropdown';
+
+    const actionBtn = document.createElement('button');
+    actionBtn.type = 'button';
+    actionBtn.className = 'fsdx-editor-color-grid-action-btn';
+    actionBtn.textContent = actionLabel;
+    actionBtn.addEventListener('mousedown', (e) => e.preventDefault());
+    actionBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearColor(editor);
+      updateBtnStates(container, btnClassName, editor);
+      const updateIndicator = (btn as unknown as Record<string, unknown>)
+        ._updateIndicator as (() => void) | undefined;
+      updateIndicator?.();
+      closeDropdown();
+    });
+    menu.appendChild(actionBtn);
+
+    const separator = document.createElement('div');
+    separator.className = 'fsdx-editor-color-dropdown-divider';
+    menu.appendChild(separator);
+
+    const customRow = document.createElement('div');
+    customRow.className = 'fsdx-editor-color-custom-row';
+    customRow.setAttribute('role', 'button');
+    customRow.setAttribute('tabindex', '0');
+
+    const customLabel = document.createElement('span');
+    customLabel.textContent = '自定义颜色';
+    customRow.appendChild(customLabel);
+
+    const customSwatch = document.createElement('span');
+    customSwatch.className = 'fsdx-editor-color-custom-swatch';
+    customSwatch.style.backgroundColor = getCurrentColor() || 'transparent';
+    customRow.appendChild(customSwatch);
+
+    const customInput = document.createElement('input');
+    customInput.type = 'color';
+    customInput.className = 'fsdx-editor-color-custom-input';
+    customInput.addEventListener('input', (e) => {
+      const color = (e.target as HTMLInputElement).value;
+      applyColor(editor, color);
+      updateBtnStates(container, btnClassName, editor);
+      const updateIndicator = (btn as unknown as Record<string, unknown>)
+        ._updateIndicator as (() => void) | undefined;
+      updateIndicator?.();
+      closeDropdown();
+    });
+    customRow.appendChild(customInput);
+
+    customRow.addEventListener('mousedown', (e) => e.preventDefault());
+    customRow.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof customInput.showPicker === 'function') {
+        customInput.showPicker();
+      } else {
+        customInput.click();
+      }
+    });
+    customRow.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (typeof customInput.showPicker === 'function') {
+          customInput.showPicker();
+        } else {
+          customInput.click();
+        }
+      }
+    });
+
+    menu.appendChild(customRow);
+
+    const separator2 = document.createElement('div');
+    separator2.className = 'fsdx-editor-color-dropdown-divider';
+    menu.appendChild(separator2);
+
+    const grid = document.createElement('div');
+    grid.className = 'fsdx-editor-color-grid';
+    grid.setAttribute('role', 'grid');
+    grid.setAttribute('aria-label', '颜色选择');
+
+    const currentColor = getCurrentColor();
+    const cells: HTMLButtonElement[] = [];
+
+    for (const paletteColor of PALETTE_COLORS) {
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'fsdx-editor-color-grid-item';
+      cell.style.backgroundColor = paletteColor.color;
+      cell.setAttribute('tabindex', '-1');
+      cell.setAttribute('role', 'gridcell');
+      cell.setAttribute('aria-label', paletteColor.color);
+
+      if (
+        currentColor &&
+        normalizeColor(currentColor) === normalizeColor(paletteColor.color)
+      ) {
+        cell.setAttribute('data-active', 'true');
+      }
+
+      cell.addEventListener('mousedown', (e) => e.preventDefault());
+      cell.addEventListener('click', (e) => {
+        e.stopPropagation();
+        applyColor(editor, paletteColor.color);
+        updateBtnStates(container, btnClassName, editor);
+        const updateIndicator = (btn as unknown as Record<string, unknown>)
+          ._updateIndicator as (() => void) | undefined;
+        updateIndicator?.();
+        closeDropdown();
+      });
+
+      grid.appendChild(cell);
+      cells.push(cell);
+    }
+
+    grid.addEventListener('keydown', (e) => {
+      const currentIndex = cells.indexOf(
+        document.activeElement as HTMLButtonElement,
+      );
+      if (currentIndex === -1) {
+        if (
+          e.key === 'ArrowDown' ||
+          e.key === 'ArrowRight' ||
+          e.key === 'Enter'
+        ) {
+          e.preventDefault();
+          cells[0]?.focus();
+        }
+        return;
+      }
+
+      const col = currentIndex % PALETTE_COLUMNS;
+      const row = Math.floor(currentIndex / PALETTE_COLUMNS);
+      let nextIndex = currentIndex;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          nextIndex = row * PALETTE_COLUMNS + ((col + 1) % PALETTE_COLUMNS);
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          nextIndex =
+            row * PALETTE_COLUMNS +
+            ((col - 1 + PALETTE_COLUMNS) % PALETTE_COLUMNS);
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          nextIndex = ((row + 1) % PALETTE_ROWS) * PALETTE_COLUMNS + col;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          nextIndex =
+            ((row - 1 + PALETTE_ROWS) % PALETTE_ROWS) * PALETTE_COLUMNS + col;
+          break;
+        case 'Home':
+          e.preventDefault();
+          nextIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          nextIndex = cells.length - 1;
+          break;
+        default:
+          return;
+      }
+
+      if (cells[nextIndex]) {
+        cells[nextIndex].focus();
+      }
+    });
+
+    menu.appendChild(grid);
+    container.appendChild(menu);
+    return menu;
+  };
+
+  const openDropdown = () => {
+    if (dropdown) return;
+
+    dropdown = buildDropdown();
+
+    cleanup = autoUpdate(btn, dropdown, () => {
+      if (!dropdown?.isConnected || !btn.isConnected) {
+        cleanup?.();
+        closeDropdown();
+        return;
+      }
+      computePosition(btn, dropdown, {
+        placement: 'bottom-start',
+        middleware: [offset(4), flip(), shift({ padding: 8 })],
+      }).then(({ x, y }) => {
+        if (!dropdown) return;
+        Object.assign(dropdown.style, {
+          position: 'fixed',
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    });
+
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        dropdown?.isConnected &&
+        !dropdown.contains(e.target as Node) &&
+        !btn.contains(e.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('mousedown', handleOutsideClick, true);
+    }, 0);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeDropdown();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.removedNodes) {
+          if (node === dropdown) {
+            cleanup?.();
+            document.removeEventListener('mousedown', handleOutsideClick, true);
+            document.removeEventListener('keydown', handleKeyDown);
+            observer.disconnect();
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(container, { childList: true });
+
+    const origCloseDropdown = closeDropdown;
+    closeDropdown = () => {
+      observer.disconnect();
+      document.removeEventListener('mousedown', handleOutsideClick, true);
+      document.removeEventListener('keydown', handleKeyDown);
+      origCloseDropdown();
+    };
+  };
 
   btn.addEventListener('mousedown', (e) => e.preventDefault());
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    input.click();
+    if (dropdown) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
   });
 
-  btn.appendChild(input);
+  (btn as unknown as Record<string, unknown>)._destroy = () => {
+    closeDropdown();
+  };
+
   container.appendChild(btn);
   return btn;
 }

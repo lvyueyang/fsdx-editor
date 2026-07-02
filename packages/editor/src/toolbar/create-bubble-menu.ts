@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/core';
 import {
   addBtn,
-  createColorBtn,
+  createColorDropdown,
   createDivider,
   createSelect,
   updateBtnStates,
@@ -12,7 +12,6 @@ import {
   FONT_SIZE_OPTIONS,
   HEADING_OPTIONS,
   ICONS,
-  updateColorIndicators,
   updateSelectStates,
 } from './toolbar-shared';
 
@@ -50,7 +49,6 @@ export function populateBubbleMenu(
   const refreshAll = () => {
     updateBtnStates(menuEl, BTN_CLASS, editor);
     updateSelectStates(menuEl, SELECT_CLASS, editor);
-    updateColorIndicators(menuEl, BTN_CLASS, editor);
   };
 
   // ===== 文本样式 =====
@@ -142,27 +140,23 @@ export function populateBubbleMenu(
   div();
 
   // ===== 文字颜色 =====
-  createColorBtn(
+  createColorDropdown(
     menuEl,
     BTN_CLASS,
     editor,
     ICONS.textColor,
     '文字颜色',
-    (e) => !!e.getAttributes('textStyle').color,
-    (e, color) => e.chain().focus().setColor(color).run(),
-    'color',
+    'textColor',
   );
 
   // ===== 高亮背景色 =====
-  createColorBtn(
+  createColorDropdown(
     menuEl,
     BTN_CLASS,
     editor,
     ICONS.highlight,
     '背景高亮色',
-    (e) => !!e.getAttributes('textStyle').backgroundColor,
-    (e, color) => e.chain().focus().setBackgroundColor(color).run(),
-    'backgroundColor',
+    'highlight',
   );
 
   div();
