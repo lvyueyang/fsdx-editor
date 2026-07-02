@@ -986,6 +986,103 @@
   box-shadow: 0 0 0 1px var(--fsdx-editor-primary, #6366f1);
 }
 
+/* ===== 链接下拉面板 ===== */
+.fsdx-editor-link-popover {
+  z-index: 101;
+  min-width: 14rem;
+  padding: 4px;
+  border-radius: var(--fsdx-editor-radius, 8px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.fsdx-editor-link-popover-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.fsdx-editor-link-popover-input {
+  flex: 1;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  min-width: 0;
+  padding: 0 8px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.fsdx-editor-link-popover-input:focus {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-link-popover-input::placeholder {
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+.fsdx-editor-link-popover-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.fsdx-editor-link-popover-btn:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-link-popover-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.fsdx-editor-link-popover-text-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.fsdx-editor-link-popover-text-btn:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-link-popover-text-btn.is-active {
+  background: var(--fsdx-editor-toolbar-btn-active);
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-link-popover-divider {
+  height: 1px;
+  background: var(--fsdx-editor-toolbar-divider);
+  margin: 4px 0;
+}
+
 /* ===== 缩进 CSS 变量（indent 扩展渲染） ===== */
 .fsdx-editor-content p[data-indent],
 .fsdx-editor-content h1[data-indent],

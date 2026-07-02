@@ -8,6 +8,7 @@ import {
   createTableBtn,
   updateBtnStates,
 } from '../shared/controls';
+import { createLinkDropdown } from '../shared/link-dropdown';
 import type { MediaUploadConfig } from '../types';
 import { triggerMediaUpload } from '../utils/media-upload';
 import {
@@ -308,21 +309,7 @@ export function populateToolbar(
     (e) => e.chain().focus().setHorizontalRule().run(),
   );
 
-  add(
-    ICONS.link,
-    '插入/编辑链接',
-    (e) => e.isActive('link'),
-    (e) => {
-      const previousUrl = e.getAttributes('link').href || '';
-      const url = window.prompt('请输入链接地址：', previousUrl);
-      if (url === null) return;
-      if (url === '') {
-        e.chain().focus().extendMarkRange('link').unsetLink().run();
-      } else {
-        e.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-      }
-    },
-  );
+  createLinkDropdown(toolbarEl, BTN_CLASS, editor, ICONS.link, '插入/编辑链接');
 
   createTableBtn(
     toolbarEl,
