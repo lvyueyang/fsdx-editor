@@ -1,3 +1,5 @@
+import './editor.css';
+
 import { createEditorInstance } from './core/create-editor';
 import type { FsdxEditorOptions, ThemeType } from './types';
 import type { EventHandler } from './utils/event-emitter';

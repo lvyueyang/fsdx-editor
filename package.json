@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --parallel -r dev",
+    "dev": "pnpm --filter @fsdx/editor --filter @fsdx/tiptap-table-kit build && pnpm --parallel -r dev",
     "build": "pnpm -r build",
     "build:site": "pnpm --filter site build",
     "check": "biome check --write .",

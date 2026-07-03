@@ -1,5 +1,3 @@
-import '@fsdx/editor/editor.css';
-
 import type { EventHandler } from '@fsdx/editor';
 import { createEditor } from '@fsdx/editor';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';

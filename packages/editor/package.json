@@ -8,7 +8,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./editor.css": "./dist/editor.css",
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js",
@@ -22,7 +21,6 @@
   "scripts": {
     "dev": "rslib --watch",
     "build": "rslib build",
-    "postbuild": "node -e \"require('fs').cpSync('src/editor.css','dist/editor.css')\"",
     "test": "rstest",
     "test:watch": "rstest --watch"
   },
