@@ -17,7 +17,6 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useCallback, useContext, useRef } from 'react';
-import '@fsdx/tiptap-table-kit/styles/table.css';
 import { DemoThemeContext } from '../shared/demo-theme-context';
 
 const initialHtml = `

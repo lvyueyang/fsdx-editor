@@ -11,9 +11,11 @@ export default defineConfig({
       bundle: false,
       dts: true,
       format: 'esm',
+      syntax: 'es2021',
     },
   ],
   output: {
     target: 'web',
+    cleanDistPath: true,
   },
 });

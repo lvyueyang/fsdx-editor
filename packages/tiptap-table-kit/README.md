@@ -17,7 +17,6 @@ import TableRow from '@tiptap/extension-table-row'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import { TableCellStyle, NodeBackground } from '@fsdx/tiptap-table-kit'
-import '@fsdx/tiptap-table-kit/styles/table.css'
 
 const editor = new Editor({
   extensions: [
@@ -126,10 +125,7 @@ import { PALETTE_COLORS, PALETTE_COLUMNS, PALETTE_ROWS } from '@fsdx/tiptap-tabl
 ## 样式
 
 ```ts
-import '@fsdx/tiptap-table-kit/styles/table.css'
-```
-
-提供选区覆盖层、操作手柄和上下文菜单的样式。**表格渲染样式（table/td/th 等）需要用户自行提供**，配合 `@tiptap/extension-table` 使用。
+提供选区覆盖层、操作手柄和上下文菜单的样式。样式已内联于主入口，无需额外导入。**表格渲染样式（table/td/th 等）需要用户自行提供**，配合 `@tiptap/extension-table` 使用。
 
 所有颜色/间距通过 CSS 自定义属性控制，默认有硬编码 fallback：
 

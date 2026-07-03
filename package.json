@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter site dev",
-    "dev:all": "pnpm --parallel -r dev",
+    "dev": "pnpm --parallel -r dev",
     "dev:lib": "pnpm --filter @fsdx/editor-react dev",
     "build": "pnpm -r build",
     "build:lib": "pnpm --filter @fsdx/editor-react build",

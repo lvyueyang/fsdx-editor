@@ -2,21 +2,19 @@
   "name": "@fsdx/tiptap-table-kit",
   "version": "1.0.0",
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
-    },
-    "./styles/*": "./src/styles/*"
+    }
   },
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "files": [
-    "dist",
-    "src/styles"
+    "dist"
   ],
   "scripts": {
     "dev": "rslib --watch",

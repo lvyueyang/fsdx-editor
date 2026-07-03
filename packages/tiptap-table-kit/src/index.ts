@@ -81,3 +81,5 @@ export {
   findRowDepth,
   findTableDepth,
 } from './utils/table-helpers';
+
+import './styles/table.css';

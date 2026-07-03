@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { defineConfig } from '@rsbuild/core';
 import { pluginBabel } from '@rsbuild/plugin-babel';
 import { pluginReact } from '@rsbuild/plugin-react';
@@ -23,16 +22,7 @@ export default defineConfig({
     base: '/fsdx-editor/',
   },
   resolve: {
-    alias: {
-      '@fsdx/editor$': path.resolve(
-        __dirname,
-        '../packages/editor/src/index.ts',
-      ),
-      '@fsdx/editor/editor.css': path.resolve(
-        __dirname,
-        '../packages/editor/src/editor.css',
-      ),
-    },
+    alias: {},
   },
   plugins: [
     pluginReact(),
