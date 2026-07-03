@@ -1,8 +1,0 @@
-/**************************************************
- FSDX Editor 设计令牌入口
- 按层级顺序加载：原始值 → 语义 → 组件令牌
- **************************************************/
-
-@forward 'tokens/primitives';
-@forward 'tokens/semantic';
-@forward 'tokens/components';

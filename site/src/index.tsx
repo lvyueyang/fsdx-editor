@@ -1,4 +1,3 @@
-import type { EditorTheme } from '@fsdx/editor-react';
 import { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Redirect, Route, Router, Switch } from 'wouter';
@@ -6,36 +5,20 @@ import { useHashLocation } from 'wouter/use-hash-location';
 import { Header } from './components/header';
 import { Layout } from './components/layout';
 import { ApiReference } from './pages/api-reference';
-import { BasicDemo } from './pages/basic-demo';
-import { ControlPanel } from './pages/control-panel';
-import { Overview } from './pages/overview';
-import { ThemeConfig } from './pages/theme-config';
 import { TiptapTableDemo } from './pages/tiptap-table-kit-demo';
-import { UiDemoBadge } from './pages/ui-demo/badge';
-import { UiDemoButton } from './pages/ui-demo/button';
-import { UiDemoCard } from './pages/ui-demo/card';
-import { UiDemoDropdownMenu } from './pages/ui-demo/dropdown-menu';
-import { UiDemoIndex } from './pages/ui-demo/index';
-import { UiDemoInput } from './pages/ui-demo/input';
-import { UiDemoPopover } from './pages/ui-demo/popover';
-import { UiDemoToolbar } from './pages/ui-demo/toolbar';
-import { UiDemoTooltip } from './pages/ui-demo/tooltip';
 import { VanillaDemo } from './pages/vanilla-demo';
+import type { EditorTheme } from './shared/demo-theme-context';
 import { DemoThemeContext } from './shared/demo-theme-context';
 
-type DemoTheme = 'light' | 'dark' | 'auto';
-
-const THEME_STORAGE_KEY = 'fsdx-demo-theme';
-
-function getStoredTheme(): DemoTheme {
-  const stored = localStorage.getItem(THEME_STORAGE_KEY);
+function getStoredTheme(): EditorTheme {
+  const stored = localStorage.getItem('fsdx-demo-theme');
   if (stored === 'light' || stored === 'dark' || stored === 'auto') {
     return stored;
   }
   return 'auto';
 }
 
-function resolveTheme(mode: DemoTheme): 'light' | 'dark' {
+function resolveTheme(mode: EditorTheme): 'light' | 'dark' {
   if (mode === 'auto') {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
@@ -44,7 +27,7 @@ function resolveTheme(mode: DemoTheme): 'light' | 'dark' {
   return mode;
 }
 
-function applyTheme(mode: DemoTheme) {
+function applyTheme(mode: EditorTheme) {
   const resolved = resolveTheme(mode);
   document.documentElement.setAttribute(
     'data-demo-theme',
@@ -53,11 +36,11 @@ function applyTheme(mode: DemoTheme) {
 }
 
 function useDemoTheme() {
-  const [theme, setTheme] = useState<DemoTheme>(getStoredTheme);
+  const [theme, setTheme] = useState<EditorTheme>(getStoredTheme);
 
   useEffect(() => {
     applyTheme(theme);
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    localStorage.setItem('fsdx-demo-theme', theme);
   }, [theme]);
 
   useEffect(() => {
@@ -74,10 +57,7 @@ function useDemoTheme() {
 function App() {
   const [theme, setTheme] = useDemoTheme();
 
-  const contextValue = useMemo(
-    () => ({ theme: theme as EditorTheme, setTheme }),
-    [theme, setTheme],
-  );
+  const contextValue = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
 
   return (
     <DemoThemeContext.Provider value={contextValue}>
@@ -86,52 +66,16 @@ function App() {
           <Header theme={theme} onThemeChange={setTheme} />
           <Switch>
             <Route path="/">
-              <Overview />
-            </Route>
-            <Route path="/demo">
-              <BasicDemo />
-            </Route>
-            <Route path="/vanilla-demo">
-              <VanillaDemo />
-            </Route>
-            <Route path="/control-panel">
-              <ControlPanel />
-            </Route>
-            <Route path="/api">
-              <ApiReference />
-            </Route>
-            <Route path="/theme-config">
-              <ThemeConfig />
+              <Redirect to="/tiptap-table-kit" />
             </Route>
             <Route path="/tiptap-table-kit">
               <TiptapTableDemo />
             </Route>
-            <Route path="/ui-demo">
-              <UiDemoIndex />
+            <Route path="/vanilla-demo">
+              <VanillaDemo />
             </Route>
-            <Route path="/ui-demo/button">
-              <UiDemoButton />
-            </Route>
-            <Route path="/ui-demo/badge">
-              <UiDemoBadge />
-            </Route>
-            <Route path="/ui-demo/card">
-              <UiDemoCard />
-            </Route>
-            <Route path="/ui-demo/input">
-              <UiDemoInput />
-            </Route>
-            <Route path="/ui-demo/toolbar">
-              <UiDemoToolbar />
-            </Route>
-            <Route path="/ui-demo/tooltip">
-              <UiDemoTooltip />
-            </Route>
-            <Route path="/ui-demo/popover">
-              <UiDemoPopover />
-            </Route>
-            <Route path="/ui-demo/dropdown-menu">
-              <UiDemoDropdownMenu />
+            <Route path="/api">
+              <ApiReference />
             </Route>
             <Route>
               <Redirect to="/" />

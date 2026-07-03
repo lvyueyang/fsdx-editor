@@ -13,32 +13,10 @@ interface NavGroup {
 
 const navGroups: NavGroup[] = [
   {
-    label: '概览',
-    items: [{ label: '关于 FSDX Editor', href: '/', icon: '◆' }],
-  },
-  {
     label: '演示',
     items: [
-      { label: '基础演示', href: '/demo', icon: '◇' },
-      { label: '控制面板', href: '/control-panel', icon: '◈' },
       { label: 'Table Kit', href: '/tiptap-table-kit', icon: '⊞' },
       { label: '原生编辑器', href: '/vanilla-demo', icon: '⬡' },
-      { label: '主题配置', href: '/theme-config', icon: '🎨' },
-    ],
-  },
-  {
-    label: '基础组件',
-    items: [
-      { label: '组件概览', href: '/ui-demo', icon: '□' },
-      { label: 'Button', href: '/ui-demo/button', icon: '◇' },
-      { label: 'Badge', href: '/ui-demo/badge', icon: '◇' },
-      { label: 'Card', href: '/ui-demo/card', icon: '◇' },
-      { label: 'Input', href: '/ui-demo/input', icon: '◇' },
-      { label: 'Separator', href: '/ui-demo/separator', icon: '◇' },
-      { label: 'Toolbar', href: '/ui-demo/toolbar', icon: '◇' },
-      { label: 'Tooltip', href: '/ui-demo/tooltip', icon: '◇' },
-      { label: 'Popover', href: '/ui-demo/popover', icon: '◇' },
-      { label: 'DropdownMenu', href: '/ui-demo/dropdown-menu', icon: '◇' },
     ],
   },
   {

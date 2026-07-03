@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@fsdx/editor": "workspace:*",
-    "@fsdx/editor-react": "workspace:*",
     "@fsdx/tiptap-table-kit": "workspace:*",
     "@tiptap/core": "^3.27.1",
     "@tiptap/extension-table": "^3.27.1",
