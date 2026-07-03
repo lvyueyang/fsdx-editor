@@ -23,6 +23,9 @@ import {
 import { CustomTableView } from './extensions/custom-table-view';
 import { NodeBackground } from './extensions/node-background';
 import { TableCellStyle } from './extensions/table-cell-style';
+import { enUS } from './i18n/en-US';
+import type { TableKitTranslations } from './i18n/types';
+import { zhCN } from './i18n/zh-CN';
 import { TableSelectionOverlay } from './overlay/table-selection-overlay';
 import './styles/table.css';
 
@@ -47,8 +50,47 @@ declare module '@tiptap/core' {
       clearRowContent: () => ReturnType;
       clearColumnContent: () => ReturnType;
       clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
+      /** 动态切换主题 */
+      setTheme: (theme: 'light' | 'dark') => ReturnType;
     };
   }
+}
+
+interface EditorTableKitState {
+  translations: TableKitTranslations;
+  theme: 'light' | 'dark';
+  locale: string;
+}
+
+const editorStateMap = new WeakMap<Editor, EditorTableKitState>();
+
+function getOrInitState(editor: Editor): EditorTableKitState {
+  let state = editorStateMap.get(editor);
+  if (!state) {
+    state = { translations: zhCN, theme: 'light', locale: 'zh-CN' };
+    editorStateMap.set(editor, state);
+  }
+  return state;
+}
+
+/** 获取指定编辑器实例的当前翻译对象 */
+export function getTableKitTranslations(
+  editor: Editor | null,
+): TableKitTranslations {
+  if (!editor) return zhCN;
+  return getOrInitState(editor).translations;
+}
+
+/** 获取指定编辑器实例的当前主题 */
+export function getTableKitTheme(editor: Editor | null): 'light' | 'dark' {
+  if (!editor) return 'light';
+  return getOrInitState(editor).theme;
+}
+
+/** 获取指定编辑器实例的当前 locale */
+export function getTableKitLocale(editor: Editor | null): string {
+  if (!editor) return 'zh-CN';
+  return getOrInitState(editor).locale;
 }
 
 /**
@@ -57,15 +99,49 @@ declare module '@tiptap/core' {
  *
  * @example
  * ```ts
- * extensions: [TableKit.configure({ resizable: true }), TableRow, TableCell, TableHeader]
+ * extensions: [
+ *   TableKit.configure({
+ *     resizable: true,
+ *     theme: 'dark',
+ *     locale: 'en-US',
+ *   }),
+ *   TableRow, TableCell, TableHeader
+ * ]
  * ```
  */
 export const TableKit = Table.extend({
+  name: 'tableKit',
+
   addOptions() {
     return {
       ...this.parent!(),
       View: CustomTableView,
+      theme: 'light' as 'light' | 'dark',
+      locale: 'zh-CN' as 'zh-CN' | 'en-US',
+      translations: undefined as Partial<TableKitTranslations> | undefined,
     };
+  },
+
+  onCreate() {
+    const options = this.options as {
+      theme?: 'light' | 'dark';
+      locale?: string;
+      translations?: Partial<TableKitTranslations>;
+    };
+
+    const locale = options.locale ?? 'zh-CN';
+    const base = locale === 'en-US' ? enUS : zhCN;
+    const translations = options.translations
+      ? { ...base, ...options.translations }
+      : base;
+
+    const theme = options.theme ?? 'light';
+
+    editorStateMap.set(this.editor, { translations, theme, locale });
+
+    if (theme === 'dark') {
+      this.editor.view.dom.classList.add('tiptap-table-kit-dark');
+    }
   },
 
   addExtensions() {
@@ -147,6 +223,19 @@ export const TableKit = Table.extend({
         (orientation: 'row' | 'column') =>
         ({ editor }: { editor: Editor }) =>
           clearRowColumnContent(editor, orientation),
+      setTheme:
+        (theme: 'light' | 'dark') =>
+        ({ editor }) => {
+          const state = getOrInitState(editor);
+          state.theme = theme;
+          const dom = editor.view.dom;
+          if (theme === 'dark') {
+            dom.classList.add('tiptap-table-kit-dark');
+          } else {
+            dom.classList.remove('tiptap-table-kit-dark');
+          }
+          return true;
+        },
     };
   },
 });

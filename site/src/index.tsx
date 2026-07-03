@@ -5,7 +5,10 @@ import { useHashLocation } from 'wouter/use-hash-location';
 import { Header } from './components/header';
 import { Layout } from './components/layout';
 import { ApiReference } from './pages/api-reference';
+import { HomePage } from './pages/home';
 import { TiptapTableDemo } from './pages/tiptap-table-kit-demo';
+import { TiptapTableI18n } from './pages/tiptap-table-kit-i18n';
+import { TiptapTableTheme } from './pages/tiptap-table-kit-theme';
 import { VanillaDemo } from './pages/vanilla-demo';
 import type { EditorTheme } from './shared/demo-theme-context';
 import { DemoThemeContext } from './shared/demo-theme-context';
@@ -66,10 +69,16 @@ function App() {
           <Header theme={theme} onThemeChange={setTheme} />
           <Switch>
             <Route path="/">
-              <Redirect to="/tiptap-table-kit" />
+              <HomePage />
             </Route>
             <Route path="/tiptap-table-kit">
               <TiptapTableDemo />
+            </Route>
+            <Route path="/tiptap-table-kit-theme">
+              <TiptapTableTheme />
+            </Route>
+            <Route path="/tiptap-table-kit-i18n">
+              <TiptapTableI18n />
             </Route>
             <Route path="/vanilla-demo">
               <VanillaDemo />

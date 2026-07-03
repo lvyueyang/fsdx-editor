@@ -1,6 +1,7 @@
 import type { Editor } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { CellSelection, cellAround } from '@tiptap/pm/tables';
+import { getTableKitTranslations } from '../table-kit';
 import { ICON_MORE } from './icon-svgs';
 import { openContextMenu } from './menu-builder';
 
@@ -109,7 +110,10 @@ export const TableSelectionOverlay = Extension.create(() => {
       handleEl = document.createElement('button');
       handleEl.type = 'button';
       handleEl.className = 'tiptap-table-kit-selection-handle';
-      handleEl.setAttribute('aria-label', '表格操作');
+      handleEl.setAttribute(
+        'aria-label',
+        getTableKitTranslations(editor).tableActions,
+      );
       handleEl.innerHTML = `<span class="tiptap-table-kit-selection-handle-dot">${ICON_MORE}</span>`;
 
       handleEl.addEventListener('click', (e) => {

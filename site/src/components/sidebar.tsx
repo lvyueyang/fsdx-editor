@@ -13,11 +13,17 @@ interface NavGroup {
 
 const navGroups: NavGroup[] = [
   {
-    label: '演示',
+    label: 'Table Kit',
     items: [
-      { label: 'Table Kit', href: '/tiptap-table-kit', icon: '⊞' },
-      { label: '原生编辑器', href: '/vanilla-demo', icon: '⬡' },
+      { label: '概览', href: '/', icon: '⌂' },
+      { label: '表格编辑', href: '/tiptap-table-kit', icon: '⊞' },
+      { label: '主题配置', href: '/tiptap-table-kit-theme', icon: '◐' },
+      { label: '国际化', href: '/tiptap-table-kit-i18n', icon: '🌐' },
     ],
+  },
+  {
+    label: '演示',
+    items: [{ label: '原生编辑器', href: '/vanilla-demo', icon: '⬡' }],
   },
   {
     label: '参考',

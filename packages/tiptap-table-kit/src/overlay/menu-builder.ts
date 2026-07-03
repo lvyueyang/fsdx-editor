@@ -14,7 +14,9 @@ import {
   unsetCellBackgroundColor,
   unsetCellTextColor,
 } from '../commands/table-cell';
+import type { TableKitTranslations } from '../i18n/types';
 import type { PaletteColor } from '../palette';
+import { getTableKitTheme, getTableKitTranslations } from '../table-kit';
 import { createColorGrid } from './color-grid-builder';
 import {
   ICON_ALIGN_CENTER,
@@ -77,79 +79,82 @@ function createMenuButton(
   return btn;
 }
 
-const MAIN_MENU_ITEMS = (editor: Editor | null): MenuListDef => {
+function buildMainMenuItems(
+  editor: Editor | null,
+  t: TableKitTranslations,
+): MenuListDef {
   const canSplit = editor?.can().splitCell() ?? false;
 
   return [
     {
-      label: '上方插入行',
+      label: t.insertRowAbove,
       iconHtml: ICON_PLUS,
       onClick: () => editor?.chain().focus().addRowBefore().run(),
     },
     {
-      label: '下方插入行',
+      label: t.insertRowBelow,
       iconHtml: ICON_PLUS,
       onClick: () => editor?.chain().focus().addRowAfter().run(),
     },
     {
-      label: '左侧插入列',
+      label: t.insertColumnLeft,
       iconHtml: ICON_PLUS,
       onClick: () => editor?.chain().focus().addColumnBefore().run(),
     },
     {
-      label: '右侧插入列',
+      label: t.insertColumnRight,
       iconHtml: ICON_PLUS,
       onClick: () => editor?.chain().focus().addColumnAfter().run(),
     },
     { type: 'separator' as const },
     {
-      label: '合并单元格',
+      label: t.mergeCells,
       iconHtml: ICON_MERGE_CELLS,
       onClick: () => editor?.chain().focus().mergeCells().run(),
     },
     {
-      label: '拆分单元格',
+      label: t.splitCell,
       iconHtml: ICON_SPLIT_CELLS,
       onClick: () => editor?.chain().focus().splitCell().run(),
       disabled: !canSplit,
     },
     { type: 'separator' as const },
     {
-      label: '文字颜色',
+      label: t.textColor,
       iconHtml: ICON_TEXT_COLOR,
       action: 'textColor',
       sub: 'color' as const,
     },
     {
-      label: '背景色',
+      label: t.backgroundColor,
       iconHtml: ICON_BG_COLOR,
       action: 'backgroundColor',
       sub: 'color' as const,
     },
     {
-      label: '水平对齐',
+      label: t.horizontalAlign,
       iconHtml: ICON_ALIGN_LEFT,
       sub: [
         {
-          label: '左对齐',
+          label: t.alignLeft,
           iconHtml: ICON_ALIGN_LEFT,
           onClick: () =>
             (editor?.chain().focus() as any).setTextAlign('left').run(),
         },
         {
-          label: '居中',
+          label: t.alignCenter,
           iconHtml: ICON_ALIGN_CENTER,
           onClick: () =>
             (editor?.chain().focus() as any).setTextAlign('center').run(),
         },
         {
-          label: '右对齐',
+          label: t.alignRight,
           iconHtml: ICON_ALIGN_RIGHT,
           onClick: () =>
             (editor?.chain().focus() as any).setTextAlign('right').run(),
         },
         {
-          label: '两端对齐',
+          label: t.alignJustify,
           iconHtml: ICON_ALIGN_JUSTIFY,
           onClick: () =>
             (editor?.chain().focus() as any).setTextAlign('justify').run(),
@@ -157,21 +162,21 @@ const MAIN_MENU_ITEMS = (editor: Editor | null): MenuListDef => {
       ],
     },
     {
-      label: '垂直对齐',
+      label: t.verticalAlign,
       iconHtml: ICON_VA_TOP,
       sub: [
         {
-          label: '顶端对齐',
+          label: t.alignTop,
           iconHtml: ICON_VA_TOP,
           onClick: () => setCellVerticalAlign(editor, 'top'),
         },
         {
-          label: '居中',
+          label: t.alignMiddle,
           iconHtml: ICON_VA_MIDDLE,
           onClick: () => setCellVerticalAlign(editor, 'middle'),
         },
         {
-          label: '底端对齐',
+          label: t.alignBottom,
           iconHtml: ICON_VA_BOTTOM,
           onClick: () => setCellVerticalAlign(editor, 'bottom'),
         },
@@ -179,35 +184,35 @@ const MAIN_MENU_ITEMS = (editor: Editor | null): MenuListDef => {
     },
     { type: 'separator' as const },
     {
-      label: '清除内容',
+      label: t.clearContent,
       iconHtml: ICON_ERASER,
       onClick: () => clearSelectedCells(editor),
     },
     {
-      label: '切换标题行',
+      label: t.toggleHeaderRow,
       iconHtml: ICON_TABLE_HEADER,
       onClick: () => editor?.chain().focus().toggleHeaderRow().run(),
     },
     {
-      label: '切换标题列',
+      label: t.toggleHeaderColumn,
       iconHtml: ICON_TABLE_HEADER,
       onClick: () => editor?.chain().focus().toggleHeaderColumn().run(),
     },
     { type: 'separator' as const },
     {
-      label: '删除行',
+      label: t.deleteRow,
       iconHtml: ICON_TRASH,
       onClick: () => editor?.chain().focus().deleteRow().run(),
       variant: 'destructive',
     },
     {
-      label: '删除列',
+      label: t.deleteColumn,
       iconHtml: ICON_TRASH,
       onClick: () => editor?.chain().focus().deleteColumn().run(),
       variant: 'destructive',
     },
   ];
-};
+}
 
 /**
  * 打开原生上下文菜单，定位在 handleEl 旁边
@@ -224,8 +229,13 @@ export function openContextMenu(
 
   if (!editor) return;
 
+  const t = getTableKitTranslations(editor);
+
   const menu = document.createElement('div');
   menu.className = 'tiptap-table-kit-context-menu';
+  if (getTableKitTheme(editor) === 'dark') {
+    menu.classList.add('tiptap-table-kit-dark');
+  }
 
   let closeMenu = () => {
     cleanup?.();
@@ -234,7 +244,7 @@ export function openContextMenu(
 
   function buildMainMenu() {
     menu.innerHTML = '';
-    const items = MAIN_MENU_ITEMS(editor);
+    const items = buildMainMenuItems(editor, t);
 
     let separatorPending = false;
 
@@ -297,7 +307,7 @@ export function openContextMenu(
     const backBtn = document.createElement('button');
     backBtn.type = 'button';
     backBtn.className = 'tiptap-table-kit-context-menu-back';
-    backBtn.innerHTML = `<span class="tiptap-table-kit-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> 返回`;
+    backBtn.innerHTML = `<span class="tiptap-table-kit-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> ${t.back}`;
     backBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       buildMainMenu();
@@ -334,7 +344,7 @@ export function openContextMenu(
     const backBtn = document.createElement('button');
     backBtn.type = 'button';
     backBtn.className = 'tiptap-table-kit-context-menu-back';
-    backBtn.innerHTML = `<span class="tiptap-table-kit-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> 返回`;
+    backBtn.innerHTML = `<span class="tiptap-table-kit-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> ${t.back}`;
     backBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       buildMainMenu();
@@ -351,7 +361,7 @@ export function openContextMenu(
     const resetBtn = document.createElement('button');
     resetBtn.type = 'button';
     resetBtn.className = 'tiptap-table-kit-color-reset-btn';
-    resetBtn.textContent = '默认颜色';
+    resetBtn.textContent = t.defaultColor;
     resetBtn.addEventListener('click', () => {
       onReset();
       closeMenu();

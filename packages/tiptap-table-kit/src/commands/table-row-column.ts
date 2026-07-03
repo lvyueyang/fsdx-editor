@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import type { Node as PMNode } from '@tiptap/pm/model';
+import { getTableKitLocale } from '../table-kit';
 import {
   canDoInTable,
   findRowDepth,
@@ -274,12 +275,12 @@ export function duplicateColumn(editor: Editor | null): boolean {
 /**
  * 文本比较函数，处理数字/日期/混合内容
  */
-function compareCellText(a: string, b: string): number {
+function compareCellText(a: string, b: string, locale: string): number {
   const na = Number.parseFloat(a);
   const nb = Number.parseFloat(b);
   if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
 
-  return a.localeCompare(b, 'zh-CN', { numeric: true });
+  return a.localeCompare(b, locale, { numeric: true });
 }
 
 /**
@@ -344,7 +345,8 @@ function sortColumn(editor: Editor | null, sign: 1 | -1): boolean {
       if (data.length <= 1) return false;
 
       const sorted = [...data].sort(
-        (a, b) => sign * compareCellText(a.text, b.text),
+        (a, b) =>
+          sign * compareCellText(a.text, b.text, getTableKitLocale(editor)),
       );
 
       let changed = false;

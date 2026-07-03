@@ -214,3 +214,21 @@
 .tiptap-table-kit-color-grid-item[data-active="true"] {
   box-shadow: 0 0 0 2px var(--fsdx-tiptap-table-kit-brand-400, #a78bfa);
 }
+
+/* ===== 暗色主题 ===== */
+.tiptap-table-kit-dark {
+  --fsdx-tiptap-table-kit-border-default: #3f3f46;
+  --fsdx-tiptap-table-kit-brand-100: rgba(139, 92, 246, 0.15);
+  --fsdx-tiptap-table-kit-brand-400: #a78bfa;
+  --fsdx-tiptap-table-kit-brand-500: #c4b5fd;
+  --fsdx-tiptap-table-kit-surface-primary: #1e1e2e;
+  --fsdx-tiptap-table-kit-surface-hover: #2d2d3f;
+  --fsdx-tiptap-table-kit-text-primary: #e4e4e7;
+  --fsdx-tiptap-table-kit-text-secondary: #a1a1aa;
+  --fsdx-tiptap-table-kit-color-danger: #f87171;
+  --fsdx-tiptap-table-kit-color-danger-bg: rgba(248, 113, 113, 0.12);
+}
+
+.tiptap-table-kit-dark .tiptap-table-kit-context-menu {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
