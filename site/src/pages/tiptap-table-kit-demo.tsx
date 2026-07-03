@@ -1,16 +1,4 @@
-import {
-  CustomTableView,
-  clearSelectedCells,
-  fitToWidth,
-  moveColumnLeft,
-  moveColumnRight,
-  moveRowDown,
-  moveRowUp,
-  NodeBackground,
-  TableCellStyle,
-  TableSelectionOverlay,
-} from '@fsdx/tiptap-table-kit';
-import { Table } from '@tiptap/extension-table';
+import { TableKit } from '@fsdx/tiptap-table-kit';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
@@ -31,16 +19,10 @@ export function TiptapTableDemo() {
     {
       extensions: [
         StarterKit,
-        Table.configure({
-          resizable: true,
-          View: CustomTableView,
-        }),
+        TableKit.configure({ resizable: true }),
         TableRow,
         TableCell,
         TableHeader,
-        TableCellStyle,
-        TableSelectionOverlay,
-        NodeBackground,
       ],
       content: initialHtml,
       editorProps: {
@@ -89,7 +71,7 @@ export function TiptapTableDemo() {
     <div ref={containerRef} className="demo-editor-container">
       <div className="demo-control-bar">
         <span className="demo-control-bar-hint">
-          使用纯函数式命令 API 操作表格，不依赖任何 UI 框架
+          通过 editor.chain() 链式命令操作表格，不依赖任何 UI 框架
         </span>
       </div>
 
@@ -103,8 +85,8 @@ export function TiptapTableDemo() {
         {btn('上方插入行', () => editor?.chain().focus().addRowBefore().run())}
         {btn('下方插入行', () => editor?.chain().focus().addRowAfter().run())}
         {btn('删除行', () => editor?.chain().focus().deleteRow().run())}
-        {btn('上移', () => moveRowUp(editor))}
-        {btn('下移', () => moveRowDown(editor))}
+        {btn('上移', () => editor?.chain().focus().moveRowUp().run())}
+        {btn('下移', () => editor?.chain().focus().moveRowDown().run())}
         {spacer}
 
         <div className="tiptap-table-kit-demo-group-label">列</div>
@@ -115,15 +97,15 @@ export function TiptapTableDemo() {
           editor?.chain().focus().addColumnAfter().run(),
         )}
         {btn('删除列', () => editor?.chain().focus().deleteColumn().run())}
-        {btn('左移', () => moveColumnLeft(editor))}
-        {btn('右移', () => moveColumnRight(editor))}
+        {btn('左移', () => editor?.chain().focus().moveColumnLeft().run())}
+        {btn('右移', () => editor?.chain().focus().moveColumnRight().run())}
         {spacer}
 
         <div className="tiptap-table-kit-demo-group-label">单元格</div>
         {btn('合并', () => editor?.chain().focus().mergeCells().run())}
         {btn('拆分', () => editor?.chain().focus().splitCell().run())}
-        {btn('清除', () => clearSelectedCells(editor))}
-        {btn('自适应列宽', () => fitToWidth(editor))}
+        {btn('清除', () => editor?.chain().focus().clearSelectedCells().run())}
+        {btn('自适应列宽', () => editor?.chain().focus().fitToWidth().run())}
         {btn('切换标题行', () =>
           editor?.chain().focus().toggleHeaderRow().run(),
         )}
