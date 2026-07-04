@@ -21,7 +21,7 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 
 ## 命令
 
-所有命令通过 `editor.commands.tableKit.*` 调用：
+所有命令通过 `editor.chain()` 调用：
 
 ### 行操作
 
@@ -65,7 +65,7 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
-| `setTheme(theme)` | `'light' \| 'dark'` | 运行时动态切换主题 |
+| `setTableKitTheme(theme)` | `'light' \| 'dark'` | 运行时动态切换主题 |
 
 :::tip
 原生 Tiptap `Table` 扩展的行列增删、合并拆分、表头切换等命令仍然可用，TableKit 在此基础上扩展了上述命令。

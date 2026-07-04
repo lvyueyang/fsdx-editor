@@ -66,7 +66,7 @@ export default function TableKitDemo() {
 
   useEffect(() => {
     if (!editor) return;
-    editor.commands?.tableKit?.setTheme(tableTheme);
+    editor.commands?.setTableKitTheme(tableTheme);
   }, [editor, tableTheme]);
 
   const btn = useCallback(

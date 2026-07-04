@@ -58,6 +58,7 @@ export function createEditor(
       } else {
         container.classList.remove('fsdx-editor-dark');
       }
+      editor.commands.setTableKitTheme(theme);
     },
 
     focus(): void {

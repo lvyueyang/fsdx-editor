@@ -1,9 +1,10 @@
+import { TableKit } from '@fsdx/tiptap-table-kit';
 import { Editor } from '@tiptap/core';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
-import { TableKit } from '@tiptap/extension-table';
+import { TableCell, TableHeader, TableRow } from '@tiptap/extension-table';
 import TextAlign from '@tiptap/extension-text-align';
 import {
   BackgroundColor,
@@ -82,10 +83,12 @@ export function createEditorInstance(
       TaskItem.configure({ nested: true }),
       Indent,
       TableKit.configure({
-        table: {
-          resizable: true,
-        },
+        resizable: true,
+        theme: options.defaultTheme ?? 'light',
       }),
+      TableRow,
+      TableCell,
+      TableHeader,
       Placeholder.configure({
         placeholder: options.placeholder ?? '输入内容…',
         dataAttribute: 'data-placeholder',

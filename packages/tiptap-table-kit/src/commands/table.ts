@@ -6,12 +6,12 @@ import { isNodeInSchema } from '../utils/editor-utils';
  */
 export function canInsertTable(editor: Editor | null): boolean {
   if (!editor || !editor.isEditable) return false;
-  if (!isNodeInSchema('table', editor)) return false;
+  if (!isNodeInSchema('tableKit', editor)) return false;
 
   const { selection } = editor.state;
   const { $from } = selection;
   for (let d = $from.depth; d > 0; d--) {
-    if ($from.node(d).type.name === 'table') return false;
+    if ($from.node(d).type.name === 'tableKit') return false;
   }
 
   return true;

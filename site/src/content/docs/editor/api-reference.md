@@ -30,9 +30,11 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | `video` | `MediaUploadConfig` | — | 视频上传与列表配置 |
 | `audio` | `MediaUploadConfig` | — | 音频上传与列表配置 |
 | `attachment` | `MediaUploadConfig` | — | 附件上传与列表配置 |
-| `onChange` | `EventCallback` | — | 内容变更回调 |
-| `onFocus` | `EventCallback` | — | 编辑器聚焦回调 |
-| `onBlur` | `EventCallback` | — | 编辑器失焦回调 |
+| `onChange` | `(content: string) => void` | — | 内容变更回调 |
+| `onFocus` | `() => void` | — | 编辑器聚焦回调 |
+| `onBlur` | `() => void` | — | 编辑器失焦回调 |
+| `onReady` | `() => void` | — | 编辑器初始化完成回调 |
+| `onDestroy` | `() => void` | — | 编辑器销毁回调 |
 
 ## EditorInstance API
 
@@ -84,6 +86,7 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | `focus` | 编辑器聚焦 |
 | `blur` | 编辑器失焦 |
 | `ready` | 编辑器初始化完成 |
+| `destroy` | 编辑器销毁 |
 
 ## MediaUploadConfig
 

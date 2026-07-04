@@ -160,7 +160,7 @@ export const TableSelectionOverlay = Extension.create(() => {
           bottom: rect.bottom - containerRect.top,
         };
       }
-    } else if (editor.isActive('table')) {
+    } else if (editor.isActive('tableKit')) {
       const result = getSingleCellRect(editor);
       if (result) {
         container = findOverlayContainer(result.wrapper);

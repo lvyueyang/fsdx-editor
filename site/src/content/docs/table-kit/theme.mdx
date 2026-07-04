@@ -27,8 +27,8 @@ TableKit.configure({
 通过命令链动态切换：
 
 ```ts
-editor.chain().tableKit.setTheme('light').run()
-editor.chain().tableKit.setTheme('dark').run()
+editor.chain().setTableKitTheme('light').run()
+editor.chain().setTableKitTheme('dark').run()
 ```
 
 切换主题后所有 UI 组件（选区边框、操作手柄、上下文菜单、调色板等）会即时响应，无需重新创建编辑器。

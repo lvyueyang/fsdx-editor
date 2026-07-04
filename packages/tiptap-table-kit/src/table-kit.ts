@@ -1,4 +1,5 @@
 import type { Editor } from '@tiptap/core';
+import type { TableOptions } from '@tiptap/extension-table';
 import { Table } from '@tiptap/extension-table';
 import {
   clearColumnContent,
@@ -30,28 +31,26 @@ import { TableSelectionOverlay } from './overlay/table-selection-overlay';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    tableKit: {
-      moveRowUp: () => ReturnType;
-      moveRowDown: () => ReturnType;
-      moveColumnLeft: () => ReturnType;
-      moveColumnRight: () => ReturnType;
-      duplicateRow: () => ReturnType;
-      duplicateColumn: () => ReturnType;
-      sortColumnAsc: () => ReturnType;
-      sortColumnDesc: () => ReturnType;
-      clearSelectedCells: () => ReturnType;
-      setCellTextColor: (color: string) => ReturnType;
-      unsetCellTextColor: () => ReturnType;
-      setCellBackgroundColor: (color: string) => ReturnType;
-      unsetCellBackgroundColor: () => ReturnType;
-      fitToWidth: () => ReturnType;
-      copySelectedCells: () => ReturnType;
-      clearRowContent: () => ReturnType;
-      clearColumnContent: () => ReturnType;
-      clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
-      /** 动态切换主题 */
-      setTheme: (theme: 'light' | 'dark') => ReturnType;
-    };
+    moveRowUp: () => ReturnType;
+    moveRowDown: () => ReturnType;
+    moveColumnLeft: () => ReturnType;
+    moveColumnRight: () => ReturnType;
+    duplicateRow: () => ReturnType;
+    duplicateColumn: () => ReturnType;
+    sortColumnAsc: () => ReturnType;
+    sortColumnDesc: () => ReturnType;
+    clearSelectedCells: () => ReturnType;
+    setCellTextColor: (color: string) => ReturnType;
+    unsetCellTextColor: () => ReturnType;
+    setCellBackgroundColor: (color: string) => ReturnType;
+    unsetCellBackgroundColor: () => ReturnType;
+    fitToWidth: () => ReturnType;
+    copySelectedCells: () => ReturnType;
+    clearRowContent: () => ReturnType;
+    clearColumnContent: () => ReturnType;
+    clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
+    /** 动态切换表格主题 */
+    setTableKitTheme: (theme: 'light' | 'dark') => ReturnType;
   }
 }
 
@@ -92,6 +91,13 @@ export function getTableKitLocale(editor: Editor | null): string {
   return getOrInitState(editor).locale;
 }
 
+/** 表格增强套件的配置选项 */
+interface TableKitOptions extends TableOptions {
+  theme: 'light' | 'dark';
+  locale: 'zh-CN' | 'en-US';
+  translations?: Partial<TableKitTranslations>;
+}
+
 /**
  * 表格增强套件，继承 stock Table 扩展，集成自定义视图、单元格样式、选区覆盖层、
  * 节点背景色等子扩展，并注册所有表格操作命令。
@@ -108,25 +114,22 @@ export function getTableKitLocale(editor: Editor | null): string {
  * ]
  * ```
  */
-export const TableKit = Table.extend({
+export const TableKit = Table.extend<TableKitOptions>({
   name: 'tableKit',
 
-  addOptions() {
+  addOptions(): TableKitOptions {
+    const parentOptions = this.parent!() as TableOptions;
     return {
-      ...this.parent!(),
+      ...parentOptions,
       View: CustomTableView,
-      theme: 'light' as 'light' | 'dark',
-      locale: 'zh-CN' as 'zh-CN' | 'en-US',
-      translations: undefined as Partial<TableKitTranslations> | undefined,
+      theme: 'light',
+      locale: 'zh-CN',
+      translations: undefined,
     };
   },
 
   onCreate() {
-    const options = this.options as {
-      theme?: 'light' | 'dark';
-      locale?: string;
-      translations?: Partial<TableKitTranslations>;
-    };
+    const options = this.options as TableKitOptions;
 
     const locale = options.locale ?? 'zh-CN';
     const base = locale === 'en-US' ? enUS : zhCN;
@@ -222,7 +225,7 @@ export const TableKit = Table.extend({
         (orientation: 'row' | 'column') =>
         ({ editor }: { editor: Editor }) =>
           clearRowColumnContent(editor, orientation),
-      setTheme:
+      setTableKitTheme:
         (theme: 'light' | 'dark') =>
         ({ editor }) => {
           const state = getOrInitState(editor);

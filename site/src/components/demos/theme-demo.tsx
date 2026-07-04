@@ -89,7 +89,7 @@ export default function ThemeDemo() {
 
   useEffect(() => {
     if (!editor) return;
-    editor.commands?.tableKit?.setTheme(dynamicTheme);
+    editor.commands?.setTableKitTheme(dynamicTheme);
   }, [editor, dynamicTheme]);
 
   const handleInsertTable = useCallback(() => {
@@ -111,7 +111,7 @@ export default function ThemeDemo() {
       <div className="demo-control-bar">
         <span className="demo-control-bar-hint">
           通过 TableKit.configure(&#123; theme &#125;) 或
-          editor.commands.tableKit.setTheme() 切换主题
+          editor.commands.setTableKitTheme() 切换主题
         </span>
       </div>
 
@@ -143,14 +143,14 @@ export default function ThemeDemo() {
               style={themeBtnStyle(dynamicTheme === 'light')}
               onClick={() => setDynamicTheme('light')}
             >
-              setTheme('light')
+              setTableKitTheme('light')
             </button>
             <button
               type="button"
               style={themeBtnStyle(dynamicTheme === 'dark')}
               onClick={() => setDynamicTheme('dark')}
             >
-              setTheme('dark')
+              setTableKitTheme('dark')
             </button>
             <button
               type="button"
@@ -162,7 +162,7 @@ export default function ThemeDemo() {
           </div>
           <div className="demo-editor-body">
             <div
-              className={`demo-editor-content${isDark ? ' demo-editor-content--dark' : ''}`}
+              className={`demo-editor-content${isDark || dynamicTheme === 'dark' ? ' demo-editor-content--dark' : ''}`}
             >
               <EditorContent editor={editor} />
             </div>

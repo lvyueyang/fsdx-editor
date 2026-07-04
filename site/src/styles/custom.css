@@ -46,12 +46,9 @@
 .demo-editor-container {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--demo-border);
-  border-radius: var(--demo-radius);
   background: var(--demo-bg);
   overflow: hidden;
   min-height: 320px;
-  margin: 16px 0;
 }
 
 /* ── 控制栏 ── */
@@ -106,6 +103,8 @@
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s;
+  margin: 0;
+  display: inline-flex;
 }
 
 .demo-btn:hover {
@@ -226,6 +225,9 @@
 
 .demo-editor-body .ProseMirror p {
   margin: 0 0 8px;
+}
+.demo-editor-body .ProseMirror table p {
+  margin: 0;
 }
 
 .demo-editor-body .ProseMirror h1 {
@@ -413,6 +415,7 @@
 .demo-iframe-toolbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   padding: 8px 12px;
   background: var(--demo-surface);
@@ -497,4 +500,6 @@
   width: 100%;
   border: none;
   min-height: 400px;
+  margin: 0;
+  padding: 0;
 }

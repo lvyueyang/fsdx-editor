@@ -2,252 +2,309 @@
 
 ## 项目概况
 
-基于 Rslib 构建的 React 19 富文本编辑器组件库，提供丰富的媒体编辑能力与可定制主题系统。
+基于 Tiptap 的零框架依赖编辑器工具包，采用 pnpm monorepo 组织，包含编辑器核心、表格增强套件和文档站点三个子包。
 
 ## 工程结构
 
 ```
-.agents/
+.agents/                     # AI Agent 技能定义
 ├── skills/
-│   ├── rslib-best-practices/            # Rslib 构建配置最佳实践
-│   ├── rspress-custom-theme/            # Rspress 主题定制（CSS 变量 / 布局插槽 / 组件弹射）
-│   └── rspress-description-generator/   # Rspress 文档 SEO 描述生成
-src/                          # 组件库源码
-├── index.tsx                 # 公共入口
-├── types.ts                  # 公共类型定义
-├── env.d.ts                  # 环境类型声明
-├── scss.d.ts                 # SCSS 模块类型声明
-├── core/                     # 编辑器核心（入口、上下文、工具、主题切换、通用扩展）
-│   ├── editor.tsx
-│   ├── editor.scss
-│   ├── editor-context.ts
-│   ├── editor-utils.ts
-│   ├── theme-toggle.tsx
-│   └── node-background-extension.ts
-├── styles/                   # 设计 token（三层架构） + StarterKit 内置节点样式覆盖
-│   ├── _variables.scss       # token 入口（@forward primitives/semantic/components）
-│   ├── _keyframe-animations.scss
-│   ├── tokens/               # 设计令牌
-│   │   ├── _primitives.scss  # 原始令牌（色板/间距/字号/圆角/阴影/z-index）
-│   │   ├── _semantic.scss    # 语义令牌（surface/text/border + light/dark 切换）
-│   │   └── _components.scss  # 组件令牌（button/badge/card/toolbar 等 + light/dark 切换）
-│   └── overrides/            # Tiptap 节点样式覆盖
-│       ├── blockquote-node.scss
-│       ├── code-block-node.scss
-│       ├── heading-node.scss
-│       ├── list-node.scss
-│       └── paragraph-node.scss
-├── hooks/                    # 所有 React hooks
-│   ├── use-composed-ref.ts
-│   ├── use-cursor-visibility.ts
-│   ├── use-element-rect.ts
-│   ├── use-fsdx-editor.ts
-│   ├── use-is-breakpoint.ts
-│   ├── use-menu-navigation.ts
-│   ├── use-scrolling.ts
-│   ├── use-throttled-callback.ts
-│   ├── use-unmount.ts
-│   └── use-window-size.ts
-├── lib/                      # 通用工具
-│   └── format-file-size.ts
-├── components/               # 共享组件
-│   ├── ui/                   # 纯基础设计系统（11 个组件）
-│   │   ├── badge/
-│   │   ├── button/
-│   │   ├── card/
-│   │   ├── dropdown-menu/
-│   │   ├── dropdown-menu-button-item/
-│   │   ├── floating-element/
-│   │   ├── input/
-│   │   ├── popover/
-│   │   ├── provider/
-│   │   ├── toolbar/
-│   │   └── tooltip/
-│   ├── mark-button/          # 通用 mark 按钮（bold/italic/underline/strike/sub/sup）
-│   ├── media-drag-area.tsx
-│   ├── media-upload-popover/
-│   └── media-attribute-editor/
-├── icons/                    # 图标组件（61 个）
-└── plugins/                  # 按功能模块组织的编辑器功能（20 个模块）
-    ├── image/ video/ audio/ attachment/
-    ├── table/ link/ color/ text-style/
-    ├── heading/ font-size/ list/ text-align/
-    ├── indent/ line-height/ blockquote/ code-block/
-    ├── horizontal-rule/ undo-redo/ emoji/ bubble-menu/
-    └── 每个模块自包含：extension + node + UI + hooks
-demo/                         # Demo 开发服务器（Rsbuild）
-├── index.tsx                 # 应用入口（React 挂载 + wouter hash 路由 + 主题 Context）
-├── index.html                # HTML 模板
-├── initial-content.ts        # 编辑器初始 HTML 内容
-├── components/
-│   ├── code-block.tsx        # 代码块演示组件
-│   ├── color-picker-field.tsx# 可复用颜色输入组件（原生取色器 + hex 文本）
-│   ├── demo-editor.tsx       # Editor 组件的薄封装（注入 demoOptions + theme）
-│   ├── header.tsx            # 顶部栏（Demo 自身主题切换：light/dark/auto）
-│   ├── layout.tsx            # 布局容器（可折叠侧栏 + 主内容区）
-│   └── sidebar.tsx           # 左侧导航栏
-├── pages/
-│   ├── overview.tsx          # 首页概览（功能卡片 + 核心导出表格）
-│   ├── basic-demo.tsx        # 基础演示（仅编辑器）
-│   ├── control-panel.tsx     # 控制面板（编辑 + iframe 实时预览 + 导出 HTML）
-│   ├── theme-config.tsx      # 主题配置页（令牌编辑 + 实时预览 + 预设 + 下载 CSS）
-│   ├── api-reference.tsx     # API 参考文档
-│   └── ui-demo/              # UI 组件演示页
-│       ├── index.tsx
-│       ├── shared.tsx
-│       ├── badge.tsx
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── dropdown-menu.tsx
-│       ├── input.tsx
-│       ├── popover.tsx
-│       ├── toolbar.tsx
-│       └── tooltip.tsx
-├── shared/
-│   ├── demo-options.ts       # 模拟的 EditorOptions（mock 上传/列表接口）
-│   ├── demo-theme-context.ts # Demo 主题 Context（EditorTheme 传递）
-│   ├── mock-data.ts          # Mock 媒体数据
-│   └── token-groups.ts       # 可配置令牌定义 + 预设主题 + 色阶生成 + buildStyleText
-└── styles/
-    └── demo.css              # Demo 全部样式（含主题配置页样式）
-tests/                        # 测试文件
-├── index.test.tsx            # 编辑器测试
-├── test.d.ts                 # 测试类型声明
-└── tsconfig.json             # 测试 TypeScript 配置
+│   ├── rslib-best-practices/
+│   └── rspress-description-generator/
+packages/
+├── editor/                  # @fsdx/editor — 零框架依赖编辑器
+│   ├── package.json
+│   ├── rslib.config.ts      # 输出 ESM + CJS，含声明文件
+│   ├── rstest.config.ts     # 使用 @rstest/adapter-rslib + happy-dom
+│   ├── tsconfig.json
+│   ├── src/
+│   │   ├── index.ts         # createEditor() 工厂函数 + 类型导出
+│   │   ├── types.ts         # FsdxEditorOptions / MediaItem 等公共类型
+│   │   ├── editor.css       # 全部编辑器样式（工具栏、气泡、链接弹出、颜色选择等）
+│   │   ├── env.d.ts         # 环境类型声明（CSS 模块等）
+│   │   ├── core/
+│   │   │   └── create-editor.ts   # Editor 实例化，扩展注册，生命周期回调
+│   │   ├── extensions/              # 自定义 Tiptap 扩展（5 个）
+│   │   │   ├── image-upload.ts      # Tiptap Image 薄包装，添加 upload 选项
+│   │   │   ├── attachment-node.ts   # 块级附件节点（自定义 Node）
+│   │   │   ├── audio-node.ts        # 块级音频节点（自定义 Node）
+│   │   │   ├── video-node.ts        # 块级视频节点（自定义 Node）
+│   │   │   └── indent-extension.ts  # Paragraph/Heading 缩进支持（data-indent）
+│   │   ├── toolbar/                 # 工具栏/气泡菜单（vanilla DOM 构建）
+│   │   │   ├── create-toolbar.ts        # 编辑器顶部工具栏
+│   │   │   ├── create-bubble-menu.ts    # 文本选区气泡菜单
+│   │   │   └── toolbar-shared.ts        # SVG 图标常量、预设选项、批量更新
+│   │   ├── shared/                  # 共享 UI 构建工具
+│   │   │   ├── controls.ts          # addBtn / createSelect / createColorDropdown / createTableBtn 等
+│   │   │   ├── color-palette.ts     # 70 色 HSL 色板（10 色相 × 7 明度）
+│   │   │   └── link-dropdown.ts     # 链接编辑弹出层
+│   │   └── utils/                   # 通用工具
+│   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
+│   │       └── media-upload.ts      # 媒体上传触发器
+│   └── tests/
+│       └── index.test.ts            # 编辑器测试
+├── tiptap-table-kit/        # @fsdx/tiptap-table-kit — 表格增强套件
+│   ├── package.json
+│   ├── README.md
+│   ├── rslib.config.ts      # Bundleless ESM，仅输出 ESM
+│   ├── tsconfig.json
+│   └── src/
+│       ├── index.ts              # 公开入口（TableKit + i18n 导出）
+│       ├── table-kit.ts          # TableKit 扩展定义 + 全局命令注册 + state 管理
+│       ├── palette.ts            # 表格专用色板
+│       ├── env.d.ts              # 环境类型声明
+│       ├── commands/             # 表格操作命令
+│       │   ├── table.ts          # 表格级命令
+│       │   ├── table-cell.ts     # 单元格命令（清除、颜色、对齐、复制、自适应等）
+│       │   └── table-row-column.ts  # 行列命令（移动、复制、排序）
+│       ├── extensions/           # 子扩展
+│       │   ├── custom-table-view.ts   # 自定义 TableView（控件 + 覆盖层容器）
+│       │   ├── table-cell-style.ts    # 单元格文字颜色 + 垂直对齐
+│       │   └── node-background.ts     # 块级节点背景色（通用 Extension）
+│       ├── overlay/              # 表格选区覆盖层
+│       │   ├── table-selection-overlay.ts  # 选区覆盖层 + 拖拽手柄
+│       │   ├── menu-builder.ts            # 行/列右键菜单构建
+│       │   ├── color-grid-builder.ts      # 单元格背景色网格
+│       │   └── icon-svgs.ts              # SVG 图标常量
+│       ├── i18n/                 # 国际化
+│       │   ├── index.ts          # 内置翻译导出
+│       │   ├── types.ts          # TableKitTranslations 类型
+│       │   ├── zh-CN.ts          # 简体中文
+│       │   └── en-US.ts          # 英文
+│       ├── utils/
+│       │   ├── table-helpers.ts  # 表格位置/选区工具函数
+│       │   └── editor-utils.ts   # 通用编辑器工具函数
+│       └── styles/
+│           └── table.css         # 表格样式 + CSS 自定义属性
+site/                        # Astro + Starlight 文档站点
+├── astro.config.mjs         # Astro 配置（Starlight 插件 + React 集成）
+├── package.json
+├── tsconfig.json
+└── src/
+    ├── components/
+    │   ├── demo-sources.ts       # Demo 源码展示数据
+    │   ├── IframeDemo.tsx        # iframe 嵌入 Demo 组件
+    │   └── demos/               # 5 个交互式 Demo
+    │       ├── editor-demo.tsx
+    │       ├── vanilla-demo.tsx
+    │       ├── table-kit-demo.tsx
+    │       ├── theme-demo.tsx
+    │       └── i18n-demo.tsx
+    ├── content/
+    │   ├── config.ts
+    │   └── docs/                # MDX 文档
+    │       ├── index.mdx
+    │       ├── editor/          # 编辑器文档
+    │       └── table-kit/       # 表格套件文档
+    ├── pages/
+    │   └── demos/[slug].astro   # Demo 独立页面路由
+    └── styles/
+        └── custom.css           # Starlight 自定义样式
 ```
-
-项目根目录配置文件：`biome.json`、`rsbuild.config.ts`、`rslib.config.ts`、`rstest.config.ts`、`rstest.setup.ts`、`tsconfig.json`、`package.json`、`pnpm-workspace.yaml`
 
 ## 技术栈
 
 | 分类 | 技术 | 版本 |
 |------|------|------|
-| 框架 | React | 19 |
-| 构建 | Rslib（Rspack）+ `@rsbuild/plugin-react` | - |
-| 编译优化 | babel-plugin-react-compiler（React Compiler） | 1.x |
-| 语言 | TypeScript（strict） | 6 |
-| 样式 | SCSS/Sass（CSS Modules 解析） | - |
-| 路由 | wouter（hash 模式） | - |
+| 编辑器引擎 | Tiptap v3 / ProseMirror | 3.x |
+| UI 层 | **纯 DOM（零框架依赖）** + `@floating-ui/dom` 定位 | — |
+| React（仅 demo） | React 19 + react-dom + @tiptap/react | 19.x |
+| 构建（包） | Rslib（Rspack）+ `@rslib/core` | — |
+| 构建（站点） | Astro + Starlight | 5.x |
+| 语言 | TypeScript（strict） | 6.x |
+| 样式 | 纯 CSS | — |
 | Lint/Format | Biome | 2.x |
-| 测试 | Rstest + `@testing-library/react` + `happy-dom` | - |
-| 包管理 | pnpm | - |
+| 测试 | Rstest + `@rstest/adapter-rslib` + `happy-dom` | — |
+| 包管理 | pnpm（monorepo） | 10.x |
 
 ## 构建约定
 
-### Rslib 配置
+### 各包 Rslib 配置对比
 
-- 构建模式：**Bundleless**（`bundle: false`），`src/` 下每个文件独立编译，保留文件结构
-- 输出格式：仅 ESM（`format: 'esm'`），不产出 CJS
-- 声明文件：`dts: true`，自动生成 `.d.ts`
-- 构建目标：`output.target: 'web'`
-- 入口：`src/**` 下所有文件均视为入口
+| 配置项 | @fsdx/editor | @fsdx/tiptap-table-kit |
+|--------|--------------|------------------------|
+| 构建模式 | 主入口打包 | Bundleless（`bundle: false`） |
+| 输出格式 | ESM + CJS | 仅 ESM |
+| 声明文件 | `dts: true` | `dts: true` |
+| 样式处理 | `injectStyles: true`（CSS 内联到 JS） | `sideEffects: [".css"]` |
+| 构建目标 | `output.target: 'web'` | `output.target: 'web'` |
+| 语法目标 | `node 18` | `es2021` |
 
-### React Compiler
+### 包入口约定
 
-- 通过 `@rsbuild/plugin-babel` + `babel-plugin-react-compiler` 启用 React Compiler
-- 自动为组件添加 `useMemo`/`useCallback` 等价优化，开发者无需手动添加
+- `@fsdx/editor`：`exports` 同时声明 `types`（`.d.ts`）、`import`（ESM）、`require`（CJS）
+- `@fsdx/tiptap-table-kit`：仅 ESM，`sideEffects: ["**/*.css"]` 标记 CSS 为副作用
+- 两个包 `files` 均仅包含 `dist`
 
-### package.json exports
+### 站点构建
 
-- 入口字段 `exports` 同时声明 `types` 和 `import`，指向 `dist/` 产物
-- `files` 字段仅包含 `dist`，确保发布时不含源码
+- 使用 Astro (`astro build`) 静态生成，部署到 GitHub Pages
+- `astro.config.mjs` 中配置 `base: '/fsdx-editor/'`
+- 集成 `@astrojs/starlight`（文档框架）+ `@astrojs/react`（Demo 组件）
 
-## 组件约定
+## 架构约定
 
-- 组件文件使用 `.tsx` 扩展名，样式文件使用 `.css` 扩展名并与组件文件同目录
-- React 19 优先使用函数组件，通过 React Compiler 自动优化 memo
-- 所有可导出组件必须在 `src/index.tsx` 中统一导出
-- 组件类型通过 TypeScript interface 定义
+### 编辑器 API
+
+编辑器通过工厂函数创建，完全不依赖任何 UI 框架：
+
+```ts
+import { createEditor } from '@fsdx/editor'
+
+const editor = createEditor(containerElement, {
+  placeholder: '请输入…',
+  defaultTheme: 'light',
+  image: { upload: async (file) => ({ id: '1', url: '...', name: file.name }) },
+  onChange: (html) => console.log(html),
+})
+```
+
+返回对象的方法：
+
+| 方法 | 说明 |
+|------|------|
+| `isEmpty()` | 编辑器是否为空 |
+| `getHTML()` / `setHTML(html)` | 读写 HTML 内容 |
+| `getJSON()` / `setJSON(json)` | 读写 JSON 内容 |
+| `getText()` | 获取纯文本 |
+| `clear()` | 清空内容 |
+| `setTheme('light' \| 'dark')` | 切换主题（同时更新表格组件主题） |
+| `focus()` / `blur()` / `isFocused()` | 焦点管理 |
+| `disable()` / `enable()` / `isDisabled()` | 禁用/启用编辑器 |
+| `getContainer()` | 获取挂载容器 DOM 元素 |
+| `destroy()` | 销毁编辑器，清理 DOM 和事件监听 |
+| `on(event, handler)` / `off()` / `once()` | 事件监听 |
+| `emit(event, ...args)` | 触发自定义事件 |
+
+### 事件系统
+
+编辑器通过 `EventEmitter` 提供自定义事件支持：
+
+| 事件 | 触发时机 | 参数 |
+|------|----------|------|
+| `ready` | 编辑器初始化完成 | 无 |
+| `change` | 内容变更 | `html: string` |
+| `focus` | 获得焦点 | 无 |
+| `blur` | 失去焦点 | 无 |
+| `destroy` | 销毁 | 无 |
+
+同时支持通过 `onChange`/`onReady`/`onFocus`/`onBlur`/`onDestroy` 配置回调。
+
+### 扩展注册
+
+编辑器在 `create-editor.ts` 中集中注册所有扩展，按功能分组：
+
+1. **StarterKit**（bold/italic/code/blockquote/codeBlock/bulletList/orderedList/horizontalRule/history 等）
+2. **文本样式**：TextStyle / Color / FontFamily / BackgroundColor / FontSize / LineHeight
+3. **对齐与缩进**：TextAlign / Indent
+4. **特殊标记**：Subscript / Superscript / Typography
+5. **列表**：TaskList / TaskItem
+6. **表格**：TableKit（来自 @fsdx/tiptap-table-kit）
+7. **占位符**：Placeholder（@tiptap/extensions）
+8. **气泡菜单**：BubbleMenu
+9. **媒体**：ImageUpload / VideoNode / AudioNode / AttachmentNode
+
+### 自定义扩展规范
+
+自定义扩展通过 Tiptap Extension API 实现，每个扩展自包含在一个文件中：
+
+- **节点扩展**（`attachment-node`、`audio-node`、`video-node`）：定义自定义 `Node`，包含 HTML 解析/序列化、`addCommands`、`addAttributes`
+- **标记扩展**（`image-upload`）：包装 `@tiptap/extension-image`，添加 `upload` 配置选项
+- **功能扩展**（`indent-extension`）：在 paragraph/heading 上添加 `data-indent` 属性支持
+
+### 工具栏和气泡菜单
+
+- 工具栏和气泡菜单通过 **纯 DOM API** 构建，不依赖 React
+- 按钮状态通过 `editor.isActive()` 判断，在选区更新时批量刷新
+- 下拉和弹出层使用 `@floating-ui/dom` 的 `computePosition` + `autoUpdate` 定位
+- 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentInput`
+- SVG 图标以字符串形式内联在 `toolbar-shared.ts` 的 `ICONS` 常量中
+
+### 表格增强套件
+
+`@fsdx/tiptap-table-kit` 提供独立可复用的表格增强：
+
+- `TableKit` 是唯一的公开扩展，继承 `@tiptap/extension-table`
+- 自动集成 `TableCellStyle`、`TableSelectionOverlay`、`NodeBackground` 三个子扩展
+- 注册 20+ 表格操作命令（行列移动、复制、排序、清除、颜色等）
+- 内置中英文翻译，通过 `configure({ locale: 'en-US' })` 切换
+- 支持局部翻译覆盖：`configure({ translations: { deleteRow: '...' } })`
+- 通过 `getTableKitTranslations(editor)` / `getTableKitTheme(editor)` 读取运行时状态
+- 样式通过 CSS 变量 `--fsdx-tiptap-table-kit-*` 控制，可在外部覆盖
 
 ## 主题系统
 
-### 三层令牌架构
+### 编辑器主题
 
-`src/styles/` 下的设计令牌按三层组织，通过 `_variables.scss` 统一 @forward：
+- 通过容器 class `fsdx-editor-dark` 切换暗色模式
+- `setTheme('dark')` 自动在容器上添加/移除 class
+- 同时调用 `editor.commands.setTableKitTheme(theme)` 同步表格主题
+- 编辑器所有颜色通过 CSS 自定义属性控制，外部可覆盖
 
-1. **Primitives（原始令牌）** — `tokens/_primitives.scss`
-   - 不可变的原始值：色板、间距、字号、圆角、阴影、z-index、过渡、尺寸
-   - 不做 light/dark 切换，仅定义 `:root` 下的值
-   - 按 `/* @group 分组名 */` 标注，供 Demo 主题配置页解析
+### 表格套件 CSS 变量
 
-2. **Semantics（语义令牌）** — `tokens/_semantic.scss`
-   - 从 Primitives 派生，表达语义含义（surface/text/border/interactive/content）
-   - 在 `:root.fsdx-editor-dark` 下重新赋值，实现暗色模式切换
-   - 组件应优先使用语义令牌而非原始灰色值
+表格样式通过以下 CSS 自定义属性控制：
 
-3. **Components（组件令牌）** — `tokens/_components.scss`
-   - 每个 UI 组件拥有独立令牌（button-bg、badge-border 等）
-   - 在 `:root.fsdx-editor-dark` 下重新赋值
-   - 组件 SCSS 只引用组件令牌，不再自行处理暗色模式（禁止 `.fsdx-editor-dark &` 覆盖）
-
-### 命名约定
-
-- 所有 CSS 自定义属性统一前缀 `--fsdx-editor-`
-- 命名模式：`--fsdx-editor-{类别}-{变体}-{状态}`，如 `--fsdx-editor-button-primary-hover-bg`
-- 排版命名：`font-{size}`、`font-weight-{weight}`、`line-{size}`（不使用 `font-size-`、`line-height-` 旧名）
-- 间距命名：`space-{size}`（不使用 `spacing-` 旧名）
-- 品牌色命名：`brand-{level}`（不使用 `brand-color-` 旧名）
-- 禁止使用硬编码颜色值，所有颜色必须引用令牌
-
-### 主题定制
-
-外部使用方可通过 CSS 文件覆盖令牌值来定制主题：
-
-```css
-/* 引入在默认主题 CSS 之后即可覆盖 */
-:root {
-  --fsdx-editor-brand-500: #e5484d;
-  --fsdx-editor-gray-50: #fafafa;
-}
-```
-
-Demo 的主题配置页（`demo/pages/theme-config.tsx`）支持：
-- 可视化编辑 54 个可配置令牌（品牌色、灰色板、功能色、表面色、圆角、字体大小、阴影）
-- 实时预览（通过注入 `<style id="fsdx-theme-override">` 标签覆盖 CSS 变量）
-- 品牌色主色选择器自动生成色阶（50~600，基于 RGB 线性插值）
-- 5 套内置预设主题（默认紫色、暖橙、自然绿、深海蓝、暗紫）
-- 一键下载 CSS 文件（`fsdx-editor-theme.css`）
-- 配置持久化（localStorage）
+| 变量 | 默认值 | 说明 |
+|------|--------|------|
+| `--fsdx-tiptap-table-kit-space-1` | `4px` | 最小间距 |
+| `--fsdx-tiptap-table-kit-space-2` | `6px` | 小间距 |
+| `--fsdx-tiptap-table-kit-space-3` | `10px` | 中间距 |
+| `--fsdx-tiptap-table-kit-space-6` | `28px` | 大间距 |
+| `--fsdx-tiptap-table-kit-border-default` | `#d4d4d8` | 边框色 |
+| `--fsdx-tiptap-table-kit-brand-200` | `#c4b5fd` | 品牌色（浅） |
+| `--fsdx-tiptap-table-kit-brand-400` | `#a78bfa` | 品牌色 |
+| `--fsdx-tiptap-table-kit-radius-xs` | `4px` | 圆角 |
+| `--fsdx-tiptap-table-kit-font-weight-semibold` | `600` | 字重 |
+| `--fsdx-tiptap-table-kit-content-table-header-bg` | `#f4f4f5` | 表头背景 |
 
 ## 测试约定
 
 ### 目录结构
 
-- 测试文件放在 `tests/` 目录下，与被测源码分离
-- 文件名：`<模块名>.test.tsx`
+- 测试文件放在各包的 `tests/` 目录下
+- 文件名：`<模块名>.test.tsx` 或 `.test.ts`
 
 ### 测试工具链
 
-- 测试运行器：**Rstest**（非 Vitest/Jest）
-- 组件渲染：`@testing-library/react`
-- DOM 断言：`@testing-library/jest-dom` matchers（通过 `rstest.setup.ts` 注入）
+- 测试运行器：**Rstest**（`packages/editor/rstest.config.ts` 中配置）
+- 使用 `@rstest/adapter-rslib` 适配器
 - DOM 环境：`happy-dom`
 
 ### 命名与覆盖
 
 - 测试用例名称描述具体场景
-- 每个组件至少覆盖：渲染正确性、属性传递、交互行为
+- 每个组件/函数至少覆盖：渲染正确性、属性传递、交互行为
 
 ## 命令
 
 | 命令 | 说明 |
 |------|------|
-| `pnpm dev` | 启动 Demo 开发服务器（Rsbuild） |
-| `pnpm dev:lib` | 启动 Rslib 监听模式，源码变更后自动重新构建 |
-| `pnpm build` | 生产构建，输出 ESM + 声明文件到 `dist/` |
-| `pnpm build:demo` | 生产构建 Demo 页面 |
+| `pnpm dev` | 构建 editor + table-kit，同时启动 Astro 站点开发服务器 |
+| `pnpm build` | 构建所有包（editor + table-kit + site） |
+| `pnpm build:site` | 仅构建文档站点 |
 | `pnpm check` | Biome 代码检查并自动修复 |
 | `pnpm format` | Biome 代码格式化 |
-| `pnpm test` | 运行 Rstest 测试（单次） |
-| `pnpm test:watch` | Rstest 测试监听模式 |
+| `pnpm test` | 运行所有包测试 |
+| `pnpm test:watch` | 测试监听模式 |
+
+子包命令：
+
+| 命令 | 说明 |
+|------|------|
+| `pnpm --filter @fsdx/editor dev` | editor 包监听构建 |
+| `pnpm --filter @fsdx/editor test` | 单独运行 editor 测试 |
+| `pnpm --filter site dev` | 单独启动站点开发服务器 |
 
 ## 开发边界
 
+- 编辑器核心（`packages/editor`）**零框架依赖**，不引入 React/Vue/其他 UI 框架
+- 新增工具函数需跨包复用时，评估是否应升级为独立包
 - 修改时以现有代码为准
 - 任务完成后必须执行 `pnpm check`，确保 Biome 规范检查通过
 - 不提交临时文件、测试产物、密钥、`.env`
 - 临时文件统一放入仓库根目录 `.tmp/`，不要散落在其他目录
-- Demo 主题配置页修改令牌后必须同步更新 `demo/shared/token-groups.ts` 中的定义
+- 代码结构变更（新增/删除/移动文件、修改包配置、接口变化等）时，必须同步更新 `AGENTS.md` 中对应章节
 
 ## 提交建议
 
@@ -282,13 +339,13 @@ Demo 的主题配置页（`demo/pages/theme-config.tsx`）支持：
 ### 技术选型原则
 
 1. 最小依赖：能用平台原生能力实现的不引入第三方库
-2. 性能内建：从架构层面考虑性能（React Compiler 自动优化、bundleless 按需加载），不事后补救
+2. 性能内建：从架构层面考虑性能（零框架开销、CSS 内联减少请求），不事后补救
 
 ### 质量下限
 
 - 使用目标平台当前稳定、主流、可维护的框架、API 与工程模式；禁止无理由回退到过时技术
 - 在方案与实现阶段同步处理渲染、资源、加载与拆分策略；禁止把性能问题留到收尾补救
-- 涉及 UI 时必须建立一致的 token、组件约束与状态覆盖；禁止输出模板化、陈旧或明显降级的界面
+- 涉及到 UI 时必须建立一致的 token、组件约束与状态覆盖；禁止输出模板化、陈旧或明显降级的界面
 - 不确定的技术选型主动查阅最新文档和社区最佳实践，不依赖旧版本知识
 - 项目已有技术栈、设计系统或方案包时必须遵循既有决策
 
@@ -313,4 +370,3 @@ Demo 的主题配置页（`demo/pages/theme-config.tsx`）支持：
 - Rsbuild: https://rsbuild.rs/llms.txt
 - Rspack: https://rspack.rs/llms.txt
 - Rstest: https://rstest.rs/llms.txt
-
