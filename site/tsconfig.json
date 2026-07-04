@@ -1,18 +1,8 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "noEmit": true,
-    "moduleDetection": "force",
-    "module": "ESNext",
-    "verbatimModuleSyntax": true,
-    "allowImportingTsExtensions": true,
-    "noUncheckedSideEffectImports": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "target": "ES2023"
-  },
-  "include": ["docs", "theme", "rspress.config.ts"],
-  "mdx": {
-    "checkMdx": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": ["DOM", "ES2022"]
   }
 }

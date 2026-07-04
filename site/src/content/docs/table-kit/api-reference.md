@@ -53,7 +53,7 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 | `fitToWidth()` | — | 移除 colwidth 实现自适应列宽 |
 | `copySelectedCells()` | — | 以 TSV 格式复制到剪贴板 |
 
-### 行/列内容清除
+### 行列内容清除
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
@@ -67,7 +67,7 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 |------|------|------|
 | `setTheme(theme)` | `'light' \| 'dark'` | 运行时动态切换主题 |
 
-:::tip 提示
+:::tip
 原生 Tiptap `Table` 扩展的行列增删、合并拆分、表头切换等命令仍然可用，TableKit 在此基础上扩展了上述命令。
 :::
 

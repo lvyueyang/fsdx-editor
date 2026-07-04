@@ -1,7 +1,0 @@
-[
-  { "type": "file", "name": "index", "label": "概览" },
-  { "type": "file", "name": "demo", "label": "表格编辑" },
-  { "type": "file", "name": "theme", "label": "主题配置" },
-  { "type": "file", "name": "i18n", "label": "国际化" },
-  { "type": "file", "name": "api-reference", "label": "API 参考" }
-]

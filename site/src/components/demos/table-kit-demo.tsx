@@ -1,3 +1,4 @@
+import '@fsdx/tiptap-table-kit/styles/table.css';
 import { TableKit } from '@fsdx/tiptap-table-kit';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
@@ -75,7 +76,7 @@ export default function TableKitDemo() {
         key={label}
         onClick={action}
         disabled={!editor}
-        className="tiptap-table-kit-demo-btn"
+        className="demo-btn"
       >
         {label}
       </button>
@@ -239,7 +240,7 @@ export default function TableKitDemo() {
         <span className="demo-control-bar-hint">TableKit 演示</span>
       </div>
 
-      <div className="tiptap-table-kit-demo-toolbar-tab">
+      <div className="demo-tab-bar">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -252,11 +253,11 @@ export default function TableKitDemo() {
         ))}
       </div>
 
-      <div className="tiptap-table-kit-demo-toolbar">{renderToolbar()}</div>
+      <div className="demo-toolbar">{renderToolbar()}</div>
 
       <div className="demo-editor-body">
         <div
-          className={`tiptap-editor-demo${isDark ? ' tiptap-editor-demo--dark' : ''}`}
+          className={`demo-editor-content${isDark ? ' demo-editor-content--dark' : ''}`}
         >
           <EditorContent editor={editor} />
         </div>

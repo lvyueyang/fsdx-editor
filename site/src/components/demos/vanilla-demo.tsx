@@ -165,7 +165,6 @@ export default function VanillaDemo() {
       editor.destroy();
       editorRef.current = null;
     };
-    // 仅在挂载时创建一次编辑器；setTheme 在下方的 useEffect 中处理
   }, []);
 
   useEffect(() => {

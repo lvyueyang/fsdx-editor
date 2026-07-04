@@ -1,0 +1,53 @@
+---
+import EditorDemo from '../../components/demos/editor-demo.tsx';
+import I18nDemo from '../../components/demos/i18n-demo.tsx';
+import TableKitDemo from '../../components/demos/table-kit-demo.tsx';
+import ThemeDemo from '../../components/demos/theme-demo.tsx';
+import VanillaDemo from '../../components/demos/vanilla-demo.tsx';
+import '../../styles/custom.css';
+
+export function getStaticPaths() {
+  return [
+    'editor-demo',
+    'vanilla-demo',
+    'table-kit-demo',
+    'theme-demo',
+    'i18n-demo',
+  ].map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+
+      window.addEventListener('message', (event) => {
+        if (event.data?.type === 'theme') {
+          document.documentElement.setAttribute('data-theme', event.data.theme);
+        }
+      });
+    </script>
+  </head>
+  <body style="margin:0; overflow:hidden;">
+    {slug === 'editor-demo' && <EditorDemo client:load />}
+    {slug === 'vanilla-demo' && <VanillaDemo client:load />}
+    {slug === 'table-kit-demo' && <TableKitDemo client:load />}
+    {slug === 'theme-demo' && <ThemeDemo client:load />}
+    {slug === 'i18n-demo' && <I18nDemo client:load />}
+    <script is:inline>
+      function sendHeight() {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'resize', height }, '*');
+      }
+      sendHeight();
+      new ResizeObserver(sendHeight).observe(document.documentElement);
+    </script>
+  </body>
+</html>

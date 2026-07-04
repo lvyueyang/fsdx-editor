@@ -3,12 +3,12 @@ title: 编辑器演示
 description: FSDX Editor 全功能编辑器演示
 ---
 
-# 编辑器演示
+import IframeDemo from '../../../components/IframeDemo.tsx';
+import { getDemoSource } from '../../../components/demo-sources.ts';
 
-通过 `createEditor` 创建的全功能编辑器，包含工具栏、气泡菜单、媒体上传和主题切换。
+全功能编辑器演示，包含所有内置扩展。
 
-```tsx file="./_demo.tsx" preview
-```
+<IframeDemo slug="editor-demo" sourceCode={getDemoSource('editor-demo')} client:load />
 
 ## 功能说明
 
@@ -21,9 +21,8 @@ description: FSDX Editor 全功能编辑器演示
 - **字号与行高**：9 档字号（12px ～ 48px）、7 档行高（1 ～ 3）
 - **缩进**：段落和标题的首行缩进
 - **列表**：无序列表、有序列表、任务列表
-- **引用与代码块**：引用块、代码块
-- **分割线**：水平分割线
-- **链接**：超链接插入与编辑
+- **引用与代码块**
+- **链接与分割线**
 - **表格**：10×10 grid picker 插入表格
 - **智能排版**：印刷符号自动替换（→、©、½ 等）
 - **媒体插入**：图片、视频、音频、附件上传

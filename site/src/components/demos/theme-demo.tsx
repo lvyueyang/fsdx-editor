@@ -61,7 +61,7 @@ function DemoEditor({ theme }: { theme: 'light' | 'dark' }) {
         </span>
       </div>
       <div className="demo-editor-body">
-        <div className="tiptap-editor-demo">
+        <div className="demo-editor-content">
           <EditorContent editor={editor} />
         </div>
       </div>
@@ -69,7 +69,7 @@ function DemoEditor({ theme }: { theme: 'light' | 'dark' }) {
   );
 }
 
-export default function TableKitThemeDemo() {
+export default function ThemeDemo() {
   const isDark = useIsDark();
   const [dynamicTheme, setDynamicTheme] = useState<'light' | 'dark'>('light');
 
@@ -154,7 +154,7 @@ export default function TableKitThemeDemo() {
             </button>
             <button
               type="button"
-              className="tiptap-table-kit-demo-btn"
+              className="demo-btn"
               onClick={handleInsertTable}
             >
               插入 3×3 表格
@@ -162,7 +162,7 @@ export default function TableKitThemeDemo() {
           </div>
           <div className="demo-editor-body">
             <div
-              className={`tiptap-editor-demo${isDark ? ' tiptap-editor-demo--dark' : ''}`}
+              className={`demo-editor-content${isDark ? ' demo-editor-content--dark' : ''}`}
             >
               <EditorContent editor={editor} />
             </div>

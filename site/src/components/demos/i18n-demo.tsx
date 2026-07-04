@@ -26,7 +26,7 @@ const customTranslations: Partial<TableKitTranslations> = {
   toggleHeaderRow: '📌 切换表头行',
 };
 
-export default function TableKitI18nDemo() {
+export default function I18nDemo() {
   const [locale, setLocale] = useState<'zh-CN' | 'en-US'>('zh-CN');
   const [showCustom, setShowCustom] = useState(false);
 
@@ -114,7 +114,7 @@ export default function TableKitI18nDemo() {
           </button>
           <button
             type="button"
-            className="tiptap-table-kit-demo-btn"
+            className="demo-btn"
             onClick={handleInsertTable}
           >
             插入表格
@@ -142,7 +142,7 @@ export default function TableKitI18nDemo() {
           当前语言：{localeLabel} — 右键表格单元格查看菜单
         </div>
         <div className="demo-editor-body">
-          <div className="tiptap-editor-demo">
+          <div className="demo-editor-content">
             <EditorContent editor={editor} />
           </div>
         </div>
@@ -165,24 +165,21 @@ export default function TableKitI18nDemo() {
             <>
               <button
                 type="button"
-                className="tiptap-table-kit-demo-btn"
+                className="demo-btn"
                 onClick={handleInsertCustom}
               >
                 插入表格
               </button>
-              <span
-                className="demo-control-bar-hint"
-                style={{ marginRight: 0 }}
-              >
-                translations: &#123; deleteRow: '🔥 删除此行', clearContent: '🧹
-                清除单元格' &#125;
+              <span className="demo-control-bar-hint">
+                TableKit.configure(&#123; translations: customTranslations
+                &#125;)
               </span>
             </>
           )}
         </div>
         {showCustom && (
-          <div className="demo-editor-body">
-            <div className="tiptap-editor-demo">
+          <div className="demo-editor-body" style={{ flex: 1 }}>
+            <div className="demo-editor-content">
               <EditorContent editor={customEditor} />
             </div>
           </div>

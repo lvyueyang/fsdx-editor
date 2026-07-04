@@ -3,12 +3,12 @@ title: 国际化
 description: Table Kit 多语言支持演示
 ---
 
-# 国际化演示
+import IframeDemo from '../../../components/IframeDemo.tsx';
+import { getDemoSource } from '../../../components/demo-sources.ts';
 
 通过 `TableKit.configure({ locale })` 控制右键菜单语言，支持中英文及自定义翻译覆盖。
 
-```tsx file="./_i18n-demo.tsx" preview
-```
+<IframeDemo slug="i18n-demo" sourceCode={getDemoSource('i18n-demo')} client:load />
 
 ## 使用方式
 

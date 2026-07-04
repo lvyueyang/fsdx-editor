@@ -1,0 +1,39 @@
+---
+title: FSDX Editor
+template: splash
+hero:
+  title: FSDX Editor
+  tagline: 富文本编辑器 & 表格增强套件
+  actions:
+    - text: Editor
+      link: /fsdx-editor/editor/
+      variant: primary
+      icon: right-arrow
+    - text: Table Kit
+      link: /fsdx-editor/table-kit/
+      variant: secondary
+      icon: right-arrow
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="零 UI 框架依赖">
+    选区边框、操作手柄和上下文菜单均使用原生 DOM 构建，不依赖任何 UI 框架，可嵌入任意前端项目。
+  </Card>
+  <Card title="暗色主题">
+    通过 CSS 自定义属性实现完整暗色模式，支持运行时 setTheme() 动态切换，所有组件秒级响应。
+  </Card>
+  <Card title="70 色调色板">
+    10 种色相 × 7 级明度，支持方向键导航和无障碍访问，选中颜色实时应用到单元格文字或背景。
+  </Card>
+  <Card title="丰富的行列操作">
+    支持行/列的插入、删除、移动、复制和排序，通过语义化的链式命令 API 调用。
+  </Card>
+  <Card title="国际化">
+    内置简体中文和 English 语言包，支持部分字段的自定义翻译覆盖，轻松适配任意语言。
+  </Card>
+  <Card title="Bundleless ESM">
+    每个文件独立编译输出，支持 Tree Shaking，按需加载。仅 ESM 格式，面向现代 Web 应用。
+  </Card>
+</CardGrid>

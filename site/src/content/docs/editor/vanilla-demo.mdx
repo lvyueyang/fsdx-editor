@@ -1,14 +1,14 @@
 ---
-title: 原生编辑器
+title: 原生 API
 description: 通过原生 JavaScript API 使用 FSDX Editor
 ---
 
-# 原生 JavaScript API
+import IframeDemo from '../../../components/IframeDemo.tsx';
+import { getDemoSource } from '../../../components/demo-sources.ts';
 
 FSDX Editor 提供 `createEditor(container, options)` 原生 JavaScript API，无需 React 即可在任何 DOM 元素上创建编辑器。
 
-```tsx file="./_vanilla-demo.tsx" preview
-```
+<IframeDemo slug="vanilla-demo" sourceCode={getDemoSource('vanilla-demo')} client:load />
 
 ## 使用方式
 

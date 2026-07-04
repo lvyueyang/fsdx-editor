@@ -3,12 +3,12 @@ title: 主题配置
 description: Table Kit 浅色/深色主题切换演示
 ---
 
-# 主题配置演示
+import IframeDemo from '../../../components/IframeDemo.tsx';
+import { getDemoSource } from '../../../components/demo-sources.ts';
 
 通过 `TableKit.configure({ theme })` 或 `editor.commands.tableKit.setTheme()` 可以切换 Table Kit 的主题模式。
 
-```tsx file="./_theme-demo.tsx" preview
-```
+<IframeDemo slug="theme-demo" sourceCode={getDemoSource('theme-demo')} client:load />
 
 ## 使用方式
 
