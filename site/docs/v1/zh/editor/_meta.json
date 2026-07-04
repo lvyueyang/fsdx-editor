@@ -1,0 +1,6 @@
+[
+  { "type": "file", "name": "index", "label": "概览" },
+  { "type": "file", "name": "demo", "label": "编辑器演示" },
+  { "type": "file", "name": "vanilla-demo", "label": "原生 API" },
+  { "type": "file", "name": "api-reference", "label": "API 参考" }
+]

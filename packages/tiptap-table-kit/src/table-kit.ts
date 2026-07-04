@@ -27,7 +27,6 @@ import { enUS } from './i18n/en-US';
 import type { TableKitTranslations } from './i18n/types';
 import { zhCN } from './i18n/zh-CN';
 import { TableSelectionOverlay } from './overlay/table-selection-overlay';
-import './styles/table.css';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

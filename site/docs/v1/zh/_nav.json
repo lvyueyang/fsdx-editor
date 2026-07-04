@@ -1,0 +1,12 @@
+[
+  {
+    "text": "editor",
+    "link": "/editor/",
+    "activeMatch": "^/editor/"
+  },
+  {
+    "text": "tableKit",
+    "link": "/table-kit/",
+    "activeMatch": "^/table-kit/"
+  }
+]

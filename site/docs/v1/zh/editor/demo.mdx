@@ -1,0 +1,41 @@
+---
+title: 编辑器演示
+description: FSDX Editor 全功能编辑器演示
+---
+
+# 编辑器演示
+
+通过 `createEditor` 创建的全功能编辑器，包含工具栏、气泡菜单、媒体上传和主题切换。
+
+```tsx file="./_demo.tsx" preview
+```
+
+## 功能说明
+
+编辑器内置以下能力：
+
+- **文本样式**：加粗、斜体、下划线、删除线、行内代码、下标、上标
+- **标题层级**：H1 ～ H6 六级标题
+- **文本对齐**：左对齐、居中、右对齐、两端对齐
+- **文字颜色与高亮**：前景色 + 70 色背景高亮
+- **字号与行高**：9 档字号（12px ～ 48px）、7 档行高（1 ～ 3）
+- **缩进**：段落和标题的首行缩进
+- **列表**：无序列表、有序列表、任务列表
+- **引用与代码块**：引用块、代码块
+- **分割线**：水平分割线
+- **链接**：超链接插入与编辑
+- **表格**：10×10 grid picker 插入表格
+- **智能排版**：印刷符号自动替换（→、©、½ 等）
+- **媒体插入**：图片、视频、音频、附件上传
+
+## 使用方式
+
+```ts
+import { createEditor } from '@fsdx/editor'
+
+const editor = createEditor(container, {
+  defaultContent: '<p>Hello World</p>',
+  defaultTheme: 'light',
+  image: { upload: async (file) => ({ url: '...', name: file.name, size: file.size }) },
+})
+```

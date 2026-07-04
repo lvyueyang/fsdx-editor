@@ -1,3 +1,4 @@
+import '@fsdx/tiptap-table-kit/styles/table.css';
 import { TableKit } from '@fsdx/tiptap-table-kit';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
