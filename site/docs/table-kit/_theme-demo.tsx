@@ -4,8 +4,27 @@ import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { DemoThemeContext } from '../shared/demo-theme-context';
+import { useCallback, useEffect, useState } from 'react';
+
+function useIsDark(): boolean {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof document === 'undefined') return false;
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  });
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}
 
 const tableHtml = `
 <table>
@@ -18,44 +37,39 @@ const tableHtml = `
 </table>
 `;
 
-function DemoEditor({ initialTheme }: { initialTheme: 'light' | 'dark' }) {
-  const { theme: demoTheme } = useContext(DemoThemeContext);
-
+function DemoEditor({ theme }: { theme: 'light' | 'dark' }) {
   const editor = useEditor(
     {
       extensions: [
         StarterKit,
-        TableKit.configure({ resizable: true, theme: initialTheme }),
+        TableKit.configure({ resizable: true, theme }),
         TableRow,
         TableCell,
         TableHeader,
       ],
       content: tableHtml,
-      editorProps: {
-        attributes: {
-          class: `tiptap-editor-demo ${demoTheme === 'dark' ? 'tiptap-editor-demo--dark' : ''}`,
-        },
-      },
     },
-    [initialTheme, demoTheme],
+    [theme],
   );
 
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
       <div className="demo-control-bar" style={{ justifyContent: 'center' }}>
         <span style={{ fontWeight: 600, fontSize: 12 }}>
-          {initialTheme === 'light' ? '☀ 浅色模式' : '☾ 深色模式'}
+          {theme === 'light' ? '☀ 浅色模式' : '☾ 深色模式'}
         </span>
       </div>
       <div className="demo-editor-body">
-        <EditorContent editor={editor} />
+        <div className="tiptap-editor-demo">
+          <EditorContent editor={editor} />
+        </div>
       </div>
     </div>
   );
 }
 
-export function TiptapTableTheme() {
-  const { theme: demoTheme } = useContext(DemoThemeContext);
+export default function TableKitThemeDemo() {
+  const isDark = useIsDark();
   const [dynamicTheme, setDynamicTheme] = useState<'light' | 'dark'>('light');
 
   const editor = useEditor(
@@ -68,18 +82,13 @@ export function TiptapTableTheme() {
         TableHeader,
       ],
       content: tableHtml,
-      editorProps: {
-        attributes: {
-          class: `tiptap-editor-demo ${demoTheme === 'dark' ? 'tiptap-editor-demo--dark' : ''}`,
-        },
-      },
     },
-    [demoTheme],
+    [],
   );
 
   useEffect(() => {
     if (!editor) return;
-    editor.commands.tableKit.setTheme(dynamicTheme);
+    editor.commands?.tableKit?.setTheme(dynamicTheme);
   }, [editor, dynamicTheme]);
 
   const handleInsertTable = useCallback(() => {
@@ -90,16 +99,21 @@ export function TiptapTableTheme() {
       .run();
   }, [editor]);
 
+  const themeBtnStyle = (active: boolean): React.CSSProperties => ({
+    background: active ? 'var(--demo-accent)' : 'transparent',
+    color: active ? '#fff' : 'var(--demo-text)',
+    fontWeight: active ? 600 : 400,
+  });
+
   return (
     <div className="demo-editor-container">
       <div className="demo-control-bar">
         <span className="demo-control-bar-hint">
-          通过 TableKit.configure({'{'} theme {'}'}) 或
+          通过 TableKit.configure(&#123; theme &#125;) 或
           editor.commands.tableKit.setTheme() 切换主题
         </span>
       </div>
 
-      {/* 并排比较 */}
       <div
         style={{
           display: 'flex',
@@ -109,11 +123,10 @@ export function TiptapTableTheme() {
         }}
       >
         <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-          <DemoEditor initialTheme="light" />
-          <DemoEditor initialTheme="dark" />
+          <DemoEditor theme="light" />
+          <DemoEditor theme="dark" />
         </div>
 
-        {/* 动态切换演示 */}
         <div
           style={{
             borderTop: '1px solid var(--demo-border)',
@@ -126,28 +139,14 @@ export function TiptapTableTheme() {
             </span>
             <button
               type="button"
-              style={{
-                background:
-                  dynamicTheme === 'light'
-                    ? 'var(--demo-accent)'
-                    : 'transparent',
-                color: dynamicTheme === 'light' ? '#fff' : 'var(--demo-text)',
-                fontWeight: dynamicTheme === 'light' ? 600 : 400,
-              }}
+              style={themeBtnStyle(dynamicTheme === 'light')}
               onClick={() => setDynamicTheme('light')}
             >
               setTheme('light')
             </button>
             <button
               type="button"
-              style={{
-                background:
-                  dynamicTheme === 'dark'
-                    ? 'var(--demo-accent)'
-                    : 'transparent',
-                color: dynamicTheme === 'dark' ? '#fff' : 'var(--demo-text)',
-                fontWeight: dynamicTheme === 'dark' ? 600 : 400,
-              }}
+              style={themeBtnStyle(dynamicTheme === 'dark')}
               onClick={() => setDynamicTheme('dark')}
             >
               setTheme('dark')
@@ -161,7 +160,11 @@ export function TiptapTableTheme() {
             </button>
           </div>
           <div className="demo-editor-body">
-            <EditorContent editor={editor} />
+            <div
+              className={`tiptap-editor-demo${isDark ? ' tiptap-editor-demo--dark' : ''}`}
+            >
+              <EditorContent editor={editor} />
+            </div>
           </div>
         </div>
       </div>

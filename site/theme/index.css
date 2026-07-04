@@ -1,0 +1,212 @@
+/* Brand color override */
+:root {
+  --rp-c-brand: #7c3aed;
+  --rp-c-brand-light: #8b5cf6;
+  --rp-c-brand-lighter: #a78bfa;
+  --rp-c-brand-dark: #6d28d9;
+  --rp-c-brand-darker: #5b21b6;
+}
+
+/* Demo component variables — light theme */
+:root {
+  --demo-bg: #ffffff;
+  --demo-surface: #f8f9fb;
+  --demo-border: #e2e4e9;
+  --demo-text: #1a1d23;
+  --demo-text-muted: #6b7280;
+  --demo-text-dim: #9ca3af;
+  --demo-accent: #7c3aed;
+  --demo-code-bg: #f3f4f6;
+  --demo-code-color: #1f2937;
+  --demo-hover-bg: rgba(0, 0, 0, 0.04);
+  --demo-radius: 8px;
+  --demo-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Demo component variables — dark theme */
+html[data-theme="dark"] {
+  --demo-bg: #1a1d23;
+  --demo-surface: #22252d;
+  --demo-border: #2e3240;
+  --demo-text: #e5e7eb;
+  --demo-text-muted: #9ca3af;
+  --demo-text-dim: #6b7280;
+  --demo-accent: #8b5cf6;
+  --demo-code-bg: #1f2937;
+  --demo-code-color: #e5e7eb;
+  --demo-hover-bg: rgba(255, 255, 255, 0.06);
+  --demo-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Demo editor container */
+.demo-editor-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  background: var(--demo-bg);
+  overflow: hidden;
+  min-height: 320px;
+  margin: 16px 0;
+}
+
+/* Control bar */
+.demo-control-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--demo-surface);
+  border-bottom: 1px solid var(--demo-border);
+  flex-wrap: wrap;
+}
+
+.demo-control-bar button {
+  padding: 4px 10px;
+  border: 1px solid var(--demo-border);
+  border-radius: 6px;
+  background: var(--demo-bg);
+  color: var(--demo-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.demo-control-bar button:hover {
+  background: var(--demo-hover-bg);
+}
+
+.demo-control-bar-hint {
+  font-size: 12px;
+  color: var(--demo-text-muted);
+  margin-left: auto;
+}
+
+/* Editor body */
+.demo-editor-body {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+
+/* Table Kit demo toolbar */
+.tiptap-table-kit-demo-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--demo-surface);
+  border-bottom: 1px solid var(--demo-border);
+  flex-wrap: wrap;
+}
+
+.tiptap-table-kit-demo-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--demo-border);
+  border-radius: 6px;
+  background: var(--demo-bg);
+  color: var(--demo-text);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.tiptap-table-kit-demo-btn:hover {
+  background: var(--demo-hover-bg);
+}
+
+.tiptap-table-kit-demo-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tiptap-table-kit-demo-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--demo-text-muted);
+  text-transform: uppercase;
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+.tiptap-table-kit-demo-spacer {
+  width: 12px;
+  flex-shrink: 0;
+}
+
+/* Tiptap editor dark mode */
+.tiptap-editor-demo {
+  min-height: 150px;
+}
+
+.tiptap-editor-demo--dark {
+  color-scheme: dark;
+}
+
+/* Vanilla demo */
+.vanilla-editor-wrapper {
+  min-height: 200px;
+}
+
+.vanilla-demo-state {
+  padding: 12px;
+  background: var(--demo-surface);
+  border-top: 1px solid var(--demo-border);
+}
+
+.vanilla-demo-state-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--demo-text-muted);
+  margin-bottom: 8px;
+}
+
+.vanilla-demo-state-items {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.vanilla-demo-state-item {
+  font-size: 12px;
+  color: var(--demo-text);
+}
+
+.vanilla-demo-output {
+  border-top: 1px solid var(--demo-border);
+}
+
+.vanilla-demo-output-summary {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--demo-text-muted);
+  cursor: pointer;
+  background: var(--demo-surface);
+}
+
+.vanilla-demo-output pre {
+  margin: 0;
+  padding: 12px;
+  font-size: 12px;
+  background: var(--demo-code-bg);
+  color: var(--demo-code-color);
+  overflow: auto;
+  max-height: 200px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.demo-code-block {
+  margin: 0;
+  padding: 12px;
+  font-size: 12px;
+  background: var(--demo-code-bg);
+  color: var(--demo-code-color);
+  overflow: auto;
+  max-height: 200px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

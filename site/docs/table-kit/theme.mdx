@@ -1,0 +1,34 @@
+---
+title: 主题配置
+description: Table Kit 浅色/深色主题切换演示
+---
+
+# 主题配置演示
+
+通过 `TableKit.configure({ theme })` 或 `editor.commands.tableKit.setTheme()` 可以切换 Table Kit 的主题模式。
+
+```tsx file="./_theme-demo.tsx" preview
+```
+
+## 使用方式
+
+### 静态配置
+
+在扩展初始化时指定主题：
+
+```ts
+TableKit.configure({
+  theme: 'dark', // 'light' | 'dark'
+})
+```
+
+### 运行时切换
+
+通过命令链动态切换：
+
+```ts
+editor.chain().tableKit.setTheme('light').run()
+editor.chain().tableKit.setTheme('dark').run()
+```
+
+切换主题后所有 UI 组件（选区边框、操作手柄、上下文菜单、调色板等）会即时响应，无需重新创建编辑器。

@@ -1,0 +1,16 @@
+[
+  {
+    "type": "dir-section-header",
+    "name": "table-kit",
+    "label": "Table Kit"
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "section-header",
+    "label": "指南"
+  },
+  "vanilla-demo",
+  "api-reference"
+]

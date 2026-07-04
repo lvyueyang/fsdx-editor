@@ -5,8 +5,7 @@ import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useCallback, useContext, useMemo, useState } from 'react';
-import { DemoThemeContext } from '../shared/demo-theme-context';
+import { useCallback, useMemo, useState } from 'react';
 
 const tableHtml = `
 <table>
@@ -26,8 +25,7 @@ const customTranslations: Partial<TableKitTranslations> = {
   toggleHeaderRow: '📌 切换表头行',
 };
 
-export function TiptapTableI18n() {
-  const { theme: demoTheme } = useContext(DemoThemeContext);
+export default function TableKitI18nDemo() {
   const [locale, setLocale] = useState<'zh-CN' | 'en-US'>('zh-CN');
   const [showCustom, setShowCustom] = useState(false);
 
@@ -41,13 +39,8 @@ export function TiptapTableI18n() {
         TableHeader,
       ],
       content: tableHtml,
-      editorProps: {
-        attributes: {
-          class: `tiptap-editor-demo ${demoTheme === 'dark' ? 'tiptap-editor-demo--dark' : ''}`,
-        },
-      },
     },
-    [locale, demoTheme],
+    [locale],
   );
 
   const customEditor = useEditor(
@@ -63,13 +56,8 @@ export function TiptapTableI18n() {
         TableHeader,
       ],
       content: tableHtml,
-      editorProps: {
-        attributes: {
-          class: `tiptap-editor-demo ${demoTheme === 'dark' ? 'tiptap-editor-demo--dark' : ''}`,
-        },
-      },
     },
-    [demoTheme],
+    [],
   );
 
   const handleInsertTable = useCallback(() => {
@@ -93,11 +81,17 @@ export function TiptapTableI18n() {
     [locale],
   );
 
+  const btnStyle = (active: boolean): React.CSSProperties => ({
+    background: active ? 'var(--demo-accent)' : 'transparent',
+    color: active ? '#fff' : 'var(--demo-text)',
+    fontWeight: active ? 600 : 400,
+  });
+
   return (
     <div className="demo-editor-container">
       <div className="demo-control-bar">
         <span className="demo-control-bar-hint">
-          TableKit.configure({'{'} locale {'}'}) 控制右键菜单语言
+          TableKit.configure(&#123; locale &#125;) 控制右键菜单语言
         </span>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>
@@ -105,24 +99,14 @@ export function TiptapTableI18n() {
           </span>
           <button
             type="button"
-            style={{
-              background:
-                locale === 'zh-CN' ? 'var(--demo-accent)' : 'transparent',
-              color: locale === 'zh-CN' ? '#fff' : 'var(--demo-text)',
-              fontWeight: locale === 'zh-CN' ? 600 : 400,
-            }}
+            style={btnStyle(locale === 'zh-CN')}
             onClick={() => setLocale('zh-CN')}
           >
             简体中文
           </button>
           <button
             type="button"
-            style={{
-              background:
-                locale === 'en-US' ? 'var(--demo-accent)' : 'transparent',
-              color: locale === 'en-US' ? '#fff' : 'var(--demo-text)',
-              fontWeight: locale === 'en-US' ? 600 : 400,
-            }}
+            style={btnStyle(locale === 'en-US')}
             onClick={() => setLocale('en-US')}
           >
             English
@@ -137,7 +121,6 @@ export function TiptapTableI18n() {
         </div>
       </div>
 
-      {/* 内置语言编辑器 */}
       <div
         style={{
           flex: 1,
@@ -158,11 +141,12 @@ export function TiptapTableI18n() {
           当前语言：{localeLabel} — 右键表格单元格查看菜单
         </div>
         <div className="demo-editor-body">
-          <EditorContent editor={editor} />
+          <div className="tiptap-editor-demo">
+            <EditorContent editor={editor} />
+          </div>
         </div>
       </div>
 
-      {/* 自定义翻译编辑器 */}
       <div
         style={{
           borderTop: '1px solid var(--demo-border)',
@@ -189,15 +173,17 @@ export function TiptapTableI18n() {
                 className="demo-control-bar-hint"
                 style={{ marginRight: 0 }}
               >
-                translations: {'{'} deleteRow: '🔥 删除此行', clearContent: '🧹
-                清除单元格' {'}'}
+                translations: &#123; deleteRow: '🔥 删除此行', clearContent: '🧹
+                清除单元格' &#125;
               </span>
             </>
           )}
         </div>
         {showCustom && (
           <div className="demo-editor-body">
-            <EditorContent editor={customEditor} />
+            <div className="tiptap-editor-demo">
+              <EditorContent editor={customEditor} />
+            </div>
           </div>
         )}
       </div>
