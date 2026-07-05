@@ -79,6 +79,23 @@ $control-gutter: 20px;
     }
   }
 
+  /* ===== 列宽调整句柄 ===== */
+  .column-resize-handle {
+    position: absolute;
+    top: 0;
+    bottom: -2px;
+    right: -3px;
+    width: 6px;
+    background: $accent;
+    cursor: col-resize;
+    z-index: 15;
+    pointer-events: auto;
+  }
+
+  .resize-cursor {
+    cursor: col-resize;
+  }
+
   /* ===== 覆盖层容器 ===== */
   .tiptap-table-kit-selection-overlay-container {
     position: relative;
