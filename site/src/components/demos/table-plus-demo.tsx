@@ -46,7 +46,7 @@ export default function TablePlusDemo() {
       ],
       content: initialHtml,
     },
-    [locale]
+    [locale],
   );
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function TablePlusDemo() {
         {label}
       </button>
     ),
-    [editor]
+    [editor],
   );
 
   const themeBtnStyle = (active: boolean): React.CSSProperties => ({
@@ -79,7 +79,9 @@ export default function TablePlusDemo() {
     <div className="demo-editor-container">
       <div className="demo-control-bar">
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>主题：</span>
+          <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>
+            主题：
+          </span>
           <button
             type="button"
             style={themeBtnStyle(tableTheme === 'light')}
@@ -96,7 +98,9 @@ export default function TablePlusDemo() {
           </button>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>语言：</span>
+          <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>
+            语言：
+          </span>
           <button
             type="button"
             style={themeBtnStyle(locale === 'zh-CN')}
@@ -116,18 +120,32 @@ export default function TablePlusDemo() {
       </div>
       <div className="demo-toolbar">
         {btn('3×4 (含表头)', () =>
-          editor?.chain().focus().insertTable({ rows: 3, cols: 4, withHeaderRow: true }).run()
+          editor
+            ?.chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 4, withHeaderRow: true })
+            .run(),
         )}
         {btn('2×3 (含表头)', () =>
-          editor?.chain().focus().insertTable({ rows: 2, cols: 3, withHeaderRow: true }).run()
+          editor
+            ?.chain()
+            .focus()
+            .insertTable({ rows: 2, cols: 3, withHeaderRow: true })
+            .run(),
         )}
         {btn('3×2 (无表头)', () =>
-          editor?.chain().focus().insertTable({ rows: 3, cols: 2, withHeaderRow: false }).run()
+          editor
+            ?.chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 2, withHeaderRow: false })
+            .run(),
         )}
       </div>
 
       <div className="demo-editor-body">
-        <div className={`demo-editor-content${isDark ? ' demo-editor-content--dark' : ''}`}>
+        <div
+          className={`demo-editor-content${isDark ? ' demo-editor-content--dark' : ''}`}
+        >
           <EditorContent editor={editor} />
         </div>
       </div>
