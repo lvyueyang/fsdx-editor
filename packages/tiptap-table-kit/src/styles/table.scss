@@ -19,16 +19,24 @@ $control-gutter: 20px;
   /* ===== 表格包装器 ===== */
   .tableWrapper {
     position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding-right: $control-gutter;
     padding-bottom: $control-gutter;
-    margin-right: 0;
-    margin-bottom: 0;
+  }
+
+  .tiptap-table-kit-table-container {
+    // 仅作结构隔离容器，不处理 overflow
+    .table {
+      width: auto;
+    }
   }
 
   /* ===== 表格控件按钮 ===== */
   .tiptap-table-kit-table-controls {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     pointer-events: none;
     z-index: 5;
   }
@@ -55,20 +63,6 @@ $control-gutter: 20px;
       border-color: $accent;
       color: #fff;
     }
-  }
-
-  .tiptap-table-kit-table-controls-btn--col {
-    right: 0;
-    top: 0;
-    width: calc($control-gutter - 4px);
-    height: calc(100% - $control-gutter);
-  }
-
-  .tiptap-table-kit-table-controls-btn--row {
-    left: 0;
-    bottom: 0;
-    width: calc(100% - $control-gutter);
-    height: calc($control-gutter - 4px);
   }
 
   .tableWrapper:hover .tiptap-table-kit-table-controls-btn {
