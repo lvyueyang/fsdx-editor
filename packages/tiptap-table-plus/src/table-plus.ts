@@ -5,20 +5,9 @@ import {
   clearRowColumnContent,
   clearRowContent,
   clearSelectedCells,
-  copySelectedCells,
   setCellTextColor,
   unsetCellTextColor,
 } from './commands/table-cell';
-import {
-  duplicateColumn,
-  duplicateRow,
-  moveColumnLeft,
-  moveColumnRight,
-  moveRowDown,
-  moveRowUp,
-  sortColumnAsc,
-  sortColumnDesc,
-} from './commands/table-row-column';
 import { NodeBackground } from './extensions/node-background';
 import { TableCellStyle } from './extensions/table-cell-style';
 import { enUS } from './i18n/en-US';
@@ -27,47 +16,16 @@ import { zhCN } from './i18n/zh-CN';
 import { TableSelectionOverlay } from './overlay/table-selection-overlay';
 import { createTableControlsPlugin } from './table-controls-plugin';
 import { editorStateMap, getOrInitState } from './utils/state-store';
+import '@tiptap/extension-table';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    table: {
-      insertTable: (options?: {
-        rows?: number;
-        cols?: number;
-        withHeaderRow?: boolean;
-      }) => ReturnType;
-      addColumnBefore: () => ReturnType;
-      addColumnAfter: () => ReturnType;
-      deleteColumn: () => ReturnType;
-      addRowBefore: () => ReturnType;
-      addRowAfter: () => ReturnType;
-      deleteRow: () => ReturnType;
-      deleteTable: () => ReturnType;
-      mergeCells: () => ReturnType;
-      splitCell: () => ReturnType;
-      toggleHeaderRow: () => ReturnType;
-      toggleHeaderColumn: () => ReturnType;
-      toggleHeaderCell: () => ReturnType;
-      mergeOrSplit: () => ReturnType;
-      goToNextCell: () => ReturnType;
-      goToPreviousCell: () => ReturnType;
-      fixTables: () => ReturnType;
-    };
     tablePlus: {
-      moveRowUp: () => ReturnType;
-      moveRowDown: () => ReturnType;
-      moveColumnLeft: () => ReturnType;
-      moveColumnRight: () => ReturnType;
-      duplicateRow: () => ReturnType;
-      duplicateColumn: () => ReturnType;
-      sortColumnAsc: () => ReturnType;
-      sortColumnDesc: () => ReturnType;
       clearSelectedCells: () => ReturnType;
       setCellTextColor: (color: string) => ReturnType;
       unsetCellTextColor: () => ReturnType;
       setCellBackgroundColor: (color: string) => ReturnType;
       unsetCellBackgroundColor: () => ReturnType;
-      copySelectedCells: () => ReturnType;
       clearRowContent: () => ReturnType;
       clearColumnContent: () => ReturnType;
       clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
@@ -150,38 +108,6 @@ export const TablePlus = Extension.create<TablePlusOptions>({
 
   addCommands() {
     return {
-      moveRowUp:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          moveRowUp(editor),
-      moveRowDown:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          moveRowDown(editor),
-      moveColumnLeft:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          moveColumnLeft(editor),
-      moveColumnRight:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          moveColumnRight(editor),
-      duplicateRow:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          duplicateRow(editor),
-      duplicateColumn:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          duplicateColumn(editor),
-      sortColumnAsc:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          sortColumnAsc(editor),
-      sortColumnDesc:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          sortColumnDesc(editor),
       clearSelectedCells:
         () =>
         ({ editor }: { editor: Editor }) =>
@@ -202,10 +128,6 @@ export const TablePlus = Extension.create<TablePlusOptions>({
         () =>
         ({ editor }: { editor: Editor }) =>
           editor.chain().focus().unsetNodeBackgroundColor().run(),
-      copySelectedCells:
-        () =>
-        ({ editor }: { editor: Editor }) =>
-          copySelectedCells(editor),
       clearRowContent:
         () =>
         ({ editor }: { editor: Editor }) =>

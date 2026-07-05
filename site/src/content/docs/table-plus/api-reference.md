@@ -21,24 +21,6 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 
 所有命令通过 `editor.chain()` 调用：
 
-### 行操作
-
-| 命令 | 参数 | 说明 |
-|------|------|------|
-| `moveRowUp()` | — | 上移当前行 |
-| `moveRowDown()` | — | 下移当前行 |
-| `duplicateRow()` | — | 复制当前行 |
-
-### 列操作
-
-| 命令 | 参数 | 说明 |
-|------|------|------|
-| `moveColumnLeft()` | — | 左移当前列 |
-| `moveColumnRight()` | — | 右移当前列 |
-| `duplicateColumn()` | — | 复制当前列 |
-| `sortColumnAsc()` | — | 当前列升序排序 |
-| `sortColumnDesc()` | — | 当前列降序排序 |
-
 ### 单元格操作
 
 | 命令 | 参数 | 说明 |
@@ -48,7 +30,6 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 | `unsetCellTextColor()` | — | 移除文字颜色 |
 | `setCellBackgroundColor(color)` | `string` | 设置背景色 |
 | `unsetCellBackgroundColor()` | — | 移除背景色 |
-| `copySelectedCells()` | — | 以 TSV 格式复制到剪贴板 |
 
 ### 行列内容清除
 

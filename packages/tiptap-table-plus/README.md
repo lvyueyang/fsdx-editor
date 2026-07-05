@@ -33,24 +33,6 @@ const editor = new Editor({
 
 所有命令通过 `editor.chain()` 调用，标准表格命令由 `TableKit` 提供，扩展命令由 `TablePlus` 提供：
 
-### 行操作
-
-| 命令 | 说明 |
-|------|------|
-| `moveRowUp()` | 上移当前行 |
-| `moveRowDown()` | 下移当前行 |
-| `duplicateRow()` | 复制当前行 |
-
-### 列操作
-
-| 命令 | 说明 |
-|------|------|
-| `moveColumnLeft()` | 左移当前列 |
-| `moveColumnRight()` | 右移当前列 |
-| `duplicateColumn()` | 复制当前列 |
-| `sortColumnAsc()` | 升序排列 |
-| `sortColumnDesc()` | 降序排列 |
-
 ### 单元格
 
 | 命令 | 说明 |
@@ -61,8 +43,6 @@ const editor = new Editor({
 | `setCellBackgroundColor(color)` | 设置背景色 |
 | `unsetCellBackgroundColor()` | 取消背景色 |
 | `setCellVerticalAlign(align)` | 设置垂直对齐 (`'top' \| 'middle' \| 'bottom'`) |
-| `unsetCellVerticalAlign()` | 取消垂直对齐 |
-| `copySelectedCells()` | 复制选中内容 |
 | `clearRowContent()` | 清除当前行内容 |
 | `clearColumnContent()` | 清除当前列内容 |
 | `clearRowColumnContent(orientation)` | 清除当前行/列内容 |
