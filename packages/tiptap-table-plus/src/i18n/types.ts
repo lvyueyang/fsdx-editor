@@ -57,4 +57,6 @@ export interface TablePlusTranslations {
   addColumn: string;
   /** 添加行 */
   addRow: string;
+  /** 自定义颜色 */
+  customColor: string;
 }

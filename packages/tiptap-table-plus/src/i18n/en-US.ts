@@ -31,4 +31,5 @@ export const enUS: TablePlusTranslations = {
   tableActions: 'Table Actions',
   addColumn: 'Add Column',
   addRow: 'Add Row',
+  customColor: 'Custom Color',
 };

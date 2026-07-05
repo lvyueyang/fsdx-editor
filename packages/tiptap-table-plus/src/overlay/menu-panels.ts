@@ -6,6 +6,7 @@ import {
   shift,
 } from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
+import { cellAround } from '@tiptap/pm/tables';
 import { setCellTextColor, unsetCellTextColor } from '../commands/table-cell';
 import type { TablePlusTranslations } from '../i18n/types';
 import type { PaletteColor } from '../palette';
@@ -112,6 +113,7 @@ function openCascadingColorSubMenu(
   ctx: MenuRenderContext,
   onSelect: (color: string) => void,
   onReset: () => void,
+  currentColor: string,
 ) {
   closeSubMenu();
 
@@ -146,6 +148,31 @@ function openCascadingColorSubMenu(
     onClose: ctx.closeMenu,
   });
   subMenu.appendChild(grid);
+
+  const divider = document.createElement('div');
+  divider.className = 'tiptap-table-plus-context-menu-separator';
+  subMenu.appendChild(divider);
+
+  const customRow = document.createElement('div');
+  customRow.className = 'tiptap-table-plus-custom-color-row';
+
+  const customLabel = document.createElement('span');
+  customLabel.className = 'tiptap-table-plus-custom-color-label';
+  customLabel.textContent = ctx.t.customColor;
+
+  const customInput = document.createElement('input');
+  customInput.type = 'color';
+  customInput.className = 'tiptap-table-plus-custom-color-input';
+  customInput.value = currentColor;
+  console.log('currentColor: ', currentColor);
+  customInput.addEventListener('input', () => {
+    onSelect(customInput.value);
+    ctx.closeMenu();
+  });
+
+  customRow.appendChild(customLabel);
+  customRow.appendChild(customInput);
+  subMenu.appendChild(customRow);
 
   document.body.appendChild(subMenu);
   subMenuPositionCleanup = positionSubMenu(parentBtn, subMenu);
@@ -193,6 +220,18 @@ function renderMainMenu(ctx: MenuRenderContext): void {
         }
         if (sub === 'color') {
           const action = item.action;
+          const curColor = (() => {
+            const defaultColor = action === 'textColor' ? '#000000' : '#ffffff';
+            if (!editor) return defaultColor;
+            const { $anchor } = editor.state.selection;
+            const cell = cellAround($anchor);
+            if (!cell) return defaultColor;
+            const node = editor.state.doc.nodeAt(cell.pos);
+            if (!node) return defaultColor;
+            const attrName =
+              action === 'textColor' ? 'textColor' : 'backgroundColor';
+            return (node.attrs[attrName] as string) || defaultColor;
+          })();
           openCascadingColorSubMenu(
             btn,
             ctx,
@@ -212,6 +251,7 @@ function renderMainMenu(ctx: MenuRenderContext): void {
               }
               closeMenu();
             },
+            curColor,
           );
         } else if (Array.isArray(sub)) {
           openCascadingSubMenu(btn, sub, ctx);

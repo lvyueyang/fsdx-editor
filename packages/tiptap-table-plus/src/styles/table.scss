@@ -284,6 +284,39 @@ $control-gutter: 20px;
     }
   }
 
+  /* ===== 自定义颜色 ===== */
+  .tiptap-table-plus-custom-color-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px 8px;
+  }
+
+  .tiptap-table-plus-custom-color-label {
+    font-size: $font-size-sm;
+    color: $text;
+    white-space: nowrap;
+  }
+
+  .tiptap-table-plus-custom-color-input {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid $border;
+    border-radius: $radius;
+    cursor: pointer;
+    background: transparent;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 1px;
+    }
+  }
+
   /* ===== 级联子菜单 ===== */
   &.tiptap-table-plus-context-submenu {
     min-width: 140px;

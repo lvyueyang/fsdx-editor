@@ -31,4 +31,5 @@ export const zhCN: TablePlusTranslations = {
   tableActions: '表格操作',
   addColumn: '添加列',
   addRow: '添加行',
+  customColor: '自定义颜色',
 };
