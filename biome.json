@@ -20,6 +20,19 @@
       "quoteStyle": "single"
     }
   },
+  "overrides": [
+    {
+      "includes": ["site/src/pages/demos/\\[slug\\].astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
   "css": {
     "parser": {
       "cssModules": true
