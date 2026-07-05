@@ -50,7 +50,6 @@ export function createEditorInstance(
   container.appendChild(editorContent);
 
   const bubbleMenuEl = createBubbleMenuElement();
-  container.appendChild(bubbleMenuEl);
 
   const emitter = new EventEmitter();
 
