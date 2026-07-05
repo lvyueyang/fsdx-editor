@@ -1,13 +1,20 @@
+import {
+  autoUpdate,
+  computePosition,
+  flip,
+  offset,
+  shift,
+} from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
 import { setCellTextColor, unsetCellTextColor } from '../commands/table-cell';
 import type { TablePlusTranslations } from '../i18n/types';
 import type { PaletteColor } from '../palette';
 import { createColorGrid } from './color-grid-builder';
-import { ICON_CHEVRON_LEFT } from './icon-svgs';
 import {
   buildMainMenuItems,
   createMenuButton,
   isMenuItemDef,
+  type MenuListDef,
   type SubMenuItem,
 } from './menu-items';
 
@@ -18,12 +25,144 @@ export interface MenuRenderContext {
   t: TablePlusTranslations;
   closeMenu: () => void;
   buildMainMenu: () => void;
+  contextMenu?: (items: MenuListDef) => MenuListDef;
+}
+
+let activeSubMenu: HTMLElement | null = null;
+let activeParentBtn: HTMLButtonElement | null = null;
+let subMenuPositionCleanup: (() => void) | null = null;
+
+export function closeSubMenu() {
+  subMenuPositionCleanup?.();
+  subMenuPositionCleanup = null;
+  if (activeSubMenu) {
+    activeSubMenu.remove();
+    activeSubMenu = null;
+  }
+  if (activeParentBtn) {
+    activeParentBtn.classList.remove(
+      'tiptap-table-plus-context-menu-item--active',
+    );
+    activeParentBtn = null;
+  }
+}
+
+export function isClickInSubMenu(target: Node): boolean {
+  return !!activeSubMenu?.contains(target);
+}
+
+function positionSubMenu(
+  parentBtn: HTMLButtonElement,
+  subMenu: HTMLElement,
+): () => void {
+  return autoUpdate(parentBtn, subMenu, () => {
+    if (!subMenu.isConnected) return;
+    computePosition(parentBtn, subMenu, {
+      placement: 'right-start',
+      middleware: [offset({ mainAxis: 4 }), flip(), shift({ padding: 8 })],
+    }).then(({ x, y }) => {
+      Object.assign(subMenu.style, {
+        position: 'fixed',
+        left: `${x}px`,
+        top: `${y}px`,
+        zIndex: '101',
+      });
+    });
+  });
+}
+
+function openCascadingSubMenu(
+  parentBtn: HTMLButtonElement,
+  subItems: SubMenuItem[],
+  ctx: MenuRenderContext,
+) {
+  closeSubMenu();
+
+  const subMenu = document.createElement('div');
+  subMenu.className = 'tiptap-table-plus tiptap-table-plus-context-submenu';
+  if (ctx.menu.classList.contains('tiptap-table-plus-dark')) {
+    subMenu.classList.add('tiptap-table-plus-dark');
+  }
+
+  for (const subItem of subItems) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tiptap-table-plus-context-menu-item';
+    btn.innerHTML = `
+      <span class="tiptap-table-plus-menu-item-icon">${subItem.iconHtml}</span>
+      <span class="tiptap-table-plus-context-menu-item-label">${subItem.label}</span>
+    `;
+    btn.addEventListener('click', () => {
+      subItem.onClick();
+      ctx.closeMenu();
+    });
+    subMenu.appendChild(btn);
+  }
+
+  document.body.appendChild(subMenu);
+  subMenuPositionCleanup = positionSubMenu(parentBtn, subMenu);
+
+  activeSubMenu = subMenu;
+  activeParentBtn = parentBtn;
+  parentBtn.classList.add('tiptap-table-plus-context-menu-item--active');
+}
+
+function openCascadingColorSubMenu(
+  parentBtn: HTMLButtonElement,
+  ctx: MenuRenderContext,
+  onSelect: (color: string) => void,
+  onReset: () => void,
+) {
+  closeSubMenu();
+
+  const subMenu = document.createElement('div');
+  subMenu.className = 'tiptap-table-plus tiptap-table-plus-context-submenu';
+  if (ctx.menu.classList.contains('tiptap-table-plus-dark')) {
+    subMenu.classList.add('tiptap-table-plus-dark');
+  }
+
+  const header = document.createElement('div');
+  header.className = 'tiptap-table-plus-context-menu-color-header';
+  const resetBtn = document.createElement('button');
+  resetBtn.type = 'button';
+  resetBtn.className = 'tiptap-table-plus-color-reset-btn';
+  resetBtn.textContent = ctx.t.defaultColor;
+  resetBtn.addEventListener('click', () => {
+    onReset();
+    ctx.closeMenu();
+  });
+  header.appendChild(resetBtn);
+  subMenu.appendChild(header);
+
+  const sep = document.createElement('div');
+  sep.className = 'tiptap-table-plus-context-menu-separator';
+  subMenu.appendChild(sep);
+
+  const grid = createColorGrid({
+    onSelect: (color: PaletteColor) => {
+      onSelect(color.color);
+      ctx.closeMenu();
+    },
+    onClose: ctx.closeMenu,
+  });
+  subMenu.appendChild(grid);
+
+  document.body.appendChild(subMenu);
+  subMenuPositionCleanup = positionSubMenu(parentBtn, subMenu);
+
+  activeSubMenu = subMenu;
+  activeParentBtn = parentBtn;
+  parentBtn.classList.add('tiptap-table-plus-context-menu-item--active');
 }
 
 function renderMainMenu(ctx: MenuRenderContext): void {
   const { menu, editor, t, closeMenu } = ctx;
   menu.innerHTML = '';
-  const items = buildMainMenuItems(editor, t);
+  let items = buildMainMenuItems(editor, t);
+
+  if (ctx.contextMenu) {
+    items = ctx.contextMenu(items);
+  }
 
   let separatorPending = false;
 
@@ -48,9 +187,14 @@ function renderMainMenu(ctx: MenuRenderContext): void {
       const sub = item.sub;
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
+        if (activeParentBtn === btn) {
+          closeSubMenu();
+          return;
+        }
         if (sub === 'color') {
           const action = item.action;
-          renderColorPanel(
+          openCascadingColorSubMenu(
+            btn,
             ctx,
             (color) => {
               if (action === 'textColor') {
@@ -70,97 +214,13 @@ function renderMainMenu(ctx: MenuRenderContext): void {
             },
           );
         } else if (Array.isArray(sub)) {
-          renderSubPanel(ctx, sub);
+          openCascadingSubMenu(btn, sub, ctx);
         }
       });
     }
 
     menu.appendChild(btn);
   }
-}
-
-function renderSubPanel(ctx: MenuRenderContext, subItems: SubMenuItem[]): void {
-  const { menu, t } = ctx;
-  menu.innerHTML = '';
-
-  const backBtn = document.createElement('button');
-  backBtn.type = 'button';
-  backBtn.className = 'tiptap-table-plus-context-menu-back';
-  backBtn.innerHTML = `<span class="tiptap-table-plus-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> ${t.back}`;
-  backBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    renderMainMenu(ctx);
-  });
-  menu.appendChild(backBtn);
-
-  const sep = document.createElement('div');
-  sep.className = 'tiptap-table-plus-context-menu-separator';
-  menu.appendChild(sep);
-
-  for (const subItem of subItems) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'tiptap-table-plus-context-menu-item';
-    btn.innerHTML = `
-      <span class="tiptap-table-plus-menu-item-icon">${subItem.iconHtml}</span>
-      <span class="tiptap-table-plus-context-menu-item-label">${subItem.label}</span>
-    `;
-    btn.addEventListener('click', () => {
-      subItem.onClick();
-      ctx.closeMenu();
-    });
-    menu.appendChild(btn);
-  }
-}
-
-function renderColorPanel(
-  ctx: MenuRenderContext,
-  onSelect: (color: string) => void,
-  onReset: () => void,
-): void {
-  const { menu, t } = ctx;
-  menu.innerHTML = '';
-
-  const backBtn = document.createElement('button');
-  backBtn.type = 'button';
-  backBtn.className = 'tiptap-table-plus-context-menu-back';
-  backBtn.innerHTML = `<span class="tiptap-table-plus-context-menu-arrow">${ICON_CHEVRON_LEFT}</span> ${t.back}`;
-  backBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    renderMainMenu(ctx);
-  });
-  menu.appendChild(backBtn);
-
-  const sep = document.createElement('div');
-  sep.className = 'tiptap-table-plus-context-menu-separator';
-  menu.appendChild(sep);
-
-  const header = document.createElement('div');
-  header.className = 'tiptap-table-plus-context-menu-color-header';
-
-  const resetBtn = document.createElement('button');
-  resetBtn.type = 'button';
-  resetBtn.className = 'tiptap-table-plus-color-reset-btn';
-  resetBtn.textContent = t.defaultColor;
-  resetBtn.addEventListener('click', () => {
-    onReset();
-    ctx.closeMenu();
-  });
-  header.appendChild(resetBtn);
-  menu.appendChild(header);
-
-  const sep2 = document.createElement('div');
-  sep2.className = 'tiptap-table-plus-context-menu-separator';
-  menu.appendChild(sep2);
-
-  const grid = createColorGrid({
-    onSelect: (color: PaletteColor) => {
-      onSelect(color.color);
-      ctx.closeMenu();
-    },
-    onClose: ctx.closeMenu,
-  });
-  menu.appendChild(grid);
 }
 
 export { renderMainMenu };

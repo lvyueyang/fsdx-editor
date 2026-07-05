@@ -1,11 +1,13 @@
 import type { Editor } from '@tiptap/core';
 import type { TablePlusTranslations } from '../i18n/types';
 import { zhCN } from '../i18n/zh-CN';
+import type { MenuListDef } from '../overlay/menu-items';
 
 export interface EditorTablePlusState {
   translations: TablePlusTranslations;
   theme: 'light' | 'dark';
   locale: 'zh-CN' | 'en-US';
+  contextMenu?: (items: MenuListDef) => MenuListDef;
 }
 
 export const editorStateMap = new WeakMap<Editor, EditorTablePlusState>();

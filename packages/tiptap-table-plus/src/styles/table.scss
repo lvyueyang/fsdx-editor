@@ -16,6 +16,14 @@ $transition-fast: 0.15s ease;
 $control-gutter: 20px;
 
 :where(.tiptap-table-plus) {
+  .tiptap-table-plus-selection-overlay-container,
+  .tiptap-table-plus-table-controls,
+  .tiptap-table-plus-context-menu,
+  .tiptap-table-plus-context-submenu {
+    * {
+      box-sizing: border-box;
+    }
+  }
   /* ===== 表格包装器 ===== */
   .tableWrapper {
     position: relative;
@@ -171,6 +179,10 @@ $control-gutter: 20px;
     }
   }
 
+  .tiptap-table-plus-context-menu-item--active {
+    background: $bg-hover;
+  }
+
   .tiptap-table-plus-context-menu-item--destructive {
     color: #ef4444;
 
@@ -271,6 +283,17 @@ $control-gutter: 20px;
       box-shadow: 0 0 0 2px $accent;
     }
   }
+
+  /* ===== 级联子菜单 ===== */
+  &.tiptap-table-plus-context-submenu {
+    min-width: 140px;
+    max-width: 280px;
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: $radius;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: $space;
+  }
 }
 
 /* ===== 暗色主题 ===== */
@@ -291,5 +314,9 @@ $control-gutter: 20px;
     &:hover:not(:disabled) {
       background: rgba(248, 113, 113, 0.12);
     }
+  }
+
+  &.tiptap-table-plus-context-submenu {
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
   }
 }

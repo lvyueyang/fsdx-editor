@@ -69,6 +69,58 @@ const editor = new Editor({
 | `--fsdx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
 | `--fsdx-tiptap-table-plus-radius` | `2px` | 圆角 |
 
+## 自定义上下文菜单
+
+通过 `contextMenu` 配置项可增删改上下文菜单项。回调接收默认菜单项列表，返回新的菜单项列表。
+
+```ts
+import type { MenuListDef } from '@fsdx/tiptap-table-plus'
+import { TablePlus } from '@fsdx/tiptap-table-plus'
+
+TablePlus.configure({
+  contextMenu(items: MenuListDef) {
+    // 过滤掉删除行/列项
+    const filtered = items.filter(
+      (item) => !('variant' in item && item.variant === 'destructive'),
+    )
+    // 追加自定义菜单项
+    filtered.push(
+      { type: 'separator' },
+      {
+        label: '自定义操作',
+        iconHtml: '<svg>...</svg>',
+        onClick: () => console.log('自定义操作'),
+      },
+    )
+    return filtered
+  },
+})
+```
+
+### 相关类型
+
+```ts
+// 主菜单项
+type MenuItemDef = {
+  label: string
+  iconHtml: string
+  disabled?: boolean
+  variant?: 'default' | 'destructive'
+  onClick?: () => void
+  sub?: 'color' | SubMenuItem[]  // 'color' = 颜色面板，SubMenuItem[] = 级联子菜单
+}
+
+// 子菜单项
+type SubMenuItem = {
+  label: string
+  iconHtml: string
+  onClick: () => void
+}
+
+// 菜单项列表（含分隔符）
+type MenuListDef = (MenuItemDef | { type: 'separator' })[]
+```
+
 ## 许可
 
 MIT

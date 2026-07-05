@@ -13,6 +13,7 @@ import { TableCellStyle } from './extensions/table-cell-style';
 import { enUS } from './i18n/en-US';
 import type { TablePlusTranslations } from './i18n/types';
 import { zhCN } from './i18n/zh-CN';
+import type { MenuListDef } from './overlay/menu-items';
 import { TableSelectionOverlay } from './overlay/table-selection-overlay';
 import { createTableControlsPlugin } from './table-controls-plugin';
 import { editorStateMap, getOrInitState } from './utils/state-store';
@@ -54,11 +55,20 @@ export function getTablePlusLocale(editor: Editor | null): 'zh-CN' | 'en-US' {
   return getOrInitState(editor).locale;
 }
 
+/** 获取指定编辑器实例的上下文菜单自定义回调 */
+export function getContextMenu(
+  editor: Editor | null,
+): ((items: MenuListDef) => MenuListDef) | undefined {
+  if (!editor) return undefined;
+  return getOrInitState(editor).contextMenu;
+}
+
 /** 表格增强套件的配置选项 */
 interface TablePlusOptions {
   theme: 'light' | 'dark';
   locale: 'zh-CN' | 'en-US';
   translations?: Partial<TablePlusTranslations>;
+  contextMenu?: (items: MenuListDef) => MenuListDef;
 }
 
 /**
@@ -94,7 +104,12 @@ export const TablePlus = Extension.create<TablePlusOptions>({
 
     const theme = this.options.theme ?? 'light';
 
-    editorStateMap.set(this.editor, { translations, theme, locale });
+    editorStateMap.set(this.editor, {
+      translations,
+      theme,
+      locale,
+      contextMenu: this.options.contextMenu,
+    });
 
     this.editor.view.dom.classList.add('tiptap-table-plus');
     if (theme === 'dark') {

@@ -7,8 +7,17 @@ import {
 } from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
 
-import { getTablePlusTheme, getTablePlusTranslations } from '../table-plus';
-import { type MenuRenderContext, renderMainMenu } from './menu-panels';
+import {
+  getContextMenu,
+  getTablePlusTheme,
+  getTablePlusTranslations,
+} from '../table-plus';
+import {
+  closeSubMenu,
+  isClickInSubMenu,
+  type MenuRenderContext,
+  renderMainMenu,
+} from './menu-panels';
 
 /**
  * 打开原生上下文菜单，定位在 handleEl 旁边
@@ -20,6 +29,7 @@ export function openContextMenu(
   const existing = document.querySelector('.tiptap-table-plus-context-menu');
   if (existing) {
     existing.remove();
+    closeSubMenu();
     return;
   }
 
@@ -34,6 +44,7 @@ export function openContextMenu(
   }
 
   let closeMenu = () => {
+    closeSubMenu();
     cleanup?.();
     menu.remove();
   };
@@ -44,6 +55,7 @@ export function openContextMenu(
     t,
     closeMenu,
     buildMainMenu: () => renderMainMenu(ctx),
+    contextMenu: getContextMenu(editor),
   };
 
   renderMainMenu(ctx);
@@ -72,6 +84,7 @@ export function openContextMenu(
     if (
       menu.isConnected &&
       !menu.contains(e.target as Node) &&
+      !isClickInSubMenu(e.target as Node) &&
       e.target !== handleEl &&
       !handleEl.contains(e.target as Node)
     ) {
@@ -98,6 +111,7 @@ export function openContextMenu(
   const origCloseMenu = closeMenu;
   closeMenu = () => {
     observer.disconnect();
+    document.removeEventListener('mousedown', handleOutsideClick, true);
     origCloseMenu();
   };
 }

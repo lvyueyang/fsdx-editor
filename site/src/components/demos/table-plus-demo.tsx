@@ -1,8 +1,9 @@
+import type { MenuListDef } from '@fsdx/tiptap-table-plus';
 import { TablePlus } from '@fsdx/tiptap-table-plus';
 import { TableKit } from '@tiptap/extension-table';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 function useIsDark(): boolean {
   const [isDark, setIsDark] = useState(false);
@@ -22,7 +23,7 @@ function useIsDark(): boolean {
   return isDark;
 }
 
-const initialHtml = `
+const defaultHtml = `
 <p>点击下方工具栏按钮插入表格，或使用右键上下文菜单进行操作。</p>
 `;
 
@@ -30,6 +31,24 @@ export default function TablePlusDemo() {
   const isDark = useIsDark();
   const [tableTheme, setTableTheme] = useState<'light' | 'dark'>('light');
   const [locale, setLocale] = useState<'zh-CN' | 'en-US'>('zh-CN');
+  const [customMenu, setCustomMenu] = useState(false);
+  const savedContentRef = useRef(defaultHtml);
+
+  const contextMenu = useCallback((items: MenuListDef) => {
+    const filtered = items.filter(
+      (item) => !('variant' in item && item.variant === 'destructive'),
+    );
+    filtered.push(
+      { type: 'separator' as const },
+      {
+        label: '来自 Demo',
+        iconHtml:
+          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3v10M3 3v2l4 2v4l2 1V7l4-2V3z"/></svg>',
+        onClick: () => alert('这是通过 contextMenu 添加的自定义菜单项'),
+      },
+    );
+    return filtered;
+  }, []);
 
   const editor = useEditor(
     {
@@ -42,17 +61,25 @@ export default function TablePlusDemo() {
         }),
         TablePlus.configure({
           locale,
+          ...(customMenu ? { contextMenu } : {}),
         }),
       ],
-      content: initialHtml,
+      content: savedContentRef.current,
     },
-    [locale],
+    [locale, customMenu],
   );
 
   useEffect(() => {
     if (!editor) return;
     editor.commands?.setTablePlusTheme(tableTheme);
   }, [editor, tableTheme]);
+
+  useEffect(() => {
+    if (!editor) return;
+    return () => {
+      savedContentRef.current = editor.getHTML();
+    };
+  }, [editor]);
 
   const btn = useCallback(
     (label: string, action: () => void) => (
@@ -114,6 +141,18 @@ export default function TablePlusDemo() {
             onClick={() => setLocale('en-US')}
           >
             English
+          </button>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ fontSize: 12, color: 'var(--demo-text-dim)' }}>
+            菜单：
+          </span>
+          <button
+            type="button"
+            style={themeBtnStyle(customMenu)}
+            onClick={() => setCustomMenu(!customMenu)}
+          >
+            自定义菜单
           </button>
         </div>
         <span className="demo-control-bar-hint">TablePlus 演示</span>
