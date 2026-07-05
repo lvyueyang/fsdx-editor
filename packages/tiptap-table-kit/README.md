@@ -81,18 +81,14 @@ const editor = new Editor({
 
 所有颜色/间距通过 CSS 自定义属性控制：
 
-| 变量 | 默认值 |
-|------|--------|
-| `--fsdx-tiptap-table-kit-space-1` | `4px` |
-| `--fsdx-tiptap-table-kit-space-2` | `6px` |
-| `--fsdx-tiptap-table-kit-space-3` | `10px` |
-| `--fsdx-tiptap-table-kit-space-6` | `28px` |
-| `--fsdx-tiptap-table-kit-border-default` | `#d4d4d8` |
-| `--fsdx-tiptap-table-kit-brand-200` | `#c4b5fd` |
-| `--fsdx-tiptap-table-kit-brand-400` | `#a78bfa` |
-| `--fsdx-tiptap-table-kit-radius-xs` | `4px` |
-| `--fsdx-tiptap-table-kit-font-weight-semibold` | `600` |
-| `--fsdx-tiptap-table-kit-content-table-header-bg` | `#f4f4f5` |
+| 变量 | 默认值 | 说明 |
+|------|--------|------|
+| `--fsdx-tiptap-table-kit-accent` | `#7c3aed` | 品牌色 |
+| `--fsdx-tiptap-table-kit-border` | `#d4d4d8` | 边框色 |
+| `--fsdx-tiptap-table-kit-bg` | `#fff` | 背景色 |
+| `--fsdx-tiptap-table-kit-bg-hover` | `#f4f4f5` | 悬停背景色 |
+| `--fsdx-tiptap-table-kit-text` | `#1a1a2e` | 主文字色 |
+| `--fsdx-tiptap-table-kit-radius` | `2px` | 圆角 |
 
 ## 许可
 

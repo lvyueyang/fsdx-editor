@@ -247,16 +247,12 @@ const editor = createEditor(containerElement, {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--fsdx-tiptap-table-kit-space-1` | `4px` | 最小间距 |
-| `--fsdx-tiptap-table-kit-space-2` | `6px` | 小间距 |
-| `--fsdx-tiptap-table-kit-space-3` | `10px` | 中间距 |
-| `--fsdx-tiptap-table-kit-space-6` | `28px` | 大间距 |
-| `--fsdx-tiptap-table-kit-border-default` | `#d4d4d8` | 边框色 |
-| `--fsdx-tiptap-table-kit-brand-200` | `#c4b5fd` | 品牌色（浅） |
-| `--fsdx-tiptap-table-kit-brand-400` | `#a78bfa` | 品牌色 |
-| `--fsdx-tiptap-table-kit-radius-xs` | `4px` | 圆角 |
-| `--fsdx-tiptap-table-kit-font-weight-semibold` | `600` | 字重 |
-| `--fsdx-tiptap-table-kit-content-table-header-bg` | `#f4f4f5` | 表头背景 |
+| `--fsdx-tiptap-table-kit-accent` | `#7c3aed` | 品牌色（选区边框、手柄、交互高亮） |
+| `--fsdx-tiptap-table-kit-border` | `#d4d4d8` | 边框/分隔线色 |
+| `--fsdx-tiptap-table-kit-bg` | `#fff` | 菜单/弹出层背景色 |
+| `--fsdx-tiptap-table-kit-bg-hover` | `#f4f4f5` | 菜单项悬停背景色 |
+| `--fsdx-tiptap-table-kit-text` | `#1a1a2e` | 主文字色 |
+| `--fsdx-tiptap-table-kit-radius` | `2px` | 圆角 |
 
 ## 测试约定
 

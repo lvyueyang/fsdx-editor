@@ -369,7 +369,6 @@
 
 .demo-editor-body .ProseMirror table {
   border-collapse: collapse;
-  margin: 12px 0;
   width: 100%;
   overflow: hidden;
 }

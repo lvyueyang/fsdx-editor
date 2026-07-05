@@ -1,39 +1,84 @@
-// CSS 自定义属性引用工具
-@function var-default($name, $default) {
-  @return var(--fsdx-tiptap-table-kit-#{$name}, #{$default});
-}
+// 核心主题变量 — 共 6 个 CSS 自定义属性
+$accent: var(--fsdx-tiptap-table-kit-accent, #7c3aed);
+$border: var(--fsdx-tiptap-table-kit-border, #d4d4d8);
+$bg: var(--fsdx-tiptap-table-kit-bg, #fff);
+$bg-hover: var(--fsdx-tiptap-table-kit-bg-hover, #f4f4f5);
+$text: var(--fsdx-tiptap-table-kit-text, #1a1a2e);
+$radius: var(--fsdx-tiptap-table-kit-radius, 2px);
 
-// 间距
-$space-1: var-default('space-1', 4px);
-$space-1_5: var-default('space-1_5', 5px);
-$space-2: var-default('space-2', 6px);
-
-// 颜色
-$brand-100: var-default('brand-100', #ede9fe);
-$brand-400: var-default('brand-400', #a78bfa);
-$brand-500: var-default('brand-500', #8b5cf6);
-$border-color: var-default('border-default', #d4d4d8);
-$surface-primary: var-default('surface-primary', #fff);
-$surface-hover: var-default('surface-hover', #f4f4f5);
-$text-primary: var-default('text-primary', #1a1a2e);
-$text-secondary: var-default('text-secondary', #64748b);
-$color-danger: var-default('color-danger', #ef4444);
-$color-danger-bg: var-default('color-danger-bg', #fef2f2);
-
-// 圆角
-$radius-xs: var-default('radius-xs', 4px);
-$radius-sm: var-default('radius-sm', 6px);
-$radius-md: var-default('radius-md', 8px);
-
-// 字号
+// 硬编码常量
+$space: 6px;
 $font-size-sm: 12px;
 $font-size-base: 13px;
 $font-size-lg: 14px;
-
-// 过渡时间
 $transition-fast: 0.15s ease;
 
+$control-gutter: 20px;
+
 :where(.tiptap-table-kit) {
+  /* ===== 表格包装器 ===== */
+  .tableWrapper {
+    position: relative;
+    padding-right: $control-gutter;
+    padding-bottom: $control-gutter;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  /* ===== 表格控件按钮 ===== */
+  .tiptap-table-kit-table-controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .tiptap-table-kit-table-controls-btn {
+    position: absolute;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid $border;
+    border-radius: $radius;
+    background: $bg;
+    color: $text;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-fast;
+    z-index: 5;
+
+    &:hover {
+      opacity: 1;
+      background: $accent;
+      border-color: $accent;
+      color: #fff;
+    }
+  }
+
+  .tiptap-table-kit-table-controls-btn--col {
+    right: 0;
+    top: 0;
+    width: calc($control-gutter - 4px);
+    height: calc(100% - $control-gutter);
+  }
+
+  .tiptap-table-kit-table-controls-btn--row {
+    left: 0;
+    bottom: 0;
+    width: calc(100% - $control-gutter);
+    height: calc($control-gutter - 4px);
+  }
+
+  .tableWrapper:hover .tiptap-table-kit-table-controls-btn {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   /* ===== 覆盖层容器 ===== */
   .tiptap-table-kit-selection-overlay-container {
     position: relative;
@@ -46,8 +91,9 @@ $transition-fast: 0.15s ease;
 
   /* ===== 选区边框 ===== */
   .tiptap-table-kit-selection-border {
-    border: 2px solid $brand-400;
-    border-radius: $radius-xs;
+    border: 2px solid $accent;
+    border-radius: $radius;
+    background: color-mix(in srgb, $accent 8%, transparent);
     pointer-events: none;
     z-index: 10;
     box-sizing: border-box;
@@ -75,7 +121,7 @@ $transition-fast: 0.15s ease;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: $brand-400;
+    background: $accent;
     transition: width $transition-fast, height $transition-fast, border-radius $transition-fast;
     overflow: hidden;
   }
@@ -84,34 +130,32 @@ $transition-fast: 0.15s ease;
     width: 0;
     height: 0;
     opacity: 0;
+    color: #fff;
     transition: width $transition-fast, height $transition-fast, opacity $transition-fast;
-    color: $brand-500;
   }
 
   .tiptap-table-kit-selection-handle:hover,
   .tiptap-table-kit-selection-handle:focus-visible {
     .tiptap-table-kit-selection-handle-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: var-default('radius-sm', 6px);
-      background: $brand-100;
+      width: 20px;
+      height: 20px;
     }
 
     .tiptap-table-kit-selection-handle-icon {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       opacity: 1;
     }
   }
 
   /* ===== 上下文菜单 ===== */
-  .tiptap-table-kit-context-menu {
+  &.tiptap-table-kit-context-menu {
     min-width: 200px;
-    background: $surface-primary;
-    border: 1px solid $border-color;
-    border-radius: $radius-md;
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: $radius;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: $space-1;
+    padding: $space;
     z-index: 20;
     overflow: hidden;
   }
@@ -120,18 +164,18 @@ $transition-fast: 0.15s ease;
     display: flex;
     align-items: center;
     width: 100%;
-    padding: $space-1_5 $space-2;
+    padding: $space $space;
     border: none;
-    border-radius: $radius-sm;
+    border-radius: $radius;
     background: transparent;
-    color: $text-primary;
+    color: $text;
     font-size: $font-size-base;
     line-height: 1.4;
     cursor: pointer;
     text-align: left;
 
     &:hover:not(:disabled) {
-      background: $surface-hover;
+      background: $bg-hover;
     }
 
     &:disabled {
@@ -141,17 +185,17 @@ $transition-fast: 0.15s ease;
   }
 
   .tiptap-table-kit-context-menu-item--destructive {
-    color: $color-danger;
+    color: #ef4444;
 
     &:hover:not(:disabled) {
-      background: $color-danger-bg;
+      background: #fef2f2;
     }
   }
 
   .tiptap-table-kit-context-menu-separator {
     height: 1px;
-    background: $border-color;
-    margin: $space-1 $space-2;
+    background: $border;
+    margin: $space $space;
     opacity: 0.5;
   }
 
@@ -159,16 +203,16 @@ $transition-fast: 0.15s ease;
     display: flex;
     align-items: center;
     width: 100%;
-    padding: $space-1_5 $space-2;
+    padding: $space $space;
     border: none;
-    border-radius: $radius-sm;
+    border-radius: $radius;
     background: transparent;
-    color: $text-secondary;
+    color: color-mix(in srgb, $text 50%, transparent);
     font-size: $font-size-base;
     cursor: pointer;
 
     &:hover {
-      background: $surface-hover;
+      background: $bg-hover;
     }
   }
 
@@ -183,14 +227,14 @@ $transition-fast: 0.15s ease;
   }
 
   .tiptap-table-kit-context-menu-color-header {
-    padding: $space-1 $space-2;
+    padding: $space $space;
   }
 
   /* ===== 菜单项图标 ===== */
   .tiptap-table-kit-menu-item-icon {
     width: 16px;
     height: 16px;
-    margin-right: $space-2;
+    margin-right: $space;
     flex-shrink: 0;
     opacity: 0.7;
   }
@@ -198,16 +242,16 @@ $transition-fast: 0.15s ease;
   /* ===== 颜色重置按钮 ===== */
   .tiptap-table-kit-color-reset-btn {
     width: 100%;
-    padding: $space-1 $space-2;
-    border: 1px solid $border-color;
-    border-radius: $radius-sm;
+    padding: $space $space;
+    border: 1px solid $border;
+    border-radius: $radius;
     background: transparent;
-    color: $text-primary;
+    color: $text;
     font-size: $font-size-sm;
     cursor: pointer;
 
     &:hover {
-      background: $surface-hover;
+      background: $bg-hover;
     }
   }
 
@@ -222,8 +266,8 @@ $transition-fast: 0.15s ease;
   .tiptap-table-kit-color-grid-item {
     width: 20px;
     height: 20px;
-    border: 1px solid $border-color;
-    border-radius: $radius-xs;
+    border: 1px solid $border;
+    border-radius: $radius;
     padding: 0;
     cursor: pointer;
     outline: none;
@@ -232,30 +276,33 @@ $transition-fast: 0.15s ease;
     &:hover,
     &:focus-visible {
       transform: scale(1.2);
-      border-color: $brand-400;
+      border-color: $accent;
       z-index: 1;
     }
 
     &[data-active='true'] {
-      box-shadow: 0 0 0 2px $brand-400;
+      box-shadow: 0 0 0 2px $accent;
     }
   }
 }
 
 /* ===== 暗色主题 ===== */
 :where(.tiptap-table-kit-dark) {
-  --fsdx-tiptap-table-kit-border-default: #3f3f46;
-  --fsdx-tiptap-table-kit-brand-100: rgba(139, 92, 246, 0.15);
-  --fsdx-tiptap-table-kit-brand-400: #a78bfa;
-  --fsdx-tiptap-table-kit-brand-500: #c4b5fd;
-  --fsdx-tiptap-table-kit-surface-primary: #1e1e2e;
-  --fsdx-tiptap-table-kit-surface-hover: #2d2d3f;
-  --fsdx-tiptap-table-kit-text-primary: #e4e4e7;
-  --fsdx-tiptap-table-kit-text-secondary: #a1a1aa;
-  --fsdx-tiptap-table-kit-color-danger: #f87171;
-  --fsdx-tiptap-table-kit-color-danger-bg: rgba(248, 113, 113, 0.12);
+  --fsdx-tiptap-table-kit-accent: #a78bfa;
+  --fsdx-tiptap-table-kit-border: #3f3f46;
+  --fsdx-tiptap-table-kit-bg: #1e1e2e;
+  --fsdx-tiptap-table-kit-bg-hover: #2d2d3f;
+  --fsdx-tiptap-table-kit-text: #e4e4e7;
 
-  .tiptap-table-kit-context-menu {
+  &.tiptap-table-kit-context-menu {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .tiptap-table-kit-context-menu-item--destructive {
+    color: #f87171;
+
+    &:hover:not(:disabled) {
+      background: rgba(248, 113, 113, 0.12);
+    }
   }
 }
