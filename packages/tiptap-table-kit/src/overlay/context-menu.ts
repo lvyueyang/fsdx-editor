@@ -28,7 +28,7 @@ export function openContextMenu(
   const t = getTableKitTranslations(editor);
 
   const menu = document.createElement('div');
-  menu.className = 'tiptap-table-kit-context-menu';
+  menu.className = 'tiptap-table-kit tiptap-table-kit-context-menu';
   if (getTableKitTheme(editor) === 'dark') {
     menu.classList.add('tiptap-table-kit-dark');
   }

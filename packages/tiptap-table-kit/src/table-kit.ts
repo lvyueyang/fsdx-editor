@@ -126,6 +126,7 @@ export const TableKit = Table.extend<TableKitOptions>({
 
     editorStateMap.set(this.editor, { translations, theme, locale });
 
+    this.editor.view.dom.classList.add('tiptap-table-kit');
     if (theme === 'dark') {
       this.editor.view.dom.classList.add('tiptap-table-kit-dark');
     }

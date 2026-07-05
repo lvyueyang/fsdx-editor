@@ -1,0 +1,261 @@
+// CSS 自定义属性引用工具
+@function var-default($name, $default) {
+  @return var(--fsdx-tiptap-table-kit-#{$name}, #{$default});
+}
+
+// 间距
+$space-1: var-default('space-1', 4px);
+$space-1_5: var-default('space-1_5', 5px);
+$space-2: var-default('space-2', 6px);
+
+// 颜色
+$brand-100: var-default('brand-100', #ede9fe);
+$brand-400: var-default('brand-400', #a78bfa);
+$brand-500: var-default('brand-500', #8b5cf6);
+$border-color: var-default('border-default', #d4d4d8);
+$surface-primary: var-default('surface-primary', #fff);
+$surface-hover: var-default('surface-hover', #f4f4f5);
+$text-primary: var-default('text-primary', #1a1a2e);
+$text-secondary: var-default('text-secondary', #64748b);
+$color-danger: var-default('color-danger', #ef4444);
+$color-danger-bg: var-default('color-danger-bg', #fef2f2);
+
+// 圆角
+$radius-xs: var-default('radius-xs', 4px);
+$radius-sm: var-default('radius-sm', 6px);
+$radius-md: var-default('radius-md', 8px);
+
+// 字号
+$font-size-sm: 12px;
+$font-size-base: 13px;
+$font-size-lg: 14px;
+
+// 过渡时间
+$transition-fast: 0.15s ease;
+
+:where(.tiptap-table-kit) {
+  /* ===== 覆盖层容器 ===== */
+  .tiptap-table-kit-selection-overlay-container {
+    position: relative;
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+
+  /* ===== 选区边框 ===== */
+  .tiptap-table-kit-selection-border {
+    border: 2px solid $brand-400;
+    border-radius: $radius-xs;
+    pointer-events: none;
+    z-index: 10;
+    box-sizing: border-box;
+  }
+
+  /* ===== 选区操作手柄 ===== */
+  .tiptap-table-kit-selection-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+    transform: translate(-11px, -10px);
+  }
+
+  .tiptap-table-kit-selection-handle-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $brand-400;
+    transition: width $transition-fast, height $transition-fast, border-radius $transition-fast;
+    overflow: hidden;
+  }
+
+  .tiptap-table-kit-selection-handle-icon {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: width $transition-fast, height $transition-fast, opacity $transition-fast;
+    color: $brand-500;
+  }
+
+  .tiptap-table-kit-selection-handle:hover,
+  .tiptap-table-kit-selection-handle:focus-visible {
+    .tiptap-table-kit-selection-handle-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: var-default('radius-sm', 6px);
+      background: $brand-100;
+    }
+
+    .tiptap-table-kit-selection-handle-icon {
+      width: 12px;
+      height: 12px;
+      opacity: 1;
+    }
+  }
+
+  /* ===== 上下文菜单 ===== */
+  .tiptap-table-kit-context-menu {
+    min-width: 200px;
+    background: $surface-primary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: $space-1;
+    z-index: 20;
+    overflow: hidden;
+  }
+
+  .tiptap-table-kit-context-menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: $space-1_5 $space-2;
+    border: none;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $text-primary;
+    font-size: $font-size-base;
+    line-height: 1.4;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover:not(:disabled) {
+      background: $surface-hover;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .tiptap-table-kit-context-menu-item--destructive {
+    color: $color-danger;
+
+    &:hover:not(:disabled) {
+      background: $color-danger-bg;
+    }
+  }
+
+  .tiptap-table-kit-context-menu-separator {
+    height: 1px;
+    background: $border-color;
+    margin: $space-1 $space-2;
+    opacity: 0.5;
+  }
+
+  .tiptap-table-kit-context-menu-back {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: $space-1_5 $space-2;
+    border: none;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $text-secondary;
+    font-size: $font-size-base;
+    cursor: pointer;
+
+    &:hover {
+      background: $surface-hover;
+    }
+  }
+
+  .tiptap-table-kit-context-menu-arrow {
+    margin-left: auto;
+    font-size: $font-size-lg;
+    opacity: 0.5;
+  }
+
+  .tiptap-table-kit-context-menu-label {
+    flex: 1;
+  }
+
+  .tiptap-table-kit-context-menu-color-header {
+    padding: $space-1 $space-2;
+  }
+
+  /* ===== 菜单项图标 ===== */
+  .tiptap-table-kit-menu-item-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: $space-2;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* ===== 颜色重置按钮 ===== */
+  .tiptap-table-kit-color-reset-btn {
+    width: 100%;
+    padding: $space-1 $space-2;
+    border: 1px solid $border-color;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $text-primary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+
+    &:hover {
+      background: $surface-hover;
+    }
+  }
+
+  /* ===== 颜色网格 ===== */
+  .tiptap-table-kit-color-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 20px);
+    gap: 4px;
+    padding: 4px 8px 8px;
+  }
+
+  .tiptap-table-kit-color-grid-item {
+    width: 20px;
+    height: 20px;
+    border: 1px solid $border-color;
+    border-radius: $radius-xs;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.1s;
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.2);
+      border-color: $brand-400;
+      z-index: 1;
+    }
+
+    &[data-active='true'] {
+      box-shadow: 0 0 0 2px $brand-400;
+    }
+  }
+}
+
+/* ===== 暗色主题 ===== */
+:where(.tiptap-table-kit-dark) {
+  --fsdx-tiptap-table-kit-border-default: #3f3f46;
+  --fsdx-tiptap-table-kit-brand-100: rgba(139, 92, 246, 0.15);
+  --fsdx-tiptap-table-kit-brand-400: #a78bfa;
+  --fsdx-tiptap-table-kit-brand-500: #c4b5fd;
+  --fsdx-tiptap-table-kit-surface-primary: #1e1e2e;
+  --fsdx-tiptap-table-kit-surface-hover: #2d2d3f;
+  --fsdx-tiptap-table-kit-text-primary: #e4e4e7;
+  --fsdx-tiptap-table-kit-text-secondary: #a1a1aa;
+  --fsdx-tiptap-table-kit-color-danger: #f87171;
+  --fsdx-tiptap-table-kit-color-danger-bg: rgba(248, 113, 113, 0.12);
+
+  .tiptap-table-kit-context-menu {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}

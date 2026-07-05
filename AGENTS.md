@@ -75,7 +75,7 @@ packages/
 │       │   ├── table-helpers.ts  # 表格位置/选区工具函数
 │       │   └── editor-utils.ts   # 通用编辑器工具函数
 │       └── styles/
-│           └── table.css         # 表格样式 + CSS 自定义属性
+│   └── table.scss        # 表格样式（SCSS）+ CSS 自定义属性
 site/                        # Astro + Starlight 文档站点
 ├── astro.config.mjs         # Astro 配置（Starlight 插件 + React 集成）
 ├── package.json
