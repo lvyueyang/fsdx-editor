@@ -89,12 +89,10 @@ function simulateUpload(
 }
 
 function useIsDark(): boolean {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof document === 'undefined') return false;
-    return document.documentElement.getAttribute('data-theme') === 'dark';
-  });
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
+    setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
     const observer = new MutationObserver(() => {
       setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
     });

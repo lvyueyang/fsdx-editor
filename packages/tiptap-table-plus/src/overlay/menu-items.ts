@@ -1,22 +1,9 @@
 import type { Editor } from '@tiptap/core';
-import type { TablePlusTranslations } from '../i18n/types';
-
-/** ChainedCommands 扩展：setTextAlign 由 @tiptap/extension-text-align 提供 */
-interface AlignableChain extends ReturnType<Editor['chain']> {
-  setTextAlign(alignment: 'left' | 'center' | 'right' | 'justify'): this;
-}
-
-function alignText(
-  editor: Editor | null,
-  alignment: 'left' | 'center' | 'right' | 'justify',
-): void {
-  (editor?.chain().focus() as AlignableChain).setTextAlign(alignment).run();
-}
-
 import {
   clearSelectedCells,
   setCellVerticalAlign,
 } from '../commands/table-cell';
+import type { TablePlusTranslations } from '../i18n/types';
 import {
   ICON_ALIGN_CENTER,
   ICON_ALIGN_JUSTIFY,
@@ -145,22 +132,25 @@ export function buildMainMenuItems(
         {
           label: t.alignLeft,
           iconHtml: ICON_ALIGN_LEFT,
-          onClick: () => alignText(editor, 'left'),
+          onClick: () => editor?.chain().focus().setCellTextAlign('left').run(),
         },
         {
           label: t.alignCenter,
           iconHtml: ICON_ALIGN_CENTER,
-          onClick: () => alignText(editor, 'center'),
+          onClick: () =>
+            editor?.chain().focus().setCellTextAlign('center').run(),
         },
         {
           label: t.alignRight,
           iconHtml: ICON_ALIGN_RIGHT,
-          onClick: () => alignText(editor, 'right'),
+          onClick: () =>
+            editor?.chain().focus().setCellTextAlign('right').run(),
         },
         {
           label: t.alignJustify,
           iconHtml: ICON_ALIGN_JUSTIFY,
-          onClick: () => alignText(editor, 'justify'),
+          onClick: () =>
+            editor?.chain().focus().setCellTextAlign('justify').run(),
         },
       ],
     },

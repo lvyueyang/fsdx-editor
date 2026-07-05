@@ -16,15 +16,7 @@ interface TableControls {
   scrollHandler: () => void;
   tableEl: HTMLTableElement | null;
   wrapper: HTMLElement;
-}
-
-/** 获取表格在文档中的位置 */
-function getTablePos(view: EditorView, wrapper: HTMLElement): number | null {
-  try {
-    return view.posAtDOM(wrapper, 0);
-  } catch {
-    return null;
-  }
+  pos: number;
 }
 
 /** 创建控制按钮 */
@@ -74,6 +66,7 @@ function attachControls(
   wrapper: HTMLElement,
   view: EditorView,
   translations: TablePlusTranslations,
+  pos: number,
 ): TableControls {
   const controlsDiv = document.createElement('div');
   controlsDiv.className = 'tiptap-table-plus-table-controls';
@@ -87,8 +80,6 @@ function attachControls(
   );
   addColBtn.addEventListener('mousedown', (e) => e.preventDefault());
   addColBtn.addEventListener('click', () => {
-    const pos = getTablePos(view, wrapper);
-    if (pos == null) return;
     const doc = view.state.doc;
     const node = doc.nodeAt(pos);
     if (!node) return;
@@ -105,8 +96,6 @@ function attachControls(
   );
   addRowBtn.addEventListener('mousedown', (e) => e.preventDefault());
   addRowBtn.addEventListener('click', () => {
-    const pos = getTablePos(view, wrapper);
-    if (pos == null) return;
     const doc = view.state.doc;
     const node = doc.nodeAt(pos);
     if (!node) return;
@@ -155,6 +144,7 @@ function attachControls(
     scrollHandler,
     tableEl: tableEl instanceof HTMLTableElement ? tableEl : null,
     wrapper,
+    pos,
   };
 }
 
@@ -190,7 +180,7 @@ export function createTableControlsPlugin(
           if (!managed.has(wrapper)) {
             managed.set(
               wrapper,
-              attachControls(wrapper, editorView, getTranslations()),
+              attachControls(wrapper, editorView, getTranslations(), pos),
             );
           }
         });
