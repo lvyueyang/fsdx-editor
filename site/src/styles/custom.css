@@ -501,3 +501,20 @@
   margin: 0;
   padding: 0;
 }
+
+/* ===== 列宽调整句柄 ===== */
+.column-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: -2px;
+  right: -3px;
+  width: 6px;
+  background: var(--fsdx-tiptap-table-plus-accent, #7c3aed);
+  cursor: col-resize;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.resize-cursor {
+  cursor: col-resize;
+}

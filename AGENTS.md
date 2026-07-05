@@ -43,14 +43,14 @@ packages/
 │   │       └── media-upload.ts      # 媒体上传触发器
 │   └── tests/
 │       └── index.test.ts            # 编辑器测试
-├── tiptap-table-kit/        # @fsdx/tiptap-table-kit — 表格增强套件
+├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
 │   ├── package.json
 │   ├── README.md
 │   ├── rslib.config.ts      # Bundleless ESM，仅输出 ESM
 │   ├── tsconfig.json
 │   └── src/
-│       ├── index.ts              # 公开入口（TableKit + i18n 导出）
-│       ├── table-kit.ts          # TableKit 扩展定义 + 全局命令注册 + state 管理
+│       ├── index.ts              # 公开入口（TablePlus + i18n 导出）
+│       ├── table-plus.ts          # TablePlus 扩展定义 + 全局命令注册 + state 管理
 │       ├── palette.ts            # 表格专用色板
 │       ├── env.d.ts              # 环境类型声明
 │       ├── commands/             # 表格操作命令
@@ -58,9 +58,9 @@ packages/
 │       │   ├── table-cell.ts     # 单元格命令（清除、颜色、对齐、复制、自适应等）
 │       │   └── table-row-column.ts  # 行列命令（移动、复制、排序）
 │       ├── extensions/           # 子扩展
-│       │   ├── custom-table-view.ts   # 自定义 TableView（控件 + 覆盖层容器）
 │       │   ├── table-cell-style.ts    # 单元格文字颜色 + 垂直对齐
 │       │   └── node-background.ts     # 块级节点背景色（通用 Extension）
+│       ├── table-controls-plugin.ts    # ProseMirror Plugin，为表格注入加行/加列按钮和覆盖层容器
 │       ├── overlay/              # 表格选区覆盖层
 │       │   ├── table-selection-overlay.ts  # 选区覆盖层 + 拖拽手柄
 │       │   ├── menu-builder.ts            # 行/列右键菜单构建
@@ -68,7 +68,7 @@ packages/
 │       │   └── icon-svgs.ts              # SVG 图标常量
 │       ├── i18n/                 # 国际化
 │       │   ├── index.ts          # 内置翻译导出
-│       │   ├── types.ts          # TableKitTranslations 类型
+│       │   ├── types.ts          # TablePlusTranslations 类型
 │       │   ├── zh-CN.ts          # 简体中文
 │       │   └── en-US.ts          # 英文
 │       ├── utils/
@@ -87,7 +87,7 @@ site/                        # Astro + Starlight 文档站点
     │   └── demos/               # 5 个交互式 Demo
     │       ├── editor-demo.tsx
     │       ├── vanilla-demo.tsx
-    │       ├── table-kit-demo.tsx
+    │       ├── table-plus-demo.tsx
     │       ├── theme-demo.tsx
     │       └── i18n-demo.tsx
     ├── content/
@@ -95,7 +95,7 @@ site/                        # Astro + Starlight 文档站点
     │   └── docs/                # MDX 文档
     │       ├── index.mdx
     │       ├── editor/          # 编辑器文档
-    │       └── table-kit/       # 表格套件文档
+    │       └── table-plus/       # 表格套件文档
     ├── pages/
     │   └── demos/[slug].astro   # Demo 独立页面路由
     └── styles/
@@ -121,7 +121,7 @@ site/                        # Astro + Starlight 文档站点
 
 ### 各包 Rslib 配置对比
 
-| 配置项 | @fsdx/editor | @fsdx/tiptap-table-kit |
+| 配置项 | @fsdx/editor | @fsdx/tiptap-table-plus |
 |--------|--------------|------------------------|
 | 构建模式 | 主入口打包 | Bundleless（`bundle: false`） |
 | 输出格式 | ESM + CJS | 仅 ESM |
@@ -133,7 +133,7 @@ site/                        # Astro + Starlight 文档站点
 ### 包入口约定
 
 - `@fsdx/editor`：`exports` 同时声明 `types`（`.d.ts`）、`import`（ESM）、`require`（CJS）
-- `@fsdx/tiptap-table-kit`：仅 ESM，`sideEffects: ["**/*.css"]` 标记 CSS 为副作用
+- `@fsdx/tiptap-table-plus`：仅 ESM，`sideEffects: ["**/*.css"]` 标记 CSS 为副作用
 - 两个包 `files` 均仅包含 `dist`
 
 ### 站点构建
@@ -199,7 +199,7 @@ const editor = createEditor(containerElement, {
 3. **对齐与缩进**：TextAlign / Indent
 4. **特殊标记**：Subscript / Superscript / Typography
 5. **列表**：TaskList / TaskItem
-6. **表格**：TableKit（来自 @fsdx/tiptap-table-kit）
+6. **表格**：Table（来自 @tiptap/extension-table）+ TablePlus（来自 @fsdx/tiptap-table-plus，增强套件）
 7. **占位符**：Placeholder（@tiptap/extensions）
 8. **气泡菜单**：BubbleMenu
 9. **媒体**：ImageUpload / VideoNode / AudioNode / AttachmentNode
@@ -222,15 +222,15 @@ const editor = createEditor(containerElement, {
 
 ### 表格增强套件
 
-`@fsdx/tiptap-table-kit` 提供独立可复用的表格增强：
+`@fsdx/tiptap-table-plus` 提供独立可复用的表格增强：
 
-- `TableKit` 是唯一的公开扩展，继承 `@tiptap/extension-table`
+- `TablePlus` 是唯一的公开扩展，作为 `Extension` 独立注册，需配合 `Table` 扩展使用
 - 自动集成 `TableCellStyle`、`TableSelectionOverlay`、`NodeBackground` 三个子扩展
 - 注册 20+ 表格操作命令（行列移动、复制、排序、清除、颜色等）
 - 内置中英文翻译，通过 `configure({ locale: 'en-US' })` 切换
 - 支持局部翻译覆盖：`configure({ translations: { deleteRow: '...' } })`
-- 通过 `getTableKitTranslations(editor)` / `getTableKitTheme(editor)` 读取运行时状态
-- 样式通过 CSS 变量 `--fsdx-tiptap-table-kit-*` 控制，可在外部覆盖
+- 通过 `getTablePlusTranslations(editor)` / `getTablePlusTheme(editor)` 读取运行时状态
+- 样式通过 CSS 变量 `--fsdx-tiptap-table-plus-*` 控制，可在外部覆盖
 
 ## 主题系统
 
@@ -238,7 +238,7 @@ const editor = createEditor(containerElement, {
 
 - 通过容器 class `fsdx-editor-dark` 切换暗色模式
 - `setTheme('dark')` 自动在容器上添加/移除 class
-- 同时调用 `editor.commands.setTableKitTheme(theme)` 同步表格主题
+- 同时调用 `editor.commands.setTablePlusTheme(theme)` 同步表格主题
 - 编辑器所有颜色通过 CSS 自定义属性控制，外部可覆盖
 
 ### 表格套件 CSS 变量
@@ -247,12 +247,12 @@ const editor = createEditor(containerElement, {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--fsdx-tiptap-table-kit-accent` | `#7c3aed` | 品牌色（选区边框、手柄、交互高亮） |
-| `--fsdx-tiptap-table-kit-border` | `#d4d4d8` | 边框/分隔线色 |
-| `--fsdx-tiptap-table-kit-bg` | `#fff` | 菜单/弹出层背景色 |
-| `--fsdx-tiptap-table-kit-bg-hover` | `#f4f4f5` | 菜单项悬停背景色 |
-| `--fsdx-tiptap-table-kit-text` | `#1a1a2e` | 主文字色 |
-| `--fsdx-tiptap-table-kit-radius` | `2px` | 圆角 |
+| `--fsdx-tiptap-table-plus-accent` | `#7c3aed` | 品牌色（选区边框、手柄、交互高亮） |
+| `--fsdx-tiptap-table-plus-border` | `#d4d4d8` | 边框/分隔线色 |
+| `--fsdx-tiptap-table-plus-bg` | `#fff` | 菜单/弹出层背景色 |
+| `--fsdx-tiptap-table-plus-bg-hover` | `#f4f4f5` | 菜单项悬停背景色 |
+| `--fsdx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
+| `--fsdx-tiptap-table-plus-radius` | `2px` | 圆角 |
 
 ## 测试约定
 
@@ -276,8 +276,8 @@ const editor = createEditor(containerElement, {
 
 | 命令 | 说明 |
 |------|------|
-| `pnpm dev` | 构建 editor + table-kit，同时启动 Astro 站点开发服务器 |
-| `pnpm build` | 构建所有包（editor + table-kit + site） |
+| `pnpm dev` | 构建 editor + table-plus，同时启动 Astro 站点开发服务器 |
+| `pnpm build` | 构建所有包（editor + table-plus + site） |
 | `pnpm build:site` | 仅构建文档站点 |
 | `pnpm check` | Biome 代码检查并自动修复 |
 | `pnpm format` | Biome 代码格式化 |

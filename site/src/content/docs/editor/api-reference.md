@@ -140,7 +140,7 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | Typography | 印刷符号智能替换 |
 | TaskList / TaskItem | 任务列表 |
 | Indent | 段落缩进 |
-| TableKit | 表格（可调整列宽） |
+| TablePlus | 表格（可调整列宽） |
 | Placeholder | 占位符提示 |
 | BubbleMenu | 选中文字气泡菜单 |
 | ImageUpload | 图片上传与插入 |

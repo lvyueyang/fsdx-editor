@@ -1,0 +1,43 @@
+{
+  "name": "@fsdx/tiptap-table-plus",
+  "version": "1.0.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles/*": "./dist/styles/*",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rslib --watch",
+    "build": "rslib build"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.7.6"
+  },
+  "peerDependencies": {
+    "@tiptap/core": "^3.27.1",
+    "@tiptap/extension-table": "^3.27.1",
+    "@tiptap/pm": "^3.27.1"
+  },
+  "devDependencies": {
+    "@rsbuild/plugin-sass": "^2.0.1",
+    "@rslib/core": "^0.23.0",
+    "sass": "^1.101.0",
+    "typescript": "^6.0.3"
+  }
+}

@@ -34,14 +34,8 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Table Kit',
-          items: [
-            { slug: 'table-kit' },
-            { slug: 'table-kit/demo' },
-            { slug: 'table-kit/theme' },
-            { slug: 'table-kit/i18n' },
-            { slug: 'table-kit/api-reference' },
-          ],
+          label: 'Table Plus',
+          items: [{ slug: 'table-plus' }, { slug: 'table-plus/api-reference' }],
         },
       ],
     }),

@@ -29,8 +29,8 @@ editor.setHTML('<p>Hello World</p>')
 
 | 命令 | 说明 |
 |------|------|
-| `pnpm dev` | 构建 editor + table-kit，同时启动文档站点开发服务器 |
-| `pnpm build` | 构建所有包（editor + table-kit + site） |
+| `pnpm dev` | 构建 editor + table-plus，同时启动文档站点开发服务器 |
+| `pnpm build` | 构建所有包（editor + table-plus + site） |
 | `pnpm build:site` | 仅构建文档站点 |
 | `pnpm check` | Biome 代码检查并自动修复 |
 | `pnpm format` | Biome 代码格式化 |
@@ -42,7 +42,7 @@ editor.setHTML('<p>Hello World</p>')
 ```
 packages/
 ├── editor/                  # @fsdx/editor — 零框架依赖编辑器
-├── tiptap-table-kit/        # @fsdx/tiptap-table-kit — 表格增强套件
+├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
 site/                        # Astro + Starlight 文档站点
 ```
 

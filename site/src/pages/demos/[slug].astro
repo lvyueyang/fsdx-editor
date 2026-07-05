@@ -1,19 +1,13 @@
 ---
 import EditorDemo from '../../components/demos/editor-demo.tsx';
-import I18nDemo from '../../components/demos/i18n-demo.tsx';
-import TableKitDemo from '../../components/demos/table-kit-demo.tsx';
-import ThemeDemo from '../../components/demos/theme-demo.tsx';
+import TablePlusDemo from '../../components/demos/table-plus-demo.tsx';
 import VanillaDemo from '../../components/demos/vanilla-demo.tsx';
 import '../../styles/custom.css';
 
 export function getStaticPaths() {
-  return [
-    'editor-demo',
-    'vanilla-demo',
-    'table-kit-demo',
-    'theme-demo',
-    'i18n-demo',
-  ].map((slug) => ({ params: { slug } }));
+  return ['editor-demo', 'vanilla-demo', 'table-plus-demo'].map((slug) => ({
+    params: { slug },
+  }));
 }
 
 const { slug } = Astro.params;
@@ -42,9 +36,7 @@ const { slug } = Astro.params;
   <body style="margin:0;">
     {slug === 'editor-demo' && <EditorDemo client:load />}
     {slug === 'vanilla-demo' && <VanillaDemo client:load />}
-    {slug === 'table-kit-demo' && <TableKitDemo client:load />}
-    {slug === 'theme-demo' && <ThemeDemo client:load />}
-    {slug === 'i18n-demo' && <I18nDemo client:load />}
+    {slug === 'table-plus-demo' && <TablePlusDemo client:load />}
     <script is:inline>
       function sendHeight() {
         const height = document.documentElement.scrollHeight;

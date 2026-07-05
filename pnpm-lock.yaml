@@ -17,9 +17,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.7.6
         version: 1.7.6
-      '@fsdx/tiptap-table-kit':
+      '@fsdx/tiptap-table-plus':
         specifier: workspace:*
-        version: link:../tiptap-table-kit
+        version: link:../tiptap-table-plus
       '@tiptap/core':
         specifier: ^3.27.1
         version: 3.27.1(@tiptap/pm@3.27.1)
@@ -76,7 +76,7 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
-  packages/tiptap-table-kit:
+  packages/tiptap-table-plus:
     dependencies:
       '@floating-ui/dom':
         specifier: ^1.7.6
@@ -118,9 +118,9 @@ importers:
       '@fsdx/editor':
         specifier: workspace:*
         version: link:../packages/editor
-      '@fsdx/tiptap-table-kit':
+      '@fsdx/tiptap-table-plus':
         specifier: workspace:*
-        version: link:../packages/tiptap-table-kit
+        version: link:../packages/tiptap-table-plus
       '@tiptap/core':
         specifier: ^3.27.1
         version: 3.27.1(@tiptap/pm@3.27.1)
