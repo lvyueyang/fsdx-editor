@@ -64,7 +64,7 @@ export const ICON_TEXT_COLOR = createSvg(
   '0 0 16 16',
   '<path d="M4 14h8M8 2 5 10h6L8 2z"/><path d="M6 8h4"/>',
 );
-export const ICON_BG_COLOR = createSvg(
+export const ICON_BACKGROUND_COLOR = createSvg(
   '0 0 16 16',
   '<path d="M2 2h12v12H2z"/><path d="M6 8 4 6 7 3l2 2z"/>',
 );
@@ -84,15 +84,15 @@ export const ICON_ALIGN_JUSTIFY = createSvg(
   '0 0 16 16',
   '<path d="M3 4h10M3 8h10M3 12h10"/>',
 );
-export const ICON_VA_TOP = createSvg(
+export const ICON_VERTICAL_ALIGN_TOP = createSvg(
   '0 0 16 16',
   '<path d="M3 3h10M5 7 8 4l3 3M8 4v9"/>',
 );
-export const ICON_VA_MIDDLE = createSvg(
+export const ICON_VERTICAL_ALIGN_MIDDLE = createSvg(
   '0 0 16 16',
   '<path d="M3 8h10M6 4l2-2 2 2M8 2v12M6 12l2 2 2-2"/>',
 );
-export const ICON_VA_BOTTOM = createSvg(
+export const ICON_VERTICAL_ALIGN_BOTTOM = createSvg(
   '0 0 16 16',
   '<path d="M3 13h10M5 9l3 3 3-3M8 12V3"/>',
 );

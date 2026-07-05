@@ -1,10 +1,10 @@
 /* 覆盖层容器（由 CustomTableView 注入） */
-.table-selection-overlay-container {
+.tiptap-table-kit-selection-overlay-container {
   position: relative;
   pointer-events: none;
 }
 
-.table-selection-overlay-container > * {
+.tiptap-table-kit-selection-overlay-container > * {
   pointer-events: auto;
 }
 

@@ -28,47 +28,32 @@ import { enUS } from './i18n/en-US';
 import type { TableKitTranslations } from './i18n/types';
 import { zhCN } from './i18n/zh-CN';
 import { TableSelectionOverlay } from './overlay/table-selection-overlay';
+import { editorStateMap, getOrInitState } from './utils/state-store';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    moveRowUp: () => ReturnType;
-    moveRowDown: () => ReturnType;
-    moveColumnLeft: () => ReturnType;
-    moveColumnRight: () => ReturnType;
-    duplicateRow: () => ReturnType;
-    duplicateColumn: () => ReturnType;
-    sortColumnAsc: () => ReturnType;
-    sortColumnDesc: () => ReturnType;
-    clearSelectedCells: () => ReturnType;
-    setCellTextColor: (color: string) => ReturnType;
-    unsetCellTextColor: () => ReturnType;
-    setCellBackgroundColor: (color: string) => ReturnType;
-    unsetCellBackgroundColor: () => ReturnType;
-    fitToWidth: () => ReturnType;
-    copySelectedCells: () => ReturnType;
-    clearRowContent: () => ReturnType;
-    clearColumnContent: () => ReturnType;
-    clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
-    /** 动态切换表格主题 */
-    setTableKitTheme: (theme: 'light' | 'dark') => ReturnType;
+    tableKit: {
+      moveRowUp: () => ReturnType;
+      moveRowDown: () => ReturnType;
+      moveColumnLeft: () => ReturnType;
+      moveColumnRight: () => ReturnType;
+      duplicateRow: () => ReturnType;
+      duplicateColumn: () => ReturnType;
+      sortColumnAsc: () => ReturnType;
+      sortColumnDesc: () => ReturnType;
+      clearSelectedCells: () => ReturnType;
+      setCellTextColor: (color: string) => ReturnType;
+      unsetCellTextColor: () => ReturnType;
+      setCellBackgroundColor: (color: string) => ReturnType;
+      unsetCellBackgroundColor: () => ReturnType;
+      fitToWidth: () => ReturnType;
+      copySelectedCells: () => ReturnType;
+      clearRowContent: () => ReturnType;
+      clearColumnContent: () => ReturnType;
+      clearRowColumnContent: (orientation: 'row' | 'column') => ReturnType;
+      setTableKitTheme: (theme: 'light' | 'dark') => ReturnType;
+    };
   }
-}
-
-interface EditorTableKitState {
-  translations: TableKitTranslations;
-  theme: 'light' | 'dark';
-  locale: string;
-}
-
-const editorStateMap = new WeakMap<Editor, EditorTableKitState>();
-
-function getOrInitState(editor: Editor): EditorTableKitState {
-  let state = editorStateMap.get(editor);
-  if (!state) {
-    state = { translations: zhCN, theme: 'light', locale: 'zh-CN' };
-    editorStateMap.set(editor, state);
-  }
-  return state;
 }
 
 /** 获取指定编辑器实例的当前翻译对象 */
@@ -86,7 +71,7 @@ export function getTableKitTheme(editor: Editor | null): 'light' | 'dark' {
 }
 
 /** 获取指定编辑器实例的当前 locale */
-export function getTableKitLocale(editor: Editor | null): string {
+export function getTableKitLocale(editor: Editor | null): 'zh-CN' | 'en-US' {
   if (!editor) return 'zh-CN';
   return getOrInitState(editor).locale;
 }
@@ -199,12 +184,12 @@ export const TableKit = Table.extend<TableKitOptions>({
           unsetCellTextColor(editor),
       setCellBackgroundColor:
         (color: string) =>
-        ({ chain }) =>
-          chain().focus().setNodeBackgroundColor(color).run(),
+        ({ editor }: { editor: Editor }) =>
+          editor.chain().focus().setNodeBackgroundColor(color).run(),
       unsetCellBackgroundColor:
         () =>
-        ({ chain }) =>
-          chain().focus().unsetNodeBackgroundColor().run(),
+        ({ editor }: { editor: Editor }) =>
+          editor.chain().focus().unsetNodeBackgroundColor().run(),
       fitToWidth:
         () =>
         ({ editor }: { editor: Editor }) =>
@@ -227,7 +212,7 @@ export const TableKit = Table.extend<TableKitOptions>({
           clearRowColumnContent(editor, orientation),
       setTableKitTheme:
         (theme: 'light' | 'dark') =>
-        ({ editor }) => {
+        ({ editor }: { editor: Editor }) => {
           const state = getOrInitState(editor);
           state.theme = theme;
           const dom = editor.view.dom;

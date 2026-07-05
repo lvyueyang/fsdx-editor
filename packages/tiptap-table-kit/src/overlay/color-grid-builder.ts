@@ -1,5 +1,5 @@
 import type { PaletteColor } from '../palette';
-import { PALETTE_COLORS, PALETTE_COLUMNS } from '../palette';
+import { PALETTE_COLORS, PALETTE_COLUMNS, PALETTE_ROWS } from '../palette';
 
 export interface ColorGridCallbacks {
   onSelect?: (color: PaletteColor) => void;
@@ -65,18 +65,12 @@ export function createColorGrid(callbacks: ColorGridCallbacks): HTMLDivElement {
         break;
       case 'ArrowDown':
         e.preventDefault();
-        nextIndex =
-          ((row + 1) % Math.ceil(PALETTE_COLORS.length / PALETTE_COLUMNS)) *
-            PALETTE_COLUMNS +
-          col;
+        nextIndex = ((row + 1) % PALETTE_ROWS) * PALETTE_COLUMNS + col;
         break;
       case 'ArrowUp':
         e.preventDefault();
         nextIndex =
-          ((row - 1 + Math.ceil(PALETTE_COLORS.length / PALETTE_COLUMNS)) %
-            Math.ceil(PALETTE_COLORS.length / PALETTE_COLUMNS)) *
-            PALETTE_COLUMNS +
-          col;
+          ((row - 1 + PALETTE_ROWS) % PALETTE_ROWS) * PALETTE_COLUMNS + col;
         break;
       case 'Escape':
         e.preventDefault();

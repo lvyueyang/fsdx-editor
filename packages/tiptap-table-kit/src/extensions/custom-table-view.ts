@@ -17,11 +17,11 @@ export class CustomTableView extends TableView {
     super(node, cellMinWidth, view, HTMLAttributes);
 
     this.controlsDiv = document.createElement('div');
-    this.controlsDiv.className = 'table-controls';
+    this.controlsDiv.className = 'tiptap-table-kit-table-controls';
     this.dom.appendChild(this.controlsDiv);
 
     this.overlayDiv = document.createElement('div');
-    this.overlayDiv.className = 'table-selection-overlay-container';
+    this.overlayDiv.className = 'tiptap-table-kit-selection-overlay-container';
     this.dom.appendChild(this.overlayDiv);
   }
 

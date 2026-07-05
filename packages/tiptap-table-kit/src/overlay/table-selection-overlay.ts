@@ -2,8 +2,8 @@ import type { Editor } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { CellSelection, cellAround } from '@tiptap/pm/tables';
 import { getTableKitTranslations } from '../table-kit';
+import { openContextMenu } from './context-menu';
 import { ICON_MORE } from './icon-svgs';
-import { openContextMenu } from './menu-builder';
 
 interface CellRect {
   left: number;
@@ -13,17 +13,16 @@ interface CellRect {
 }
 
 function getCellsRect(editor: Editor): CellRect | null {
+  const { selection } = editor.state;
+  if (!(selection instanceof CellSelection)) return null;
+
   const cells: DOMRect[] = [];
-  try {
-    (editor.state.selection as CellSelection).forEachCell((_node, pos) => {
-      const dom = editor.view.nodeDOM(pos);
-      if (dom instanceof HTMLElement) {
-        cells.push(dom.getBoundingClientRect());
-      }
-    });
-  } catch {
-    return null;
-  }
+  selection.forEachCell((_node, pos) => {
+    const dom = editor.view.nodeDOM(pos);
+    if (dom instanceof HTMLElement) {
+      cells.push(dom.getBoundingClientRect());
+    }
+  });
   if (cells.length === 0) return null;
   return {
     left: Math.min(...cells.map((r) => r.left)),
@@ -41,7 +40,8 @@ function getSingleCellRect(editor: Editor): {
   if (!cell) return null;
   const dom = editor.view.nodeDOM(cell.pos);
   if (!(dom instanceof HTMLElement)) return null;
-  const wrapper = dom.closest('.tableWrapper') as HTMLElement | null;
+  const el = dom.closest('.tableWrapper');
+  const wrapper = el instanceof HTMLElement ? el : null;
   if (!wrapper) return null;
   const cellDom = dom.getBoundingClientRect();
   return {
@@ -59,11 +59,12 @@ function findWrapperEl(editor: Editor): HTMLElement | null {
   const { selection } = editor.state;
   if (!(selection instanceof CellSelection)) return null;
   let wrapper: HTMLElement | null = null;
-  (selection as CellSelection).forEachCell((_node, pos) => {
+  selection.forEachCell((_node, pos) => {
     if (!wrapper) {
       const dom = editor.view.nodeDOM(pos);
       if (dom instanceof HTMLElement) {
-        wrapper = dom.closest('.tableWrapper') as HTMLElement | null;
+        const el = dom.closest('.tableWrapper');
+        wrapper = el instanceof HTMLElement ? el : null;
       }
     }
   });
@@ -72,9 +73,10 @@ function findWrapperEl(editor: Editor): HTMLElement | null {
 
 function findOverlayContainer(wrapper: HTMLElement | null): HTMLElement | null {
   if (!wrapper) return null;
-  return wrapper.querySelector(
-    '.table-selection-overlay-container',
-  ) as HTMLElement | null;
+  const el = wrapper.querySelector(
+    '.tiptap-table-kit-selection-overlay-container',
+  );
+  return el instanceof HTMLElement ? el : null;
 }
 
 /**
@@ -209,19 +211,24 @@ export const TableSelectionOverlay = Extension.create(() => {
     }
   }
 
+  const handler = () => {
+    requestAnimationFrame(updateOverlay);
+  };
+
   return {
     name: 'tableSelectionOverlay',
 
     onCreate() {
       editorRef = this.editor;
-      const handler = () => {
-        requestAnimationFrame(updateOverlay);
-      };
       this.editor.on('selectionUpdate', handler);
       this.editor.on('transaction', handler);
     },
 
     onDestroy() {
+      if (editorRef) {
+        editorRef.off('selectionUpdate', handler);
+        editorRef.off('transaction', handler);
+      }
       destroyOverlay();
       editorRef = null;
     },
