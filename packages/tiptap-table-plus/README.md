@@ -42,7 +42,7 @@ interface TablePlusOptions {
   /** 局部翻译覆盖，与内置语言包浅合并 */
   translations?: Partial<TablePlusTranslations>
   /** 自定义上下文菜单回调，接收默认菜单项列表，返回修改后的列表 */
-  contextMenu?: (items: MenuListDef) => MenuListDef
+  contextMenu?: (items: MenuList) => MenuList
 }
 ```
 
@@ -51,7 +51,7 @@ interface TablePlusOptions {
 | `theme` | `'light' \| 'dark'` | `'light'` | 主题模式 |
 | `locale` | `'zh-CN' \| 'en-US'` | `'zh-CN'` | 语言区域 |
 | `translations` | `Partial<TablePlusTranslations>` | — | 局部翻译覆盖 |
-| `contextMenu` | `(items: MenuListDef) => MenuListDef` | — | 自定义上下文菜单 |
+| `contextMenu` | `(items: MenuList) => MenuList` | — | 自定义上下文菜单 |
 
 配置示例：
 
@@ -68,29 +68,24 @@ TablePlus.configure({
 
 ## 命令
 
-所有命令通过 `editor.chain()` 调用。标准表格命令（插入行列、合并拆分、删除行列等）由 `@tiptap/extension-table` 提供，扩展命令由 `TablePlus` 提供。
+所有命令通过 `editor.chain()` 调用。标准表格命令（插入行列、合并拆分、删除行列等）由 `@tiptap/extension-table` 提供，扩展命令由 `TablePlus` 及其子扩展提供。
 
 ### tablePlus 命名空间
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
 | `clearSelectedCells()` | — | 清除选中单元格内容及样式 |
-| `setCellTextColor(color)` | `color: string` | 设置文字颜色 |
-| `unsetCellTextColor()` | — | 取消文字颜色 |
-| `setCellBackgroundColor(color)` | `color: string` | 设置单元格背景色 |
-| `unsetCellBackgroundColor()` | — | 取消单元格背景色 |
-| `clearRowContent()` | — | 清除当前行内容 |
-| `clearColumnContent()` | — | 清除当前列内容 |
-| `clearRowColumnContent(orientation)` | `orientation: 'row' \| 'column'` | 清除当前行或列内容 |
+| `clearRowColumnContent(orientation)` | `orientation: 'row' \| 'column'` | 清除当前行或列内容（保留样式） |
 | `setTablePlusTheme(theme)` | `theme: 'light' \| 'dark'` | 动态切换主题 |
 
 ### tableCellStyle 命名空间
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
+| `setCellTextColor(color)` | `color: string` | 设置文字颜色 |
+| `unsetCellTextColor()` | — | 取消文字颜色 |
 | `setCellTextAlign(align)` | `align: string \| null` | 设置水平对齐 |
-| `setCellVerticalAlign(align)` | `align: string \| null` | 设置垂直对齐 |
-| `unsetCellVerticalAlign()` | — | 取消垂直对齐 |
+| `setCellVerticalAlign(align)` | `align: 'top' \| 'middle' \| 'bottom' \| null` | 设置/取消垂直对齐 |
 
 ### nodeBackground 命名空间
 
@@ -153,11 +148,11 @@ import { zhCN, enUS } from '@fsdx/tiptap-table-plus'
 | `toggleHeaderColumn` | 切换标题列 | 切换标题列 |
 | `deleteRow` | 删除行 | 删除行 |
 | `deleteColumn` | 删除列 | 删除列 |
-| `back` | 返回上级菜单 | 返回上级菜单 |
 | `defaultColor` | 默认颜色 | 默认颜色 |
 | `tableActions` | 操作手柄 aria-label | 表格操作 |
 | `addColumn` | 添加列 | 添加列 |
 | `addRow` | 添加行 | 添加行 |
+| `customColor` | 自定义颜色 | 自定义颜色 |
 
 ## 自定义上下文菜单
 
@@ -172,7 +167,7 @@ type SubMenuItem = {
   onClick: () => void
 }
 
-type MenuItemDef = {
+type MenuItem = {
   label: string
   iconHtml: string
   disabled?: boolean
@@ -184,17 +179,19 @@ type MenuItemDef = {
   sub?: 'color' | SubMenuItem[]
 }
 
-type MenuListDef = (MenuItemDef | { type: 'separator' })[]
+type MenuSeparator = { type: 'separator' }
+
+type MenuList = (MenuItem | MenuSeparator)[]
 ```
 
 ### 使用示例
 
 ```ts
-import type { MenuListDef } from '@fsdx/tiptap-table-plus'
+import type { MenuList } from '@fsdx/tiptap-table-plus'
 import { TablePlus } from '@fsdx/tiptap-table-plus'
 
 TablePlus.configure({
-  contextMenu(items: MenuListDef) {
+  contextMenu(items: MenuList) {
     // 过滤掉危险操作
     const filtered = items.filter(
       (item) => !('variant' in item && item.variant === 'destructive'),

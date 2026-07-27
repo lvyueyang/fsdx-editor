@@ -26,7 +26,6 @@ export const zhCN: TablePlusTranslations = {
   toggleHeaderColumn: '切换标题列',
   deleteRow: '删除行',
   deleteColumn: '删除列',
-  back: '返回',
   defaultColor: '默认颜色',
   tableActions: '表格操作',
   addColumn: '添加列',

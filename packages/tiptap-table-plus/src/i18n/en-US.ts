@@ -26,7 +26,6 @@ export const enUS: TablePlusTranslations = {
   toggleHeaderColumn: 'Toggle Header Column',
   deleteRow: 'Delete Row',
   deleteColumn: 'Delete Column',
-  back: 'Back',
   defaultColor: 'Default',
   tableActions: 'Table Actions',
   addColumn: 'Add Column',

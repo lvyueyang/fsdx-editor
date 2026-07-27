@@ -42,38 +42,40 @@ packages/
 │   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
 │   │       └── media-upload.ts      # 媒体上传触发器
 │   └── tests/
-│       └── index.test.ts            # 编辑器测试
+│       ├── index.test.ts            # 编辑器测试
+│       └── table-plus-smoke.test.ts # TablePlus 集成测试（经 editor 测试环境运行）
 ├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
 │   ├── package.json
 │   ├── README.md
 │   ├── rslib.config.ts      # Bundleless ESM，仅输出 ESM
 │   ├── tsconfig.json
 │   └── src/
-│       ├── index.ts              # 公开入口（TablePlus + i18n 导出）
-│       ├── table-plus.ts          # TablePlus 扩展定义 + 全局命令注册 + state 管理
-│       ├── palette.ts            # 表格专用色板
+│       ├── index.ts              # 公开入口（TablePlus + 类型 + i18n 导出）
+│       ├── table-plus.ts          # TablePlus 主扩展 + 公开 getter
+│       ├── storage.ts            # 运行时状态定义与读取（editor.storage.tablePlus）
+│       ├── palette.ts            # 70 色色板数据
+│       ├── icons.ts              # SVG 图标常量
 │       ├── env.d.ts              # 环境类型声明
-│       ├── commands/             # 表格操作命令
-│       │   ├── table.ts          # 表格级命令
-│       │   ├── table-cell.ts     # 单元格命令（清除、颜色、对齐、复制、自适应等）
-│       │   └── table-row-column.ts  # 行列命令（移动、复制、排序）
+│       ├── commands/             # 表格内容清除命令（纯 Command 实现）
+│       │   └── clear-cells.ts    # clearSelectedCells / clearRowColumnContent
 │       ├── extensions/           # 子扩展
-│       │   ├── table-cell-style.ts    # 单元格文字颜色 + 垂直对齐
+│       │   ├── table-cell-style.ts    # 单元格文字颜色 + 水平/垂直对齐（属性 + 命令）
 │       │   └── node-background.ts     # 块级节点背景色（通用 Extension）
-│       ├── table-controls-plugin.ts    # ProseMirror Plugin，为表格注入加行/加列按钮和覆盖层容器
-│       ├── overlay/              # 表格选区覆盖层
-│       │   ├── table-selection-overlay.ts  # 选区覆盖层 + 拖拽手柄
-│       │   ├── menu-builder.ts            # 行/列右键菜单构建
-│       │   ├── color-grid-builder.ts      # 单元格背景色网格
-│       │   └── icon-svgs.ts              # SVG 图标常量
+│       ├── selection/            # 表格上的常显 UI 层
+│       │   ├── overlay.ts        # 选区覆盖层扩展（边框 + 操作手柄）
+│       │   └── table-controls.ts # PM Plugin，注入加行/加列按钮和覆盖层容器
+│       ├── menu/                 # 上下文菜单
+│       │   ├── context-menu.ts   # 菜单打开/关闭/定位/生命周期（全局唯一）
+│       │   ├── items.ts          # 菜单项类型与默认菜单构建
+│       │   ├── renderer.ts       # 菜单渲染 + 级联子菜单（session 化）
+│       │   └── color-grid.ts     # 70 色颜色网格
 │       ├── i18n/                 # 国际化
 │       │   ├── index.ts          # 内置翻译导出
 │       │   ├── types.ts          # TablePlusTranslations 类型
 │       │   ├── zh-CN.ts          # 简体中文
 │       │   └── en-US.ts          # 英文
 │       ├── utils/
-│       │   ├── table-helpers.ts  # 表格位置/选区工具函数
-│       │   └── editor-utils.ts   # 通用编辑器工具函数
+│       │   └── node-utils.ts     # PM 节点收集与批量属性更新
 │       └── styles/
 │   └── table.scss        # 表格样式（SCSS）+ CSS 自定义属性
 site/                        # Astro + Starlight 文档站点
@@ -226,9 +228,11 @@ const editor = createEditor(containerElement, {
 
 - `TablePlus` 是唯一的公开扩展，作为 `Extension` 独立注册，需配合 `Table` 扩展使用
 - 自动集成 `TableCellStyle`、`TableSelectionOverlay`、`NodeBackground` 三个子扩展
-- 注册 20+ 表格操作命令（行列移动、复制、排序、清除、颜色等）
+- 运行时状态（翻译/主题/locale/contextMenu）通过 `addStorage()` 存放在 `editor.storage.tablePlus`，由 `storage.ts` 统一读取（避免模块循环依赖）
+- 命令均为直接操作 `tr` 的纯 Command 实现，菜单统一走 `editor.chain()` 调用
 - 内置中英文翻译，通过 `configure({ locale: 'en-US' })` 切换
 - 支持局部翻译覆盖：`configure({ translations: { deleteRow: '...' } })`
+- 上下文菜单全局唯一，通过 `contextMenu` 配置项可增删改菜单项（`MenuList` 类型）
 - 通过 `getTablePlusTranslations(editor)` / `getTablePlusTheme(editor)` 读取运行时状态
 - 样式通过 CSS 变量 `--fsdx-tiptap-table-plus-*` 控制，可在外部覆盖
 

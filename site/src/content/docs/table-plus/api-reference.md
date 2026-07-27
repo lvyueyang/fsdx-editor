@@ -16,34 +16,35 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 | `theme` | `'light' \| 'dark'` | `'light'` | 覆盖层 / 菜单的视觉主题 |
 | `locale` | `'zh-CN' \| 'en-US'` | `'zh-CN'` | 默认语言 |
 | `translations` | `Partial<TablePlusTranslations>` | — | 自定义翻译覆盖 |
+| `contextMenu` | `(items: MenuList) => MenuList` | — | 自定义上下文菜单 |
 
 ## 命令
 
 所有命令通过 `editor.chain()` 调用：
 
-### 单元格操作
+### 单元格操作（tablePlus 命名空间）
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
 | `clearSelectedCells()` | — | 清除选中单元格内容并重置样式 |
+| `clearRowColumnContent(orientation)` | `'row' \| 'column'` | 清除当前行或列内容（保留样式） |
+| `setTablePlusTheme(theme)` | `'light' \| 'dark'` | 运行时动态切换主题 |
+
+### 单元格样式（tableCellStyle 命名空间）
+
+| 命令 | 参数 | 说明 |
+|------|------|------|
 | `setCellTextColor(color)` | `string` | 设置文字颜色 |
 | `unsetCellTextColor()` | — | 移除文字颜色 |
-| `setCellBackgroundColor(color)` | `string` | 设置背景色 |
-| `unsetCellBackgroundColor()` | — | 移除背景色 |
+| `setCellTextAlign(align)` | `string \| null` | 设置水平对齐 |
+| `setCellVerticalAlign(align)` | `'top' \| 'middle' \| 'bottom' \| null` | 设置/移除垂直对齐 |
 
-### 行列内容清除
-
-| 命令 | 参数 | 说明 |
-|------|------|------|
-| `clearRowContent()` | — | 清除当前行内容 |
-| `clearColumnContent()` | — | 清除当前列内容 |
-| `clearRowColumnContent(orientation)` | `'row' \| 'column'` | 清除指定方向的内容 |
-
-### 主题
+### 节点背景色（nodeBackground 命名空间）
 
 | 命令 | 参数 | 说明 |
 |------|------|------|
-| `setTablePlusTheme(theme)` | `'light' \| 'dark'` | 运行时动态切换主题 |
+| `setNodeBackgroundColor(color)` | `string` | 设置节点背景色 |
+| `unsetNodeBackgroundColor()` | — | 移除节点背景色 |
 
 :::tip
 原生 Tiptap `Table` 扩展的行列增删、合并拆分、表头切换等命令仍然可用，TablePlus 在此基础上扩展了上述命令。
@@ -93,8 +94,8 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 | `toggleHeaderColumn` | 切换标题列 | Toggle Header Column |
 | `deleteRow` | 删除行 | Delete Row |
 | `deleteColumn` | 删除列 | Delete Column |
-| `back` | 返回 | Back |
 | `defaultColor` | 默认颜色 | Default |
 | `tableActions` | 表格操作 | Table Actions |
 | `addColumn` | 添加列 | Add Column |
 | `addRow` | 添加行 | Add Row |
+| `customColor` | 自定义颜色 | Custom Color |

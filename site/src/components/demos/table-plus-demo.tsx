@@ -1,4 +1,4 @@
-import type { MenuListDef } from '@fsdx/tiptap-table-plus';
+import type { MenuList } from '@fsdx/tiptap-table-plus';
 import { TablePlus } from '@fsdx/tiptap-table-plus';
 import { TableKit } from '@tiptap/extension-table';
 import { EditorContent, useEditor } from '@tiptap/react';
@@ -34,7 +34,7 @@ export default function TablePlusDemo() {
   const [customMenu, setCustomMenu] = useState(false);
   const savedContentRef = useRef(defaultHtml);
 
-  const contextMenu = useCallback((items: MenuListDef) => {
+  const contextMenu = useCallback((items: MenuList) => {
     const filtered = items.filter(
       (item) => !('variant' in item && item.variant === 'destructive'),
     );

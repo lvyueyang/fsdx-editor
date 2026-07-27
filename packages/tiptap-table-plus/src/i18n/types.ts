@@ -47,8 +47,6 @@ export interface TablePlusTranslations {
   deleteRow: string;
   /** 删除列 */
   deleteColumn: string;
-  /** 返回上级菜单 */
-  back: string;
   /** 颜色面板默认颜色按钮 */
   defaultColor: string;
   /** 操作手柄 aria-label */

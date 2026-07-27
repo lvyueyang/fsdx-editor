@@ -1,15 +1,16 @@
+/**
+ * 颜色选择网格：70 色色板的 DOM 构建与键盘方向键导航。
+ */
 import type { PaletteColor } from '../palette';
 import { PALETTE_COLORS, PALETTE_COLUMNS, PALETTE_ROWS } from '../palette';
 
-export interface ColorGridCallbacks {
+export interface ColorGridOptions {
   onSelect?: (color: PaletteColor) => void;
   onClose?: () => void;
 }
 
-/**
- * 创建原生 70 色颜色网格 DOM 元素
- */
-export function createColorGrid(callbacks: ColorGridCallbacks): HTMLDivElement {
+/** 创建 70 色颜色网格 DOM 元素 */
+export function createColorGrid(options: ColorGridOptions): HTMLDivElement {
   const grid = document.createElement('div');
   grid.className = 'tiptap-table-plus-color-grid';
   grid.setAttribute('role', 'grid');
@@ -29,7 +30,7 @@ export function createColorGrid(callbacks: ColorGridCallbacks): HTMLDivElement {
 
     cell.addEventListener('click', (e) => {
       e.preventDefault();
-      callbacks.onSelect?.(color);
+      options.onSelect?.(color);
     });
 
     grid.appendChild(cell);
@@ -74,15 +75,13 @@ export function createColorGrid(callbacks: ColorGridCallbacks): HTMLDivElement {
         break;
       case 'Escape':
         e.preventDefault();
-        callbacks.onClose?.();
+        options.onClose?.();
         return;
       default:
         return;
     }
 
-    if (cells[nextIndex]) {
-      cells[nextIndex].focus();
-    }
+    cells[nextIndex]?.focus();
   });
 
   return grid;

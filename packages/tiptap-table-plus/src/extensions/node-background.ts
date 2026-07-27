@@ -1,6 +1,10 @@
+/**
+ * 节点背景色扩展：为常见块级节点提供 backgroundColor 属性
+ * （以行内 style 序列化），并注册设置/清除命令。
+ */
+import type { Command } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
-import type { EditorState, Transaction } from '@tiptap/pm/state';
-import { getSelectedNodesOfType, updateNodesAttr } from '../utils/editor-utils';
+import { getSelectedNodesOfType, updateNodesAttr } from '../utils/node-utils';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -12,17 +16,14 @@ declare module '@tiptap/core' {
 }
 
 export interface NodeBackgroundOptions {
-  /**
-   * 支持背景色的节点类型
-   * @default ["paragraph", "heading", "blockquote", "taskList", "bulletList", "orderedList", "tableCell", "tableHeader"]
-   */
+  /** 支持背景色的节点类型 */
   types: string[];
 }
 
 export const NodeBackground = Extension.create<NodeBackgroundOptions>({
   name: 'nodeBackground',
 
-  addOptions() {
+  addOptions(): NodeBackgroundOptions {
     return {
       types: [
         'paragraph',
@@ -44,19 +45,12 @@ export const NodeBackground = Extension.create<NodeBackgroundOptions>({
         attributes: {
           backgroundColor: {
             default: null as string | null,
-
-            parseHTML: (element: HTMLElement) => {
-              const styleColor = element.style?.backgroundColor;
-              if (styleColor) return styleColor;
-
-              const dataColor = element.getAttribute('data-background-color');
-              return dataColor || null;
-            },
-
-            renderHTML: (attributes) => {
+            parseHTML: (element: HTMLElement) =>
+              element.style.backgroundColor ||
+              element.getAttribute('data-background-color'),
+            renderHTML: (attributes: Record<string, unknown>) => {
               const color = attributes.backgroundColor as string | null;
-              if (!color) return {};
-              return { style: `background-color: ${color}` };
+              return color ? { style: `background-color: ${color}` } : {};
             },
           },
         },
@@ -65,33 +59,19 @@ export const NodeBackground = Extension.create<NodeBackgroundOptions>({
   },
 
   addCommands() {
-    return {
-      setNodeBackgroundColor:
-        (backgroundColor: string) =>
-        ({ tr }: { state: EditorState; tr: Transaction }) => {
-          const targets = getSelectedNodesOfType(
-            tr.selection,
-            this.options.types,
-          );
-          if (targets.length === 0) return false;
-          return updateNodesAttr(
-            tr,
-            targets,
-            'backgroundColor',
-            backgroundColor,
-          );
-        },
+    const setBackground =
+      (color: string | null): Command =>
+      ({ tr }) => {
+        const targets = getSelectedNodesOfType(
+          tr.selection,
+          this.options.types,
+        );
+        return updateNodesAttr(tr, targets, 'backgroundColor', color);
+      };
 
-      unsetNodeBackgroundColor:
-        () =>
-        ({ tr }: { state: EditorState; tr: Transaction }) => {
-          const targets = getSelectedNodesOfType(
-            tr.selection,
-            this.options.types,
-          );
-          if (targets.length === 0) return false;
-          return updateNodesAttr(tr, targets, 'backgroundColor', null);
-        },
+    return {
+      setNodeBackgroundColor: (color) => setBackground(color),
+      unsetNodeBackgroundColor: () => setBackground(null),
     };
   },
 });
