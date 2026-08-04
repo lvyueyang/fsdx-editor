@@ -12,13 +12,18 @@ import {
   ICON_ALIGN_RIGHT,
   ICON_BACKGROUND_COLOR,
   ICON_CHEVRON_RIGHT,
+  ICON_DELETE_COLUMN,
+  ICON_DELETE_ROW,
   ICON_ERASER,
+  ICON_HEADER_COLUMN,
+  ICON_HEADER_ROW,
+  ICON_INSERT_COLUMN_LEFT,
+  ICON_INSERT_COLUMN_RIGHT,
+  ICON_INSERT_ROW_ABOVE,
+  ICON_INSERT_ROW_BELOW,
   ICON_MERGE_CELLS,
-  ICON_PLUS,
   ICON_SPLIT_CELLS,
-  ICON_TABLE_HEADER,
   ICON_TEXT_COLOR,
-  ICON_TRASH,
   ICON_VERTICAL_ALIGN_BOTTOM,
   ICON_VERTICAL_ALIGN_MIDDLE,
   ICON_VERTICAL_ALIGN_TOP,
@@ -93,22 +98,22 @@ function buildInsertItems(editor: Editor, t: TablePlusTranslations): MenuList {
   return [
     {
       label: t.insertRowAbove,
-      iconHtml: ICON_PLUS,
+      iconHtml: ICON_INSERT_ROW_ABOVE,
       onClick: () => editor.chain().focus().addRowBefore().run(),
     },
     {
       label: t.insertRowBelow,
-      iconHtml: ICON_PLUS,
+      iconHtml: ICON_INSERT_ROW_BELOW,
       onClick: () => editor.chain().focus().addRowAfter().run(),
     },
     {
       label: t.insertColumnLeft,
-      iconHtml: ICON_PLUS,
+      iconHtml: ICON_INSERT_COLUMN_LEFT,
       onClick: () => editor.chain().focus().addColumnBefore().run(),
     },
     {
       label: t.insertColumnRight,
-      iconHtml: ICON_PLUS,
+      iconHtml: ICON_INSERT_COLUMN_RIGHT,
       onClick: () => editor.chain().focus().addColumnAfter().run(),
     },
   ];
@@ -211,12 +216,12 @@ function buildMiscItems(editor: Editor, t: TablePlusTranslations): MenuList {
     },
     {
       label: t.toggleHeaderRow,
-      iconHtml: ICON_TABLE_HEADER,
+      iconHtml: ICON_HEADER_ROW,
       onClick: () => editor.chain().focus().toggleHeaderRow().run(),
     },
     {
       label: t.toggleHeaderColumn,
-      iconHtml: ICON_TABLE_HEADER,
+      iconHtml: ICON_HEADER_COLUMN,
       onClick: () => editor.chain().focus().toggleHeaderColumn().run(),
     },
   ];
@@ -227,13 +232,13 @@ function buildDeleteItems(editor: Editor, t: TablePlusTranslations): MenuList {
   return [
     {
       label: t.deleteRow,
-      iconHtml: ICON_TRASH,
+      iconHtml: ICON_DELETE_ROW,
       variant: 'destructive',
       onClick: () => editor.chain().focus().deleteRow().run(),
     },
     {
       label: t.deleteColumn,
-      iconHtml: ICON_TRASH,
+      iconHtml: ICON_DELETE_COLUMN,
       variant: 'destructive',
       onClick: () => editor.chain().focus().deleteColumn().run(),
     },
