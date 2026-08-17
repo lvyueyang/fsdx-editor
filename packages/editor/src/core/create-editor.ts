@@ -1,5 +1,5 @@
 import { TablePlus } from '@fsdx/tiptap-table-plus';
-import { Editor } from '@tiptap/core';
+import { Editor, isTextSelection } from '@tiptap/core';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import Subscript from '@tiptap/extension-subscript';
@@ -96,6 +96,27 @@ export function createEditorInstance(
       BubbleMenu.configure({
         element: bubbleMenuEl,
         pluginKey: 'fsdxBubbleMenu',
+        options: { strategy: 'fixed' },
+        shouldShow: ({ editor: e, element, view, state, from, to }) => {
+          const mediaNodes = [
+            'imageUpload',
+            'videoNode',
+            'audioNode',
+            'attachmentNode',
+          ];
+          const isEmptyTextBlock =
+            !state.doc.textBetween(from, to).length &&
+            isTextSelection(state.selection);
+          const isChildOfMenu = element.contains(document.activeElement);
+          const hasEditorFocus = view.hasFocus() || isChildOfMenu;
+          return (
+            hasEditorFocus &&
+            !state.selection.empty &&
+            !isEmptyTextBlock &&
+            e.isEditable &&
+            !mediaNodes.some((name) => e.isActive(name))
+          );
+        },
       }),
       ImageUpload.configure({
         upload: options.image?.upload,
@@ -117,12 +138,7 @@ export function createEditorInstance(
         audio: options.audio,
         attachment: options.attachment,
       });
-      const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor, {
-        image: options.image,
-        video: options.video,
-        audio: options.audio,
-        attachment: options.attachment,
-      });
+      const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor);
 
       refreshAllToolbar = () => {
         toolbarRefresh();

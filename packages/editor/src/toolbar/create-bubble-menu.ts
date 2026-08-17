@@ -3,23 +3,14 @@ import {
   addBtn,
   createColorDropdown,
   createDivider,
-  createSelect,
   updateBtnStates,
 } from '../shared/controls';
 import { createLinkDropdown } from '../shared/link-dropdown';
 import { bindTooltips } from '../shared/tooltip';
-import type { MediaUploadConfig } from '../types';
-import { triggerMediaUpload } from '../utils/media-upload';
-import {
-  FONT_SIZE_OPTIONS,
-  HEADING_OPTIONS,
-  ICONS,
-  updateSelectStates,
-} from './toolbar-shared';
+import { ICONS } from './toolbar-shared';
 
 const BTN_CLASS = 'fsdx-editor-bubble-btn';
 const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
-const SELECT_CLASS = 'fsdx-editor-bubble-select';
 
 export function createBubbleMenuElement(): HTMLElement {
   const menuEl = document.createElement('div');
@@ -27,15 +18,13 @@ export function createBubbleMenuElement(): HTMLElement {
   return menuEl;
 }
 
+/**
+ * 气泡菜单：仅承载行内文本格式化高频操作，
+ * 块级操作与媒体插入留在顶部工具栏。
+ */
 export function populateBubbleMenu(
   menuEl: HTMLElement,
   editor: Editor,
-  mediaConfig?: {
-    image?: MediaUploadConfig;
-    video?: MediaUploadConfig;
-    audio?: MediaUploadConfig;
-    attachment?: MediaUploadConfig;
-  },
 ): () => void {
   menuEl.innerHTML = '';
   bindTooltips(menuEl);
@@ -51,7 +40,6 @@ export function populateBubbleMenu(
 
   const refreshAll = () => {
     updateBtnStates(menuEl, BTN_CLASS, editor);
-    updateSelectStates(menuEl, SELECT_CLASS, editor);
   };
 
   // ===== 文本样式 =====
@@ -79,66 +67,6 @@ export function populateBubbleMenu(
     (e) => e.isActive('strike'),
     (e) => e.chain().focus().toggleStrike().run(),
   );
-  add(
-    ICONS.code,
-    '行内代码',
-    (e) => e.isActive('code'),
-    (e) => e.chain().focus().toggleCode().run(),
-  );
-  add(
-    ICONS.subscript,
-    '下标',
-    (e) => e.isActive('subscript'),
-    (e) => e.chain().focus().toggleSubscript().run(),
-  );
-  add(
-    ICONS.superscript,
-    '上标',
-    (e) => e.isActive('superscript'),
-    (e) => e.chain().focus().toggleSuperscript().run(),
-  );
-
-  div();
-
-  // ===== 标题 =====
-  createSelect(
-    menuEl,
-    SELECT_CLASS,
-    editor,
-    '',
-    '标题',
-    HEADING_OPTIONS,
-    (e) => {
-      for (const level of [1, 2, 3, 4, 5, 6]) {
-        if (e.isActive('heading', { level })) return String(level);
-      }
-      return null;
-    },
-    (e, value) => {
-      const level = Number(value) as 1 | 2 | 3 | 4 | 5 | 6;
-      e.chain().focus().setNode('heading', { level }).run();
-    },
-    (e) => e.chain().focus().setNode('paragraph').run(),
-    '正文',
-  );
-
-  div();
-
-  // ===== 字体大小 =====
-  createSelect(
-    menuEl,
-    SELECT_CLASS,
-    editor,
-    ICONS.fontSize,
-    '字体大小',
-    FONT_SIZE_OPTIONS,
-    (e) => {
-      const attrs = e.getAttributes('textStyle');
-      return (attrs.fontSize as string) || null;
-    },
-    (e, value) => e.chain().focus().setFontSize(value).run(),
-    (e) => e.chain().focus().unsetFontSize().run(),
-  );
 
   div();
 
@@ -164,37 +92,8 @@ export function populateBubbleMenu(
 
   div();
 
-  // ===== 文本对齐 =====
-  const alignBtns = [
-    { icon: ICONS.alignLeft, title: '左对齐', align: 'left' as const },
-    { icon: ICONS.alignCenter, title: '居中', align: 'center' as const },
-    { icon: ICONS.alignRight, title: '右对齐', align: 'right' as const },
-  ];
-  for (const { icon, title, align } of alignBtns) {
-    add(
-      icon,
-      title,
-      (e) => e.isActive({ textAlign: align }),
-      (e) => e.chain().focus().setTextAlign(align).run(),
-    );
-  }
-
-  div();
-
-  // ===== 块级 =====
-  add(
-    ICONS.blockquote,
-    '引用',
-    (e) => e.isActive('blockquote'),
-    (e) => e.chain().focus().toggleBlockquote().run(),
-  );
-
-  div();
-
   // ===== 链接 =====
   createLinkDropdown(menuEl, BTN_CLASS, editor, ICONS.link, '插入/编辑链接');
-
-  div();
 
   // ===== 清除格式 =====
   add(
@@ -203,59 +102,6 @@ export function populateBubbleMenu(
     () => false,
     (e) => e.chain().focus().clearNodes().unsetAllMarks().run(),
   );
-
-  // ===== 媒体 =====
-  if (mediaConfig) {
-    const { image, video, audio, attachment } = mediaConfig;
-
-    if (image || video || audio || attachment) {
-      div();
-    }
-
-    if (image) {
-      add(
-        ICONS.image,
-        '插入图片',
-        () => false,
-        (e) => {
-          triggerMediaUpload('image/*', e, 'imageUpload', image.upload);
-        },
-      );
-    }
-
-    if (video) {
-      add(
-        ICONS.video,
-        '插入视频',
-        () => false,
-        (e) => {
-          triggerMediaUpload('video/*', e, 'videoNode', video.upload);
-        },
-      );
-    }
-
-    if (audio) {
-      add(
-        ICONS.audio,
-        '插入音频',
-        () => false,
-        (e) => {
-          triggerMediaUpload('audio/*', e, 'audioNode', audio.upload);
-        },
-      );
-    }
-
-    if (attachment) {
-      add(
-        ICONS.attachment,
-        '插入附件',
-        () => false,
-        (e) => {
-          triggerMediaUpload('*/*', e, 'attachmentNode', attachment.upload);
-        },
-      );
-    }
-  }
 
   refreshAll();
   return refreshAll;
