@@ -330,6 +330,7 @@ export function createColorDropdown(
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = btnClassName;
+  btn.classList.add(`${btnClassName}--color`);
   btn.dataset.tooltip = title;
   btn.setAttribute('aria-label', title);
   btn.innerHTML = icon;
