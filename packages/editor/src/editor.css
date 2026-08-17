@@ -514,10 +514,7 @@
 .fsdx-editor-toolbar-btn svg {
   width: 16px;
   height: 16px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
 }
 
 .fsdx-editor-toolbar-divider {
@@ -569,10 +566,7 @@
 .fsdx-editor-bubble-btn svg {
   width: 16px;
   height: 16px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
 }
 
 .fsdx-editor-bubble-divider {
@@ -614,10 +608,7 @@
 .fsdx-editor-toolbar-select-icon svg {
   width: 14px;
   height: 14px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
 }
 
 .fsdx-editor-toolbar-select-value {
@@ -789,10 +780,7 @@
 .fsdx-editor-bubble-select-icon svg {
   width: 14px;
   height: 14px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
 }
 
 .fsdx-editor-bubble-select-value {
