@@ -62,18 +62,20 @@ export function populateToolbar(
   };
 
   // ===== 撤销 / 重做 =====
-  add(
+  const undoBtn = add(
     ICONS.undo,
     '撤销 (Ctrl+Z)',
     () => editor.can().undo(),
     (e) => e.chain().focus().undo().run(),
   );
-  add(
+  undoBtn.classList.add('fsdx-editor-toolbar-btn--history');
+  const redoBtn = add(
     ICONS.redo,
     '重做 (Ctrl+Shift+Z)',
     () => editor.can().redo(),
     (e) => e.chain().focus().redo().run(),
   );
+  redoBtn.classList.add('fsdx-editor-toolbar-btn--history');
 
   div();
 

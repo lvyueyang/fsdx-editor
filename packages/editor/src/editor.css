@@ -527,6 +527,20 @@
   color: var(--fsdx-editor-primary);
 }
 
+/* 撤销/重做：可用时无 active 背景，不可用时置灰 */
+.fsdx-editor-toolbar-btn--history.is-active {
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+}
+
+.fsdx-editor-toolbar-btn--history:not(.is-active) {
+  opacity: 0.4;
+}
+
+.fsdx-editor-toolbar-btn--history:not(.is-active):hover {
+  background: transparent;
+}
+
 .fsdx-editor-toolbar-btn svg {
   width: 16px;
   height: 16px;
