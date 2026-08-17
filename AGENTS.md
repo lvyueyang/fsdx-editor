@@ -37,7 +37,8 @@ packages/
 │   │   ├── shared/                  # 共享 UI 构建工具
 │   │   │   ├── controls.ts          # addBtn / createSelect / createColorDropdown / createTableBtn 等
 │   │   │   ├── color-palette.ts     # 70 色 HSL 色板（10 色相 × 7 明度）
-│   │   │   └── link-dropdown.ts     # 链接编辑弹出层
+│   │   │   ├── link-dropdown.ts     # 链接编辑弹出层
+│   │   │   └── tooltip.ts           # 自定义 tooltip（事件委托 + floating-ui 定位）
 │   │   └── utils/                   # 通用工具
 │   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
 │   │       └── media-upload.ts      # 媒体上传触发器

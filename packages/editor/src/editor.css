@@ -81,6 +81,14 @@
   --fsdx-editor-bubble-btn-radius: 6px;
   --fsdx-editor-bubble-btn-color: #4b5563;
   --fsdx-editor-bubble-divider: #e5e7eb;
+
+  /* Tooltip */
+  --fsdx-editor-tooltip-bg: #1f2937;
+  --fsdx-editor-tooltip-color: #f9fafb;
+  --fsdx-editor-tooltip-radius: 6px;
+  --fsdx-editor-tooltip-padding: 4px 8px;
+  --fsdx-editor-tooltip-font-size: 12px;
+  --fsdx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
 /* 暗色主题 */
@@ -137,6 +145,14 @@
   --fsdx-editor-bubble-btn-active: #312e81;
   --fsdx-editor-bubble-btn-color: #d1d5db;
   --fsdx-editor-bubble-divider: #374151;
+
+  /* Tooltip（暗色） */
+  --fsdx-editor-tooltip-bg: #374151;
+  --fsdx-editor-tooltip-color: #f9fafb;
+  --fsdx-editor-tooltip-radius: 6px;
+  --fsdx-editor-tooltip-padding: 4px 8px;
+  --fsdx-editor-tooltip-font-size: 12px;
+  --fsdx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== 编辑器容器 ===== */
@@ -574,6 +590,26 @@
   height: 20px;
   background: var(--fsdx-editor-bubble-divider);
   margin: 0 4px;
+}
+
+/* ===== Tooltip ===== */
+.fsdx-editor-tooltip {
+  position: fixed;
+  z-index: 200;
+  background: var(--fsdx-editor-tooltip-bg);
+  color: var(--fsdx-editor-tooltip-color);
+  padding: var(--fsdx-editor-tooltip-padding);
+  border-radius: var(--fsdx-editor-tooltip-radius);
+  font-size: var(--fsdx-editor-tooltip-font-size);
+  line-height: 1.4;
+  box-shadow: var(--fsdx-editor-tooltip-shadow);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 240px;
+}
+
+.fsdx-editor-tooltip[hidden] {
+  display: none;
 }
 
 /* ===== 工具栏下拉选择框 ===== */

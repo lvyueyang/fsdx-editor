@@ -47,7 +47,8 @@ export function addBtn(
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = btnClassName;
-  btn.title = title;
+  btn.dataset.tooltip = title;
+  btn.setAttribute('aria-label', title);
   btn.innerHTML = icon;
 
   (btn as unknown as Record<string, unknown>)._check = check;
@@ -80,7 +81,8 @@ export function createSelect(
   const trigger = document.createElement('button');
   trigger.type = 'button';
   trigger.className = selectClassName;
-  trigger.title = title;
+  trigger.dataset.tooltip = title;
+  trigger.setAttribute('aria-label', title);
   trigger.setAttribute('aria-haspopup', 'listbox');
   trigger.setAttribute('aria-expanded', 'false');
 
@@ -322,7 +324,8 @@ export function createColorDropdown(
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = btnClassName;
-  btn.title = title;
+  btn.dataset.tooltip = title;
+  btn.setAttribute('aria-label', title);
   btn.innerHTML = icon;
 
   const colorIndicator = document.createElement('span');
@@ -645,7 +648,8 @@ export function createIndentInput(
   const input = document.createElement('input');
   input.type = 'number';
   input.className = inputClassName;
-  input.title = title;
+  input.dataset.tooltip = title;
+  input.setAttribute('aria-label', title);
   input.placeholder = 'em';
   input.min = '0';
   input.step = '0.5';
@@ -687,7 +691,8 @@ export function createTableBtn(
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = btnClassName;
-  btn.title = title;
+  btn.dataset.tooltip = title;
+  btn.setAttribute('aria-label', title);
   btn.innerHTML = icon;
 
   (btn as unknown as Record<string, unknown>)._check = () =>

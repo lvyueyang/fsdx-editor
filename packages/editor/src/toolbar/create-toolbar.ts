@@ -9,6 +9,7 @@ import {
   updateBtnStates,
 } from '../shared/controls';
 import { createLinkDropdown } from '../shared/link-dropdown';
+import { bindTooltips } from '../shared/tooltip';
 import type { MediaUploadConfig } from '../types';
 import { triggerMediaUpload } from '../utils/media-upload';
 import {
@@ -43,6 +44,7 @@ export function populateToolbar(
   },
 ): () => void {
   toolbarEl.innerHTML = '';
+  bindTooltips(toolbarEl);
 
   const add = (
     icon: string,

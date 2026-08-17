@@ -61,7 +61,8 @@ export function createLinkDropdown(
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = btnClassName;
-  btn.title = title;
+  btn.dataset.tooltip = title;
+  btn.setAttribute('aria-label', title);
   btn.innerHTML = icon;
 
   (btn as unknown as Record<string, unknown>)._check = (e: Editor) =>
@@ -94,7 +95,8 @@ export function createLinkDropdown(
     const applyBtn = document.createElement('button');
     applyBtn.type = 'button';
     applyBtn.className = BTN_CLASS;
-    applyBtn.title = '应用链接';
+    applyBtn.dataset.tooltip = '应用链接';
+    applyBtn.setAttribute('aria-label', '应用链接');
     applyBtn.innerHTML =
       '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.0001 13.9999L19.0002 5L17.0002 4.99997L17.0001 11.9999L6.8283 12L10.778 8.05024L9.36382 6.63603L2.99986 13L9.36382 19.364L10.778 17.9497L6.82826 14L19.0001 13.9999Z"/></svg>';
 
@@ -141,7 +143,8 @@ export function createLinkDropdown(
     toggleBtn.type = 'button';
     toggleBtn.className = TEXT_BTN_CLASS;
     toggleBtn.textContent = '新窗口';
-    toggleBtn.title = '新窗口打开';
+    toggleBtn.dataset.tooltip = '新窗口打开';
+    toggleBtn.setAttribute('aria-label', '新窗口打开');
 
     const updateToggleState = () => {
       if (isLinkBlank(editor)) {
@@ -184,7 +187,8 @@ export function createLinkDropdown(
     const openBtn = document.createElement('button');
     openBtn.type = 'button';
     openBtn.className = BTN_CLASS;
-    openBtn.title = '打开链接';
+    openBtn.dataset.tooltip = '打开链接';
+    openBtn.setAttribute('aria-label', '打开链接');
     openBtn.innerHTML =
       '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"/></svg>';
 
@@ -203,7 +207,8 @@ export function createLinkDropdown(
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.className = BTN_CLASS;
-    removeBtn.title = '取消链接';
+    removeBtn.dataset.tooltip = '取消链接';
+    removeBtn.setAttribute('aria-label', '取消链接');
     removeBtn.innerHTML =
       '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"/></svg>';
 

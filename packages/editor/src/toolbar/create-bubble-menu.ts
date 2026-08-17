@@ -7,6 +7,7 @@ import {
   updateBtnStates,
 } from '../shared/controls';
 import { createLinkDropdown } from '../shared/link-dropdown';
+import { bindTooltips } from '../shared/tooltip';
 import type { MediaUploadConfig } from '../types';
 import { triggerMediaUpload } from '../utils/media-upload';
 import {
@@ -37,6 +38,7 @@ export function populateBubbleMenu(
   },
 ): () => void {
   menuEl.innerHTML = '';
+  bindTooltips(menuEl);
 
   const add = (
     icon: string,
