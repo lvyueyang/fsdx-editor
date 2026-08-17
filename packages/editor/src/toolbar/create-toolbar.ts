@@ -128,7 +128,7 @@ export function populateToolbar(
     toolbarEl,
     SELECT_CLASS,
     editor,
-    ICONS.heading,
+    '',
     '标题',
     HEADING_OPTIONS,
     (e) => {
@@ -162,6 +162,8 @@ export function populateToolbar(
     (e, value) => e.chain().focus().setFontSize(value).run(),
     (e) => e.chain().focus().unsetFontSize().run(),
   );
+
+  div();
 
   // ===== 行高（下拉） =====
   createSelect(

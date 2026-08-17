@@ -86,9 +86,12 @@ export function createSelect(
   trigger.setAttribute('aria-haspopup', 'listbox');
   trigger.setAttribute('aria-expanded', 'false');
 
-  const iconEl = document.createElement('span');
-  iconEl.className = `${selectClassName}-icon`;
-  iconEl.innerHTML = icon;
+  if (icon) {
+    const iconEl = document.createElement('span');
+    iconEl.className = `${selectClassName}-icon`;
+    iconEl.innerHTML = icon;
+    trigger.appendChild(iconEl);
+  }
 
   const valueEl = document.createElement('span');
   valueEl.className = `${selectClassName}-value`;
@@ -98,7 +101,6 @@ export function createSelect(
   arrowEl.innerHTML =
     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>';
 
-  trigger.appendChild(iconEl);
   trigger.appendChild(valueEl);
   trigger.appendChild(arrowEl);
 
@@ -135,6 +137,8 @@ export function createSelect(
     const menu = document.createElement('div');
     menu.className = `${selectClassName}-dropdown`;
     menu.setAttribute('role', 'listbox');
+    menu.style.position = 'fixed';
+    menu.style.visibility = 'hidden';
 
     const currentValue = getCurrent(editor) ?? '';
 
@@ -188,6 +192,7 @@ export function createSelect(
       }
       computePosition(trigger, dropdown, {
         placement: 'bottom-start',
+        strategy: 'fixed',
         middleware: [offset(4), flip(), shift({ padding: 8 })],
       }).then(({ x, y }) => {
         if (!dropdown) return;
@@ -196,6 +201,7 @@ export function createSelect(
           left: `${x}px`,
           top: `${y}px`,
         });
+        dropdown.style.visibility = 'visible';
       });
     });
 
@@ -372,6 +378,8 @@ export function createColorDropdown(
   const buildDropdown = (): HTMLElement => {
     const menu = document.createElement('div');
     menu.className = 'fsdx-editor-color-dropdown';
+    menu.style.position = 'fixed';
+    menu.style.visibility = 'hidden';
 
     const actionBtn = document.createElement('button');
     actionBtn.type = 'button';
@@ -562,6 +570,7 @@ export function createColorDropdown(
       }
       computePosition(btn, dropdown, {
         placement: 'bottom-start',
+        strategy: 'fixed',
         middleware: [offset(4), flip(), shift({ padding: 8 })],
       }).then(({ x, y }) => {
         if (!dropdown) return;
@@ -570,6 +579,7 @@ export function createColorDropdown(
           left: `${x}px`,
           top: `${y}px`,
         });
+        dropdown.style.visibility = 'visible';
       });
     });
 

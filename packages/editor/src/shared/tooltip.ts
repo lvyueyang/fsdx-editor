@@ -29,6 +29,7 @@ export function bindTooltips(container: HTMLElement): void {
 
   const tooltip = document.createElement('div');
   tooltip.className = TOOLTIP_CLASS;
+  tooltip.style.position = 'fixed';
   tooltip.hidden = true;
   container.appendChild(tooltip);
   hosts.set(container, tooltip);
@@ -78,6 +79,7 @@ export function bindTooltips(container: HTMLElement): void {
         }
         computePosition(el, tooltip, {
           placement: 'bottom',
+          strategy: 'fixed',
           middleware: [offset(6), flip(), shift({ padding: 8 })],
         }).then(({ x, y }) => {
           Object.assign(tooltip.style, {

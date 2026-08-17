@@ -42,12 +42,15 @@ export function openContextMenu(handleEl: HTMLElement, editor: Editor): void {
   });
 
   const menu = session.menu;
+  menu.style.position = 'fixed';
+  menu.style.visibility = 'hidden';
   document.body.appendChild(menu);
 
   const stopPositioning = autoUpdate(handleEl, menu, () => {
     if (!menu.isConnected) return;
     computePosition(handleEl, menu, {
       placement: 'bottom-start',
+      strategy: 'fixed',
       middleware: [offset(4), flip(), shift({ padding: 8 })],
     }).then(({ x, y }) => {
       Object.assign(menu.style, {
@@ -56,6 +59,7 @@ export function openContextMenu(handleEl: HTMLElement, editor: Editor): void {
         top: `${y}px`,
         zIndex: '100',
       });
+      menu.style.visibility = 'visible';
     });
   });
 

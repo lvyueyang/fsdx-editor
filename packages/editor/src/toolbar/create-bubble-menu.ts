@@ -105,7 +105,7 @@ export function populateBubbleMenu(
     menuEl,
     SELECT_CLASS,
     editor,
-    ICONS.heading,
+    '',
     '标题',
     HEADING_OPTIONS,
     (e) => {

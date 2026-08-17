@@ -69,12 +69,15 @@ export function createMenuSession(options: MenuSessionOptions): MenuSession {
   function mountSubMenu(btn: HTMLButtonElement, el: HTMLElement) {
     el.className = 'tiptap-table-plus tiptap-table-plus-context-submenu';
     if (dark) el.classList.add('tiptap-table-plus-dark');
+    el.style.position = 'fixed';
+    el.style.visibility = 'hidden';
     document.body.appendChild(el);
 
     stopPositioning = autoUpdate(btn, el, () => {
       if (!el.isConnected) return;
       computePosition(btn, el, {
         placement: 'right-start',
+        strategy: 'fixed',
         middleware: [offset({ mainAxis: 4 }), flip(), shift({ padding: 8 })],
       }).then(({ x, y }) => {
         Object.assign(el.style, {
@@ -83,6 +86,7 @@ export function createMenuSession(options: MenuSessionOptions): MenuSession {
           top: `${y}px`,
           zIndex: '101',
         });
+        el.style.visibility = 'visible';
       });
     });
 

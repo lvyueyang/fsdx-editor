@@ -81,6 +81,8 @@ export function createLinkDropdown(
   const buildPopover = (): HTMLElement => {
     const panel = document.createElement('div');
     panel.className = POPOVER_CLASS;
+    panel.style.position = 'fixed';
+    panel.style.visibility = 'hidden';
 
     // ---- 输入行：URL 输入框 + 应用按钮 ----
     const inputRow = document.createElement('div');
@@ -255,6 +257,7 @@ export function createLinkDropdown(
       }
       computePosition(btn, popover, {
         placement: 'bottom-start',
+        strategy: 'fixed',
         middleware: [offset(4), flip(), shift({ padding: 8 })],
       }).then(({ x, y }) => {
         if (!popover) return;
@@ -263,6 +266,7 @@ export function createLinkDropdown(
           left: `${x}px`,
           top: `${y}px`,
         });
+        popover.style.visibility = 'visible';
       });
     });
 
