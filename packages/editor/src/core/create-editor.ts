@@ -21,7 +21,9 @@ import AttachmentNode from '../extensions/attachment-node';
 import AudioNode from '../extensions/audio-node';
 import ImageUpload from '../extensions/image-upload';
 import { Indent } from '../extensions/indent-extension';
+import { LinkOpen } from '../extensions/link-open';
 import VideoNode from '../extensions/video-node';
+import { createLinkHoverPopover } from '../shared/link-hover-popover';
 import {
   createBubbleMenuElement,
   populateBubbleMenu,
@@ -41,6 +43,9 @@ export function createEditorInstance(
   if (options.defaultTheme === 'dark') {
     container.classList.add('fsdx-editor-dark');
   }
+  if (options.readOnly) {
+    container.classList.add('fsdx-editor-readonly');
+  }
 
   const toolbarEl = createToolbarElement();
   container.appendChild(toolbarEl);
@@ -54,6 +59,7 @@ export function createEditorInstance(
   const emitter = new EventEmitter();
 
   let refreshAllToolbar: (() => void) | null = null;
+  let linkHoverDestroy: (() => void) | null = null;
 
   const editor = new Editor({
     element: editorContent,
@@ -61,9 +67,14 @@ export function createEditorInstance(
     editable: !options.readOnly,
     autofocus: options.autoFocus ? 'end' : false,
     extensions: [
+      LinkOpen,
       StarterKit.configure({
         heading: {
           levels: [1, 2, 3, 4, 5, 6],
+        },
+        link: {
+          openOnClick: false,
+          enableClickSelection: true,
         },
       }),
       TextStyle,
@@ -139,6 +150,7 @@ export function createEditorInstance(
         attachment: options.attachment,
       });
       const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor);
+      linkHoverDestroy = createLinkHoverPopover(container, editor).destroy;
 
       refreshAllToolbar = () => {
         toolbarRefresh();
@@ -167,6 +179,7 @@ export function createEditorInstance(
       if (refreshAllToolbar) {
         editor.off('selectionUpdate', refreshAllToolbar);
       }
+      linkHoverDestroy?.();
       emitter.emit('destroy');
       options.onDestroy?.();
     },

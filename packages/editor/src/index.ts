@@ -99,6 +99,7 @@ export function createEditor(
         'fsdx-editor',
         'fsdx-editor-dark',
         'fsdx-editor-disabled',
+        'fsdx-editor-readonly',
       );
     },
 

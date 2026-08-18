@@ -6,29 +6,21 @@ import {
   shift,
 } from '@floating-ui/dom';
 import type { Editor } from '@tiptap/core';
+import { sanitizeUrl } from '../utils/link';
 import { updateBtnStates } from './controls';
 
 const POPOVER_CLASS = 'fsdx-editor-link-popover';
-const ROW_CLASS = 'fsdx-editor-link-popover-row';
+const INPUT_ROW_CLASS = 'fsdx-editor-link-popover-input-row';
+const INPUT_ICON_CLASS = 'fsdx-editor-link-popover-input-icon';
 const INPUT_CLASS = 'fsdx-editor-link-popover-input';
-const BTN_CLASS = 'fsdx-editor-link-popover-btn';
-const TEXT_BTN_CLASS = 'fsdx-editor-link-popover-text-btn';
-const DIVIDER_CLASS = 'fsdx-editor-link-popover-divider';
-const TEXT_BTN_ACTIVE_CLASS = 'is-active';
+const NEW_WINDOW_BTN_CLASS = 'fsdx-editor-link-popover-new-window';
+const ACTIONS_CLASS = 'fsdx-editor-link-popover-actions';
+const ACTION_BTN_CLASS = 'fsdx-editor-link-popover-actions-btn';
+const DANGER_BTN_CLASS = 'fsdx-editor-link-popover-actions-btn--danger';
+const NEW_WINDOW_ACTIVE_CLASS = 'is-active';
 
-/** 简单 URL 清理，仅允许白名单协议 */
-function sanitizeUrl(inputUrl: string, baseUrl: string): string | null {
-  try {
-    const url = new URL(inputUrl, baseUrl);
-    const allowed = ['http:', 'https:', 'ftp:', 'mailto:', 'tel:', 'sms:'];
-    if (allowed.includes(url.protocol)) {
-      return url.href;
-    }
-  } catch {
-    // 无效 URL
-  }
-  return null;
-}
+const NEW_WINDOW_ICON =
+  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.99989 10.0001L4.99976 19L6.99976 19L6.99986 12.0001L17.1717 12L13.222 15.9498L14.6362 17.364L21.0001 11L14.6362 4.63605L13.222 6.05026L17.1717 10L4.99989 10.0001Z"/></svg>';
 
 /** 获取当前链接的 href */
 function getLinkHref(editor: Editor): string {
@@ -84,23 +76,21 @@ export function createLinkDropdown(
     panel.style.position = 'fixed';
     panel.style.visibility = 'hidden';
 
-    // ---- 输入行：URL 输入框 + 应用按钮 ----
+    // ---- 输入行：链接图标 + URL 输入框（Enter 应用） ----
     const inputRow = document.createElement('div');
-    inputRow.className = ROW_CLASS;
+    inputRow.className = INPUT_ROW_CLASS;
+
+    const inputIcon = document.createElement('span');
+    inputIcon.className = INPUT_ICON_CLASS;
+    inputIcon.setAttribute('aria-hidden', 'true');
+    inputIcon.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3638 15.5355L16.9496 14.1213L18.3638 12.7071C20.3164 10.7545 20.3164 7.58866 18.3638 5.63604C16.4112 3.68341 13.2453 3.68341 11.2927 5.63604L9.87849 7.05025L8.46428 5.63604L9.87849 4.22182C12.6122 1.48815 17.0443 1.48815 19.778 4.22182C22.5117 6.95549 22.5117 11.3876 19.778 14.1213L18.3638 15.5355ZM15.5353 18.364L14.1211 19.7782C11.3875 22.5118 6.95531 22.5118 4.22164 19.7782C1.48797 17.0445 1.48797 12.6123 4.22164 9.87868L5.63585 8.46446L7.05007 9.87868L5.63585 11.2929C3.68323 13.2455 3.68323 16.4113 5.63585 18.364C7.58847 20.3166 10.7543 20.3166 12.7069 18.364L14.1211 16.9497L15.5353 18.364ZM14.8282 7.75736L16.2425 9.17157L9.17139 16.2426L7.75717 14.8284L14.8282 7.75736Z"/></svg>';
 
     const input = document.createElement('input');
     input.type = 'url';
     input.className = INPUT_CLASS;
     input.placeholder = '粘贴链接...';
     input.value = getLinkHref(editor);
-
-    const applyBtn = document.createElement('button');
-    applyBtn.type = 'button';
-    applyBtn.className = BTN_CLASS;
-    applyBtn.dataset.tooltip = '应用链接';
-    applyBtn.setAttribute('aria-label', '应用链接');
-    applyBtn.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.0001 13.9999L19.0002 5L17.0002 4.99997L17.0001 11.9999L6.8283 12L10.778 8.05024L9.36382 6.63603L2.99986 13L9.36382 19.364L10.778 17.9497L6.82826 14L19.0001 13.9999Z"/></svg>';
 
     const applyLink = () => {
       const url = input.value.trim();
@@ -120,45 +110,26 @@ export function createLinkDropdown(
         applyLink();
       }
     });
+    input.addEventListener('mousedown', (e) => e.stopPropagation());
 
-    applyBtn.addEventListener('mousedown', (e) => e.preventDefault());
-    applyBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      applyLink();
-    });
+    // ---- 新窗口打开图标按钮（与输入框并列） ----
+    const newWindowBtn = document.createElement('button');
+    newWindowBtn.type = 'button';
+    newWindowBtn.className = NEW_WINDOW_BTN_CLASS;
+    newWindowBtn.dataset.tooltip = '新窗口打开';
+    newWindowBtn.setAttribute('aria-label', '新窗口打开');
+    newWindowBtn.innerHTML = NEW_WINDOW_ICON;
 
-    inputRow.appendChild(input);
-    inputRow.appendChild(applyBtn);
-    panel.appendChild(inputRow);
-
-    // ---- 分隔线 ----
-    const divider1 = document.createElement('div');
-    divider1.className = DIVIDER_CLASS;
-    panel.appendChild(divider1);
-
-    // ---- 新窗口切换行 ----
-    const toggleRow = document.createElement('div');
-    toggleRow.className = ROW_CLASS;
-
-    const toggleBtn = document.createElement('button');
-    toggleBtn.type = 'button';
-    toggleBtn.className = TEXT_BTN_CLASS;
-    toggleBtn.textContent = '新窗口';
-    toggleBtn.dataset.tooltip = '新窗口打开';
-    toggleBtn.setAttribute('aria-label', '新窗口打开');
-
-    const updateToggleState = () => {
-      if (isLinkBlank(editor)) {
-        toggleBtn.classList.add(TEXT_BTN_ACTIVE_CLASS);
-      } else {
-        toggleBtn.classList.remove(TEXT_BTN_ACTIVE_CLASS);
-      }
+    const updateNewWindowState = () => {
+      newWindowBtn.classList.toggle(
+        NEW_WINDOW_ACTIVE_CLASS,
+        isLinkBlank(editor),
+      );
     };
-    updateToggleState();
+    updateNewWindowState();
 
-    toggleBtn.addEventListener('mousedown', (e) => e.preventDefault());
-    toggleBtn.addEventListener('click', (e) => {
+    newWindowBtn.addEventListener('mousedown', (e) => e.preventDefault());
+    newWindowBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       const next = !isLinkBlank(editor);
@@ -170,29 +141,26 @@ export function createLinkDropdown(
         .extendMarkRange('link')
         .setLink({ href: url, target: next ? '_blank' : null })
         .run();
-      updateToggleState();
+      updateNewWindowState();
       updateBtnStates(container, btnClassName, editor);
     });
 
-    toggleRow.appendChild(toggleBtn);
-    panel.appendChild(toggleRow);
+    inputRow.appendChild(inputIcon);
+    inputRow.appendChild(input);
+    inputRow.appendChild(newWindowBtn);
+    panel.appendChild(inputRow);
 
-    // ---- 分隔线 ----
-    const divider2 = document.createElement('div');
-    divider2.className = DIVIDER_CLASS;
-    panel.appendChild(divider2);
-
-    // ---- 操作行：打开链接 + 取消链接 ----
-    const actionRow = document.createElement('div');
-    actionRow.className = ROW_CLASS;
+    // ---- 操作区：打开链接 + 取消链接 ----
+    const actions = document.createElement('div');
+    actions.className = ACTIONS_CLASS;
 
     const openBtn = document.createElement('button');
     openBtn.type = 'button';
-    openBtn.className = BTN_CLASS;
+    openBtn.className = ACTION_BTN_CLASS;
     openBtn.dataset.tooltip = '打开链接';
     openBtn.setAttribute('aria-label', '打开链接');
     openBtn.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"/></svg>';
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"/></svg>打开链接';
 
     openBtn.addEventListener('mousedown', (e) => e.preventDefault());
     openBtn.addEventListener('click', (e) => {
@@ -208,11 +176,11 @@ export function createLinkDropdown(
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
-    removeBtn.className = BTN_CLASS;
+    removeBtn.className = `${ACTION_BTN_CLASS} ${DANGER_BTN_CLASS}`;
     removeBtn.dataset.tooltip = '取消链接';
     removeBtn.setAttribute('aria-label', '取消链接');
     removeBtn.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"/></svg>';
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"/></svg>取消链接';
 
     removeBtn.addEventListener('mousedown', (e) => e.preventDefault());
     removeBtn.addEventListener('click', (e) => {
@@ -229,9 +197,9 @@ export function createLinkDropdown(
       updateBtnStates(container, btnClassName, editor);
     });
 
-    actionRow.appendChild(openBtn);
-    actionRow.appendChild(removeBtn);
-    panel.appendChild(actionRow);
+    actions.appendChild(openBtn);
+    actions.appendChild(removeBtn);
+    panel.appendChild(actions);
 
     container.appendChild(panel);
 

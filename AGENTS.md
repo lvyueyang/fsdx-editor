@@ -24,12 +24,13 @@ packages/
 │   │   ├── env.d.ts         # 环境类型声明（CSS 模块等）
 │   │   ├── core/
 │   │   │   └── create-editor.ts   # Editor 实例化，扩展注册，生命周期回调
-│   │   ├── extensions/              # 自定义 Tiptap 扩展（5 个）
+│   │   ├── extensions/              # 自定义 Tiptap 扩展（6 个）
 │   │   │   ├── image-upload.ts      # Tiptap Image 薄包装，添加 upload 选项
 │   │   │   ├── attachment-node.ts   # 块级附件节点（自定义 Node）
 │   │   │   ├── audio-node.ts        # 块级音频节点（自定义 Node）
 │   │   │   ├── video-node.ts        # 块级视频节点（自定义 Node）
-│   │   │   └── indent-extension.ts  # Paragraph/Heading 缩进支持（data-indent）
+│   │   │   ├── indent-extension.ts  # Paragraph/Heading 缩进支持（data-indent）
+│   │   │   └── link-open.ts         # Cmd/Ctrl+Click 与 Alt+Enter 打开链接
 │   │   ├── toolbar/                 # 工具栏/气泡菜单（vanilla DOM 构建）
 │   │   │   ├── create-toolbar.ts        # 编辑器顶部工具栏
 │   │   │   ├── create-bubble-menu.ts    # 文本选区气泡菜单
@@ -38,9 +39,11 @@ packages/
 │   │   │   ├── controls.ts          # addBtn / createSelect / createColorDropdown / createTableBtn 等
 │   │   │   ├── color-palette.ts     # 70 色 HSL 色板（10 色相 × 7 明度）
 │   │   │   ├── link-dropdown.ts     # 链接编辑弹出层
+│   │   │   ├── link-hover-popover.ts # 链接 hover 快速操作浮层（打开/复制/移除）
 │   │   │   └── tooltip.ts           # 自定义 tooltip（事件委托 + floating-ui 定位）
 │   │   └── utils/                   # 通用工具
 │   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
+│   │       ├── link.ts              # 链接工具（sanitizeUrl / getHrefFromAnchor）
 │   │       └── media-upload.ts      # 媒体上传触发器
 │   └── tests/
 │       ├── index.test.ts            # 编辑器测试
