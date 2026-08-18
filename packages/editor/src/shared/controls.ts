@@ -647,20 +647,36 @@ export function createColorDropdown(
   return btn;
 }
 
-/** 创建缩进数字输入框 */
-export function createIndentInput(
+/** 创建缩进控件：图标按钮 + 数字输入框合并为一个统一 toolbar 按钮形态 */
+export function createIndentControl(
   container: HTMLElement,
+  indentClassName: string,
+  btnClassName: string,
   inputClassName: string,
   editor: Editor,
+  icon: string,
   title: string,
+  inputTitle: string,
+  checkIndent: (e: Editor) => boolean,
+  toggleIndent: (e: Editor) => void,
   getIndent: (e: Editor) => number,
   setIndent: (e: Editor, value: number) => void,
-): HTMLInputElement {
+): HTMLElement {
+  const wrap = document.createElement('div');
+  wrap.className = indentClassName;
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = btnClassName;
+  btn.dataset.tooltip = title;
+  btn.setAttribute('aria-label', title);
+  btn.innerHTML = icon;
+
   const input = document.createElement('input');
   input.type = 'number';
   input.className = inputClassName;
-  input.dataset.tooltip = title;
-  input.setAttribute('aria-label', title);
+  input.dataset.tooltip = inputTitle;
+  input.setAttribute('aria-label', inputTitle);
   input.placeholder = 'em';
   input.min = '0';
   input.step = '0.5';
@@ -669,6 +685,22 @@ export function createIndentInput(
     const val = getIndent(editor);
     input.value = val > 0 ? String(val) : '';
   };
+
+  const refresh = () => {
+    btn.classList.toggle('is-active', checkIndent(editor));
+    updateValue();
+  };
+
+  (btn as unknown as Record<string, unknown>)._check = checkIndent;
+  (input as unknown as Record<string, unknown>)._update = updateValue;
+
+  btn.addEventListener('mousedown', (e) => e.preventDefault());
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleIndent(editor);
+    refresh();
+  });
 
   input.addEventListener('mousedown', (e) => e.stopPropagation());
   input.addEventListener('change', () => {
@@ -679,11 +711,11 @@ export function createIndentInput(
   });
   input.addEventListener('focus', () => updateValue());
 
-  (input as unknown as Record<string, unknown>)._update = updateValue;
-
-  container.appendChild(input);
-  updateValue();
-  return input;
+  wrap.appendChild(btn);
+  wrap.appendChild(input);
+  container.appendChild(wrap);
+  refresh();
+  return wrap;
 }
 
 /** 表格 grid picker 弹出层尺寸 */

@@ -3,7 +3,7 @@ import {
   addBtn,
   createColorDropdown,
   createDivider,
-  createIndentInput,
+  createIndentControl,
   createSelect,
   createTableBtn,
   updateBtnStates,
@@ -24,6 +24,7 @@ import {
 const BTN_CLASS = 'fsdx-editor-toolbar-btn';
 const DIVIDER_CLASS = 'fsdx-editor-toolbar-divider';
 const SELECT_CLASS = 'fsdx-editor-toolbar-select';
+const INDENT_CLASS = 'fsdx-editor-toolbar-indent';
 const INDENT_INPUT_CLASS = 'fsdx-editor-toolbar-indent-input';
 const TABLE_PICKER_CLASS = 'fsdx-editor-toolbar-table-picker';
 
@@ -268,9 +269,15 @@ export function populateToolbar(
   div();
 
   // ===== 缩进 =====
-  const indentBtn = add(
+  createIndentControl(
+    toolbarEl,
+    INDENT_CLASS,
+    `${BTN_CLASS} fsdx-editor-toolbar-btn--indent`,
+    INDENT_INPUT_CLASS,
+    editor,
     ICONS.indentIncrease,
     '缩进',
+    '缩进值（em）',
     (e) => {
       const attrs = e.getAttributes('paragraph');
       const headingAttrs = e.getAttributes('heading');
@@ -283,14 +290,6 @@ export function populateToolbar(
       e.chain().focus().toggleIndent(2).run();
       refreshAll();
     },
-  );
-  indentBtn.classList.add('fsdx-editor-toolbar-btn--indent');
-
-  createIndentInput(
-    toolbarEl,
-    INDENT_INPUT_CLASS,
-    editor,
-    '缩进值（em）',
     (e) => {
       const pAttrs = e.getAttributes('paragraph');
       const hAttrs = e.getAttributes('heading');

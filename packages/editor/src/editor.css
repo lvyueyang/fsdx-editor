@@ -741,24 +741,61 @@
   border-radius: 1px;
 }
 
-/* ===== 工具栏缩进输入框 ===== */
-.fsdx-editor-toolbar-indent-input {
-  width: 36px;
+/* ===== 工具栏缩进控件（图标 + 输入框统一按钮形态） ===== */
+.fsdx-editor-toolbar-indent {
+  display: inline-flex;
+  align-items: center;
   height: var(--fsdx-editor-toolbar-btn-size);
-  border: 1px solid var(--fsdx-editor-toolbar-border);
   border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  overflow: hidden;
+  transition: background 0.15s ease;
+}
+
+.fsdx-editor-toolbar-indent:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-toolbar-indent:focus-within {
+  background: var(--fsdx-editor-toolbar-btn-active);
+}
+
+.fsdx-editor-toolbar-indent:focus-within:has(:focus-visible) {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: -2px;
+}
+
+.fsdx-editor-toolbar-indent .fsdx-editor-toolbar-btn {
+  width: 28px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.fsdx-editor-toolbar-indent .fsdx-editor-toolbar-btn:hover,
+.fsdx-editor-toolbar-indent:hover .fsdx-editor-toolbar-btn:hover {
+  background: transparent;
+}
+
+.fsdx-editor-toolbar-indent .fsdx-editor-toolbar-btn.is-active {
+  background: transparent;
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-toolbar-indent-input {
+  width: 24px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
   background: transparent;
   color: var(--fsdx-editor-toolbar-btn-color);
   font-size: 11px;
   text-align: center;
-  padding: 0 2px;
+  padding: 0;
   outline: none;
   font-family: inherit;
-  transition: border-color 0.15s ease;
-}
-
-.fsdx-editor-toolbar-indent-input:focus {
-  border-color: var(--fsdx-editor-primary);
 }
 
 .fsdx-editor-toolbar-indent-input::-webkit-inner-spin-button,

@@ -220,7 +220,7 @@ const editor = createEditor(containerElement, {
 - 工具栏和气泡菜单通过 **纯 DOM API** 构建，不依赖 React
 - 按钮状态通过 `editor.isActive()` 判断，在选区更新时批量刷新
 - 下拉和弹出层使用 `@floating-ui/dom` 的 `computePosition` + `autoUpdate` 定位
-- 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentInput`
+- 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentControl`
 - SVG 图标以字符串形式内联在 `toolbar-shared.ts` 的 `ICONS` 常量中
 
 ### 表格增强套件
