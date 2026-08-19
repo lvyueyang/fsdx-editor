@@ -29,6 +29,10 @@ import {
   populateBubbleMenu,
 } from '../toolbar/create-bubble-menu';
 import {
+  createImageMenuElement,
+  populateImageMenu,
+} from '../toolbar/create-image-menu';
+import {
   createToolbarElement,
   populateToolbar,
 } from '../toolbar/create-toolbar';
@@ -55,6 +59,7 @@ export function createEditorInstance(
   container.appendChild(editorContent);
 
   const bubbleMenuEl = createBubbleMenuElement();
+  const imageMenuEl = createImageMenuElement();
 
   const emitter = new EventEmitter();
 
@@ -109,12 +114,8 @@ export function createEditorInstance(
         pluginKey: 'fsdxBubbleMenu',
         options: { strategy: 'fixed' },
         shouldShow: ({ editor: e, element, view, state, from, to }) => {
-          const mediaNodes = [
-            'imageUpload',
-            'videoNode',
-            'audioNode',
-            'attachmentNode',
-          ];
+          const mediaNodes = ['videoNode', 'audioNode', 'attachmentNode'];
+          const isImageSelected = e.isActive('imageUpload');
           const isEmptyTextBlock =
             !state.doc.textBetween(from, to).length &&
             isTextSelection(state.selection);
@@ -122,6 +123,7 @@ export function createEditorInstance(
           const hasEditorFocus = view.hasFocus() || isChildOfMenu;
           return (
             hasEditorFocus &&
+            !isImageSelected &&
             !state.selection.empty &&
             !isEmptyTextBlock &&
             e.isEditable &&
@@ -129,8 +131,16 @@ export function createEditorInstance(
           );
         },
       }),
+      BubbleMenu.extend({ name: 'imageBubbleMenu' }).configure({
+        element: imageMenuEl,
+        pluginKey: 'fsdxImageMenu',
+        options: { strategy: 'fixed' },
+        shouldShow: ({ editor: e }) =>
+          e.isEditable && e.isActive('imageUpload'),
+      }),
       ImageUpload.configure({
         upload: options.image?.upload,
+        ...(options.image?.resizable === false ? { resize: false } : {}),
       }),
       VideoNode.configure({
         upload: options.video?.upload,
@@ -150,11 +160,17 @@ export function createEditorInstance(
         attachment: options.attachment,
       });
       const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor);
+      const imageMenuRefresh = populateImageMenu(
+        imageMenuEl,
+        editor,
+        options.image?.upload,
+      );
       linkHoverDestroy = createLinkHoverPopover(container, editor).destroy;
 
       refreshAllToolbar = () => {
         toolbarRefresh();
         bubbleRefresh();
+        imageMenuRefresh();
       };
 
       editor.on('selectionUpdate', refreshAllToolbar);

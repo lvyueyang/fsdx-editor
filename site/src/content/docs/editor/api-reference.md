@@ -26,7 +26,7 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | `placeholder` | `string` | — | 编辑器为空时显示的占位文字 |
 | `readOnly` | `boolean` | `false` | 是否只读 |
 | `autoFocus` | `boolean` | `false` | 是否自动聚焦 |
-| `image` | `MediaUploadConfig` | — | 图片上传与列表配置 |
+| `image` | `ImageMediaUploadConfig` | — | 图片上传、列表与缩放配置 |
 | `video` | `MediaUploadConfig` | — | 视频上传与列表配置 |
 | `audio` | `MediaUploadConfig` | — | 音频上传与列表配置 |
 | `attachment` | `MediaUploadConfig` | — | 附件上传与列表配置 |
@@ -95,6 +95,27 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | `upload` | `(file: File, onProgress?: (progress: number) => void) => Promise<MediaItem>` | 文件上传函数 |
 | `getList` | `(params: MediaListParams) => Promise<MediaListResult>` | 媒体列表分页查询 |
 
+## ImageMediaUploadConfig
+
+图片配置在通用媒体配置基础上增加图片专属选项：
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `upload` | 同 `MediaUploadConfig.upload` | — | 图片上传函数 |
+| `getList` | 同 `MediaUploadConfig.getList` | — | 图片列表分页查询 |
+| `resizable` | `boolean` | `true` | 是否开启图片拖拽缩放（四角手柄） |
+
+## 图片能力
+
+图片节点（`imageUpload`）具备业内主流的富文本操作能力：
+
+- **三种插入方式**：点击工具栏媒体按钮弹出下拉，通过 **Tab 切换**「上传」（调 `upload`）、「网络地址」（直接粘贴 URL）、「媒体库」（调 `getList` 浏览并选择，未配置 `getList` 时隐藏该入口）；媒体库列表限高滚动并支持分页
+- **拖拽缩放**：选中图片后拖动四角手柄调整尺寸（像素），也可通过选中浮层按 **百分比** 设置宽度；`resizable: false` 可关闭缩放
+- **对齐方式**：选中图片后浮层可切换左对齐 / 居中 / 右对齐，渲染为 `data-align` 属性
+- **选中浮层**：选中图片时在图片上方弹出操作浮层，提供对齐、宽度百分比、替换（重新上传）、删除、查看原图
+
+视频 / 音频 / 附件同样支持上传、网络地址、媒体库三种插入方式。
+
 ## MediaItem
 
 | 字段 | 类型 | 说明 |
@@ -143,7 +164,8 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | TablePlus | 表格（可调整列宽） |
 | Placeholder | 占位符提示 |
 | BubbleMenu | 选中文字气泡菜单 |
-| ImageUpload | 图片上传与插入 |
+| ImageMenu | 图片选中浮层（对齐/替换/删除/查看原图） |
+| ImageUpload | 图片插入（上传/URL/媒体库）、拖拽缩放、对齐 |
 | VideoNode | 视频插入 |
 | AudioNode | 音频插入 |
 | AttachmentNode | 附件插入 |

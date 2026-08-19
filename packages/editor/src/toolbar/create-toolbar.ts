@@ -9,9 +9,9 @@ import {
   updateBtnStates,
 } from '../shared/controls';
 import { createLinkDropdown } from '../shared/link-dropdown';
+import { createMediaDropdown } from '../shared/media-dropdown';
 import { bindTooltips } from '../shared/tooltip';
 import type { MediaUploadConfig } from '../types';
-import { triggerMediaUpload } from '../utils/media-upload';
 import {
   FONT_SIZE_OPTIONS,
   HEADING_OPTIONS,
@@ -344,45 +344,62 @@ export function populateToolbar(
     }
 
     if (image) {
-      add(
+      createMediaDropdown(
+        toolbarEl,
+        BTN_CLASS,
         ICONS.image,
         '插入图片',
-        () => false,
-        (e) => {
-          triggerMediaUpload('image/*', e, 'imageUpload', image.upload);
+        image,
+        {
+          accept: 'image/*',
+          isActive: (e) => e.isActive('imageUpload'),
+          insert: ({ src }) => editor.chain().focus().setImage({ src }).run(),
         },
       );
     }
 
     if (video) {
-      add(
+      createMediaDropdown(
+        toolbarEl,
+        BTN_CLASS,
         ICONS.video,
         '插入视频',
-        () => false,
-        (e) => {
-          triggerMediaUpload('video/*', e, 'videoNode', video.upload);
+        video,
+        {
+          accept: 'video/*',
+          isActive: (e) => e.isActive('videoNode'),
+          insert: ({ src }) => editor.chain().focus().setVideo({ src }).run(),
         },
       );
     }
 
     if (audio) {
-      add(
+      createMediaDropdown(
+        toolbarEl,
+        BTN_CLASS,
         ICONS.audio,
         '插入音频',
-        () => false,
-        (e) => {
-          triggerMediaUpload('audio/*', e, 'audioNode', audio.upload);
+        audio,
+        {
+          accept: 'audio/*',
+          isActive: (e) => e.isActive('audioNode'),
+          insert: ({ src }) => editor.chain().focus().setAudio({ src }).run(),
         },
       );
     }
 
     if (attachment) {
-      add(
+      createMediaDropdown(
+        toolbarEl,
+        BTN_CLASS,
         ICONS.attachment,
         '插入附件',
-        () => false,
-        (e) => {
-          triggerMediaUpload('*/*', e, 'attachmentNode', attachment.upload);
+        attachment,
+        {
+          accept: '*/*',
+          isActive: (e) => e.isActive('attachmentNode'),
+          insert: ({ src, name, size }) =>
+            editor.chain().focus().setAttachment({ src, name, size }).run(),
         },
       );
     }

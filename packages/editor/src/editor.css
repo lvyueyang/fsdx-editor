@@ -384,13 +384,86 @@
   max-width: 100%;
   height: auto;
   border-radius: var(--fsdx-editor-image-radius);
-  margin: 0.75em 0;
+  margin: 0.75em auto;
   display: block;
+}
+
+/* 图片对齐：未设置 data-align 时默认居中，left/right 通过 margin 覆盖 */
+.fsdx-editor-content img[data-align="left"] {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.fsdx-editor-content img[data-align="center"] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fsdx-editor-content img[data-align="right"] {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .fsdx-editor-content img.ProseMirror-selectednode {
   outline: 2px solid var(--fsdx-editor-primary);
   outline-offset: 2px;
+}
+
+/* 拖拽缩放：容器为 flex，通过 justify-content 控制对齐 */
+.fsdx-editor-content [data-resize-container][data-node="imageUpload"] {
+  display: flex;
+  max-width: 100%;
+  margin: 0.75em 0;
+  justify-content: center;
+}
+
+.fsdx-editor-content
+  [data-resize-container][data-node="imageUpload"]:has(img[data-align="left"]) {
+  justify-content: flex-start;
+}
+
+.fsdx-editor-content
+  [data-resize-container][data-node="imageUpload"]:has(
+    img[data-align="right"]
+  ) {
+  justify-content: flex-end;
+}
+
+.fsdx-editor-content [data-resize-wrapper] {
+  max-width: 100%;
+}
+
+.fsdx-editor-content [data-resize-container][data-node="imageUpload"] img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.fsdx-editor-content
+  [data-resize-container][data-node="imageUpload"].ProseMirror-selectednode
+  img {
+  outline: 2px solid var(--fsdx-editor-primary);
+  outline-offset: 2px;
+}
+
+/* 缩放手柄：仅选中图片时显示 */
+.fsdx-editor-content [data-resize-handle] {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  display: none;
+  background: #fff;
+  border: 2px solid var(--fsdx-editor-primary);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.fsdx-editor-content
+  [data-resize-container].ProseMirror-selectednode
+  [data-resize-handle] {
+  display: block;
 }
 
 /* ===== 视频 ===== */
@@ -736,6 +809,86 @@
 }
 
 .fsdx-editor-toolbar-select-item.is-selected {
+  background: var(--fsdx-editor-primary-light, #e0e7ff);
+  color: var(--fsdx-editor-primary);
+}
+
+/* ===== 图片浮层宽度选择（紧凑下拉） ===== */
+.fsdx-editor-bubble-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: var(--fsdx-editor-bubble-btn-size);
+  min-width: 46px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-bubble-btn-color);
+  cursor: pointer;
+  padding: 0 4px;
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+
+.fsdx-editor-bubble-select:hover {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-bubble-select-value {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.fsdx-editor-bubble-select-arrow {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: var(--fsdx-editor-bubble-btn-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+  pointer-events: none;
+}
+
+.fsdx-editor-bubble-select[aria-expanded="true"]
+  .fsdx-editor-bubble-select-arrow {
+  transform: rotate(180deg);
+}
+
+.fsdx-editor-bubble-select-arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+.fsdx-editor-bubble-select-dropdown {
+  z-index: 101;
+  min-width: 4rem;
+  padding: 4px;
+  border-radius: var(--fsdx-editor-radius-md, 6px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fsdx-editor-bubble-select-item {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.fsdx-editor-bubble-select-item:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-bubble-select-item.is-selected {
   background: var(--fsdx-editor-primary-light, #e0e7ff);
   color: var(--fsdx-editor-primary);
 }
@@ -1190,4 +1343,320 @@
 .fsdx-editor-content h5[data-indent],
 .fsdx-editor-content h6[data-indent] {
   padding-left: calc(var(--fsdx-editor-indent-level, 0) * 1em);
+}
+
+/* ===== 媒体插入下拉 ===== */
+.fsdx-editor-media-dropdown {
+  z-index: 101;
+  width: 17rem;
+  padding: 8px;
+  border-radius: var(--fsdx-editor-radius, 8px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fsdx-editor-media-dropdown-tabs {
+  display: flex;
+  gap: 2px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--fsdx-editor-toolbar-border);
+}
+
+.fsdx-editor-media-dropdown-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  height: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.fsdx-editor-media-dropdown-tab:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-media-dropdown-tab.is-active {
+  background: var(--fsdx-editor-primary-light);
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-media-dropdown-tab svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fsdx-editor-media-dropdown-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-panel[hidden] {
+  display: none;
+}
+
+/* 上传 */
+.fsdx-editor-media-dropdown-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: 1px dashed var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  padding: 0 8px;
+}
+
+.fsdx-editor-media-dropdown-upload-btn:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+  border-color: var(--fsdx-editor-primary);
+  color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-media-dropdown-upload-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.fsdx-editor-media-dropdown-upload-btn-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-upload-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--fsdx-editor-toolbar-btn-hover);
+  overflow: hidden;
+}
+
+.fsdx-editor-media-dropdown-upload-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--fsdx-editor-primary);
+  transition: width 0.2s ease;
+}
+
+/* 网络地址 */
+.fsdx-editor-media-dropdown-url-row {
+  display: flex;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-url-input,
+.fsdx-editor-media-dropdown-search-input {
+  flex: 1;
+  min-width: 0;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  padding: 0 8px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+
+.fsdx-editor-media-dropdown-url-input:focus,
+.fsdx-editor-media-dropdown-search-input:focus {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-media-dropdown-url-input::placeholder,
+.fsdx-editor-media-dropdown-search-input::placeholder {
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+.fsdx-editor-media-dropdown-url-insert-btn {
+  height: var(--fsdx-editor-toolbar-btn-size);
+  padding: 0 12px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: var(--fsdx-editor-primary);
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.fsdx-editor-media-dropdown-url-insert-btn:hover {
+  background: var(--fsdx-editor-primary-hover);
+}
+
+/* 媒体库 */
+.fsdx-editor-media-dropdown-search-row {
+  display: flex;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.fsdx-editor-media-dropdown-search-btn:hover {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-media-dropdown-search-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-height: 15rem;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.fsdx-editor-media-dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.fsdx-editor-media-dropdown-item:hover {
+  border-color: var(--fsdx-editor-primary);
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-media-dropdown-item-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-media-dropdown-item-thumb img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.fsdx-editor-media-dropdown-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fsdx-editor-media-dropdown-item-name {
+  font-size: 12px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fsdx-editor-media-dropdown-item-size {
+  font-size: 11px;
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+/* 分页 */
+.fsdx-editor-media-dropdown-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.fsdx-editor-media-dropdown-page-btn:hover:not(:disabled) {
+  background: var(--fsdx-editor-toolbar-btn-hover);
+}
+
+.fsdx-editor-media-dropdown-page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.fsdx-editor-media-dropdown-page-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-page-info {
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+/* 状态（加载/空态/错误） */
+.fsdx-editor-media-dropdown-status {
+  padding: 12px 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
 }

@@ -2,6 +2,12 @@ export type ContentType = string;
 
 export type ThemeType = 'light' | 'dark';
 
+/** 图片配置：在通用媒体配置基础上增加图片专属选项 */
+export type ImageMediaUploadConfig = MediaUploadConfig & {
+  /** 是否开启图片拖拽缩放，默认 true */
+  resizable?: boolean;
+};
+
 /** 编辑器初始化配置 */
 export interface FsdxEditorOptions {
   placeholder?: string;
@@ -9,7 +15,7 @@ export interface FsdxEditorOptions {
   autoFocus?: boolean;
   defaultContent?: ContentType;
   defaultTheme?: ThemeType;
-  image?: MediaUploadConfig;
+  image?: ImageMediaUploadConfig;
   video?: MediaUploadConfig;
   audio?: MediaUploadConfig;
   attachment?: MediaUploadConfig;

@@ -24,8 +24,9 @@ packages/
 │   │   ├── env.d.ts         # 环境类型声明（CSS 模块等）
 │   │   ├── core/
 │   │   │   └── create-editor.ts   # Editor 实例化，扩展注册，生命周期回调
-│   │   ├── extensions/              # 自定义 Tiptap 扩展（6 个）
-│   │   │   ├── image-upload.ts      # Tiptap Image 薄包装，添加 upload 选项
+│   │   ├── extensions/              # 自定义 Tiptap 扩展（6 个）与辅助 NodeView
+│   │   │   ├── image-upload.ts      # Image 扩展包装：upload/align(data-align)/resize 缩放
+│   │   │   ├── image-node-view.ts   # 图片可缩放 NodeView（像素/百分比宽度手柄）
 │   │   │   ├── attachment-node.ts   # 块级附件节点（自定义 Node）
 │   │   │   ├── audio-node.ts        # 块级音频节点（自定义 Node）
 │   │   │   ├── video-node.ts        # 块级视频节点（自定义 Node）
@@ -34,19 +35,22 @@ packages/
 │   │   ├── toolbar/                 # 工具栏/气泡菜单（vanilla DOM 构建）
 │   │   │   ├── create-toolbar.ts        # 编辑器顶部工具栏
 │   │   │   ├── create-bubble-menu.ts    # 文本选区气泡菜单
+│   │   │   ├── create-image-menu.ts     # 图片选中浮层（第二 BubbleMenu 实例）
 │   │   │   └── toolbar-shared.ts        # SVG 图标常量、预设选项、批量更新
 │   │   ├── shared/                  # 共享 UI 构建工具
 │   │   │   ├── controls.ts          # addBtn / createSelect / createColorDropdown / createTableBtn 等
 │   │   │   ├── color-palette.ts     # 70 色 HSL 色板（10 色相 × 7 明度）
 │   │   │   ├── link-dropdown.ts     # 链接编辑弹出层
 │   │   │   ├── link-hover-popover.ts # 链接 hover 快速操作浮层（打开/复制/移除）
+│   │   │   ├── media-dropdown.ts    # 媒体插入下拉（Tab 切换：上传/URL/媒体库）
 │   │   │   └── tooltip.ts           # 自定义 tooltip（事件委托 + floating-ui 定位）
 │   │   └── utils/                   # 通用工具
 │   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
-│   │       ├── link.ts              # 链接工具（sanitizeUrl / getHrefFromAnchor）
-│   │       └── media-upload.ts      # 媒体上传触发器
+│   │       └── link.ts              # 链接工具（sanitizeUrl / getHrefFromAnchor）
 │   └── tests/
 │       ├── index.test.ts            # 编辑器测试
+│       ├── image.test.ts            # 图片节点：对齐/缩放/选中浮层测试
+│       ├── media.test.ts            # 媒体三方式插入下拉测试
 │       └── table-plus-smoke.test.ts # TablePlus 集成测试（经 editor 测试环境运行）
 ├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
 │   ├── package.json
@@ -207,7 +211,7 @@ const editor = createEditor(containerElement, {
 5. **列表**：TaskList / TaskItem
 6. **表格**：Table（来自 @tiptap/extension-table）+ TablePlus（来自 @fsdx/tiptap-table-plus，增强套件）
 7. **占位符**：Placeholder（@tiptap/extensions）
-8. **气泡菜单**：BubbleMenu
+8. **气泡菜单**：BubbleMenu（文本选区）+ BubbleMenu 子类 imageBubbleMenu（图片选中浮层）
 9. **媒体**：ImageUpload / VideoNode / AudioNode / AttachmentNode
 
 ### 自定义扩展规范
@@ -215,7 +219,7 @@ const editor = createEditor(containerElement, {
 自定义扩展通过 Tiptap Extension API 实现，每个扩展自包含在一个文件中：
 
 - **节点扩展**（`attachment-node`、`audio-node`、`video-node`）：定义自定义 `Node`，包含 HTML 解析/序列化、`addCommands`、`addAttributes`
-- **标记扩展**（`image-upload`）：包装 `@tiptap/extension-image`，添加 `upload` 配置选项
+- **标记扩展**（`image-upload`）：包装 `@tiptap/extension-image`，添加 `upload`、`resize`（拖拽缩放）配置，扩展 `data-align` 对齐属性与 `setImageAlign` 命令
 - **功能扩展**（`indent-extension`）：在 paragraph/heading 上添加 `data-indent` 属性支持
 
 ### 工具栏和气泡菜单
@@ -224,6 +228,8 @@ const editor = createEditor(containerElement, {
 - 按钮状态通过 `editor.isActive()` 判断，在选区更新时批量刷新
 - 下拉和弹出层使用 `@floating-ui/dom` 的 `computePosition` + `autoUpdate` 定位
 - 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentControl`
+- 媒体插入统一走 `media-dropdown.ts` 的 Tab 三方式下拉（上传 / URL / 媒体库 `getList`，媒体库列表限高滚动）
+- 图片选中浮层复用第二个 `BubbleMenu` 实例（`imageBubbleMenu`），共享气泡菜单样式，含对齐/宽度百分比/替换/删除/查看原图
 - SVG 图标以字符串形式内联在 `toolbar-shared.ts` 的 `ICONS` 常量中
 
 ### 表格增强套件

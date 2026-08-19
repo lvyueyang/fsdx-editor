@@ -92,17 +92,42 @@ function formatDate(date: Date): string {
 
 function simulateUpload(
   file: File,
-): Promise<{ url: string; name: string; size: number }> {
+): Promise<{ id: string; url: string; name: string; size: number }> {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onload = () => {
       resolve({
+        id: file.name,
         url: reader.result as string,
         name: file.name,
         size: file.size,
       });
     };
     reader.readAsDataURL(file);
+  });
+}
+
+/** 模拟媒体库：返回固定图片列表并支持分页过滤 */
+function simulateGetList(params: {
+  page: number;
+  pageSize: number;
+  keyword?: string;
+}): Promise<{
+  items: { id: string; url: string; name: string }[];
+  total: number;
+}> {
+  const all = Array.from({ length: 24 }, (_, i) => ({
+    id: String(i + 1),
+    url: `https://picsum.photos/seed/demo${i + 1}/400/300`,
+    name: `示例图片 ${i + 1}`,
+  }));
+  const filtered = params.keyword
+    ? all.filter((item) => item.name.includes(params.keyword!))
+    : all;
+  const start = (params.page - 1) * params.pageSize;
+  return Promise.resolve({
+    items: filtered.slice(start, start + params.pageSize),
+    total: filtered.length,
   });
 }
 
@@ -135,7 +160,7 @@ export default function VanillaDemo() {
       defaultContent: initialContent,
       defaultTheme: theme,
       placeholder: '请输入内容…',
-      image: { upload: simulateUpload },
+      image: { upload: simulateUpload, getList: simulateGetList },
       video: { upload: simulateUpload },
       audio: { upload: simulateUpload },
       attachment: { upload: simulateUpload },
