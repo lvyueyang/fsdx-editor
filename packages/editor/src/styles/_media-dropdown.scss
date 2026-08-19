@@ -1,0 +1,321 @@
+// 媒体插入下拉：Tab 切换（上传 / URL / 媒体库）及分页、状态
+.fsdx-editor-media-dropdown {
+  z-index: 101;
+  width: 17rem;
+  padding: 8px;
+  border-radius: var(--fsdx-editor-radius, 8px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fsdx-editor-media-dropdown-tabs {
+  display: flex;
+  gap: 2px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--fsdx-editor-toolbar-border);
+}
+
+.fsdx-editor-media-dropdown-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  height: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  &.is-active {
+    background: var(--fsdx-editor-primary-light);
+    color: var(--fsdx-editor-primary);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+}
+
+.fsdx-editor-media-dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fsdx-editor-media-dropdown-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// 上传
+.fsdx-editor-media-dropdown-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 64px;
+  padding: 8px;
+  border: 1px dashed var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover,
+  &.is-dragover {
+    background: var(--fsdx-editor-primary-light);
+    border-color: var(--fsdx-editor-primary);
+    color: var(--fsdx-editor-primary);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.fsdx-editor-media-dropdown-upload-btn-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-upload-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+.fsdx-editor-media-dropdown-upload-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--fsdx-editor-toolbar-btn-hover);
+  overflow: hidden;
+}
+
+.fsdx-editor-media-dropdown-upload-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--fsdx-editor-primary);
+  transition: width 0.2s ease;
+}
+
+// 网络地址
+.fsdx-editor-media-dropdown-url-row {
+  display: flex;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-url-input,
+.fsdx-editor-media-dropdown-search-input {
+  flex: 1;
+  min-width: 0;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  padding: 0 8px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+
+  &:focus {
+    border-color: var(--fsdx-editor-primary);
+  }
+
+  &::placeholder {
+    color: var(--fsdx-editor-placeholder-color);
+  }
+}
+
+.fsdx-editor-media-dropdown-url-insert-btn {
+  height: var(--fsdx-editor-toolbar-btn-size);
+  padding: 0 12px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: var(--fsdx-editor-primary);
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--fsdx-editor-primary-hover);
+  }
+}
+
+// 媒体库
+.fsdx-editor-media-dropdown-search-row {
+  display: flex;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  padding: 0;
+
+  &:hover {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+}
+
+.fsdx-editor-media-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-height: 15rem;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.fsdx-editor-media-dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+
+  &:hover {
+    border-color: var(--fsdx-editor-primary);
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+}
+
+.fsdx-editor-media-dropdown-item-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--fsdx-editor-toolbar-btn-hover);
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+}
+
+.fsdx-editor-media-dropdown-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fsdx-editor-media-dropdown-item-name {
+  font-size: 12px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fsdx-editor-media-dropdown-item-size {
+  font-size: 11px;
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+// 分页
+.fsdx-editor-media-dropdown-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.fsdx-editor-media-dropdown-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  padding: 0;
+
+  &:hover:not(:disabled) {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+}
+
+.fsdx-editor-media-dropdown-page-info {
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
+}
+
+// 状态（加载/空态/错误）
+.fsdx-editor-media-dropdown-status {
+  padding: 12px 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
+}

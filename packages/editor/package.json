@@ -42,6 +42,7 @@
     "@tiptap/starter-kit": "^3.27.1"
   },
   "devDependencies": {
+    "@rsbuild/plugin-sass": "^2.0.1",
     "@rslib/core": "^0.23.0",
     "@rstest/adapter-rslib": "^0.10.5",
     "@rstest/core": "^0.10.5",

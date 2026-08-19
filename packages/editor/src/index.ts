@@ -1,4 +1,4 @@
-import './editor.css';
+import './styles/index.scss';
 
 import { createEditorInstance } from './core/create-editor';
 import type { FsdxEditorOptions, ThemeType } from './types';

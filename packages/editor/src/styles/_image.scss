@@ -1,0 +1,91 @@
+// 图片节点：对齐、选中高亮与拖拽缩放容器/手柄
+.fsdx-editor-content {
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--fsdx-editor-image-radius);
+    margin: 0.75em auto;
+    display: block;
+
+    // 对齐：未设置 data-align 时默认居中，left/right 通过 margin 覆盖
+    &[data-align="left"] {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    &[data-align="center"] {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &[data-align="right"] {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    &.ProseMirror-selectednode {
+      outline: 2px solid var(--fsdx-editor-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  // 拖拽缩放：容器为 flex，通过 justify-content 控制对齐
+  [data-resize-container][data-node="imageUpload"] {
+    display: flex;
+    max-width: 100%;
+    margin: 0.75em 0;
+    justify-content: center;
+
+    &:has(img[data-align="left"]) {
+      justify-content: flex-start;
+    }
+
+    &:has(img[data-align="right"]) {
+      justify-content: flex-end;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+    }
+
+    &.ProseMirror-selectednode img {
+      outline: 2px solid var(--fsdx-editor-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  [data-resize-wrapper] {
+    max-width: 100%;
+  }
+
+  // 缩放手柄：仅选中图片时显示
+  [data-resize-handle] {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    display: none;
+    background: #fff;
+    border: 2px solid var(--fsdx-editor-primary);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+
+  [data-resize-container].ProseMirror-selectednode [data-resize-handle] {
+    display: block;
+  }
+
+  // 缩放手柄鼠标样式：对角手柄按拖拽方向区分
+  [data-resize-handle="top-left"],
+  [data-resize-handle="bottom-right"] {
+    cursor: nwse-resize;
+  }
+
+  [data-resize-handle="top-right"],
+  [data-resize-handle="bottom-left"] {
+    cursor: nesw-resize;
+  }
+}

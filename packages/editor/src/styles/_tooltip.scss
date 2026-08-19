@@ -1,0 +1,19 @@
+// 自定义 Tooltip 浮层
+.fsdx-editor-tooltip {
+  position: fixed;
+  z-index: 200;
+  background: var(--fsdx-editor-tooltip-bg);
+  color: var(--fsdx-editor-tooltip-color);
+  padding: var(--fsdx-editor-tooltip-padding);
+  border-radius: var(--fsdx-editor-tooltip-radius);
+  font-size: var(--fsdx-editor-tooltip-font-size);
+  line-height: 1.4;
+  box-shadow: var(--fsdx-editor-tooltip-shadow);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 240px;
+
+  &[hidden] {
+    display: none;
+  }
+}

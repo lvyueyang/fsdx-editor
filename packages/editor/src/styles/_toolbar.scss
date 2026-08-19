@@ -1,0 +1,286 @@
+// 顶部固定工具栏：按钮、分隔线、下拉选择、缩进控件、表格 Grid Picker 与颜色指示器
+.fsdx-editor-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: var(--fsdx-editor-toolbar-padding);
+  background: var(--fsdx-editor-toolbar-bg);
+  border-bottom: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-radius) var(--fsdx-editor-radius) 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.fsdx-editor-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border: none;
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.15s ease;
+  padding: 0;
+
+  &:hover {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  &.is-active {
+    background: var(--fsdx-editor-toolbar-btn-active);
+    color: var(--fsdx-editor-primary);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  // 撤销/重做：可用时无 active 背景，不可用时置灰
+  &--history.is-active {
+    background: transparent;
+    color: var(--fsdx-editor-toolbar-btn-color);
+  }
+
+  &--history:not(.is-active) {
+    opacity: 0.4;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  // 颜色按钮指示器
+  &--color {
+    position: relative;
+  }
+}
+
+.fsdx-editor-toolbar-btn-color-indicator {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.fsdx-editor-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--fsdx-editor-toolbar-divider);
+  margin: 0 4px;
+}
+
+// 工具栏下拉选择框
+.fsdx-editor-toolbar-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  cursor: pointer;
+  padding: 0 4px;
+  transition: border-color 0.15s ease;
+  outline: none;
+
+  &:hover {
+    border-color: var(--fsdx-editor-primary);
+  }
+}
+
+.fsdx-editor-toolbar-select-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--fsdx-editor-toolbar-btn-size);
+  color: var(--fsdx-editor-toolbar-btn-color);
+  pointer-events: none;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+}
+
+.fsdx-editor-toolbar-select-value {
+  width: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  white-space: nowrap;
+}
+
+.fsdx-editor-toolbar-select-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.fsdx-editor-toolbar-select[aria-expanded="true"] .fsdx-editor-toolbar-select-arrow {
+  transform: rotate(180deg);
+}
+
+.fsdx-editor-toolbar-select-dropdown {
+  z-index: 100;
+  min-width: 4.5rem;
+  padding: 4px;
+  border-radius: var(--fsdx-editor-radius-md, 6px);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  background: var(--fsdx-editor-toolbar-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fsdx-editor-toolbar-select-item {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  &:focus-visible {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+    outline: 2px solid var(--fsdx-editor-primary);
+    outline-offset: -2px;
+  }
+
+  &.is-selected {
+    background: var(--fsdx-editor-primary-light, #e0e7ff);
+    color: var(--fsdx-editor-primary);
+  }
+}
+
+// 工具栏缩进控件（图标 + 输入框统一按钮形态）
+.fsdx-editor-toolbar-indent {
+  display: inline-flex;
+  align-items: center;
+  height: var(--fsdx-editor-toolbar-btn-size);
+  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  background: transparent;
+  overflow: hidden;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--fsdx-editor-toolbar-btn-hover);
+  }
+
+  &:focus-within {
+    background: var(--fsdx-editor-toolbar-btn-active);
+
+    &:has(:focus-visible) {
+      outline: 2px solid var(--fsdx-editor-primary);
+      outline-offset: -2px;
+    }
+  }
+
+  .fsdx-editor-toolbar-btn {
+    width: 28px;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    flex-shrink: 0;
+
+    &:hover {
+      background: transparent;
+    }
+
+    &.is-active {
+      background: transparent;
+      color: var(--fsdx-editor-primary);
+    }
+  }
+
+  &:hover .fsdx-editor-toolbar-btn:hover {
+    background: transparent;
+  }
+}
+
+.fsdx-editor-toolbar-indent-input {
+  width: 24px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  font-size: 11px;
+  text-align: center;
+  padding: 0;
+  outline: none;
+  font-family: inherit;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+// 表格 Grid Picker 弹出层
+.fsdx-editor-toolbar-table-picker {
+  background: var(--fsdx-editor-toolbar-bg);
+  border: 1px solid var(--fsdx-editor-toolbar-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  z-index: 200;
+}
+
+.fsdx-editor-toolbar-table-picker-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-toolbar-btn-color);
+  margin-bottom: 6px;
+  height: 16px;
+  line-height: 16px;
+}
+
+.fsdx-editor-toolbar-table-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 20px);
+  grid-template-rows: repeat(10, 20px);
+  gap: 1px;
+}
+
+.fsdx-editor-toolbar-table-picker-cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--fsdx-editor-toolbar-divider);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s ease;
+
+  &.is-highlighted {
+    background: var(--fsdx-editor-primary-light);
+    border-color: var(--fsdx-editor-primary);
+  }
+}

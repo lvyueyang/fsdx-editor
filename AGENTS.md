@@ -20,7 +20,20 @@ packages/
 │   ├── src/
 │   │   ├── index.ts         # createEditor() 工厂函数 + 类型导出
 │   │   ├── types.ts         # FsdxEditorOptions / MediaItem 等公共类型
-│   │   ├── editor.css       # 全部编辑器样式（工具栏、气泡、链接弹出、颜色选择等）
+│   │   ├── styles/          # 全部编辑器样式（SCSS 分片，index.scss 为入口）
+│   │   │   ├── index.scss           # 样式入口（@use 各分片）
+│   │   │   ├── _variables.scss      # 亮/暗主题 CSS 变量
+│   │   │   ├── _container.scss      # 编辑器容器与编辑区基础（占位符/选中/禁用）
+│   │   │   ├── _typography.scss     # 标题/段落/引用/代码/列表/分割线/缩进
+│   │   │   ├── _links.scss          # 链接、链接弹出层与 hover 浮层
+│   │   │   ├── _image.scss          # 图片对齐与拖拽缩放
+│   │   │   ├── _media.scss          # 视频/音频/附件
+│   │   │   ├── _table.scss          # 表格
+│   │   │   ├── _toolbar.scss        # 工具栏/下拉选择/缩进控件/Grid Picker
+│   │   │   ├── _bubble-menu.scss    # 气泡菜单/宽度下拉/颜色指示器
+│   │   │   ├── _tooltip.scss        # Tooltip
+│   │   │   ├── _color-dropdown.scss # 颜色下拉面板
+│   │   │   └── _media-dropdown.scss # 媒体插入下拉
 │   │   ├── env.d.ts         # 环境类型声明（CSS 模块等）
 │   │   ├── core/
 │   │   │   └── create-editor.ts   # Editor 实例化，扩展注册，生命周期回调
@@ -125,7 +138,7 @@ site/                        # Astro + Starlight 文档站点
 | 构建（包） | Rslib（Rspack）+ `@rslib/core` | — |
 | 构建（站点） | Astro + Starlight | 5.x |
 | 语言 | TypeScript（strict） | 6.x |
-| 样式 | 纯 CSS | — |
+| 样式 | SCSS（`@rsbuild/plugin-sass`） | — |
 | Lint/Format | Biome | 2.x |
 | 测试 | Rstest + `@rstest/adapter-rslib` + `happy-dom` | — |
 | 包管理 | pnpm（monorepo） | 10.x |
@@ -139,7 +152,7 @@ site/                        # Astro + Starlight 文档站点
 | 构建模式 | 主入口打包 | Bundleless（`bundle: false`） |
 | 输出格式 | ESM + CJS | 仅 ESM |
 | 声明文件 | `dts: true` | `dts: true` |
-| 样式处理 | `injectStyles: true`（CSS 内联到 JS） | `sideEffects: [".css"]` |
+| 样式处理 | `pluginSass()` + `injectStyles: true`（SCSS 编译后内联到 JS） | `sideEffects: [".css"]` |
 | 构建目标 | `output.target: 'web'` | `output.target: 'web'` |
 | 语法目标 | `node 18` | `es2021` |
 
