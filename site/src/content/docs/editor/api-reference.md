@@ -87,6 +87,11 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | `blur` | 编辑器失焦 |
 | `ready` | 编辑器初始化完成 |
 | `destroy` | 编辑器销毁 |
+| `uploadError` | 粘贴 / 拖入上传失败，参数为 `(file, error)` |
+
+## 粘贴与拖入上传
+
+编辑器内容区支持直接**粘贴**或**拖入**文件自动上传：仅当剪贴板/拖放仅包含文件（无富文本）时接管，按文件类型路由到对应媒体的 `upload`（图片 / 视频 / 音频 / 附件）。上传失败时触发 `uploadError` 事件。
 
 ## MediaUploadConfig
 

@@ -46,7 +46,8 @@ packages/
 │   │   │   └── tooltip.ts           # 自定义 tooltip（事件委托 + floating-ui 定位）
 │   │   └── utils/                   # 通用工具
 │   │       ├── event-emitter.ts     # 自定义事件总线（on/off/once/emit）
-│   │       └── link.ts              # 链接工具（sanitizeUrl / getHrefFromAnchor）
+│   │       ├── link.ts              # 链接工具（sanitizeUrl / getHrefFromAnchor）
+│   │       └── media-upload.ts      # 粘贴/拖入文件按类型路由到对应媒体上传
 │   └── tests/
 │       ├── index.test.ts            # 编辑器测试
 │       ├── image.test.ts            # 图片节点：对齐/缩放/选中浮层测试
@@ -197,6 +198,7 @@ const editor = createEditor(containerElement, {
 | `focus` | 获得焦点 | 无 |
 | `blur` | 失去焦点 | 无 |
 | `destroy` | 销毁 | 无 |
+| `uploadError` | 粘贴/拖入上传失败 | `file: File, error: unknown` |
 
 同时支持通过 `onChange`/`onReady`/`onFocus`/`onBlur`/`onDestroy` 配置回调。
 
@@ -229,6 +231,7 @@ const editor = createEditor(containerElement, {
 - 下拉和弹出层使用 `@floating-ui/dom` 的 `computePosition` + `autoUpdate` 定位
 - 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentControl`
 - 媒体插入统一走 `media-dropdown.ts` 的 Tab 三方式下拉（上传 / URL / 媒体库 `getList`，媒体库列表限高滚动）
+- 编辑器内容区支持粘贴 / 拖入文件上传，经 `utils/media-upload.ts` 的 `routeMediaUpload` 按类型路由到对应媒体 upload
 - 图片选中浮层复用第二个 `BubbleMenu` 实例（`imageBubbleMenu`），共享气泡菜单样式，含对齐/宽度百分比/替换/删除/查看原图
 - SVG 图标以字符串形式内联在 `toolbar-shared.ts` 的 `ICONS` 常量中
 

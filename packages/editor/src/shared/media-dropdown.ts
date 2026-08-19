@@ -15,6 +15,7 @@ const TABS_CLASS = 'fsdx-editor-media-dropdown-tabs';
 const TAB_CLASS = 'fsdx-editor-media-dropdown-tab';
 const PANEL_CLASS = 'fsdx-editor-media-dropdown-panel';
 const UPLOAD_BTN_CLASS = 'fsdx-editor-media-dropdown-upload-btn';
+const UPLOAD_HINT_CLASS = 'fsdx-editor-media-dropdown-upload-hint';
 const UPLOAD_PROGRESS_CLASS = 'fsdx-editor-media-dropdown-upload-progress';
 const URL_ROW_CLASS = 'fsdx-editor-media-dropdown-url-row';
 const URL_INPUT_CLASS = 'fsdx-editor-media-dropdown-url-input';
@@ -90,6 +91,10 @@ export function createMediaDropdown(
     uploadBtn.className = UPLOAD_BTN_CLASS;
     uploadBtn.innerHTML = `<span class="${UPLOAD_BTN_CLASS}-icon">${ICONS.upload}</span>上传文件`;
 
+    const hint = document.createElement('div');
+    hint.className = UPLOAD_HINT_CLASS;
+    hint.textContent = '或拖拽文件到此处';
+
     const progress = document.createElement('div');
     progress.className = UPLOAD_PROGRESS_CLASS;
     progress.hidden = true;
@@ -110,16 +115,8 @@ export function createMediaDropdown(
       progressBar.style.width = `${Math.round(ratio * 100)}%`;
     };
 
-    uploadBtn.addEventListener('mousedown', (e) => e.preventDefault());
-    uploadBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      input.click();
-    });
-
-    input.addEventListener('change', async () => {
-      const file = input.files?.[0];
-      if (!file) return;
+    const uploadFile = async (file: File) => {
+      if (uploadBtn.disabled) return;
       try {
         setUploading(true, 0);
         const result = await config.upload(file, (p) => setUploading(true, p));
@@ -134,9 +131,45 @@ export function createMediaDropdown(
         // 清空已选文件，允许再次选择同一文件重试
         input.value = '';
       }
+    };
+
+    uploadBtn.addEventListener('mousedown', (e) => e.preventDefault());
+    uploadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      input.click();
+    });
+
+    input.addEventListener('change', () => {
+      const file = input.files?.[0];
+      if (file) uploadFile(file);
+    });
+
+    // 拖拽上传：按钮区域作为放置目标
+    uploadBtn.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadBtn.classList.add('is-dragover');
+    });
+    uploadBtn.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // 指针移到按钮内部子元素时不算离开，避免高亮闪烁
+      const related = e.relatedTarget as Node | null;
+      if (!uploadBtn.contains(related)) {
+        uploadBtn.classList.remove('is-dragover');
+      }
+    });
+    uploadBtn.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadBtn.classList.remove('is-dragover');
+      const file = e.dataTransfer?.files?.[0];
+      if (file) uploadFile(file);
     });
 
     section.appendChild(uploadBtn);
+    section.appendChild(hint);
     section.appendChild(progress);
     section.appendChild(input);
   };

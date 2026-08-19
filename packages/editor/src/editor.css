@@ -466,6 +466,17 @@
   display: block;
 }
 
+/* 缩放手柄鼠标样式：对角手柄按拖拽方向区分 */
+.fsdx-editor-content [data-resize-handle="top-left"],
+.fsdx-editor-content [data-resize-handle="bottom-right"] {
+  cursor: nwse-resize;
+}
+
+.fsdx-editor-content [data-resize-handle="top-right"],
+.fsdx-editor-content [data-resize-handle="bottom-left"] {
+  cursor: nesw-resize;
+}
+
 /* ===== 视频 ===== */
 .fsdx-editor-video-wrapper {
   margin: 0.75em 0;
@@ -1416,11 +1427,13 @@
 
 /* 上传 */
 .fsdx-editor-media-dropdown-upload-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  height: var(--fsdx-editor-toolbar-btn-size);
+  flex-direction: column;
+  gap: 4px;
+  min-height: 64px;
+  padding: 8px;
   border: 1px dashed var(--fsdx-editor-toolbar-border);
   border-radius: var(--fsdx-editor-toolbar-btn-radius);
   background: transparent;
@@ -1432,11 +1445,11 @@
     background 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease;
-  padding: 0 8px;
 }
 
-.fsdx-editor-media-dropdown-upload-btn:hover {
-  background: var(--fsdx-editor-toolbar-btn-hover);
+.fsdx-editor-media-dropdown-upload-btn:hover,
+.fsdx-editor-media-dropdown-upload-btn.is-dragover {
+  background: var(--fsdx-editor-primary-light);
   border-color: var(--fsdx-editor-primary);
   color: var(--fsdx-editor-primary);
 }
@@ -1447,9 +1460,15 @@
 }
 
 .fsdx-editor-media-dropdown-upload-btn-icon svg {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
+}
+
+.fsdx-editor-media-dropdown-upload-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--fsdx-editor-placeholder-color);
 }
 
 .fsdx-editor-media-dropdown-upload-progress {

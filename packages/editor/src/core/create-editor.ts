@@ -16,6 +16,8 @@ import {
 } from '@tiptap/extension-text-style';
 import Typography from '@tiptap/extension-typography';
 import { Placeholder } from '@tiptap/extensions';
+import { NodeSelection } from '@tiptap/pm/state';
+import type { EditorView } from '@tiptap/pm/view';
 import StarterKit from '@tiptap/starter-kit';
 import AttachmentNode from '../extensions/attachment-node';
 import AudioNode from '../extensions/audio-node';
@@ -38,6 +40,7 @@ import {
 } from '../toolbar/create-toolbar';
 import type { FsdxEditorOptions } from '../types';
 import { EventEmitter } from '../utils/event-emitter';
+import { routeMediaUpload } from '../utils/media-upload';
 
 export function createEditorInstance(
   container: HTMLElement,
@@ -66,11 +69,41 @@ export function createEditorInstance(
   let refreshAllToolbar: (() => void) | null = null;
   let linkHoverDestroy: (() => void) | null = null;
 
-  const editor = new Editor({
+  let editor: Editor;
+  editor = new Editor({
     element: editorContent,
     content: options.defaultContent ?? undefined,
     editable: !options.readOnly,
     autofocus: options.autoFocus ? 'end' : false,
+    editorProps: {
+      // 粘贴 / 拖入文件时按类型路由到对应媒体 upload
+      handlePaste: (_view, event) => {
+        const data = event.clipboardData;
+        const file = data?.files?.[0];
+        if (!file || !editor.isEditable) return false;
+        // 仅接管纯文件粘贴：混有富文本（网页/文档复制）时交给默认粘贴，避免丢弃文字内容
+        const getText = (type: string) =>
+          typeof data.getData === 'function' ? (data.getData(type) ?? '') : '';
+        if (getText('text/html').trim() || getText('text/plain').trim()) {
+          return false;
+        }
+        return routeMediaUpload(file, editor, options, undefined, (f, error) =>
+          emitter.emit('uploadError', f, error),
+        );
+      },
+      handleDrop: (view, event) => {
+        const file = event.dataTransfer?.files?.[0];
+        if (!file || !editor.isEditable) return false;
+        const hasCoords =
+          Number.isFinite(event.clientX) && Number.isFinite(event.clientY);
+        const pos = hasCoords
+          ? view.posAtCoords({ left: event.clientX, top: event.clientY })?.pos
+          : undefined;
+        return routeMediaUpload(file, editor, options, pos, (f, error) =>
+          emitter.emit('uploadError', f, error),
+        );
+      },
+    },
     extensions: [
       LinkOpen,
       StarterKit.configure({
@@ -137,6 +170,27 @@ export function createEditorInstance(
         options: { strategy: 'fixed' },
         shouldShow: ({ editor: e }) =>
           e.isEditable && e.isActive('imageUpload'),
+        // 容器是整行宽度的 flex 元素，定位必须锚定实际 img，
+        // 否则浮层会相对整行居中而不是相对图片（左/右对齐时错位）。
+        getReferencedVirtualElement: function () {
+          const { editor, view } = this as unknown as {
+            editor: Editor;
+            view: EditorView;
+          };
+          if (editor.isDestroyed) return null;
+          const { selection } = editor.state;
+          if (!(selection instanceof NodeSelection)) return null;
+          if (selection.node.type.name !== 'imageUpload') return null;
+          try {
+            const dom = view.nodeDOM(selection.from) as HTMLElement | null;
+            const target =
+              dom instanceof HTMLImageElement ? dom : dom?.querySelector('img');
+            return target ?? null;
+          } catch {
+            // 视图销毁竞态下无法取到节点 DOM，回退到默认定位
+            return null;
+          }
+        },
       }),
       ImageUpload.configure({
         upload: options.image?.upload,
