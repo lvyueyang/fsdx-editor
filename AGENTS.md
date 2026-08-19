@@ -29,13 +29,15 @@ packages/
 │   │   │   ├── image-node-view.ts   # 图片可缩放 NodeView（像素/百分比宽度手柄）
 │   │   │   ├── attachment-node.ts   # 块级附件节点（自定义 Node）
 │   │   │   ├── audio-node.ts        # 块级音频节点（自定义 Node）
-│   │   │   ├── video-node.ts        # 块级视频节点（自定义 Node）
+│   │   │   ├── video-node.ts        # 块级视频节点（自定义 Node，含对齐/封面/控制器/自动播放）
+│   │   │   ├── video-node-view.ts   # 视频 NodeView（复用 video 元素，仅同步变化属性避免重载闪动）
 │   │   │   ├── indent-extension.ts  # Paragraph/Heading 缩进支持（data-indent）
 │   │   │   └── link-open.ts         # Cmd/Ctrl+Click 与 Alt+Enter 打开链接
 │   │   ├── toolbar/                 # 工具栏/气泡菜单（vanilla DOM 构建）
 │   │   │   ├── create-toolbar.ts        # 编辑器顶部工具栏
 │   │   │   ├── create-bubble-menu.ts    # 文本选区气泡菜单
 │   │   │   ├── create-image-menu.ts     # 图片选中浮层（第二 BubbleMenu 实例）
+│   │   │   ├── create-video-menu.ts     # 视频选中浮层（第三 BubbleMenu 实例）
 │   │   │   └── toolbar-shared.ts        # SVG 图标常量、预设选项、批量更新
 │   │   ├── shared/                  # 共享 UI 构建工具
 │   │   │   ├── controls.ts          # addBtn / createSelect / createColorDropdown / createTableBtn 等
@@ -213,7 +215,7 @@ const editor = createEditor(containerElement, {
 5. **列表**：TaskList / TaskItem
 6. **表格**：Table（来自 @tiptap/extension-table）+ TablePlus（来自 @fsdx/tiptap-table-plus，增强套件）
 7. **占位符**：Placeholder（@tiptap/extensions）
-8. **气泡菜单**：BubbleMenu（文本选区）+ BubbleMenu 子类 imageBubbleMenu（图片选中浮层）
+8. **气泡菜单**：BubbleMenu（文本选区）+ BubbleMenu 子类 imageBubbleMenu（图片选中浮层）+ BubbleMenu 子类 videoBubbleMenu（视频选中浮层）
 9. **媒体**：ImageUpload / VideoNode / AudioNode / AttachmentNode
 
 ### 自定义扩展规范
@@ -232,7 +234,7 @@ const editor = createEditor(containerElement, {
 - 共享构建函数（`controls.ts`）：`addBtn`、`createSelect`、`createColorDropdown`、`createTableBtn`、`createIndentControl`
 - 媒体插入统一走 `media-dropdown.ts` 的 Tab 三方式下拉（上传 / URL / 媒体库 `getList`，媒体库列表限高滚动）
 - 编辑器内容区支持粘贴 / 拖入文件上传，经 `utils/media-upload.ts` 的 `routeMediaUpload` 按类型路由到对应媒体 upload
-- 图片选中浮层复用第二个 `BubbleMenu` 实例（`imageBubbleMenu`），共享气泡菜单样式，含对齐/宽度百分比/替换/删除/查看原图
+- 图片/视频选中浮层复用第二、第三个 `BubbleMenu` 实例（`imageBubbleMenu` / `videoBubbleMenu`），共享气泡菜单样式；图片浮层含对齐/宽度百分比/替代文本输入/删除/查看原图，视频浮层含对齐/封面地址输入/控制器/自动播放/删除
 - SVG 图标以字符串形式内联在 `toolbar-shared.ts` 的 `ICONS` 常量中
 
 ### 表格增强套件

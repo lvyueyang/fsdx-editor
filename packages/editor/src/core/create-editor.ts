@@ -38,9 +38,38 @@ import {
   createToolbarElement,
   populateToolbar,
 } from '../toolbar/create-toolbar';
+import {
+  createVideoMenuElement,
+  populateVideoMenu,
+} from '../toolbar/create-video-menu';
 import type { FsdxEditorOptions } from '../types';
 import { EventEmitter } from '../utils/event-emitter';
 import { routeMediaUpload } from '../utils/media-upload';
+
+/** 供 BubbleMenu 定位锚定实际的媒体元素（容器是整行宽度时避免浮层相对整行居中） */
+function getMediaNodeAnchor(
+  this: unknown,
+  nodeType: string,
+  tag: 'img' | 'video',
+): HTMLElement | null {
+  const { editor, view } = this as unknown as {
+    editor: Editor;
+    view: EditorView;
+  };
+  if (editor.isDestroyed) return null;
+  const { selection } = editor.state;
+  if (!(selection instanceof NodeSelection)) return null;
+  if (selection.node.type.name !== nodeType) return null;
+  try {
+    const dom = view.nodeDOM(selection.from) as HTMLElement | null;
+    const target =
+      dom?.tagName.toLowerCase() === tag ? dom : dom?.querySelector(tag);
+    return target ?? null;
+  } catch {
+    // 视图销毁竞态下无法取到节点 DOM，回退到默认定位
+    return null;
+  }
+}
 
 export function createEditorInstance(
   container: HTMLElement,
@@ -63,6 +92,7 @@ export function createEditorInstance(
 
   const bubbleMenuEl = createBubbleMenuElement();
   const imageMenuEl = createImageMenuElement();
+  const videoMenuEl = createVideoMenuElement();
 
   const emitter = new EventEmitter();
 
@@ -173,23 +203,17 @@ export function createEditorInstance(
         // 容器是整行宽度的 flex 元素，定位必须锚定实际 img，
         // 否则浮层会相对整行居中而不是相对图片（左/右对齐时错位）。
         getReferencedVirtualElement: function () {
-          const { editor, view } = this as unknown as {
-            editor: Editor;
-            view: EditorView;
-          };
-          if (editor.isDestroyed) return null;
-          const { selection } = editor.state;
-          if (!(selection instanceof NodeSelection)) return null;
-          if (selection.node.type.name !== 'imageUpload') return null;
-          try {
-            const dom = view.nodeDOM(selection.from) as HTMLElement | null;
-            const target =
-              dom instanceof HTMLImageElement ? dom : dom?.querySelector('img');
-            return target ?? null;
-          } catch {
-            // 视图销毁竞态下无法取到节点 DOM，回退到默认定位
-            return null;
-          }
+          return getMediaNodeAnchor.call(this, 'imageUpload', 'img');
+        },
+      }),
+      BubbleMenu.extend({ name: 'videoBubbleMenu' }).configure({
+        element: videoMenuEl,
+        pluginKey: 'fsdxVideoMenu',
+        options: { strategy: 'fixed' },
+        shouldShow: ({ editor: e }) => e.isEditable && e.isActive('videoNode'),
+        // 与图片浮层同理，锚定实际的 video 元素
+        getReferencedVirtualElement: function () {
+          return getMediaNodeAnchor.call(this, 'videoNode', 'video');
         },
       }),
       ImageUpload.configure({
@@ -214,17 +238,15 @@ export function createEditorInstance(
         attachment: options.attachment,
       });
       const bubbleRefresh = populateBubbleMenu(bubbleMenuEl, editor);
-      const imageMenuRefresh = populateImageMenu(
-        imageMenuEl,
-        editor,
-        options.image?.upload,
-      );
+      const imageMenuRefresh = populateImageMenu(imageMenuEl, editor);
+      const videoMenuRefresh = populateVideoMenu(videoMenuEl, editor);
       linkHoverDestroy = createLinkHoverPopover(container, editor).destroy;
 
       refreshAllToolbar = () => {
         toolbarRefresh();
         bubbleRefresh();
         imageMenuRefresh();
+        videoMenuRefresh();
       };
 
       editor.on('selectionUpdate', refreshAllToolbar);

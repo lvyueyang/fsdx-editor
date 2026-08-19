@@ -2,17 +2,19 @@ import type { Editor } from '@tiptap/core';
 import type { ImageAlign } from '../extensions/image-upload';
 import {
   addBtn,
+  createBubbleInput,
   createDivider,
   createSelect,
   updateBtnStates,
 } from '../shared/controls';
 import { bindTooltips } from '../shared/tooltip';
 import { sanitizeUrl } from '../utils/link';
-import { ICONS, updateSelectStates } from './toolbar-shared';
+import { ICONS, updateInputs, updateSelectStates } from './toolbar-shared';
 
 const BTN_CLASS = 'fsdx-editor-bubble-btn';
 const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
 const WIDTH_SELECT_CLASS = 'fsdx-editor-bubble-select';
+const ALT_INPUT_CLASS = 'fsdx-editor-bubble-input';
 
 /** 图片宽度百分比预设 */
 const WIDTH_OPTIONS = [
@@ -48,6 +50,12 @@ function formatImageWidthLabel(value: string | null): string {
   return value.endsWith('%') ? value : `${value}px`;
 }
 
+/** 当前选中图片的 alt 文本 */
+function getSelectedImageAlt(editor: Editor): string {
+  const attrs = editor.getAttributes('imageUpload');
+  return (attrs.alt as string) || '';
+}
+
 export function createImageMenuElement(): HTMLElement {
   const menuEl = document.createElement('div');
   menuEl.className = 'fsdx-editor-bubble-menu fsdx-editor-image-menu';
@@ -55,13 +63,12 @@ export function createImageMenuElement(): HTMLElement {
 }
 
 /**
- * 图片选中浮层（第二个 BubbleMenu 实例）：对齐 / 宽度 / 替换 / 删除 / 查看原图。
+ * 图片选中浮层（第二个 BubbleMenu 实例）：对齐 / 宽度 / 替代文本 / 删除 / 查看原图。
  * 仅在选中 imageUpload 节点时显示，由 create-editor 注册。
  */
 export function populateImageMenu(
   menuEl: HTMLElement,
   editor: Editor,
-  upload?: (file: File) => Promise<{ url: string }>,
 ): () => void {
   menuEl.innerHTML = '';
   bindTooltips(menuEl);
@@ -78,6 +85,7 @@ export function populateImageMenu(
   const refreshAll = () => {
     updateBtnStates(menuEl, BTN_CLASS, editor);
     updateSelectStates(menuEl, WIDTH_SELECT_CLASS, editor);
+    updateInputs(menuEl, ALT_INPUT_CLASS, editor);
   };
 
   // ===== 对齐 =====
@@ -125,35 +133,21 @@ export function populateImageMenu(
     formatImageWidthLabel,
   );
 
-  // ===== 替换图片 =====
-  if (upload) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.style.display = 'none';
-
-    add(
-      ICONS.refresh,
-      '替换图片',
-      () => false,
-      () => input.click(),
-    );
-
-    input.addEventListener('change', async () => {
-      const file = input.files?.[0];
-      if (!file) return;
-      try {
-        const result = await upload(file);
-        editor
-          .chain()
-          .focus()
-          .updateAttributes('imageUpload', { src: result.url })
-          .run();
-      } catch {
-        // 上传失败静默处理
-      }
-    });
-  }
+  // ===== 替代文本（alt） =====
+  createBubbleInput(
+    menuEl,
+    ALT_INPUT_CLASS,
+    editor,
+    '设置替代文本',
+    '替代文本',
+    getSelectedImageAlt,
+    (e, value) => {
+      e.chain()
+        .focus()
+        .updateAttributes('imageUpload', { alt: value || null })
+        .run();
+    },
+  );
 
   div();
 

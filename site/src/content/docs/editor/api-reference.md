@@ -117,7 +117,18 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 - **三种插入方式**：点击工具栏媒体按钮弹出下拉，通过 **Tab 切换**「上传」（调 `upload`）、「网络地址」（直接粘贴 URL）、「媒体库」（调 `getList` 浏览并选择，未配置 `getList` 时隐藏该入口）；媒体库列表限高滚动并支持分页
 - **拖拽缩放**：选中图片后拖动四角手柄调整尺寸（像素），也可通过选中浮层按 **百分比** 设置宽度；`resizable: false` 可关闭缩放
 - **对齐方式**：选中图片后浮层可切换左对齐 / 居中 / 右对齐，渲染为 `data-align` 属性
-- **选中浮层**：选中图片时在图片上方弹出操作浮层，提供对齐、宽度百分比、替换（重新上传）、删除、查看原图
+- **选中浮层**：选中图片时在图片上方弹出操作浮层，提供对齐、宽度百分比、替代文本（alt）输入、删除、查看原图
+
+## 视频能力
+
+视频节点（`videoNode`）支持在选中浮层中设置以下属性，序列化到 `<video>` 标签：
+
+| 属性 | 说明 |
+|------|------|
+| `data-align` | 对齐方式（左 / 中 / 右），渲染在 wrapper 上 |
+| `poster` | 封面地址，浮层中输入框填写，空值清除 |
+| `controls` | 是否显示原生控制器（默认开启） |
+| `autoplay` | 是否自动播放（默认关闭） |
 
 视频 / 音频 / 附件同样支持上传、网络地址、媒体库三种插入方式。
 
@@ -150,7 +161,7 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 
 ## 内置扩展
 
-`createEditor` 内建 20 个 Tiptap 扩展，开箱即用：
+`createEditor` 内建 21 个 Tiptap 扩展，开箱即用：
 
 | 扩展 | 能力 |
 |------|------|
@@ -169,8 +180,9 @@ const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
 | TablePlus | 表格（可调整列宽） |
 | Placeholder | 占位符提示 |
 | BubbleMenu | 选中文字气泡菜单 |
-| ImageMenu | 图片选中浮层（对齐/替换/删除/查看原图） |
+| ImageMenu | 图片选中浮层（对齐/宽度/替代文本/删除/查看原图） |
+| VideoMenu | 视频选中浮层（对齐/封面/控制器/自动播放/删除） |
 | ImageUpload | 图片插入（上传/URL/媒体库）、拖拽缩放、对齐 |
-| VideoNode | 视频插入 |
+| VideoNode | 视频插入（对齐/封面/控制器/自动播放） |
 | AudioNode | 音频插入 |
 | AttachmentNode | 附件插入 |

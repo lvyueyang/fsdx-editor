@@ -252,6 +252,54 @@ test('图片选中浮层宽度选择器显示像素宽度', async () => {
   editor.destroy();
 });
 
+test('图片选中浮层不包含替换按钮', async () => {
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  const { editor } = createEditorInstance(container, {
+    image: { upload: async () => ({ url: IMAGE_URL }) },
+  });
+  await wait();
+
+  const pos = insertImage(editor);
+  editor.commands.setNodeSelection(pos);
+  await new Promise((resolve) => setTimeout(resolve, 350));
+
+  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  expect(menu?.querySelector('button[aria-label="替换图片"]')).toBeNull();
+
+  editor.destroy();
+});
+
+test('图片选中浮层输入框可设置 alt', async () => {
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  const { editor } = createEditorInstance(container, {
+    image: { upload: async () => ({ url: IMAGE_URL }) },
+  });
+  await wait();
+
+  const pos = insertImage(editor);
+  editor.commands.setNodeSelection(pos);
+  await new Promise((resolve) => setTimeout(resolve, 350));
+
+  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const input = menu?.querySelector<HTMLInputElement>(
+    'input[aria-label="设置替代文本"]',
+  );
+  expect(input).not.toBeNull();
+  input!.value = '一张示例图片';
+  input!.dispatchEvent(new Event('change'));
+
+  expect(editor.getHTML()).toContain('alt="一张示例图片"');
+
+  // 清空 alt
+  input!.value = '';
+  input!.dispatchEvent(new Event('change'));
+  expect(editor.getHTML()).not.toContain('alt=');
+
+  editor.destroy();
+});
+
 test('createEditor 通过 URL 配置的图片按钮可打开媒体下拉', async () => {
   const container = document.createElement('div');
   document.body.appendChild(container);

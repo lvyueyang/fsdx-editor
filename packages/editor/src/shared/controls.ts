@@ -720,6 +720,66 @@ export function createIndentControl(
   return wrap;
 }
 
+/**
+ * 气泡菜单文本输入框（图片 alt、视频封面等）：
+ * change/Enter 提交，Escape 取消（不触发 change 提交），mousedown 不冒泡避免抢占编辑器焦点。
+ */
+export function createBubbleInput(
+  container: HTMLElement,
+  inputClassName: string,
+  editor: Editor,
+  title: string,
+  placeholder: string,
+  getValue: (e: Editor) => string,
+  setValue: (e: Editor, value: string) => void,
+): HTMLInputElement {
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = inputClassName;
+  input.placeholder = placeholder;
+  input.title = title;
+  input.setAttribute('aria-label', title);
+
+  // Escape 取消时标记，避免 blur 触发的 change 把编辑值提交掉
+  let canceling = false;
+
+  const update = () => {
+    // 输入框聚焦时不覆盖正在输入的值
+    if (input !== document.activeElement) {
+      input.value = getValue(editor) ?? '';
+    }
+  };
+
+  const commit = () => {
+    if (canceling) return;
+    const value = input.value.trim();
+    setValue(editor, value);
+    update();
+  };
+
+  (input as unknown as Record<string, unknown>)._update = update;
+
+  input.addEventListener('mousedown', (e) => e.stopPropagation());
+  input.addEventListener('change', commit);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      commit();
+      input.blur();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      canceling = true;
+      input.value = getValue(editor) ?? '';
+      input.blur();
+      canceling = false;
+    }
+  });
+
+  container.appendChild(input);
+  update();
+  return input;
+}
+
 /** 表格 grid picker 弹出层尺寸 */
 const TABLE_PICKER_ROWS = 10;
 const TABLE_PICKER_COLS = 10;

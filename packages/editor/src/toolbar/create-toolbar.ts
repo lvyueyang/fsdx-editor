@@ -17,7 +17,7 @@ import {
   HEADING_OPTIONS,
   ICONS,
   LINE_HEIGHT_OPTIONS,
-  updateIndentInputs,
+  updateInputs,
   updateSelectStates,
 } from './toolbar-shared';
 
@@ -59,7 +59,7 @@ export function populateToolbar(
   const refreshAll = () => {
     updateBtnStates(toolbarEl, BTN_CLASS, editor);
     updateSelectStates(toolbarEl, SELECT_CLASS, editor);
-    updateIndentInputs(toolbarEl, INDENT_INPUT_CLASS, editor);
+    updateInputs(toolbarEl, INDENT_INPUT_CLASS, editor);
   };
 
   // ===== 撤销 / 重做 =====

@@ -481,13 +481,24 @@
 .fsdx-editor-video-wrapper {
   margin: 0.75em 0;
   border-radius: var(--fsdx-editor-video-radius);
-  overflow: hidden;
 }
 
 .fsdx-editor-video-wrapper video {
   display: block;
   max-width: 100%;
+  margin: 0 auto;
   border-radius: var(--fsdx-editor-video-radius);
+}
+
+/* 视频对齐：未设置 data-align 时默认居中，left/right 通过 margin 覆盖 */
+.fsdx-editor-video-wrapper[data-align="left"] video {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.fsdx-editor-video-wrapper[data-align="right"] video {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .fsdx-editor-video-wrapper.ProseMirror-selectednode video {
@@ -704,6 +715,30 @@
   height: 20px;
   background: var(--fsdx-editor-bubble-divider);
   margin: 0 4px;
+}
+
+.fsdx-editor-bubble-input {
+  width: 110px;
+  height: var(--fsdx-editor-bubble-btn-size);
+  border: 1px solid var(--fsdx-editor-bubble-border);
+  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  background: transparent;
+  color: var(--fsdx-editor-bubble-btn-color);
+  font-size: 12px;
+  line-height: 1;
+  padding: 0 8px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.fsdx-editor-bubble-input:hover,
+.fsdx-editor-bubble-input:focus {
+  border-color: var(--fsdx-editor-primary);
+}
+
+.fsdx-editor-bubble-input::placeholder {
+  color: var(--fsdx-editor-bubble-btn-color);
+  opacity: 0.5;
 }
 
 /* ===== Tooltip ===== */
