@@ -1,0 +1,93 @@
+# 飞书通知复合 Action：发送 interactive 卡片到飞书群机器人 webhook
+name: Feishu notify
+
+description: 发送飞书 interactive 卡片通知（成功/失败）
+
+inputs:
+  status:
+    description: 通知结果，success 或 failure
+    required: true
+  workflow:
+    description: 工作流名称
+    required: true
+  webhook:
+    description: 飞书群机器人 webhook 地址（来自 secrets.FEISHU_WEBHOOK）
+    required: true
+  packages:
+    description: 发布/变更的包名，以空格分隔
+    required: false
+    default: ''
+  subject:
+    description: 通知主题词，用于标题（如 发布/部署）
+    required: false
+    default: 发布
+
+runs:
+  using: composite
+  steps:
+    - name: 发送飞书卡片
+      shell: bash
+      env:
+        FEISHU_WEBHOOK: ${{ inputs.webhook }}
+        NOTIFY_STATUS: ${{ inputs.status }}
+        NOTIFY_WORKFLOW: ${{ inputs.workflow }}
+        NOTIFY_PACKAGES: ${{ inputs.packages }}
+        NOTIFY_SUBJECT: ${{ inputs.subject }}
+        NOTIFY_REPO: ${{ github.repository }}
+        NOTIFY_BRANCH: ${{ github.ref_name }}
+        NOTIFY_SHA: ${{ github.sha }}
+        NOTIFY_ACTOR: ${{ github.actor }}
+        NOTIFY_RUN_URL: ${{ format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+      run: |
+        # 未配置 webhook 时静默跳过
+        if [ -z "$FEISHU_WEBHOOK" ]; then
+          echo "FEISHU_WEBHOOK 未配置，跳过通知"
+          exit 0
+        fi
+
+        SHORT_SHA="${NOTIFY_SHA:0:7}"
+        PACKAGES_LINE="${NOTIFY_PACKAGES:-无}"
+        RESULT_TITLE="$([ "$NOTIFY_STATUS" = "success" ] && echo "✅ ${NOTIFY_SUBJECT}成功" || echo "❌ ${NOTIFY_SUBJECT}失败")"
+        RESULT_TEMPLATE="$([ "$NOTIFY_STATUS" = "success" ] && echo "green" || echo "red")"
+
+        PAYLOAD=$(jq -n \
+          --arg title "$RESULT_TITLE" \
+          --arg template "$RESULT_TEMPLATE" \
+          --arg repo "$NOTIFY_REPO" \
+          --arg workflow "$NOTIFY_WORKFLOW" \
+          --arg branch "$NOTIFY_BRANCH" \
+          --arg sha "$SHORT_SHA" \
+          --arg actor "$NOTIFY_ACTOR" \
+          --arg packages "$PACKAGES_LINE" \
+          --arg url "$NOTIFY_RUN_URL" \
+          '{
+            msg_type: "interactive",
+            card: {
+              header: {
+                title: { tag: "plain_text", content: $title },
+                template: $template
+              },
+              elements: [
+                {
+                  tag: "div",
+                  text: {
+                    tag: "lark_md",
+                    content: "**仓库**：\($repo)\n**工作流**：\($workflow)\n**分支**：\($branch)\n**Commit**：\($sha)\n**触发人**：\($actor)\n**包**：\($packages)"
+                  }
+                },
+                {
+                  tag: "action",
+                  actions: [
+                    {
+                      tag: "button",
+                      text: { tag: "plain_text", content: "查看运行详情" },
+                      type: "primary",
+                      url: $url
+                    }
+                  ]
+                }
+              ]
+            }
+          }')
+
+        curl -fsS -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$FEISHU_WEBHOOK"

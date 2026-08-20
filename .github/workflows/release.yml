@@ -78,3 +78,22 @@ jobs:
       - name: Publish @easyx/editor
         if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@easyx/editor')
         run: pnpm --filter @easyx/editor publish --no-git-checks --access public
+
+      - name: 飞书通知（发布成功）
+        if: success() && steps.detect.outputs.changed != ''
+        uses: ./.github/actions/feishu-notify
+        with:
+          status: success
+          workflow: Release to npm
+          webhook: ${{ secrets.FEISHU_WEBHOOK }}
+          packages: ${{ steps.detect.outputs.changed }}
+
+      - name: 飞书通知（发布失败）
+        if: failure() && steps.detect.outputs.changed != ''
+        uses: ./.github/actions/feishu-notify
+        with:
+          status: failure
+          workflow: Release to npm
+          subject: 发布
+          webhook: ${{ secrets.FEISHU_WEBHOOK }}
+          packages: ${{ steps.detect.outputs.changed }}

@@ -55,3 +55,28 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v4
         id: deployment
+
+  notify:
+    needs: [build, deploy]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 飞书通知（部署成功）
+        if: always() && jobs.build.result == 'success' && jobs.deploy.result == 'success'
+        uses: ./.github/actions/feishu-notify
+        with:
+          status: success
+          workflow: Deploy to GitHub Pages
+          subject: 部署
+          webhook: ${{ secrets.FEISHU_WEBHOOK }}
+
+      - name: 飞书通知（部署失败）
+        if: always() && (jobs.build.result == 'failure' || jobs.deploy.result == 'failure')
+        uses: ./.github/actions/feishu-notify
+        with:
+          status: failure
+          workflow: Deploy to GitHub Pages
+          subject: 部署
+          webhook: ${{ secrets.FEISHU_WEBHOOK }}

@@ -11,10 +11,13 @@
 ├── skills/
 │   ├── rslib-best-practices/
 │   └── rspress-description-generator/
-.github/workflows/           # GitHub Actions
-├── ci.yml                   # PR/dev/main 质量门禁（biome check + test）
-├── release.yml              # main 推送版本差异检测后发布 npm
-└── deploy.yml               # main 推送构建并部署 GitHub Pages
+.github/
+├── workflows/               # GitHub Actions
+│   ├── ci.yml               # PR/dev/main 质量门禁（biome check + test）
+│   ├── release.yml          # main 推送版本差异检测后发布 npm
+│   └── deploy.yml           # main 推送构建并部署 GitHub Pages
+└── actions/
+    └── feishu-notify/       # 复合 Action：发送飞书 interactive 卡片通知
 packages/
 ├── editor/                  # @easyx/editor — 零框架依赖编辑器
 │   ├── package.json
@@ -317,6 +320,8 @@ const editor = createEditor(containerElement, {
 | `ci.yml` | PR、dev/main 推送 | Biome 只读检查（`pnpm exec biome check .`）+ `pnpm test` 质量门禁 |
 | `release.yml` | main 推送、手动触发 | 比对两包本地 `version` 与 npm 已发布版本，仅发布不一致的包；`@easyx/tiptap-table-plus` 先于 `@easyx/editor` 发布 |
 | `deploy.yml` | main 推送、手动触发 | 构建两包与站点，部署 GitHub Pages |
+
+`release.yml` 与 `deploy.yml` 在成功/失败后经 `.github/actions/feishu-notify/` 复合 Action 推送飞书 interactive 卡片通知，依赖组织级 Secret `FEISHU_WEBHOOK`（群机器人 webhook）。
 
 ### 发布流程
 
