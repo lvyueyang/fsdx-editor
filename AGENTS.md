@@ -7,10 +7,14 @@
 ## 工程结构
 
 ```
-.agents/                     # AI Agent 技能定义
+.agents/                     # AI Agent 技能与命令定义
+├── commands/
+│   └── deploy.md            # 发布前置命令：检测两包变动与范围并升级版本号
 ├── skills/
 │   ├── rslib-best-practices/
 │   └── rspress-description-generator/
+.opencode/
+└── commands -> ../.agents/commands   # 软连接到 .agents/commands，供 opencode 读取
 .github/
 ├── workflows/               # GitHub Actions
 │   ├── ci.yml               # PR/dev/main 质量门禁（biome check + test）
@@ -327,7 +331,7 @@ const editor = createEditor(containerElement, {
 
 - 两包版本**独立维护**，不要求一致；只 bump 需要发布的包
 - `pnpm publish` 依赖 `NODE_AUTH_TOKEN`（对应仓库 `NPM_TOKEN` secret），发布前自动改写 `workspace:*` 为实际版本
-- 发布前置：bump `version` → 推送 main → `release.yml` 检测版本差异后自动发布
+- 发布前置：可运行 `deploy` 命令（`.agents/commands/deploy.md`）自动检测两包变动与范围并升级版本号；也可手动 bump `version` → 推送 main → `release.yml` 检测版本差异后自动发布
 
 ## 命令
 
