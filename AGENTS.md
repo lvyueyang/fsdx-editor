@@ -11,6 +11,10 @@
 ├── skills/
 │   ├── rslib-best-practices/
 │   └── rspress-description-generator/
+.github/workflows/           # GitHub Actions
+├── ci.yml                   # PR/dev/main 质量门禁（biome check + test）
+├── release.yml              # main 推送版本差异检测后发布 npm
+└── deploy.yml               # main 推送构建并部署 GitHub Pages
 packages/
 ├── editor/                  # @fsdx/editor — 零框架依赖编辑器
 │   ├── package.json
@@ -303,6 +307,22 @@ const editor = createEditor(containerElement, {
 
 - 测试用例名称描述具体场景
 - 每个组件/函数至少覆盖：渲染正确性、属性传递、交互行为
+
+## 发布与 CI
+
+### GitHub Actions
+
+| workflow | 触发时机 | 职责 |
+|----------|----------|------|
+| `ci.yml` | PR、dev/main 推送 | Biome 只读检查（`pnpm exec biome check .`）+ `pnpm test` 质量门禁 |
+| `release.yml` | main 推送、手动触发 | 比对两包本地 `version` 与 npm 已发布版本，仅发布不一致的包；`@fsdx/tiptap-table-plus` 先于 `@fsdx/editor` 发布 |
+| `deploy.yml` | main 推送、手动触发 | 构建两包与站点，部署 GitHub Pages |
+
+### 发布流程
+
+- 两包版本**独立维护**，不要求一致；只 bump 需要发布的包
+- `pnpm publish` 依赖 `NODE_AUTH_TOKEN`（对应仓库 `NPM_TOKEN` secret），发布前自动改写 `workspace:*` 为实际版本
+- 发布前置：bump `version` → 推送 main → `release.yml` 检测版本差异后自动发布
 
 ## 命令
 

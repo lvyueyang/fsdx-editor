@@ -55,3 +55,23 @@ site/                        # Astro + Starlight 文档站点
 - **样式**：纯 CSS
 - **Lint/Format**：Biome 2
 - **测试**：Rstest + happy-dom
+
+## 发布
+
+`@fsdx/editor` 与 `@fsdx/tiptap-table-plus` 独立发布，版本无需同步。
+
+### 发布流程
+
+1. 修改需要发布的包的 `version`（参考 [语义化版本](https://semver.org/)）
+2. 推送 `main` 分支
+3. GitHub Actions 自动比对本地版本与 npm 已发布版本，仅发布不一致的包：
+   - 两个包均一致 → 跳过发布
+   - `@fsdx/tiptap-table-plus` 变更 → 先于 `@fsdx/editor` 发布（editor 依赖它）
+
+发布同时会触发文档站点（GitHub Pages）部署与 CI 检查。
+
+### 前置条件
+
+在 GitHub 仓库 Settings → Secrets and variables → Actions 中配置 `NPM_TOKEN`（npmjs 账户的 publish 权限 access token）。
+
+首次发布请确认包已被 `npm owner add` 或已具备该 scope 的发布权限。

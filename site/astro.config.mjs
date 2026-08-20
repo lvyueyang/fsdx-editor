@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   base: '/fsdx-editor/',
-  site: 'https://fsdx.github.io/fsdx-editor/',
+  site: 'https://lvyueyang.github.io/fsdx-editor/',
   integrations: [
     react(),
     starlight({
@@ -19,7 +19,7 @@ export default defineConfig({
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/fsdx/fsdx-editor',
+          href: 'https://github.com/lvyueyang/fsdx-editor',
         },
       ],
       customCss: ['./src/styles/custom.css'],

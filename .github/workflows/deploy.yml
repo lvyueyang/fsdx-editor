@@ -33,8 +33,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build library
-        run: pnpm --filter @fsdx/editor-react build
+      - name: Build tiptap-table-plus
+        run: pnpm --filter @fsdx/tiptap-table-plus build
+
+      - name: Build editor
+        run: pnpm --filter @fsdx/editor build
 
       - name: Build site
         run: pnpm --filter site build
