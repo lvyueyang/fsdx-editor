@@ -1,11 +1,11 @@
-# @fsdx/tiptap-table-plus
+# @easyx/tiptap-table-plus
 
 Tiptap 表格增强套件，集成单元格样式、选区覆盖层、节点背景色和丰富的表格操作命令，不依赖任何 UI 框架。
 
 ## 安装
 
 ```bash
-pnpm add @fsdx/tiptap-table-plus
+pnpm add @easyx/tiptap-table-plus
 ```
 
 ## 使用
@@ -15,7 +15,7 @@ pnpm add @fsdx/tiptap-table-plus
 ```ts
 import { Editor } from '@tiptap/core'
 import { TableKit } from '@tiptap/extension-table'
-import { TablePlus } from '@fsdx/tiptap-table-plus'
+import { TablePlus } from '@easyx/tiptap-table-plus'
 
 const editor = new Editor({
   extensions: [
@@ -103,7 +103,7 @@ import {
   getTablePlusTranslations,
   getTablePlusTheme,
   getTablePlusLocale,
-} from '@fsdx/tiptap-table-plus'
+} from '@easyx/tiptap-table-plus'
 
 const t = getTablePlusTranslations(editor) // 获取合并后的翻译对象
 const theme = getTablePlusTheme(editor)    // 'light' | 'dark'
@@ -117,7 +117,7 @@ const locale = getTablePlusLocale(editor)  // 'zh-CN' | 'en-US'
 ### 内置语言包
 
 ```ts
-import { zhCN, enUS } from '@fsdx/tiptap-table-plus'
+import { zhCN, enUS } from '@easyx/tiptap-table-plus'
 ```
 
 ### 翻译字段
@@ -187,8 +187,8 @@ type MenuList = (MenuItem | MenuSeparator)[]
 ### 使用示例
 
 ```ts
-import type { MenuList } from '@fsdx/tiptap-table-plus'
-import { TablePlus } from '@fsdx/tiptap-table-plus'
+import type { MenuList } from '@easyx/tiptap-table-plus'
+import { TablePlus } from '@easyx/tiptap-table-plus'
 
 TablePlus.configure({
   contextMenu(items: MenuList) {
@@ -212,18 +212,18 @@ TablePlus.configure({
 
 ## 样式
 
-引入 `@fsdx/tiptap-table-plus/styles/table.css` 以加载表格增强样式（选区覆盖层、操作手柄、上下文菜单、加行加列控件等）。
+引入 `@easyx/tiptap-table-plus/styles/table.css` 以加载表格增强样式（选区覆盖层、操作手柄、上下文菜单、加行加列控件等）。
 
 所有颜色 / 间距通过 CSS 自定义属性控制：
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--fsdx-tiptap-table-plus-accent` | `#7c3aed` | 品牌色 |
-| `--fsdx-tiptap-table-plus-border` | `#d4d4d8` | 边框色 |
-| `--fsdx-tiptap-table-plus-bg` | `#fff` | 背景色 |
-| `--fsdx-tiptap-table-plus-bg-hover` | `#f4f4f5` | 悬停背景色 |
-| `--fsdx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
-| `--fsdx-tiptap-table-plus-radius` | `2px` | 圆角 |
+| `--easyx-tiptap-table-plus-accent` | `#7c3aed` | 品牌色 |
+| `--easyx-tiptap-table-plus-border` | `#d4d4d8` | 边框色 |
+| `--easyx-tiptap-table-plus-bg` | `#fff` | 背景色 |
+| `--easyx-tiptap-table-plus-bg-hover` | `#f4f4f5` | 悬停背景色 |
+| `--easyx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
+| `--easyx-tiptap-table-plus-radius` | `2px` | 圆角 |
 
 ## 许可
 

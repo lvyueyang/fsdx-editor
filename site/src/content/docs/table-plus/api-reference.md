@@ -5,7 +5,7 @@ description: Table Kit 完整 API 配置项、命令与类型定义
 
 # API 参考
 
-`@fsdx/tiptap-table-plus` 的完整 API 文档，包括扩展配置、命令链和类型定义。
+`@easyx/tiptap-table-plus` 的完整 API 文档，包括扩展配置、命令链和类型定义。
 
 ## TablePlus 配置项
 

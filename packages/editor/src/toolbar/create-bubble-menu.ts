@@ -9,12 +9,12 @@ import { createLinkDropdown } from '../shared/link-dropdown';
 import { bindTooltips } from '../shared/tooltip';
 import { ICONS } from './toolbar-shared';
 
-const BTN_CLASS = 'fsdx-editor-bubble-btn';
-const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
+const BTN_CLASS = 'easyx-editor-bubble-btn';
+const DIVIDER_CLASS = 'easyx-editor-bubble-divider';
 
 export function createBubbleMenuElement(): HTMLElement {
   const menuEl = document.createElement('div');
-  menuEl.className = 'fsdx-editor-bubble-menu';
+  menuEl.className = 'easyx-editor-bubble-menu';
   return menuEl;
 }
 

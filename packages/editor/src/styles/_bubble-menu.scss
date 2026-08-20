@@ -1,28 +1,28 @@
 // 气泡菜单：文本选区浮层、按钮、输入框、图片宽度下拉与颜色指示器
-.fsdx-editor-bubble-menu {
+.easyx-editor-bubble-menu {
   position: fixed;
   display: flex;
   align-items: center;
   gap: 2px;
   width: max-content;
-  padding: var(--fsdx-editor-bubble-padding);
-  background: var(--fsdx-editor-bubble-bg);
-  border: 1px solid var(--fsdx-editor-bubble-border);
-  border-radius: var(--fsdx-editor-bubble-radius);
-  box-shadow: var(--fsdx-editor-bubble-shadow);
+  padding: var(--easyx-editor-bubble-padding);
+  background: var(--easyx-editor-bubble-bg);
+  border: 1px solid var(--easyx-editor-bubble-border);
+  border-radius: var(--easyx-editor-bubble-radius);
+  box-shadow: var(--easyx-editor-bubble-shadow);
   z-index: 100;
 }
 
-.fsdx-editor-bubble-btn {
+.easyx-editor-bubble-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--fsdx-editor-bubble-btn-size);
-  height: var(--fsdx-editor-bubble-btn-size);
+  width: var(--easyx-editor-bubble-btn-size);
+  height: var(--easyx-editor-bubble-btn-size);
   border: none;
-  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  border-radius: var(--easyx-editor-bubble-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-bubble-btn-color);
+  color: var(--easyx-editor-bubble-btn-color);
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
@@ -30,12 +30,12 @@
   padding: 0;
 
   &:hover {
-    background: var(--fsdx-editor-bubble-btn-hover);
+    background: var(--easyx-editor-bubble-btn-hover);
   }
 
   &.is-active {
-    background: var(--fsdx-editor-bubble-btn-active);
-    color: var(--fsdx-editor-primary);
+    background: var(--easyx-editor-bubble-btn-active);
+    color: var(--easyx-editor-primary);
   }
 
   svg {
@@ -50,7 +50,7 @@
   }
 }
 
-.fsdx-editor-bubble-btn-color-indicator {
+.easyx-editor-bubble-btn-color-indicator {
   position: absolute;
   bottom: 3px;
   left: 50%;
@@ -60,20 +60,20 @@
   border-radius: 1px;
 }
 
-.fsdx-editor-bubble-divider {
+.easyx-editor-bubble-divider {
   width: 1px;
   height: 20px;
-  background: var(--fsdx-editor-bubble-divider);
+  background: var(--easyx-editor-bubble-divider);
   margin: 0 4px;
 }
 
-.fsdx-editor-bubble-input {
+.easyx-editor-bubble-input {
   width: 110px;
-  height: var(--fsdx-editor-bubble-btn-size);
-  border: 1px solid var(--fsdx-editor-bubble-border);
-  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  height: var(--easyx-editor-bubble-btn-size);
+  border: 1px solid var(--easyx-editor-bubble-border);
+  border-radius: var(--easyx-editor-bubble-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-bubble-btn-color);
+  color: var(--easyx-editor-bubble-btn-color);
   font-size: 12px;
   line-height: 1;
   padding: 0 8px;
@@ -82,38 +82,38 @@
 
   &:hover,
   &:focus {
-    border-color: var(--fsdx-editor-primary);
+    border-color: var(--easyx-editor-primary);
   }
 
   &::placeholder {
-    color: var(--fsdx-editor-bubble-btn-color);
+    color: var(--easyx-editor-bubble-btn-color);
     opacity: 0.5;
   }
 }
 
 // 图片浮层宽度选择（紧凑下拉）
-.fsdx-editor-bubble-select {
+.easyx-editor-bubble-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 2px;
-  height: var(--fsdx-editor-bubble-btn-size);
+  height: var(--easyx-editor-bubble-btn-size);
   min-width: 46px;
-  border: 1px solid var(--fsdx-editor-toolbar-border);
-  border-radius: var(--fsdx-editor-bubble-btn-radius);
+  border: 1px solid var(--easyx-editor-toolbar-border);
+  border-radius: var(--easyx-editor-bubble-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-bubble-btn-color);
+  color: var(--easyx-editor-bubble-btn-color);
   cursor: pointer;
   padding: 0 4px;
   transition: border-color 0.15s ease;
   outline: none;
 
   &:hover {
-    border-color: var(--fsdx-editor-primary);
+    border-color: var(--easyx-editor-primary);
   }
 }
 
-.fsdx-editor-bubble-select-value {
+.easyx-editor-bubble-select-value {
   flex: 1;
   text-align: center;
   font-size: 12px;
@@ -121,11 +121,11 @@
   pointer-events: none;
 }
 
-.fsdx-editor-bubble-select-arrow {
+.easyx-editor-bubble-select-arrow {
   width: 12px;
   height: 12px;
   flex-shrink: 0;
-  color: var(--fsdx-editor-bubble-btn-color);
+  color: var(--easyx-editor-bubble-btn-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,34 +138,34 @@
   }
 }
 
-.fsdx-editor-bubble-select[aria-expanded="true"] .fsdx-editor-bubble-select-arrow {
+.easyx-editor-bubble-select[aria-expanded="true"] .easyx-editor-bubble-select-arrow {
   transform: rotate(180deg);
 }
 
-.fsdx-editor-bubble-select-dropdown {
+.easyx-editor-bubble-select-dropdown {
   z-index: 101;
   min-width: 4rem;
   padding: 4px;
-  border-radius: var(--fsdx-editor-radius-md, 6px);
-  border: 1px solid var(--fsdx-editor-toolbar-border);
-  background: var(--fsdx-editor-toolbar-bg);
+  border-radius: var(--easyx-editor-radius-md, 6px);
+  border: 1px solid var(--easyx-editor-toolbar-border);
+  background: var(--easyx-editor-toolbar-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.fsdx-editor-bubble-select-item {
+.easyx-editor-bubble-select-item {
   padding: 4px 10px;
   font-size: 12px;
   border-radius: 4px;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
   cursor: pointer;
   user-select: none;
 
   &:hover {
-    background: var(--fsdx-editor-toolbar-btn-hover);
+    background: var(--easyx-editor-toolbar-btn-hover);
   }
 
   &.is-selected {
-    background: var(--fsdx-editor-primary-light, #e0e7ff);
-    color: var(--fsdx-editor-primary);
+    background: var(--easyx-editor-primary-light, #e0e7ff);
+    color: var(--easyx-editor-primary);
   }
 }

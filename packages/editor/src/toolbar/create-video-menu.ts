@@ -10,9 +10,9 @@ import { bindTooltips } from '../shared/tooltip';
 import { sanitizeUrl } from '../utils/link';
 import { ICONS, updateInputs } from './toolbar-shared';
 
-const BTN_CLASS = 'fsdx-editor-bubble-btn';
-const DIVIDER_CLASS = 'fsdx-editor-bubble-divider';
-const POSTER_INPUT_CLASS = 'fsdx-editor-bubble-input';
+const BTN_CLASS = 'easyx-editor-bubble-btn';
+const DIVIDER_CLASS = 'easyx-editor-bubble-divider';
+const POSTER_INPUT_CLASS = 'easyx-editor-bubble-input';
 
 /** 当前选中视频的封面地址 */
 function getSelectedVideoPoster(editor: Editor): string {
@@ -22,7 +22,7 @@ function getSelectedVideoPoster(editor: Editor): string {
 
 export function createVideoMenuElement(): HTMLElement {
   const menuEl = document.createElement('div');
-  menuEl.className = 'fsdx-editor-bubble-menu fsdx-editor-video-menu';
+  menuEl.className = 'easyx-editor-bubble-menu easyx-editor-video-menu';
   return menuEl;
 }
 

@@ -80,7 +80,7 @@ const VideoNode = Node.create<VideoNodeOptions>({
   renderHTML({ HTMLAttributes }) {
     const { 'data-align': dataAlign, ...videoAttrs } = HTMLAttributes;
     const wrapperAttrs: Record<string, string> = {
-      class: 'fsdx-editor-video-wrapper',
+      class: 'easyx-editor-video-wrapper',
     };
     if (dataAlign) {
       wrapperAttrs['data-align'] = String(dataAlign);

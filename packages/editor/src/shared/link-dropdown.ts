@@ -9,14 +9,14 @@ import type { Editor } from '@tiptap/core';
 import { sanitizeUrl } from '../utils/link';
 import { updateBtnStates } from './controls';
 
-const POPOVER_CLASS = 'fsdx-editor-link-popover';
-const INPUT_ROW_CLASS = 'fsdx-editor-link-popover-input-row';
-const INPUT_ICON_CLASS = 'fsdx-editor-link-popover-input-icon';
-const INPUT_CLASS = 'fsdx-editor-link-popover-input';
-const NEW_WINDOW_BTN_CLASS = 'fsdx-editor-link-popover-new-window';
-const ACTIONS_CLASS = 'fsdx-editor-link-popover-actions';
-const ACTION_BTN_CLASS = 'fsdx-editor-link-popover-actions-btn';
-const DANGER_BTN_CLASS = 'fsdx-editor-link-popover-actions-btn--danger';
+const POPOVER_CLASS = 'easyx-editor-link-popover';
+const INPUT_ROW_CLASS = 'easyx-editor-link-popover-input-row';
+const INPUT_ICON_CLASS = 'easyx-editor-link-popover-input-icon';
+const INPUT_CLASS = 'easyx-editor-link-popover-input';
+const NEW_WINDOW_BTN_CLASS = 'easyx-editor-link-popover-new-window';
+const ACTIONS_CLASS = 'easyx-editor-link-popover-actions';
+const ACTION_BTN_CLASS = 'easyx-editor-link-popover-actions-btn';
+const DANGER_BTN_CLASS = 'easyx-editor-link-popover-actions-btn--danger';
 const NEW_WINDOW_ACTIVE_CLASS = 'is-active';
 
 const NEW_WINDOW_ICON =

@@ -70,15 +70,15 @@ const AttachmentNode = Node.create<AttachmentNodeOptions>({
         'data-type': 'attachment',
         'data-name': name,
         'data-size': size,
-        class: 'fsdx-editor-attachment',
+        class: 'easyx-editor-attachment',
         download: name || true,
       },
-      ['span', { class: 'fsdx-editor-attachment-icon' }, '📎'],
-      ['span', { class: 'fsdx-editor-attachment-name' }, name || '未知文件'],
+      ['span', { class: 'easyx-editor-attachment-icon' }, '📎'],
+      ['span', { class: 'easyx-editor-attachment-name' }, name || '未知文件'],
       size
         ? [
             'span',
-            { class: 'fsdx-editor-attachment-size' },
+            { class: 'easyx-editor-attachment-size' },
             `(${formatSize(size as number)})`,
           ]
         : null,

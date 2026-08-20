@@ -1,10 +1,10 @@
 {
-  "name": "fsdx-editor",
+  "name": "easyx-editor",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter @fsdx/editor --filter @fsdx/tiptap-table-plus build && pnpm --parallel -r dev",
+    "dev": "pnpm --filter @easyx/editor --filter @easyx/tiptap-table-plus build && pnpm --parallel -r dev",
     "build": "pnpm -r build",
     "build:site": "pnpm --filter site build",
     "check": "biome check --write .",

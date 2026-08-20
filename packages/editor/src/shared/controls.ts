@@ -380,13 +380,13 @@ export function createColorDropdown(
 
   const buildDropdown = (): HTMLElement => {
     const menu = document.createElement('div');
-    menu.className = 'fsdx-editor-color-dropdown';
+    menu.className = 'easyx-editor-color-dropdown';
     menu.style.position = 'fixed';
     menu.style.visibility = 'hidden';
 
     const actionBtn = document.createElement('button');
     actionBtn.type = 'button';
-    actionBtn.className = 'fsdx-editor-color-grid-action-btn';
+    actionBtn.className = 'easyx-editor-color-grid-action-btn';
     actionBtn.textContent = actionLabel;
     actionBtn.addEventListener('mousedown', (e) => e.preventDefault());
     actionBtn.addEventListener('click', (e) => {
@@ -401,11 +401,11 @@ export function createColorDropdown(
     menu.appendChild(actionBtn);
 
     const separator = document.createElement('div');
-    separator.className = 'fsdx-editor-color-dropdown-divider';
+    separator.className = 'easyx-editor-color-dropdown-divider';
     menu.appendChild(separator);
 
     const customRow = document.createElement('div');
-    customRow.className = 'fsdx-editor-color-custom-row';
+    customRow.className = 'easyx-editor-color-custom-row';
     customRow.setAttribute('role', 'button');
     customRow.setAttribute('tabindex', '0');
 
@@ -414,13 +414,13 @@ export function createColorDropdown(
     customRow.appendChild(customLabel);
 
     const customSwatch = document.createElement('span');
-    customSwatch.className = 'fsdx-editor-color-custom-swatch';
+    customSwatch.className = 'easyx-editor-color-custom-swatch';
     customSwatch.style.backgroundColor = getCurrentColor() || 'transparent';
     customRow.appendChild(customSwatch);
 
     const customInput = document.createElement('input');
     customInput.type = 'color';
-    customInput.className = 'fsdx-editor-color-custom-input';
+    customInput.className = 'easyx-editor-color-custom-input';
     customInput.addEventListener('input', (e) => {
       const color = (e.target as HTMLInputElement).value;
       applyColor(editor, color);
@@ -456,11 +456,11 @@ export function createColorDropdown(
     menu.appendChild(customRow);
 
     const separator2 = document.createElement('div');
-    separator2.className = 'fsdx-editor-color-dropdown-divider';
+    separator2.className = 'easyx-editor-color-dropdown-divider';
     menu.appendChild(separator2);
 
     const grid = document.createElement('div');
-    grid.className = 'fsdx-editor-color-grid';
+    grid.className = 'easyx-editor-color-grid';
     grid.setAttribute('role', 'grid');
     grid.setAttribute('aria-label', '颜色选择');
 
@@ -470,7 +470,7 @@ export function createColorDropdown(
     for (const paletteColor of PALETTE_COLORS) {
       const cell = document.createElement('button');
       cell.type = 'button';
-      cell.className = 'fsdx-editor-color-grid-item';
+      cell.className = 'easyx-editor-color-grid-item';
       cell.style.backgroundColor = paletteColor.color;
       cell.setAttribute('tabindex', '-1');
       cell.setAttribute('role', 'gridcell');

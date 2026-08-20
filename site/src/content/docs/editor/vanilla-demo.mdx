@@ -1,19 +1,19 @@
 ---
 title: 原生 API
-description: 通过原生 JavaScript API 使用 FSDX Editor
+description: 通过原生 JavaScript API 使用 EasyX Editor
 ---
 
 import IframeDemo from '../../../components/IframeDemo.tsx';
 import { getDemoSource } from '../../../components/demo-sources.ts';
 
-FSDX Editor 提供 `createEditor(container, options)` 原生 JavaScript API，无需 React 即可在任何 DOM 元素上创建编辑器。
+EasyX Editor 提供 `createEditor(container, options)` 原生 JavaScript API，无需 React 即可在任何 DOM 元素上创建编辑器。
 
 <IframeDemo slug="vanilla-demo" sourceCode={getDemoSource('vanilla-demo')} client:load />
 
 ## 使用方式
 
 ```ts
-import { createEditor } from '@fsdx/editor'
+import { createEditor } from '@easyx/editor'
 
 const editor = createEditor(container, {
   defaultContent: '<p>初始内容</p>',

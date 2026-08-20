@@ -1,30 +1,30 @@
 // 编辑器容器与编辑区基础样式（含禁用态、占位符、选中样式）
-.fsdx-editor {
-  background: var(--fsdx-editor-bg);
-  color: var(--fsdx-editor-text);
-  font-family: var(--fsdx-editor-font-family);
-  font-size: var(--fsdx-editor-font-size);
-  line-height: var(--fsdx-editor-line-height);
-  min-height: var(--fsdx-editor-min-height);
-  border: 1px solid var(--fsdx-editor-border);
-  border-radius: var(--fsdx-editor-radius);
+.easyx-editor {
+  background: var(--easyx-editor-bg);
+  color: var(--easyx-editor-text);
+  font-family: var(--easyx-editor-font-family);
+  font-size: var(--easyx-editor-font-size);
+  line-height: var(--easyx-editor-line-height);
+  min-height: var(--easyx-editor-min-height);
+  border: 1px solid var(--easyx-editor-border);
+  border-radius: var(--easyx-editor-radius);
   transition: border-color 0.2s ease;
   position: relative;
 
   &:focus-within {
-    border-color: var(--fsdx-editor-border-focus);
+    border-color: var(--easyx-editor-border-focus);
   }
 }
 
-.fsdx-editor-disabled {
+.easyx-editor-disabled {
   opacity: 0.6;
   pointer-events: none;
 }
 
 // ProseMirror 编辑区域
-.fsdx-editor-content {
-  padding: var(--fsdx-editor-padding);
-  min-height: var(--fsdx-editor-min-height);
+.easyx-editor-content {
+  padding: var(--easyx-editor-padding);
+  min-height: var(--easyx-editor-min-height);
   outline: none;
   word-break: break-word;
 
@@ -44,13 +44,13 @@
   p.is-editor-empty:first-child::before {
     content: attr(data-placeholder);
     float: left;
-    color: var(--fsdx-editor-placeholder-color);
+    color: var(--easyx-editor-placeholder-color);
     pointer-events: none;
     height: 0;
   }
 
   // 选中样式
   ::selection {
-    background: var(--fsdx-editor-selection-bg);
+    background: var(--easyx-editor-selection-bg);
   }
 }

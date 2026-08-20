@@ -54,7 +54,10 @@ export default function IframeDemo({
   }, [handleMessage]);
 
   const handleOpenNewWindow = useCallback(() => {
-    window.open(`/fsdx-editor/demos/${slug}?theme=${theme}`, '_blank');
+    window.open(
+      `${import.meta.env.BASE_URL}demos/${slug}?theme=${theme}`,
+      '_blank',
+    );
   }, [slug, theme]);
 
   const handleCopyCode = useCallback(async () => {
@@ -177,7 +180,7 @@ export default function IframeDemo({
 
       <iframe
         ref={iframeRef}
-        src={`/fsdx-editor/demos/${slug}?theme=${theme}`}
+        src={`${import.meta.env.BASE_URL}demos/${slug}?theme=${theme}`}
         className="demo-iframe"
         title={`${slug} Demo`}
       />

@@ -9,7 +9,7 @@ export type ImageMediaUploadConfig = MediaUploadConfig & {
 };
 
 /** 编辑器初始化配置 */
-export interface FsdxEditorOptions {
+export interface EasyxEditorOptions {
   placeholder?: string;
   readOnly?: boolean;
   autoFocus?: boolean;

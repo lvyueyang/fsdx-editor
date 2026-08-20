@@ -1,7 +1,7 @@
 // 内容区链接、链接编辑弹出层与 hover 快速操作浮层
-.fsdx-editor-content {
+.easyx-editor-content {
   a {
-    color: var(--fsdx-editor-link-color);
+    color: var(--easyx-editor-link-color);
     text-decoration: underline;
     text-underline-offset: 2px;
     cursor: text;
@@ -13,48 +13,48 @@
 }
 
 // 只读/禁用模式下链接可点击跳转，恢复指针
-.fsdx-editor-readonly,
-.fsdx-editor-disabled {
-  .fsdx-editor-content a {
+.easyx-editor-readonly,
+.easyx-editor-disabled {
+  .easyx-editor-content a {
     cursor: pointer;
   }
 }
 
 // 链接编辑弹出层
-.fsdx-editor-link-popover {
+.easyx-editor-link-popover {
   z-index: 101;
   min-width: 15rem;
   padding: 6px;
-  border-radius: var(--fsdx-editor-radius, 8px);
-  border: 1px solid var(--fsdx-editor-toolbar-border);
-  background: var(--fsdx-editor-toolbar-bg);
+  border-radius: var(--easyx-editor-radius, 8px);
+  border: 1px solid var(--easyx-editor-toolbar-border);
+  background: var(--easyx-editor-toolbar-bg);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.fsdx-editor-link-popover-input-row {
+.easyx-editor-link-popover-input-row {
   display: flex;
   align-items: center;
   gap: 6px;
-  height: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--easyx-editor-toolbar-btn-size);
   padding: 0 8px;
-  border: 1px solid var(--fsdx-editor-toolbar-border);
-  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  border: 1px solid var(--easyx-editor-toolbar-border);
+  border-radius: var(--easyx-editor-toolbar-btn-radius);
   transition: border-color 0.15s ease;
 
   &:focus-within {
-    border-color: var(--fsdx-editor-primary);
+    border-color: var(--easyx-editor-primary);
   }
 }
 
-.fsdx-editor-link-popover-input-icon {
+.easyx-editor-link-popover-input-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
 
   svg {
     width: 14px;
@@ -63,24 +63,24 @@
   }
 }
 
-.fsdx-editor-link-popover-input {
+.easyx-editor-link-popover-input {
   flex: 1;
   min-width: 0;
   height: 100%;
   border: none;
   background: transparent;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
   font-size: 13px;
   font-family: inherit;
   outline: none;
   padding: 0;
 
   &::placeholder {
-    color: var(--fsdx-editor-placeholder-color);
+    color: var(--easyx-editor-placeholder-color);
   }
 }
 
-.fsdx-editor-link-popover-new-window {
+.easyx-editor-link-popover-new-window {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -89,9 +89,9 @@
   height: 24px;
   margin: 0 -4px 0 2px;
   border: none;
-  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  border-radius: var(--easyx-editor-toolbar-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -99,14 +99,14 @@
   padding: 0;
 
   &:hover {
-    background: var(--fsdx-editor-toolbar-btn-hover);
+    background: var(--easyx-editor-toolbar-btn-hover);
   }
 
   &.is-active {
-    color: var(--fsdx-editor-primary);
+    color: var(--easyx-editor-primary);
 
     &:hover {
-      background: var(--fsdx-editor-toolbar-btn-hover);
+      background: var(--easyx-editor-toolbar-btn-hover);
     }
   }
 
@@ -117,22 +117,22 @@
   }
 }
 
-.fsdx-editor-link-popover-actions {
+.easyx-editor-link-popover-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4px;
 }
 
-.fsdx-editor-link-popover-actions-btn {
+.easyx-editor-link-popover-actions-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  height: var(--fsdx-editor-toolbar-btn-size);
+  height: var(--easyx-editor-toolbar-btn-size);
   border: none;
-  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  border-radius: var(--easyx-editor-toolbar-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
   font-size: 12px;
   font-family: inherit;
   cursor: pointer;
@@ -140,7 +140,7 @@
   padding: 0 6px;
 
   &:hover {
-    background: var(--fsdx-editor-toolbar-btn-hover);
+    background: var(--easyx-editor-toolbar-btn-hover);
   }
 
   svg {
@@ -151,23 +151,23 @@
   }
 
   &--danger {
-    color: var(--fsdx-editor-danger);
+    color: var(--easyx-editor-danger);
 
     &:hover {
-      background: var(--fsdx-editor-danger-hover);
+      background: var(--easyx-editor-danger-hover);
     }
   }
 }
 
 // 链接 hover 快速操作浮层
-.fsdx-editor-link-hover {
+.easyx-editor-link-hover {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: 3px;
-  border-radius: var(--fsdx-editor-radius, 8px);
-  border: 1px solid var(--fsdx-editor-toolbar-border);
-  background: var(--fsdx-editor-toolbar-bg);
+  border-radius: var(--easyx-editor-radius, 8px);
+  border: 1px solid var(--easyx-editor-toolbar-border);
+  background: var(--easyx-editor-toolbar-bg);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   z-index: 150;
 
@@ -176,22 +176,22 @@
   }
 }
 
-.fsdx-editor-link-hover-btn {
+.easyx-editor-link-hover-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 26px;
   height: 26px;
   border: none;
-  border-radius: var(--fsdx-editor-toolbar-btn-radius);
+  border-radius: var(--easyx-editor-toolbar-btn-radius);
   background: transparent;
-  color: var(--fsdx-editor-toolbar-btn-color);
+  color: var(--easyx-editor-toolbar-btn-color);
   cursor: pointer;
   transition: background 0.15s ease;
   padding: 0;
 
   &:hover {
-    background: var(--fsdx-editor-toolbar-btn-hover);
+    background: var(--easyx-editor-toolbar-btn-hover);
   }
 
   svg {
@@ -201,6 +201,6 @@
   }
 
   &.is-copied {
-    color: var(--fsdx-editor-primary);
+    color: var(--easyx-editor-primary);
   }
 }

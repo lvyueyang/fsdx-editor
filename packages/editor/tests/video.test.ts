@@ -46,7 +46,7 @@ test('视频对齐/封面/控制器/自动播放属性可解析与序列化', ()
   });
 
   editor.commands.setContent(
-    `<div class="fsdx-editor-video-wrapper" data-align="right"><video src="${VIDEO_URL}" poster="https://example.com/p.jpg" controls autoplay></video></div>`,
+    `<div class="easyx-editor-video-wrapper" data-align="right"><video src="${VIDEO_URL}" poster="https://example.com/p.jpg" controls autoplay></video></div>`,
   );
   let attrs: Record<string, unknown> | null = null;
   editor.state.doc.descendants((node) => {
@@ -82,7 +82,7 @@ test('选中视频时显示视频选中浮层', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   expect(menu).not.toBeNull();
   expect(menu?.isConnected).toBe(true);
   expect(menu?.querySelector('button[aria-label="左对齐"]')).not.toBeNull();
@@ -110,7 +110,7 @@ test('视频选中浮层对齐按钮更新对齐方式', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   menu
     ?.querySelector<HTMLButtonElement>('button[aria-label="右对齐"]')
     ?.click();
@@ -132,7 +132,7 @@ test('视频选中浮层封面输入框设置封面地址', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const input = menu?.querySelector<HTMLInputElement>(
     'input[aria-label="设置封面地址"]',
   );
@@ -162,7 +162,7 @@ test('视频选中浮层控制器按钮切换 controls 属性', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const controlsBtn = menu?.querySelector<HTMLButtonElement>(
     'button[aria-label="显示控制器"]',
   );
@@ -187,7 +187,7 @@ test('视频选中浮层自动播放按钮切换 autoplay 属性', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const autoplayBtn = menu?.querySelector<HTMLButtonElement>(
     'button[aria-label="自动播放"]',
   );
@@ -242,7 +242,7 @@ test('视频选中浮层封面输入框按 Enter 提交', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const input = menu?.querySelector<HTMLInputElement>(
     'input[aria-label="设置封面地址"]',
   );
@@ -268,7 +268,7 @@ test('视频选中浮层封面输入框按 Escape 取消编辑不提交', async 
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const input = menu?.querySelector<HTMLInputElement>(
     'input[aria-label="设置封面地址"]',
   );
@@ -291,8 +291,8 @@ test('切换选中的视频时封面输入框同步显示对应值', async () =>
   await wait();
 
   editor.commands.setContent(
-    `<div class="fsdx-editor-video-wrapper"><video src="${VIDEO_URL}" poster="https://example.com/p1.jpg" controls></video></div>` +
-      `<div class="fsdx-editor-video-wrapper"><video src="https://example.com/b.mp4" poster="https://example.com/p2.jpg" controls></video></div>`,
+    `<div class="easyx-editor-video-wrapper"><video src="${VIDEO_URL}" poster="https://example.com/p1.jpg" controls></video></div>` +
+      `<div class="easyx-editor-video-wrapper"><video src="https://example.com/b.mp4" poster="https://example.com/p2.jpg" controls></video></div>`,
   );
   const findPos = (src: string): number => {
     let found = -1;
@@ -313,7 +313,7 @@ test('切换选中的视频时封面输入框同步显示对应值', async () =>
 
   editor.commands.setNodeSelection(pos1);
   await new Promise((resolve) => setTimeout(resolve, 350));
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   const input = menu?.querySelector<HTMLInputElement>(
     'input[aria-label="设置封面地址"]',
   );
@@ -338,7 +338,7 @@ test('视频选中浮层删除按钮删除视频', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-video-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-video-menu');
   menu
     ?.querySelector<HTMLButtonElement>('button[aria-label="删除视频"]')
     ?.click();

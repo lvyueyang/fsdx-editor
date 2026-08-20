@@ -26,7 +26,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build tiptap-table-plus
-        run: pnpm --filter @fsdx/tiptap-table-plus build
+        run: pnpm --filter @easyx/tiptap-table-plus build
 
       - name: Lint check
         run: pnpm exec biome check .

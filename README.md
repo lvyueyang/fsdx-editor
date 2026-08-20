@@ -1,4 +1,4 @@
-# FSDX Editor
+# EasyX Editor
 
 基于 Tiptap 的零框架依赖编辑器工具包，提供丰富的富文本编辑能力、表格增强套件与可定制主题系统。
 
@@ -11,7 +11,7 @@ pnpm install
 ## 快速开始
 
 ```ts
-import { createEditor } from '@fsdx/editor'
+import { createEditor } from '@easyx/editor'
 
 const editor = createEditor(document.getElementById('editor'), {
   placeholder: '请输入…',
@@ -41,8 +41,8 @@ editor.setHTML('<p>Hello World</p>')
 
 ```
 packages/
-├── editor/                  # @fsdx/editor — 零框架依赖编辑器
-├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
+├── editor/                  # @easyx/editor — 零框架依赖编辑器
+├── tiptap-table-plus/        # @easyx/tiptap-table-plus — 表格增强套件
 site/                        # Astro + Starlight 文档站点
 ```
 
@@ -58,7 +58,7 @@ site/                        # Astro + Starlight 文档站点
 
 ## 发布
 
-`@fsdx/editor` 与 `@fsdx/tiptap-table-plus` 独立发布，版本无需同步。
+`@easyx/editor` 与 `@easyx/tiptap-table-plus` 独立发布，版本无需同步。
 
 ### 发布流程
 
@@ -66,7 +66,7 @@ site/                        # Astro + Starlight 文档站点
 2. 推送 `main` 分支
 3. GitHub Actions 自动比对本地版本与 npm 已发布版本，仅发布不一致的包：
    - 两个包均一致 → 跳过发布
-   - `@fsdx/tiptap-table-plus` 变更 → 先于 `@fsdx/editor` 发布（editor 依赖它）
+   - `@easyx/tiptap-table-plus` 变更 → 先于 `@easyx/editor` 发布（editor 依赖它）
 
 发布同时会触发文档站点（GitHub Pages）部署与 CI 检查。
 

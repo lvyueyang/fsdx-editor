@@ -1,6 +1,6 @@
 ---
 title: API 参考
-description: FSDX Editor createEditor 完整 API 类型定义与说明
+description: EasyX Editor createEditor 完整 API 类型定义与说明
 ---
 
 # API 参考
@@ -10,14 +10,14 @@ description: FSDX Editor createEditor 完整 API 类型定义与说明
 ## createEditor
 
 ```ts
-import { createEditor } from '@fsdx/editor'
+import { createEditor } from '@easyx/editor'
 
-const editor = createEditor(container: HTMLElement, options: FsdxEditorOptions)
+const editor = createEditor(container: HTMLElement, options: EasyxEditorOptions)
 ```
 
 在指定 DOM 容器中创建编辑器实例，返回一个包含 API 方法和事件系统的 `EditorInstance` 对象。
 
-## FsdxEditorOptions
+## EasyxEditorOptions
 
 | 字段 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|

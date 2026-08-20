@@ -1,5 +1,5 @@
 // 内容区表格样式
-.fsdx-editor-content {
+.easyx-editor-content {
   table {
     border-collapse: collapse;
     width: 100%;
@@ -8,20 +8,20 @@
 
     td,
     th {
-      border: 1px solid var(--fsdx-editor-table-border);
+      border: 1px solid var(--easyx-editor-table-border);
       padding: 8px 12px;
       min-width: 60px;
       vertical-align: top;
     }
 
     th {
-      background: var(--fsdx-editor-table-header-bg);
+      background: var(--easyx-editor-table-header-bg);
       font-weight: 600;
       text-align: left;
     }
 
     .selectedCell {
-      background: var(--fsdx-editor-primary-light);
+      background: var(--easyx-editor-primary-light);
     }
   }
 }

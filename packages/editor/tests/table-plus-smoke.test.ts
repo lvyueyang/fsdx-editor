@@ -1,12 +1,12 @@
 /**
  * TablePlus 集成测试：通过 editor 包的 rstest 环境验证
- * @fsdx/tiptap-table-plus 的命令、运行时状态与表格控制插件。
+ * @easyx/tiptap-table-plus 的命令、运行时状态与表格控制插件。
  */
 import {
   getTablePlusTheme,
   getTablePlusTranslations,
   TablePlus,
-} from '@fsdx/tiptap-table-plus';
+} from '@easyx/tiptap-table-plus';
 import { expect, test } from '@rstest/core';
 import { Editor } from '@tiptap/core';
 import { TableKit } from '@tiptap/extension-table';

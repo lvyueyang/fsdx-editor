@@ -21,16 +21,16 @@ import {
   updateSelectStates,
 } from './toolbar-shared';
 
-const BTN_CLASS = 'fsdx-editor-toolbar-btn';
-const DIVIDER_CLASS = 'fsdx-editor-toolbar-divider';
-const SELECT_CLASS = 'fsdx-editor-toolbar-select';
-const INDENT_CLASS = 'fsdx-editor-toolbar-indent';
-const INDENT_INPUT_CLASS = 'fsdx-editor-toolbar-indent-input';
-const TABLE_PICKER_CLASS = 'fsdx-editor-toolbar-table-picker';
+const BTN_CLASS = 'easyx-editor-toolbar-btn';
+const DIVIDER_CLASS = 'easyx-editor-toolbar-divider';
+const SELECT_CLASS = 'easyx-editor-toolbar-select';
+const INDENT_CLASS = 'easyx-editor-toolbar-indent';
+const INDENT_INPUT_CLASS = 'easyx-editor-toolbar-indent-input';
+const TABLE_PICKER_CLASS = 'easyx-editor-toolbar-table-picker';
 
 export function createToolbarElement(): HTMLElement {
   const toolbarEl = document.createElement('div');
-  toolbarEl.className = 'fsdx-editor-toolbar';
+  toolbarEl.className = 'easyx-editor-toolbar';
   return toolbarEl;
 }
 
@@ -69,14 +69,14 @@ export function populateToolbar(
     () => editor.can().undo(),
     (e) => e.chain().focus().undo().run(),
   );
-  undoBtn.classList.add('fsdx-editor-toolbar-btn--history');
+  undoBtn.classList.add('easyx-editor-toolbar-btn--history');
   const redoBtn = add(
     ICONS.redo,
     '重做 (Ctrl+Shift+Z)',
     () => editor.can().redo(),
     (e) => e.chain().focus().redo().run(),
   );
-  redoBtn.classList.add('fsdx-editor-toolbar-btn--history');
+  redoBtn.classList.add('easyx-editor-toolbar-btn--history');
 
   div();
 
@@ -272,7 +272,7 @@ export function populateToolbar(
   createIndentControl(
     toolbarEl,
     INDENT_CLASS,
-    `${BTN_CLASS} fsdx-editor-toolbar-btn--indent`,
+    `${BTN_CLASS} easyx-editor-toolbar-btn--indent`,
     INDENT_INPUT_CLASS,
     editor,
     ICONS.indentIncrease,

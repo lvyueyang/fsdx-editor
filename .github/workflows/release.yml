@@ -39,7 +39,7 @@ jobs:
         id: detect
         run: |
           CHANGED=""
-          for SPEC in "@fsdx/tiptap-table-plus:packages/tiptap-table-plus" "@fsdx/editor:packages/editor"; do
+          for SPEC in "@easyx/tiptap-table-plus:packages/tiptap-table-plus" "@easyx/editor:packages/editor"; do
             NAME="${SPEC%%:*}"
             DIR="${SPEC##*:}"
             VERSION=$(node -p "require('./${DIR}/package.json').version")
@@ -57,11 +57,11 @@ jobs:
 
       - name: Build tiptap-table-plus
         if: steps.detect.outputs.changed != ''
-        run: pnpm --filter @fsdx/tiptap-table-plus build
+        run: pnpm --filter @easyx/tiptap-table-plus build
 
       - name: Build editor
-        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@fsdx/editor')
-        run: pnpm --filter @fsdx/editor build
+        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@easyx/editor')
+        run: pnpm --filter @easyx/editor build
 
       - name: Lint check
         if: steps.detect.outputs.changed != ''
@@ -71,10 +71,10 @@ jobs:
         if: steps.detect.outputs.changed != ''
         run: pnpm test
 
-      - name: Publish @fsdx/tiptap-table-plus
-        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@fsdx/tiptap-table-plus')
-        run: pnpm --filter @fsdx/tiptap-table-plus publish --no-git-checks --access public
+      - name: Publish @easyx/tiptap-table-plus
+        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@easyx/tiptap-table-plus')
+        run: pnpm --filter @easyx/tiptap-table-plus publish --no-git-checks --access public
 
-      - name: Publish @fsdx/editor
-        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@fsdx/editor')
-        run: pnpm --filter @fsdx/editor publish --no-git-checks --access public
+      - name: Publish @easyx/editor
+        if: steps.detect.outputs.changed != '' && contains(steps.detect.outputs.changed, '@easyx/editor')
+        run: pnpm --filter @easyx/editor publish --no-git-checks --access public

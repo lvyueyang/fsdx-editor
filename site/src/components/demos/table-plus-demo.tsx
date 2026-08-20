@@ -1,5 +1,5 @@
-import type { MenuList } from '@fsdx/tiptap-table-plus';
-import { TablePlus } from '@fsdx/tiptap-table-plus';
+import type { MenuList } from '@easyx/tiptap-table-plus';
+import { TablePlus } from '@easyx/tiptap-table-plus';
 import { TableKit } from '@tiptap/extension-table';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';

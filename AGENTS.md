@@ -16,14 +16,14 @@
 ├── release.yml              # main 推送版本差异检测后发布 npm
 └── deploy.yml               # main 推送构建并部署 GitHub Pages
 packages/
-├── editor/                  # @fsdx/editor — 零框架依赖编辑器
+├── editor/                  # @easyx/editor — 零框架依赖编辑器
 │   ├── package.json
 │   ├── rslib.config.ts      # 输出 ESM + CJS，含声明文件
 │   ├── rstest.config.ts     # 使用 @rstest/adapter-rslib + happy-dom
 │   ├── tsconfig.json
 │   ├── src/
 │   │   ├── index.ts         # createEditor() 工厂函数 + 类型导出
-│   │   ├── types.ts         # FsdxEditorOptions / MediaItem 等公共类型
+│   │   ├── types.ts         # EasyxEditorOptions / MediaItem 等公共类型
 │   │   ├── styles/          # 全部编辑器样式（SCSS 分片，index.scss 为入口）
 │   │   │   ├── index.scss           # 样式入口（@use 各分片）
 │   │   │   ├── _variables.scss      # 亮/暗主题 CSS 变量
@@ -72,7 +72,7 @@ packages/
 │       ├── image.test.ts            # 图片节点：对齐/缩放/选中浮层测试
 │       ├── media.test.ts            # 媒体三方式插入下拉测试
 │       └── table-plus-smoke.test.ts # TablePlus 集成测试（经 editor 测试环境运行）
-├── tiptap-table-plus/        # @fsdx/tiptap-table-plus — 表格增强套件
+├── tiptap-table-plus/        # @easyx/tiptap-table-plus — 表格增强套件
 │   ├── package.json
 │   ├── README.md
 │   ├── rslib.config.ts      # Bundleless ESM，仅输出 ESM
@@ -151,7 +151,7 @@ site/                        # Astro + Starlight 文档站点
 
 ### 各包 Rslib 配置对比
 
-| 配置项 | @fsdx/editor | @fsdx/tiptap-table-plus |
+| 配置项 | @easyx/editor | @easyx/tiptap-table-plus |
 |--------|--------------|------------------------|
 | 构建模式 | 主入口打包 | Bundleless（`bundle: false`） |
 | 输出格式 | ESM + CJS | 仅 ESM |
@@ -162,14 +162,14 @@ site/                        # Astro + Starlight 文档站点
 
 ### 包入口约定
 
-- `@fsdx/editor`：`exports` 同时声明 `types`（`.d.ts`）、`import`（ESM）、`require`（CJS）
-- `@fsdx/tiptap-table-plus`：仅 ESM，`sideEffects: ["**/*.css"]` 标记 CSS 为副作用
+- `@easyx/editor`：`exports` 同时声明 `types`（`.d.ts`）、`import`（ESM）、`require`（CJS）
+- `@easyx/tiptap-table-plus`：仅 ESM，`sideEffects: ["**/*.css"]` 标记 CSS 为副作用
 - 两个包 `files` 均仅包含 `dist`
 
 ### 站点构建
 
 - 使用 Astro (`astro build`) 静态生成，部署到 GitHub Pages
-- `astro.config.mjs` 中配置 `base: '/fsdx-editor/'`
+- `astro.config.mjs` 中配置 `base: '/easyx-editor/'`
 - 集成 `@astrojs/starlight`（文档框架）+ `@astrojs/react`（Demo 组件）
 
 ## 架构约定
@@ -179,7 +179,7 @@ site/                        # Astro + Starlight 文档站点
 编辑器通过工厂函数创建，完全不依赖任何 UI 框架：
 
 ```ts
-import { createEditor } from '@fsdx/editor'
+import { createEditor } from '@easyx/editor'
 
 const editor = createEditor(containerElement, {
   placeholder: '请输入…',
@@ -230,7 +230,7 @@ const editor = createEditor(containerElement, {
 3. **对齐与缩进**：TextAlign / Indent
 4. **特殊标记**：Subscript / Superscript / Typography
 5. **列表**：TaskList / TaskItem
-6. **表格**：Table（来自 @tiptap/extension-table）+ TablePlus（来自 @fsdx/tiptap-table-plus，增强套件）
+6. **表格**：Table（来自 @tiptap/extension-table）+ TablePlus（来自 @easyx/tiptap-table-plus，增强套件）
 7. **占位符**：Placeholder（@tiptap/extensions）
 8. **气泡菜单**：BubbleMenu（文本选区）+ BubbleMenu 子类 imageBubbleMenu（图片选中浮层）+ BubbleMenu 子类 videoBubbleMenu（视频选中浮层）
 9. **媒体**：ImageUpload / VideoNode / AudioNode / AttachmentNode
@@ -256,7 +256,7 @@ const editor = createEditor(containerElement, {
 
 ### 表格增强套件
 
-`@fsdx/tiptap-table-plus` 提供独立可复用的表格增强：
+`@easyx/tiptap-table-plus` 提供独立可复用的表格增强：
 
 - `TablePlus` 是唯一的公开扩展，作为 `Extension` 独立注册，需配合 `Table` 扩展使用
 - 自动集成 `TableCellStyle`、`TableSelectionOverlay`、`NodeBackground` 三个子扩展
@@ -266,13 +266,13 @@ const editor = createEditor(containerElement, {
 - 支持局部翻译覆盖：`configure({ translations: { deleteRow: '...' } })`
 - 上下文菜单全局唯一，通过 `contextMenu` 配置项可增删改菜单项（`MenuList` 类型）
 - 通过 `getTablePlusTranslations(editor)` / `getTablePlusTheme(editor)` 读取运行时状态
-- 样式通过 CSS 变量 `--fsdx-tiptap-table-plus-*` 控制，可在外部覆盖
+- 样式通过 CSS 变量 `--easyx-tiptap-table-plus-*` 控制，可在外部覆盖
 
 ## 主题系统
 
 ### 编辑器主题
 
-- 通过容器 class `fsdx-editor-dark` 切换暗色模式
+- 通过容器 class `easyx-editor-dark` 切换暗色模式
 - `setTheme('dark')` 自动在容器上添加/移除 class
 - 同时调用 `editor.commands.setTablePlusTheme(theme)` 同步表格主题
 - 编辑器所有颜色通过 CSS 自定义属性控制，外部可覆盖
@@ -283,12 +283,12 @@ const editor = createEditor(containerElement, {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `--fsdx-tiptap-table-plus-accent` | `#7c3aed` | 品牌色（选区边框、手柄、交互高亮） |
-| `--fsdx-tiptap-table-plus-border` | `#d4d4d8` | 边框/分隔线色 |
-| `--fsdx-tiptap-table-plus-bg` | `#fff` | 菜单/弹出层背景色 |
-| `--fsdx-tiptap-table-plus-bg-hover` | `#f4f4f5` | 菜单项悬停背景色 |
-| `--fsdx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
-| `--fsdx-tiptap-table-plus-radius` | `2px` | 圆角 |
+| `--easyx-tiptap-table-plus-accent` | `#7c3aed` | 品牌色（选区边框、手柄、交互高亮） |
+| `--easyx-tiptap-table-plus-border` | `#d4d4d8` | 边框/分隔线色 |
+| `--easyx-tiptap-table-plus-bg` | `#fff` | 菜单/弹出层背景色 |
+| `--easyx-tiptap-table-plus-bg-hover` | `#f4f4f5` | 菜单项悬停背景色 |
+| `--easyx-tiptap-table-plus-text` | `#1a1a2e` | 主文字色 |
+| `--easyx-tiptap-table-plus-radius` | `2px` | 圆角 |
 
 ## 测试约定
 
@@ -315,7 +315,7 @@ const editor = createEditor(containerElement, {
 | workflow | 触发时机 | 职责 |
 |----------|----------|------|
 | `ci.yml` | PR、dev/main 推送 | Biome 只读检查（`pnpm exec biome check .`）+ `pnpm test` 质量门禁 |
-| `release.yml` | main 推送、手动触发 | 比对两包本地 `version` 与 npm 已发布版本，仅发布不一致的包；`@fsdx/tiptap-table-plus` 先于 `@fsdx/editor` 发布 |
+| `release.yml` | main 推送、手动触发 | 比对两包本地 `version` 与 npm 已发布版本，仅发布不一致的包；`@easyx/tiptap-table-plus` 先于 `@easyx/editor` 发布 |
 | `deploy.yml` | main 推送、手动触发 | 构建两包与站点，部署 GitHub Pages |
 
 ### 发布流程
@@ -340,8 +340,8 @@ const editor = createEditor(containerElement, {
 
 | 命令 | 说明 |
 |------|------|
-| `pnpm --filter @fsdx/editor dev` | editor 包监听构建 |
-| `pnpm --filter @fsdx/editor test` | 单独运行 editor 测试 |
+| `pnpm --filter @easyx/editor dev` | editor 包监听构建 |
+| `pnpm --filter @easyx/editor test` | 单独运行 editor 测试 |
 | `pnpm --filter site dev` | 单独启动站点开发服务器 |
 
 ## 开发边界

@@ -6,7 +6,7 @@ import {
   shift,
 } from '@floating-ui/dom';
 
-const TOOLTIP_CLASS = 'fsdx-editor-tooltip';
+const TOOLTIP_CLASS = 'easyx-editor-tooltip';
 const SHOW_DELAY = 150;
 
 /** 已绑定事件委托的容器 → 其 tooltip 宿主元素 */

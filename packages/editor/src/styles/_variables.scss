@@ -1,164 +1,173 @@
 // 编辑器 CSS 变量：亮/暗主题配色与尺寸定义
-.fsdx-editor {
+.easyx-editor {
   /* 编辑器区域 */
-  --fsdx-editor-bg: #ffffff;
-  --fsdx-editor-text: #1f2937;
-  --fsdx-editor-font-family:
+  --easyx-editor-bg: #ffffff;
+  --easyx-editor-text: #1f2937;
+  --easyx-editor-font-family:
     system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fsdx-editor-font-size: 16px;
-  --fsdx-editor-line-height: 1.6;
-  --fsdx-editor-min-height: 200px;
-  --fsdx-editor-padding: 16px;
-  --fsdx-editor-border: #e5e7eb;
-  --fsdx-editor-border-focus: #6366f1;
-  --fsdx-editor-radius: 8px;
-  --fsdx-editor-placeholder-color: #9ca3af;
+  --easyx-editor-font-size: 16px;
+  --easyx-editor-line-height: 1.6;
+  --easyx-editor-min-height: 200px;
+  --easyx-editor-padding: 16px;
+  --easyx-editor-border: #e5e7eb;
+  --easyx-editor-border-focus: #6366f1;
+  --easyx-editor-radius: 8px;
+  --easyx-editor-placeholder-color: #9ca3af;
 
   /* 主题色 */
-  --fsdx-editor-primary: #6366f1;
-  --fsdx-editor-primary-hover: #4f46e5;
-  --fsdx-editor-primary-light: rgba(99, 102, 241, 0.1);
+  --easyx-editor-primary: #6366f1;
+  --easyx-editor-primary-hover: #4f46e5;
+  --easyx-editor-primary-light: rgba(99, 102, 241, 0.1);
 
   /* 选中 */
-  --fsdx-editor-selection-bg: rgba(99, 102, 241, 0.25);
+  --easyx-editor-selection-bg: rgba(99, 102, 241, 0.25);
 
   /* 标题 */
-  --fsdx-editor-heading-color: #111827;
+  --easyx-editor-heading-color: #111827;
 
   /* 引用 */
-  --fsdx-editor-blockquote-border: #6366f1;
-  --fsdx-editor-blockquote-bg: #f9fafb;
-  --fsdx-editor-blockquote-text: #4b5563;
+  --easyx-editor-blockquote-border: #6366f1;
+  --easyx-editor-blockquote-bg: #f9fafb;
+  --easyx-editor-blockquote-text: #4b5563;
 
   /* 行内代码 */
-  --fsdx-editor-code-color: #e11d48;
-  --fsdx-editor-code-bg: #fce7f3;
+  --easyx-editor-code-color: #e11d48;
+  --easyx-editor-code-bg: #fce7f3;
 
   /* 代码块 */
-  --fsdx-editor-pre-bg: #1e293b;
-  --fsdx-editor-pre-color: #e2e8f0;
+  --easyx-editor-pre-bg: #1e293b;
+  --easyx-editor-pre-color: #e2e8f0;
+
+  /* 文本高亮 */
+  --easyx-editor-color-highlight-yellow: #fef08a;
+  --easyx-editor-color-highlight-blue: #bfdbfe;
+  --easyx-editor-color-highlight-green: #bbf7d0;
 
   /* 链接 */
-  --fsdx-editor-link-color: #6366f1;
+  --easyx-editor-link-color: #6366f1;
 
   /* 危险操作 */
-  --fsdx-editor-danger: #dc2626;
-  --fsdx-editor-danger-hover: #fee2e2;
+  --easyx-editor-danger: #dc2626;
+  --easyx-editor-danger-hover: #fee2e2;
 
   /* 分割线 */
-  --fsdx-editor-hr-color: #e5e7eb;
+  --easyx-editor-hr-color: #e5e7eb;
 
   /* 表格 */
-  --fsdx-editor-table-border: #e5e7eb;
-  --fsdx-editor-table-header-bg: #f9fafb;
+  --easyx-editor-table-border: #e5e7eb;
+  --easyx-editor-table-header-bg: #f9fafb;
 
   /* 列表 */
-  --fsdx-editor-list-marker-color: #6b7280;
+  --easyx-editor-list-marker-color: #6b7280;
 
   /* 媒体 */
-  --fsdx-editor-image-radius: 6px;
-  --fsdx-editor-video-radius: 6px;
-  --fsdx-editor-audio-radius: 6px;
-  --fsdx-editor-attachment-bg: #f9fafb;
-  --fsdx-editor-attachment-border: #e5e7eb;
+  --easyx-editor-image-radius: 6px;
+  --easyx-editor-video-radius: 6px;
+  --easyx-editor-audio-radius: 6px;
+  --easyx-editor-attachment-bg: #f9fafb;
+  --easyx-editor-attachment-border: #e5e7eb;
 
   /* 工具栏 */
-  --fsdx-editor-toolbar-bg: #ffffff;
-  --fsdx-editor-toolbar-border: #e5e7eb;
-  --fsdx-editor-toolbar-padding: 6px;
-  --fsdx-editor-toolbar-btn-hover: #f3f4f6;
-  --fsdx-editor-toolbar-btn-active: #e0e7ff;
-  --fsdx-editor-toolbar-btn-size: 32px;
-  --fsdx-editor-toolbar-btn-radius: 6px;
-  --fsdx-editor-toolbar-btn-color: #4b5563;
-  --fsdx-editor-toolbar-divider: #e5e7eb;
+  --easyx-editor-toolbar-bg: #ffffff;
+  --easyx-editor-toolbar-border: #e5e7eb;
+  --easyx-editor-toolbar-padding: 6px;
+  --easyx-editor-toolbar-btn-hover: #f3f4f6;
+  --easyx-editor-toolbar-btn-active: #e0e7ff;
+  --easyx-editor-toolbar-btn-size: 32px;
+  --easyx-editor-toolbar-btn-radius: 6px;
+  --easyx-editor-toolbar-btn-color: #4b5563;
+  --easyx-editor-toolbar-divider: #e5e7eb;
 
   /* 气泡菜单 */
-  --fsdx-editor-bubble-bg: #ffffff;
-  --fsdx-editor-bubble-border: #e5e7eb;
-  --fsdx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  --fsdx-editor-bubble-radius: 8px;
-  --fsdx-editor-bubble-padding: 4px;
-  --fsdx-editor-bubble-btn-hover: #f3f4f6;
-  --fsdx-editor-bubble-btn-active: #e0e7ff;
-  --fsdx-editor-bubble-btn-size: 32px;
-  --fsdx-editor-bubble-btn-radius: 6px;
-  --fsdx-editor-bubble-btn-color: #4b5563;
-  --fsdx-editor-bubble-divider: #e5e7eb;
+  --easyx-editor-bubble-bg: #ffffff;
+  --easyx-editor-bubble-border: #e5e7eb;
+  --easyx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --easyx-editor-bubble-radius: 8px;
+  --easyx-editor-bubble-padding: 4px;
+  --easyx-editor-bubble-btn-hover: #f3f4f6;
+  --easyx-editor-bubble-btn-active: #e0e7ff;
+  --easyx-editor-bubble-btn-size: 32px;
+  --easyx-editor-bubble-btn-radius: 6px;
+  --easyx-editor-bubble-btn-color: #4b5563;
+  --easyx-editor-bubble-divider: #e5e7eb;
 
   /* Tooltip */
-  --fsdx-editor-tooltip-bg: #1f2937;
-  --fsdx-editor-tooltip-color: #f9fafb;
-  --fsdx-editor-tooltip-radius: 6px;
-  --fsdx-editor-tooltip-padding: 4px 8px;
-  --fsdx-editor-tooltip-font-size: 12px;
-  --fsdx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  --easyx-editor-tooltip-bg: #1f2937;
+  --easyx-editor-tooltip-color: #f9fafb;
+  --easyx-editor-tooltip-radius: 6px;
+  --easyx-editor-tooltip-padding: 4px 8px;
+  --easyx-editor-tooltip-font-size: 12px;
+  --easyx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 
   /* 暗色主题 */
-  &.fsdx-editor-dark {
-    --fsdx-editor-bg: #111827;
-    --fsdx-editor-text: #f9fafb;
-    --fsdx-editor-border: #374151;
-    --fsdx-editor-border-focus: #818cf8;
-    --fsdx-editor-placeholder-color: #6b7280;
+  &.easyx-editor-dark {
+    --easyx-editor-bg: #111827;
+    --easyx-editor-text: #f9fafb;
+    --easyx-editor-border: #374151;
+    --easyx-editor-border-focus: #818cf8;
+    --easyx-editor-placeholder-color: #6b7280;
 
-    --fsdx-editor-primary: #818cf8;
-    --fsdx-editor-primary-hover: #6366f1;
-    --fsdx-editor-primary-light: rgba(129, 140, 248, 0.15);
+    --easyx-editor-primary: #818cf8;
+    --easyx-editor-primary-hover: #6366f1;
+    --easyx-editor-primary-light: rgba(129, 140, 248, 0.15);
 
-    --fsdx-editor-selection-bg: rgba(129, 140, 248, 0.3);
+    --easyx-editor-selection-bg: rgba(129, 140, 248, 0.3);
 
-    --fsdx-editor-heading-color: #f9fafb;
+    --easyx-editor-heading-color: #f9fafb;
 
-    --fsdx-editor-blockquote-border: #818cf8;
-    --fsdx-editor-blockquote-bg: #1f2937;
-    --fsdx-editor-blockquote-text: #d1d5db;
+    --easyx-editor-blockquote-border: #818cf8;
+    --easyx-editor-blockquote-bg: #1f2937;
+    --easyx-editor-blockquote-text: #d1d5db;
 
-    --fsdx-editor-code-color: #fca5a5;
-    --fsdx-editor-code-bg: #3d1a28;
+    --easyx-editor-code-color: #fca5a5;
+    --easyx-editor-code-bg: #3d1a28;
 
-    --fsdx-editor-pre-bg: #0f172a;
-    --fsdx-editor-pre-color: #e2e8f0;
+    --easyx-editor-pre-bg: #0f172a;
+    --easyx-editor-pre-color: #e2e8f0;
 
-    --fsdx-editor-link-color: #818cf8;
+    --easyx-editor-color-highlight-yellow: #6b5b1e;
+    --easyx-editor-color-highlight-blue: #1e3a5f;
+    --easyx-editor-color-highlight-green: #14532d;
+
+    --easyx-editor-link-color: #818cf8;
 
     /* 危险操作（暗色） */
-    --fsdx-editor-danger: #f87171;
-    --fsdx-editor-danger-hover: #4c1d1d;
+    --easyx-editor-danger: #f87171;
+    --easyx-editor-danger-hover: #4c1d1d;
 
-    --fsdx-editor-hr-color: #374151;
+    --easyx-editor-hr-color: #374151;
 
-    --fsdx-editor-table-border: #374151;
-    --fsdx-editor-table-header-bg: #1f2937;
+    --easyx-editor-table-border: #374151;
+    --easyx-editor-table-header-bg: #1f2937;
 
-    --fsdx-editor-list-marker-color: #9ca3af;
+    --easyx-editor-list-marker-color: #9ca3af;
 
-    --fsdx-editor-attachment-bg: #1f2937;
-    --fsdx-editor-attachment-border: #374151;
+    --easyx-editor-attachment-bg: #1f2937;
+    --easyx-editor-attachment-border: #374151;
 
     /* 工具栏（暗色） */
-    --fsdx-editor-toolbar-bg: #1f2937;
-    --fsdx-editor-toolbar-border: #374151;
-    --fsdx-editor-toolbar-btn-hover: #374151;
-    --fsdx-editor-toolbar-btn-active: #312e81;
-    --fsdx-editor-toolbar-btn-color: #d1d5db;
-    --fsdx-editor-toolbar-divider: #374151;
+    --easyx-editor-toolbar-bg: #1f2937;
+    --easyx-editor-toolbar-border: #374151;
+    --easyx-editor-toolbar-btn-hover: #374151;
+    --easyx-editor-toolbar-btn-active: #312e81;
+    --easyx-editor-toolbar-btn-color: #d1d5db;
+    --easyx-editor-toolbar-divider: #374151;
 
     /* 气泡菜单（暗色） */
-    --fsdx-editor-bubble-bg: #1f2937;
-    --fsdx-editor-bubble-border: #374151;
-    --fsdx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --fsdx-editor-bubble-btn-hover: #374151;
-    --fsdx-editor-bubble-btn-active: #312e81;
-    --fsdx-editor-bubble-btn-color: #d1d5db;
-    --fsdx-editor-bubble-divider: #374151;
+    --easyx-editor-bubble-bg: #1f2937;
+    --easyx-editor-bubble-border: #374151;
+    --easyx-editor-bubble-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --easyx-editor-bubble-btn-hover: #374151;
+    --easyx-editor-bubble-btn-active: #312e81;
+    --easyx-editor-bubble-btn-color: #d1d5db;
+    --easyx-editor-bubble-divider: #374151;
 
     /* Tooltip（暗色） */
-    --fsdx-editor-tooltip-bg: #374151;
-    --fsdx-editor-tooltip-color: #f9fafb;
-    --fsdx-editor-tooltip-radius: 6px;
-    --fsdx-editor-tooltip-padding: 4px 8px;
-    --fsdx-editor-tooltip-font-size: 12px;
-    --fsdx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --easyx-editor-tooltip-bg: #374151;
+    --easyx-editor-tooltip-color: #f9fafb;
+    --easyx-editor-tooltip-radius: 6px;
+    --easyx-editor-tooltip-padding: 4px 8px;
+    --easyx-editor-tooltip-font-size: 12px;
+    --easyx-editor-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
 }

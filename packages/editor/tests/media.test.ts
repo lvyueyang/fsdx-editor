@@ -6,13 +6,13 @@ const waitReady = () => new Promise((resolve) => setTimeout(resolve, 30));
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 function openDropdown(container: HTMLElement, tooltip: string) {
-  const toolbar = container.querySelector('.fsdx-editor-toolbar');
+  const toolbar = container.querySelector('.easyx-editor-toolbar');
   const btn = Array.from(
-    toolbar?.querySelectorAll<HTMLButtonElement>('.fsdx-editor-toolbar-btn') ??
+    toolbar?.querySelectorAll<HTMLButtonElement>('.easyx-editor-toolbar-btn') ??
       [],
   ).find((b) => b.dataset.tooltip === tooltip);
   btn?.click();
-  return container.querySelector('.fsdx-editor-media-dropdown');
+  return container.querySelector('.easyx-editor-media-dropdown');
 }
 
 test('媒体下拉：Tab 切换上传/网络地址/媒体库', async () => {
@@ -27,35 +27,35 @@ test('媒体下拉：Tab 切换上传/网络地址/媒体库', async () => {
   await waitReady();
 
   const dropdown = openDropdown(container, '插入图片');
-  const tabs = dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-tab');
+  const tabs = dropdown?.querySelectorAll('.easyx-editor-media-dropdown-tab');
   expect(tabs?.length).toBe(3);
 
   const visiblePanel = () =>
     Array.from(
-      dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-panel') ?? [],
+      dropdown?.querySelectorAll('.easyx-editor-media-dropdown-panel') ?? [],
     ).find((p) => !(p as HTMLElement).hidden);
 
   // 默认激活上传
   expect(
-    visiblePanel()?.querySelector('.fsdx-editor-media-dropdown-upload-btn'),
+    visiblePanel()?.querySelector('.easyx-editor-media-dropdown-upload-btn'),
   ).not.toBeNull();
 
   // 切换到网络地址
   const urlTab = dropdown?.querySelector<HTMLButtonElement>(
-    '.fsdx-editor-media-dropdown-tab[data-tab="url"]',
+    '.easyx-editor-media-dropdown-tab[data-tab="url"]',
   );
   urlTab?.click();
   expect(
-    visiblePanel()?.querySelector('.fsdx-editor-media-dropdown-url-input'),
+    visiblePanel()?.querySelector('.easyx-editor-media-dropdown-url-input'),
   ).not.toBeNull();
 
   // 切换到媒体库
   const libTab = dropdown?.querySelector<HTMLButtonElement>(
-    '.fsdx-editor-media-dropdown-tab[data-tab="library"]',
+    '.easyx-editor-media-dropdown-tab[data-tab="library"]',
   );
   libTab?.click();
   expect(
-    visiblePanel()?.querySelector('.fsdx-editor-media-dropdown-grid'),
+    visiblePanel()?.querySelector('.easyx-editor-media-dropdown-grid'),
   ).not.toBeNull();
 
   editor.destroy();
@@ -73,7 +73,7 @@ test('媒体下拉：URL 方式插入图片', async () => {
   expect(dropdown).not.toBeNull();
 
   const input = dropdown?.querySelector<HTMLInputElement>(
-    '.fsdx-editor-media-dropdown-url-input',
+    '.easyx-editor-media-dropdown-url-input',
   );
   input!.value = 'https://example.com/remote.png';
   input!.dispatchEvent(
@@ -94,9 +94,9 @@ test('媒体下拉：未配置 getList 时不渲染媒体库', async () => {
 
   const dropdown = openDropdown(container, '插入图片');
   expect(
-    dropdown?.querySelector('.fsdx-editor-media-dropdown-search-row'),
+    dropdown?.querySelector('.easyx-editor-media-dropdown-search-row'),
   ).toBe(null);
-  expect(dropdown?.querySelector('.fsdx-editor-media-dropdown-grid')).toBe(
+  expect(dropdown?.querySelector('.easyx-editor-media-dropdown-grid')).toBe(
     null,
   );
 
@@ -121,17 +121,17 @@ test('媒体下拉：媒体库网格渲染并点击插入（切到媒体库 Tab 
   const dropdown = openDropdown(container, '插入图片');
   // 默认在「上传」Tab，媒体库尚未加载
   expect(
-    dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-item'),
+    dropdown?.querySelectorAll('.easyx-editor-media-dropdown-item'),
   ).toHaveLength(0);
 
   dropdown
     ?.querySelector<HTMLButtonElement>(
-      '.fsdx-editor-media-dropdown-tab[data-tab="library"]',
+      '.easyx-editor-media-dropdown-tab[data-tab="library"]',
     )
     ?.click();
   await flush();
 
-  const cards = dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-item');
+  const cards = dropdown?.querySelectorAll('.easyx-editor-media-dropdown-item');
   expect(cards?.length).toBe(2);
 
   (cards?.[0] as HTMLButtonElement).click();
@@ -169,25 +169,25 @@ test('媒体下拉：媒体库分页', async () => {
 
   dropdown
     ?.querySelector<HTMLButtonElement>(
-      '.fsdx-editor-media-dropdown-tab[data-tab="library"]',
+      '.easyx-editor-media-dropdown-tab[data-tab="library"]',
     )
     ?.click();
   await flush();
   expect(calls).toHaveLength(1);
   expect(calls[0]).toEqual({ page: 1, pageSize: 12 });
   expect(
-    dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-item'),
+    dropdown?.querySelectorAll('.easyx-editor-media-dropdown-item'),
   ).toHaveLength(12);
 
   const nextBtn = dropdown?.querySelector<HTMLButtonElement>(
-    '.fsdx-editor-media-dropdown-page-btn:last-child',
+    '.easyx-editor-media-dropdown-page-btn:last-child',
   );
   nextBtn?.click();
   await flush();
   expect(calls).toHaveLength(2);
   expect(calls[1].page).toBe(2);
   expect(
-    dropdown?.querySelectorAll('.fsdx-editor-media-dropdown-item'),
+    dropdown?.querySelectorAll('.easyx-editor-media-dropdown-item'),
   ).toHaveLength(3);
 
   editor.destroy();
@@ -203,7 +203,7 @@ test('媒体下拉：URL 插入过滤非白名单协议', async () => {
 
   const dropdown = openDropdown(container, '插入图片');
   const input = dropdown?.querySelector<HTMLInputElement>(
-    '.fsdx-editor-media-dropdown-url-input',
+    '.easyx-editor-media-dropdown-url-input',
   );
   input!.value = 'javascript:alert(1)';
   input!.dispatchEvent(
@@ -263,7 +263,7 @@ test('媒体下拉：上传 Tab 支持拖拽上传', async () => {
 
   const dropdown = openDropdown(container, '插入图片');
   const uploadBtn = dropdown?.querySelector<HTMLButtonElement>(
-    '.fsdx-editor-media-dropdown-upload-btn',
+    '.easyx-editor-media-dropdown-upload-btn',
   );
 
   // dragover 高亮放置目标
@@ -301,10 +301,10 @@ test('四种媒体按钮统一使用三方式下拉', async () => {
     const dropdown = openDropdown(container, tooltip);
     expect(dropdown).not.toBeNull();
     expect(
-      dropdown?.querySelector('.fsdx-editor-media-dropdown-url-input'),
+      dropdown?.querySelector('.easyx-editor-media-dropdown-url-input'),
     ).not.toBeNull();
     expect(
-      dropdown?.querySelector('.fsdx-editor-media-dropdown-upload-btn'),
+      dropdown?.querySelector('.easyx-editor-media-dropdown-upload-btn'),
     ).not.toBeNull();
   }
 
@@ -321,7 +321,7 @@ test('视频通过 URL 插入 videoNode 节点', async () => {
 
   const dropdown = openDropdown(container, '插入视频');
   const input = dropdown?.querySelector<HTMLInputElement>(
-    '.fsdx-editor-media-dropdown-url-input',
+    '.easyx-editor-media-dropdown-url-input',
   );
   input!.value = 'https://example.com/movie.mp4';
   input!.dispatchEvent(

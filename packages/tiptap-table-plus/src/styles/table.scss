@@ -1,10 +1,10 @@
 // 核心主题变量 — 共 6 个 CSS 自定义属性
-$accent: var(--fsdx-tiptap-table-plus-accent, #7c3aed);
-$border: var(--fsdx-tiptap-table-plus-border, #d4d4d8);
-$bg: var(--fsdx-tiptap-table-plus-bg, #fff);
-$bg-hover: var(--fsdx-tiptap-table-plus-bg-hover, #f4f4f5);
-$text: var(--fsdx-tiptap-table-plus-text, #1a1a2e);
-$radius: var(--fsdx-tiptap-table-plus-radius, 2px);
+$accent: var(--easyx-tiptap-table-plus-accent, #7c3aed);
+$border: var(--easyx-tiptap-table-plus-border, #d4d4d8);
+$bg: var(--easyx-tiptap-table-plus-bg, #fff);
+$bg-hover: var(--easyx-tiptap-table-plus-bg-hover, #f4f4f5);
+$text: var(--easyx-tiptap-table-plus-text, #1a1a2e);
+$radius: var(--easyx-tiptap-table-plus-radius, 2px);
 
 // 硬编码常量
 $space: 6px;
@@ -309,11 +309,11 @@ $control-gutter: 20px;
 
 /* ===== 暗色主题 ===== */
 :where(.tiptap-table-plus-dark) {
-  --fsdx-tiptap-table-plus-accent: #a78bfa;
-  --fsdx-tiptap-table-plus-border: #3f3f46;
-  --fsdx-tiptap-table-plus-bg: #1e1e2e;
-  --fsdx-tiptap-table-plus-bg-hover: #2d2d3f;
-  --fsdx-tiptap-table-plus-text: #e4e4e7;
+  --easyx-tiptap-table-plus-accent: #a78bfa;
+  --easyx-tiptap-table-plus-border: #3f3f46;
+  --easyx-tiptap-table-plus-bg: #1e1e2e;
+  --easyx-tiptap-table-plus-bg-hover: #2d2d3f;
+  --easyx-tiptap-table-plus-text: #e4e4e7;
 
   &.tiptap-table-plus-context-menu {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);

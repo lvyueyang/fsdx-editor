@@ -49,7 +49,7 @@ const AudioNode = Node.create<AudioNodeOptions>({
   renderHTML({ HTMLAttributes }) {
     return [
       'div',
-      { class: 'fsdx-editor-audio-wrapper' },
+      { class: 'easyx-editor-audio-wrapper' },
       ['audio', { ...HTMLAttributes, controls: 'true' }],
     ];
   },

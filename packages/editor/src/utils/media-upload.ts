@@ -1,5 +1,9 @@
 import type { Editor } from '@tiptap/core';
-import type { FsdxEditorOptions, MediaItem, MediaUploadConfig } from '../types';
+import type {
+  EasyxEditorOptions,
+  MediaItem,
+  MediaUploadConfig,
+} from '../types';
 
 type MediaNodeType =
   | 'imageUpload'
@@ -14,7 +18,7 @@ interface MediaEntry {
 }
 
 /** 媒体类型 → 节点类型与文件匹配规则（按优先级：图片/视频/音频/附件兜底） */
-function buildEntries(options: FsdxEditorOptions): MediaEntry[] {
+function buildEntries(options: EasyxEditorOptions): MediaEntry[] {
   return [
     {
       nodeType: 'imageUpload',
@@ -77,7 +81,7 @@ function insertMedia(
 export function routeMediaUpload(
   file: File,
   editor: Editor,
-  options: FsdxEditorOptions,
+  options: EasyxEditorOptions,
   pos?: number,
   onError?: (file: File, error: unknown) => void,
 ): boolean {

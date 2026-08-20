@@ -9,8 +9,8 @@ import type { Editor } from '@tiptap/core';
 import { getHrefFromAnchor, sanitizeUrl } from '../utils/link';
 import { bindTooltips } from './tooltip';
 
-const HOVER_CLASS = 'fsdx-editor-link-hover';
-const BTN_CLASS = 'fsdx-editor-link-hover-btn';
+const HOVER_CLASS = 'easyx-editor-link-hover';
+const BTN_CLASS = 'easyx-editor-link-hover-btn';
 const COPIED_CLASS = 'is-copied';
 const HIDE_DELAY = 150;
 

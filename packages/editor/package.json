@@ -1,5 +1,5 @@
 {
-  "name": "@fsdx/editor",
+  "name": "@easyx/editor",
   "version": "1.0.0",
   "type": "module",
   "exports": {
@@ -35,7 +35,7 @@
     "@tiptap/extension-list": "^3.27.1",
     "@tiptap/extension-subscript": "^3.27.1",
     "@tiptap/extension-superscript": "^3.27.1",
-    "@fsdx/tiptap-table-plus": "workspace:*",
+    "@easyx/tiptap-table-plus": "workspace:*",
     "@tiptap/extension-table": "^3.27.1",
     "@tiptap/extension-text-align": "^3.27.1",
     "@tiptap/extension-text-style": "^3.27.1",

@@ -15,7 +15,7 @@ export function createVideoNodeView(props: VideoNodeViewProps): NodeView {
   let currentNode = node;
 
   const container = document.createElement('div');
-  container.className = 'fsdx-editor-video-wrapper';
+  container.className = 'easyx-editor-video-wrapper';
 
   const video = document.createElement('video');
   container.appendChild(video);

@@ -1,4 +1,4 @@
-import { TablePlus } from '@fsdx/tiptap-table-plus';
+import { TablePlus } from '@easyx/tiptap-table-plus';
 import { Editor, isTextSelection } from '@tiptap/core';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
@@ -42,7 +42,7 @@ import {
   createVideoMenuElement,
   populateVideoMenu,
 } from '../toolbar/create-video-menu';
-import type { FsdxEditorOptions } from '../types';
+import type { EasyxEditorOptions } from '../types';
 import { EventEmitter } from '../utils/event-emitter';
 import { routeMediaUpload } from '../utils/media-upload';
 
@@ -73,21 +73,21 @@ function getMediaNodeAnchor(
 
 export function createEditorInstance(
   container: HTMLElement,
-  options: FsdxEditorOptions,
+  options: EasyxEditorOptions,
 ): { editor: Editor; emitter: EventEmitter } {
-  container.classList.add('fsdx-editor');
+  container.classList.add('easyx-editor');
   if (options.defaultTheme === 'dark') {
-    container.classList.add('fsdx-editor-dark');
+    container.classList.add('easyx-editor-dark');
   }
   if (options.readOnly) {
-    container.classList.add('fsdx-editor-readonly');
+    container.classList.add('easyx-editor-readonly');
   }
 
   const toolbarEl = createToolbarElement();
   container.appendChild(toolbarEl);
 
   const editorContent = document.createElement('div');
-  editorContent.className = 'fsdx-editor-content';
+  editorContent.className = 'easyx-editor-content';
   container.appendChild(editorContent);
 
   const bubbleMenuEl = createBubbleMenuElement();
@@ -174,7 +174,7 @@ export function createEditorInstance(
       }),
       BubbleMenu.configure({
         element: bubbleMenuEl,
-        pluginKey: 'fsdxBubbleMenu',
+        pluginKey: 'easyxBubbleMenu',
         options: { strategy: 'fixed' },
         shouldShow: ({ editor: e, element, view, state, from, to }) => {
           const mediaNodes = ['videoNode', 'audioNode', 'attachmentNode'];
@@ -196,7 +196,7 @@ export function createEditorInstance(
       }),
       BubbleMenu.extend({ name: 'imageBubbleMenu' }).configure({
         element: imageMenuEl,
-        pluginKey: 'fsdxImageMenu',
+        pluginKey: 'easyxImageMenu',
         options: { strategy: 'fixed' },
         shouldShow: ({ editor: e }) =>
           e.isEditable && e.isActive('imageUpload'),
@@ -208,7 +208,7 @@ export function createEditorInstance(
       }),
       BubbleMenu.extend({ name: 'videoBubbleMenu' }).configure({
         element: videoMenuEl,
-        pluginKey: 'fsdxVideoMenu',
+        pluginKey: 'easyxVideoMenu',
         options: { strategy: 'fixed' },
         shouldShow: ({ editor: e }) => e.isEditable && e.isActive('videoNode'),
         // 与图片浮层同理，锚定实际的 video 元素

@@ -1,9 +1,9 @@
 // 图片节点：对齐、选中高亮与拖拽缩放容器/手柄
-.fsdx-editor-content {
+.easyx-editor-content {
   img {
     max-width: 100%;
     height: auto;
-    border-radius: var(--fsdx-editor-image-radius);
+    border-radius: var(--easyx-editor-image-radius);
     margin: 0.75em auto;
     display: block;
 
@@ -24,7 +24,7 @@
     }
 
     &.ProseMirror-selectednode {
-      outline: 2px solid var(--fsdx-editor-primary);
+      outline: 2px solid var(--easyx-editor-primary);
       outline-offset: 2px;
     }
   }
@@ -52,7 +52,7 @@
     }
 
     &.ProseMirror-selectednode img {
-      outline: 2px solid var(--fsdx-editor-primary);
+      outline: 2px solid var(--easyx-editor-primary);
       outline-offset: 2px;
     }
   }
@@ -68,7 +68,7 @@
     height: 10px;
     display: none;
     background: #fff;
-    border: 2px solid var(--fsdx-editor-primary);
+    border: 2px solid var(--easyx-editor-primary);
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     z-index: 2;

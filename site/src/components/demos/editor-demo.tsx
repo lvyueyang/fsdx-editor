@@ -1,11 +1,11 @@
-import type { EventHandler } from '@fsdx/editor';
-import { createEditor } from '@fsdx/editor';
+import type { EventHandler } from '@easyx/editor';
+import { createEditor } from '@easyx/editor';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const initialContent = `<h1>FSDX Editor 功能速览</h1>
+const initialContent = `<h1>EasyX Editor 功能速览</h1>
 <p>这份文档快速展示了编辑器支持的所有内容类型——<strong>加粗</strong>、<em>斜体</em>、<u>下划线</u>、<s>删除线</s>、<code>行内代码</code>、上标 E = mc<sup>2</sup> 和下标 H<sub>2</sub>O 均可在段落中自由组合。</p>
 <h2>颜色与字号</h2>
-<p>文本可设定<span style="color: hsl(0, 70%, 50%)">任意前景色</span>，也可添加<mark style="background-color: var(--fsdx-editor-color-highlight-yellow)">黄色高亮</mark>、<mark style="background-color: var(--fsdx-editor-color-highlight-blue)">蓝色高亮</mark>或<mark style="background-color: var(--fsdx-editor-color-highlight-green)">绿色高亮</mark>。<span style="font-size: 36px">大字标题</span>与<span style="font-size: 12px">小字注释</span>通过字号控件一键调整，<span style="font-size: 18px">中文字号</span>同样灵活适配。</p>
+<p>文本可设定<span style="color: hsl(0, 70%, 50%)">任意前景色</span>，也可添加<mark style="background-color: var(--easyx-editor-color-highlight-yellow)">黄色高亮</mark>、<mark style="background-color: var(--easyx-editor-color-highlight-blue)">蓝色高亮</mark>或<mark style="background-color: var(--easyx-editor-color-highlight-green)">绿色高亮</mark>。<span style="font-size: 36px">大字标题</span>与<span style="font-size: 12px">小字注释</span>通过字号控件一键调整，<span style="font-size: 18px">中文字号</span>同样灵活适配。</p>
 <h2>标题层级</h2>
 <h3>三级标题——用于章节划分</h3>
 <h4>四级标题——用于小节</h4>

@@ -49,7 +49,7 @@ test('createEditor 支持占位符', () => {
     placeholder: '请输入…',
   });
 
-  const contentEl = container.querySelector('.fsdx-editor-content');
+  const contentEl = container.querySelector('.easyx-editor-content');
   expect(contentEl).toBeDefined();
 
   const isEmpty = editor.isEmpty();
@@ -64,13 +64,13 @@ test('createEditor 支持暗色主题切换', () => {
     defaultTheme: 'dark',
   });
 
-  expect(container.classList.contains('fsdx-editor-dark')).toBe(true);
+  expect(container.classList.contains('easyx-editor-dark')).toBe(true);
 
   editor.setTheme('light');
-  expect(container.classList.contains('fsdx-editor-dark')).toBe(false);
+  expect(container.classList.contains('easyx-editor-dark')).toBe(false);
 
   editor.setTheme('dark');
-  expect(container.classList.contains('fsdx-editor-dark')).toBe(true);
+  expect(container.classList.contains('easyx-editor-dark')).toBe(true);
 
   editor.destroy();
 });
@@ -79,9 +79,9 @@ test('createEditor destroy 清理 DOM', () => {
   const container = document.createElement('div');
   const editor = createEditor(container, {});
 
-  expect(container.classList.contains('fsdx-editor')).toBe(true);
+  expect(container.classList.contains('easyx-editor')).toBe(true);
   editor.destroy();
-  expect(container.classList.contains('fsdx-editor')).toBe(false);
+  expect(container.classList.contains('easyx-editor')).toBe(false);
 });
 
 test('createEditor 事件系统', () => {

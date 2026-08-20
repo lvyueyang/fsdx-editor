@@ -1,13 +1,13 @@
 // 块级媒体节点：视频、音频与附件（NodeView 外层样式）
-.fsdx-editor-video-wrapper {
+.easyx-editor-video-wrapper {
   margin: 0.75em 0;
-  border-radius: var(--fsdx-editor-video-radius);
+  border-radius: var(--easyx-editor-video-radius);
 
   video {
     display: block;
     max-width: 100%;
     margin: 0 auto;
-    border-radius: var(--fsdx-editor-video-radius);
+    border-radius: var(--easyx-editor-video-radius);
   }
 
   // 对齐：未设置 data-align 时默认居中，left/right 通过 margin 覆盖
@@ -22,17 +22,17 @@
   }
 
   &.ProseMirror-selectednode video {
-    outline: 2px solid var(--fsdx-editor-primary);
+    outline: 2px solid var(--easyx-editor-primary);
     outline-offset: 2px;
   }
 }
 
-.fsdx-editor-audio-wrapper {
+.easyx-editor-audio-wrapper {
   margin: 0.75em 0;
   padding: 12px 16px;
-  border-radius: var(--fsdx-editor-audio-radius);
-  background: var(--fsdx-editor-attachment-bg);
-  border: 1px solid var(--fsdx-editor-attachment-border);
+  border-radius: var(--easyx-editor-audio-radius);
+  background: var(--easyx-editor-attachment-bg);
+  border: 1px solid var(--easyx-editor-attachment-border);
 
   audio {
     display: block;
@@ -40,41 +40,41 @@
   }
 
   &.ProseMirror-selectednode {
-    outline: 2px solid var(--fsdx-editor-primary);
+    outline: 2px solid var(--easyx-editor-primary);
     outline-offset: 2px;
   }
 }
 
-.fsdx-editor-attachment {
+.easyx-editor-attachment {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
   margin: 0.5em 0;
-  border: 1px solid var(--fsdx-editor-attachment-border);
+  border: 1px solid var(--easyx-editor-attachment-border);
   border-radius: 8px;
-  background: var(--fsdx-editor-attachment-bg);
-  color: var(--fsdx-editor-text);
+  background: var(--easyx-editor-attachment-bg);
+  color: var(--easyx-editor-text);
   text-decoration: none;
   font-size: 0.9em;
   transition: border-color 0.15s ease;
 
   &:hover {
-    border-color: var(--fsdx-editor-primary);
+    border-color: var(--easyx-editor-primary);
     text-decoration: none;
   }
 
   &.ProseMirror-selectednode {
-    outline: 2px solid var(--fsdx-editor-primary);
+    outline: 2px solid var(--easyx-editor-primary);
     outline-offset: 2px;
   }
 }
 
-.fsdx-editor-attachment-icon {
+.easyx-editor-attachment-icon {
   font-size: 1.2em;
 }
 
-.fsdx-editor-attachment-name {
+.easyx-editor-attachment-name {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -82,8 +82,8 @@
   white-space: nowrap;
 }
 
-.fsdx-editor-attachment-size {
+.easyx-editor-attachment-size {
   font-size: 0.85em;
-  color: var(--fsdx-editor-placeholder-color);
+  color: var(--easyx-editor-placeholder-color);
   white-space: nowrap;
 }

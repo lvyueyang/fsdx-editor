@@ -101,7 +101,7 @@ test('选中图片时显示图片选中浮层（含对齐与删除按钮）', as
   // BubbleMenu 默认 250ms 防抖后定位显示
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   expect(menu).not.toBeNull();
   expect(menu?.isConnected).toBe(true);
   expect(menu?.querySelector('button[aria-label="删除图片"]')).not.toBeNull();
@@ -122,7 +122,7 @@ test('图片选中浮层删除按钮删除图片', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   const deleteBtn = menu?.querySelector<HTMLButtonElement>(
     'button[aria-label="删除图片"]',
   );
@@ -145,7 +145,7 @@ test('图片选中浮层对齐按钮更新对齐方式', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   const leftBtn = menu?.querySelector<HTMLButtonElement>(
     'button[aria-label="左对齐"]',
   );
@@ -213,9 +213,9 @@ test('图片选中浮层包含宽度百分比选择器', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   expect(
-    menu?.querySelector<HTMLElement>('.fsdx-editor-bubble-select'),
+    menu?.querySelector<HTMLElement>('.easyx-editor-bubble-select'),
   ).not.toBeNull();
 
   editor.destroy();
@@ -243,9 +243,9 @@ test('图片选中浮层宽度选择器显示像素宽度', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   const valueEl = menu?.querySelector<HTMLElement>(
-    '.fsdx-editor-bubble-select-value',
+    '.easyx-editor-bubble-select-value',
   );
   expect(valueEl?.textContent).toBe('300px');
 
@@ -264,7 +264,7 @@ test('图片选中浮层不包含替换按钮', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   expect(menu?.querySelector('button[aria-label="替换图片"]')).toBeNull();
 
   editor.destroy();
@@ -282,7 +282,7 @@ test('图片选中浮层输入框可设置 alt', async () => {
   editor.commands.setNodeSelection(pos);
   await new Promise((resolve) => setTimeout(resolve, 350));
 
-  const menu = container.querySelector<HTMLElement>('.fsdx-editor-image-menu');
+  const menu = container.querySelector<HTMLElement>('.easyx-editor-image-menu');
   const input = menu?.querySelector<HTMLInputElement>(
     'input[aria-label="设置替代文本"]',
   );
@@ -308,15 +308,17 @@ test('createEditor 通过 URL 配置的图片按钮可打开媒体下拉', async
   });
   await wait();
 
-  const toolbar = container.querySelector('.fsdx-editor-toolbar');
+  const toolbar = container.querySelector('.easyx-editor-toolbar');
   const imageBtn = Array.from(
-    toolbar?.querySelectorAll<HTMLButtonElement>('.fsdx-editor-toolbar-btn') ??
+    toolbar?.querySelectorAll<HTMLButtonElement>('.easyx-editor-toolbar-btn') ??
       [],
   ).find((b) => b.dataset.tooltip === '插入图片');
 
   expect(imageBtn).toBeDefined();
   imageBtn?.click();
-  expect(container.querySelector('.fsdx-editor-media-dropdown')).not.toBeNull();
+  expect(
+    container.querySelector('.easyx-editor-media-dropdown'),
+  ).not.toBeNull();
 
   editor.destroy();
 });

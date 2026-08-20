@@ -1,12 +1,12 @@
 import './styles/index.scss';
 
 import { createEditorInstance } from './core/create-editor';
-import type { FsdxEditorOptions, ThemeType } from './types';
+import type { EasyxEditorOptions, ThemeType } from './types';
 import type { EventHandler } from './utils/event-emitter';
 
 export type {
   ContentType,
-  FsdxEditorOptions,
+  EasyxEditorOptions,
   MediaItem,
   MediaListParams,
   MediaListResult,
@@ -18,7 +18,7 @@ export type { EventHandler } from './utils/event-emitter';
 
 export function createEditor(
   container: HTMLElement,
-  options: FsdxEditorOptions,
+  options: EasyxEditorOptions,
 ) {
   if (!container) throw new Error('创建编辑器失败：container 参数不能为空');
   const { editor, emitter } = createEditorInstance(container, options);
@@ -54,9 +54,9 @@ export function createEditor(
 
     setTheme(theme: ThemeType): void {
       if (theme === 'dark') {
-        container.classList.add('fsdx-editor-dark');
+        container.classList.add('easyx-editor-dark');
       } else {
-        container.classList.remove('fsdx-editor-dark');
+        container.classList.remove('easyx-editor-dark');
       }
       editor.commands.setTablePlusTheme(theme);
     },
@@ -74,12 +74,12 @@ export function createEditor(
     },
 
     disable(): void {
-      container.classList.add('fsdx-editor-disabled');
+      container.classList.add('easyx-editor-disabled');
       editor.setEditable(false);
     },
 
     enable(): void {
-      container.classList.remove('fsdx-editor-disabled');
+      container.classList.remove('easyx-editor-disabled');
       editor.setEditable(true);
     },
 
@@ -96,10 +96,10 @@ export function createEditor(
       emitter.removeAllListeners();
       container.innerHTML = '';
       container.classList.remove(
-        'fsdx-editor',
-        'fsdx-editor-dark',
-        'fsdx-editor-disabled',
-        'fsdx-editor-readonly',
+        'easyx-editor',
+        'easyx-editor-dark',
+        'easyx-editor-disabled',
+        'easyx-editor-readonly',
       );
     },
 
