@@ -55,6 +55,12 @@ test('createEditor 支持占位符', () => {
   const isEmpty = editor.isEmpty();
   expect(isEmpty).toBe(true);
 
+  // 空文档时占位符应渲染到第一个段落：data-placeholder 匹配 CSS attr()
+  const firstP = contentEl!.querySelector('.ProseMirror p');
+  expect(firstP).toBeDefined();
+  expect(firstP!.classList.contains('is-editor-empty')).toBe(true);
+  expect(firstP!.getAttribute('data-placeholder')).toBe('请输入…');
+
   editor.destroy();
 });
 

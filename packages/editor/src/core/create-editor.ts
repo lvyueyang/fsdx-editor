@@ -291,7 +291,7 @@ export function createEditorInstance(
       }),
       Placeholder.configure({
         placeholder: options.placeholder ?? '输入内容…',
-        dataAttribute: 'data-placeholder',
+        dataAttribute: 'placeholder',
       }),
       BubbleMenu.configure({
         element: bubbleMenuEl,
