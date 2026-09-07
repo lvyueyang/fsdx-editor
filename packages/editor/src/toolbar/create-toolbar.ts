@@ -164,6 +164,7 @@ export function populateToolbar(
     },
     (e, value) => e.chain().focus().setFontSize(value).run(),
     (e) => e.chain().focus().unsetFontSize().run(),
+    '自动',
   );
 
   div();
@@ -182,6 +183,7 @@ export function populateToolbar(
     },
     (e, value) => e.chain().focus().setLineHeight(value).run(),
     (e) => e.chain().focus().unsetLineHeight().run(),
+    '自动',
   );
 
   div();

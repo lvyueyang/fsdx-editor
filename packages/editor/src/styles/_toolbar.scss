@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: var(--easyx-editor-toolbar-gap);
   padding: var(--easyx-editor-toolbar-padding);
   background: var(--easyx-editor-toolbar-bg);
   border-bottom: 1px solid var(--easyx-editor-toolbar-border);
@@ -26,11 +26,16 @@
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
   padding: 0;
 
   &:hover {
     background: var(--easyx-editor-toolbar-btn-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--easyx-editor-primary);
+    outline-offset: -2px;
   }
 
   &.is-active {
@@ -39,8 +44,8 @@
   }
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     fill: currentColor;
   }
 
@@ -51,7 +56,7 @@
   }
 
   &--history:not(.is-active) {
-    opacity: 0.4;
+    color: var(--easyx-editor-toolbar-btn-disabled);
 
     &:hover {
       background: transparent;
@@ -81,22 +86,33 @@
   margin: 0 4px;
 }
 
-// 工具栏下拉选择框
+// 工具栏下拉选择框：与图标按钮统一的无边框背景态形态
 .easyx-editor-toolbar-select {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  border: 1px solid var(--easyx-editor-toolbar-border);
+  border: none;
   border-radius: var(--easyx-editor-toolbar-btn-radius);
   background: transparent;
   height: var(--easyx-editor-toolbar-btn-size);
   cursor: pointer;
   padding: 0 4px;
-  transition: border-color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
   outline: none;
+  color: var(--easyx-editor-toolbar-btn-color);
 
   &:hover {
-    border-color: var(--easyx-editor-primary);
+    background: var(--easyx-editor-toolbar-btn-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--easyx-editor-primary);
+    outline-offset: -2px;
+  }
+
+  &.is-active {
+    background: var(--easyx-editor-toolbar-btn-active);
+    color: var(--easyx-editor-primary);
   }
 }
 
@@ -106,21 +122,21 @@
   justify-content: center;
   width: var(--easyx-editor-toolbar-btn-size);
   height: var(--easyx-editor-toolbar-btn-size);
-  color: var(--easyx-editor-toolbar-btn-color);
+  color: inherit;
   pointer-events: none;
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     fill: currentColor;
   }
 }
 
 .easyx-editor-toolbar-select-value {
-  width: 40px;
+  min-width: 28px;
   text-align: center;
   font-size: 12px;
-  color: var(--easyx-editor-toolbar-btn-color);
+  color: inherit;
   white-space: nowrap;
 }
 
@@ -128,7 +144,7 @@
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  color: var(--easyx-editor-toolbar-btn-color);
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;

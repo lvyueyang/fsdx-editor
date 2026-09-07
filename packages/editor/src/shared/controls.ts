@@ -115,6 +115,9 @@ export function createSelect(
       : (options.find((o) => o.value === current)?.label ?? defaultLabel);
     valueEl.textContent = currentLabel;
 
+    // 有选中值时呈现激活态，便于辨识当前生效的设置
+    trigger.classList.toggle('is-active', Boolean(current));
+
     if (dropdown?.isConnected) {
       const items = dropdown.querySelectorAll(`.${selectClassName}-item`);
       items.forEach((item) => {

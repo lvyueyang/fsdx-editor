@@ -71,11 +71,13 @@
   --easyx-editor-toolbar-bg: #ffffff;
   --easyx-editor-toolbar-border: #e5e7eb;
   --easyx-editor-toolbar-padding: 6px;
+  --easyx-editor-toolbar-gap: 2px;
   --easyx-editor-toolbar-btn-hover: #f3f4f6;
   --easyx-editor-toolbar-btn-active: #e0e7ff;
   --easyx-editor-toolbar-btn-size: 32px;
   --easyx-editor-toolbar-btn-radius: 6px;
   --easyx-editor-toolbar-btn-color: #4b5563;
+  --easyx-editor-toolbar-btn-disabled: #9ca3af;
   --easyx-editor-toolbar-divider: #e5e7eb;
 
   /* 气泡菜单 */
@@ -149,8 +151,9 @@
     --easyx-editor-toolbar-bg: #1f2937;
     --easyx-editor-toolbar-border: #374151;
     --easyx-editor-toolbar-btn-hover: #374151;
-    --easyx-editor-toolbar-btn-active: #312e81;
+    --easyx-editor-toolbar-btn-active: #3730a3;
     --easyx-editor-toolbar-btn-color: #d1d5db;
+    --easyx-editor-toolbar-btn-disabled: #6b7280;
     --easyx-editor-toolbar-divider: #374151;
 
     /* 气泡菜单（暗色） */
