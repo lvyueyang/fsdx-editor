@@ -66,8 +66,9 @@ git log origin/main..HEAD --format='%s%n%b' -- packages/<包目录>/src
 按步骤 2 判定的范围对对应包执行：
 
 ```bash
-pnpm --filter @easyx/editor version major|minor|patch --no-git-tag-version
-pnpm --filter @easyx/tiptap-table-plus version major|minor|patch --no-git-tag-version
+# 注意：`pnpm --filter <pkg> version` 会把 `version` 当作包内脚本解析，必须用 `exec pnpm version` 调用内置命令
+pnpm --filter @easyx/editor exec pnpm version major|minor|patch --no-git-tag-version
+pnpm --filter @easyx/tiptap-table-plus exec pnpm version major|minor|patch --no-git-tag-version
 ```
 
 `--no-git-tag-version` 不生成 git tag，版本号只写入 `package.json`，由用户手动提交。
