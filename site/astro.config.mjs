@@ -30,6 +30,7 @@ export default defineConfig({
             { slug: 'editor' },
             { slug: 'editor/demo' },
             { slug: 'editor/vanilla-demo' },
+            { slug: 'editor/height' },
             { slug: 'editor/api-reference' },
           ],
         },

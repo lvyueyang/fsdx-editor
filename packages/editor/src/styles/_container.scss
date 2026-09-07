@@ -5,6 +5,7 @@
   font-family: var(--easyx-editor-font-family);
   font-size: var(--easyx-editor-font-size);
   line-height: var(--easyx-editor-line-height);
+  box-sizing: border-box;
   min-height: var(--easyx-editor-min-height);
   border: 1px solid var(--easyx-editor-border);
   border-radius: var(--easyx-editor-radius);
@@ -14,6 +15,68 @@
   &:focus-within {
     border-color: var(--easyx-editor-border-focus);
   }
+}
+
+// 有界高度模式（定高 / 最大高度 / 可拖拽）：容器纵向布局，内容区内部滚动
+.easyx-editor.easyx-editor-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .easyx-editor-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
+
+// 可拖拽调高手柄（右下角，受 minHeight / maxHeight 约束）
+.easyx-editor-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 10px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: ns-resize;
+  z-index: 5;
+  touch-action: none;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--easyx-editor-primary);
+    opacity: 0.12;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--easyx-editor-primary);
+    outline-offset: -2px;
+    opacity: 0.25;
+  }
+}
+
+.easyx-editor-resize-handle-grip {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--easyx-editor-toolbar-divider);
+  pointer-events: none;
+  transition: background 0.15s ease;
+}
+
+.easyx-editor-resize-handle:hover .easyx-editor-resize-handle-grip,
+.easyx-editor-resize-handle:focus-visible .easyx-editor-resize-handle-grip {
+  background: var(--easyx-editor-primary);
+}
+
+.easyx-editor.easyx-editor-resizing {
+  user-select: none;
 }
 
 .easyx-editor-disabled {

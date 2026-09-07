@@ -26,6 +26,10 @@ const editor = createEditor(container: HTMLElement, options: EasyxEditorOptions)
 | `placeholder` | `string` | — | 编辑器为空时显示的占位文字 |
 | `readOnly` | `boolean` | `false` | 是否只读 |
 | `autoFocus` | `boolean` | `false` | 是否自动聚焦 |
+| `height` | `number \| 'auto' \| string` | `'auto'` | 编辑器高度。`'auto'`/缺省随内容伸缩；给定值为定高并内部滚动；number 视为 px |
+| `minHeight` | `number \| string` | — | 最小高度，内容撑开时保底 |
+| `maxHeight` | `number \| string` | — | 最大高度，内容撑到上限后内部滚动 |
+| `resizable` | `boolean` | `false` | 是否启用右下角拖拽手柄调节高度，受 `minHeight`/`maxHeight` 约束 |
 | `image` | `ImageMediaUploadConfig` | — | 图片上传、列表与缩放配置 |
 | `video` | `MediaUploadConfig` | — | 视频上传与列表配置 |
 | `audio` | `MediaUploadConfig` | — | 音频上传与列表配置 |

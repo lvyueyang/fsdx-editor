@@ -19,6 +19,14 @@ export interface EasyxEditorOptions {
   video?: MediaUploadConfig;
   audio?: MediaUploadConfig;
   attachment?: MediaUploadConfig;
+  /** 编辑器最小高度，number 视为 px，或任意 CSS 长度 */
+  minHeight?: number | string;
+  /** 编辑器高度：'auto'/缺省表示随内容伸缩；给定值时固定高度并内部滚动 */
+  height?: number | 'auto' | string;
+  /** 编辑器最大高度，内容撑到上限后内部滚动 */
+  maxHeight?: number | string;
+  /** 是否启用右下角拖拽手柄调节高度，受 minHeight / maxHeight 约束 */
+  resizable?: boolean;
   onChange?: (content: ContentType) => void;
   onReady?: () => void;
   onFocus?: () => void;

@@ -154,6 +154,9 @@ export default function EditorDemo() {
       defaultContent: initialContent,
       defaultTheme: theme,
       placeholder: '请输入内容…',
+      // 演示最大高度 + 可拖拽调高：内容超出上限内部滚动，底边可拖拽或方向键调高
+      maxHeight: 520,
+      resizable: true,
       image: { upload: simulateUpload, getList: simulateGetList },
       video: { upload: simulateUpload },
       audio: { upload: simulateUpload },

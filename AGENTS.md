@@ -121,10 +121,11 @@ site/                        # Astro + Starlight 文档站点
     ├── components/
     │   ├── demo-sources.ts       # Demo 源码展示数据
     │   ├── IframeDemo.tsx        # iframe 嵌入 Demo 组件
-    │   └── demos/               # 5 个交互式 Demo
+    │   └── demos/               # 交互式 Demo
     │       ├── editor-demo.tsx
     │       ├── vanilla-demo.tsx
     │       ├── table-plus-demo.tsx
+    │       ├── height-demo.tsx
     │       ├── theme-demo.tsx
     │       └── i18n-demo.tsx
     ├── content/
@@ -191,6 +192,10 @@ import { createEditor } from '@easyx/editor'
 const editor = createEditor(containerElement, {
   placeholder: '请输入…',
   defaultTheme: 'light',
+  height: 320,                 // 定高，内容超出后内部滚动（'auto'/缺省=随内容伸缩）
+  minHeight: 200,              // 最小高度
+  maxHeight: 480,              // 最大高度
+  resizable: true,             // 右下角拖拽调高，受 min/max 约束
   image: { upload: async (file) => ({ id: '1', url: '...', name: file.name }) },
   onChange: (html) => console.log(html),
 })

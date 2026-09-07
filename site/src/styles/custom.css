@@ -518,3 +518,79 @@
 .resize-cursor {
   cursor: col-resize;
 }
+
+/* ===== 高度模式 Demo ===== */
+.height-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}
+
+.height-demo-intro {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--demo-text);
+}
+
+.height-demo-intro code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--demo-code-bg);
+  color: var(--demo-code-color);
+  font-size: 12px;
+}
+
+.height-demo-case {
+  border: 1px solid var(--demo-border);
+  border-radius: 10px;
+  background: var(--demo-surface);
+  overflow: hidden;
+}
+
+.height-demo-case-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--demo-border);
+  background: var(--demo-control-bg);
+}
+
+.height-demo-case-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--demo-text);
+}
+
+.height-demo-case-desc {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--demo-text-muted);
+}
+
+.height-demo-case-code {
+  flex-shrink: 0;
+  max-width: 100%;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--demo-code-bg);
+  color: var(--demo-code-color);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.height-demo-editor {
+  width: 100%;
+  padding: 12px 14px;
+}
+
+.height-demo-editor .easyx-editor {
+  width: 100%;
+}
